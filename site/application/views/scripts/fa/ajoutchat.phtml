@@ -1,0 +1,30 @@
+  <h3><?php echo $this->titre ?></h3>
+  <br>
+  <div dojoType="dojox.data.QueryReadStore" clientSort="true" jsId="gridChatStore" url="<?php echo $this->urlChatListeJson ?>"></div>
+  <?php echo $this->render('admin/filter.phtml'); ?>
+  <div dojoType="dijit.Menu" jsid="gridMenuChat" style="display: none;">
+        <div dojoType="dojox.widget.PlaceholderMenuItem" label="GridColumns"></div>
+  </div>
+  <div style="text-align:left">
+  <div class="chatFaAjoutGrid">
+    <table id='gridChatSelection'
+           headerMenu="gridMenuChat"
+           rowsPerPage="15"  
+           columnReordering="true"
+           sortInfo="3" 
+           jsId="gridChatSelection" 
+           dojoType="dojox.grid.DataGrid" 
+           store="gridChatStore" selectable="true" 
+           selectionMode="single" 
+           noDataMessage="Pas de chats">
+      <?php echo $this->partial($this->headerChatPath) ?>
+      <script type="dojo/connect" event="_onFetchBegin" args="event">initGrid(this.id);</script>
+      <script type="dojo/connect" event="_onFetchComplete" args="event">endGrid(this.id);</script>
+      <script type="dojo/method" event="onDblClick" args="event">editItem('<?php echo $this->urlSelectChat ?>', 'gridChatSelection',  'chats', 'chargementChats', false, 'idChat')</script>
+      <script type="dojo/method" event="onCellMouseOver" args="event">showTooltipAjout(event)</script>
+      <script type="dojo/method" event="onCellMouseOut" args="event">hideTooltip(event)</script>
+    </table>
+  </div>
+  </div>
+  <button id="selectionButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlSelectChat ?>', 'gridChatSelection',  'chats', 'chargementChats', false, 'idChat')"><div class="ficheAjouter"></div><div class="boutonFiche">Ajouter</div></button>
+  <button id="retourButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlRetourListeChat ?>', 'chats', 'chargementChats', false)"><div class="boutonRetour"></div><div class="boutonFiche">Retour</div></button>

@@ -1,0 +1,7 @@
+<div class="centre_principal">
+  <?php echo $this->render("admin/indexgrid.phtml"); ?>
+  <button id="addButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlAddItem ?>', 'commonGrid')"><div class="ficheAjouter"></div><div class="boutonFiche">Ajouter</div></button>
+  <button id="editButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid')"><div class="ficheEditer"></div><div class="boutonFiche">Editer</div></button>
+  <button id="chatAdButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlChatAdItem ?>', 'commonGrid')"><div class="menuChat"></div><div class="boutonFiche">Chat(s) adopté(s)</div></button>
+  <button id="deleteButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid')"><div class="ficheSupprimer"></div><div class="boutonFiche">Supprimer</div></button>
+</div>

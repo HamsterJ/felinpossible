@@ -1,0 +1,52 @@
+<?php if ($this->displayDiv) {?>
+<div class="centre_principal">
+<?php }?>
+
+  <h3><?php echo $this->titre ?></h3>
+  <br>
+  <div dojoType="dojox.data.QueryReadStore" clientSort="true" jsId="gridFaStore" url="<?php echo $this->urlFaListeJson ?>"></div>
+  <?php echo $this->render('admin/filter.phtml'); ?>
+  
+  <div style="text-align:left">
+    <?php if ($this->displayDiv) {?>
+    <div class="grid">
+    <?php } else { ?>
+    <div class="chatFaAjoutGrid">
+    <?php }?>
+    
+    <div dojoType="dijit.Menu" jsid="gridMenuFa" style="display: none;">
+        <div dojoType="dojox.widget.PlaceholderMenuItem" label="GridColumns"></div>
+    </div>
+    
+    <table id='gridFaSelection' 
+           headerMenu="gridMenuFa"
+           rowsPerPage="15" 
+           columnReordering="true" 
+           sortInfo="3" 
+           jsId="gridChatSelection" 
+           dojoType="dojox.grid.DataGrid" 
+           store="gridFaStore" 
+           selectable="true" 
+           selectionMode="single" 
+           noDataMessage="Pas de FA">
+      <?php echo $this->partial($this->headerFaPath) ?>
+      <script type="dojo/connect" event="_onFetchBegin" args="event">initGrid(this.id);</script>
+      <script type="dojo/connect" event="_onFetchComplete" args="event">endGrid(this.id);</script>
+      <?php if ($this->displayDiv) {?>
+        <script type="dojo/method" event="onDblClick" args="event">editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'corps', 'chargementCorps', false, 'idNewFa')</script>
+      <?php } else {?>  
+        <script type="dojo/method" event="onDblClick" args="event">editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'chats', 'chargementChats', false, 'idNewFa')</script>
+      <?php }?>
+        <script type="dojo/method" event="onCellMouseOver" args="event">showTooltipAjout(event)</script>
+        <script type="dojo/method" event="onCellMouseOut" args="event">hideTooltip(event)</script>
+    </table>
+  </div>
+</div>
+<?php if ($this->displayDiv) {?>
+  <button id="selectionButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'corps', 'chargementCorps', false, 'idNewFa')"><div class="ficheAjouter"></div><div class="boutonFiche">Sélectionner</div></button>
+  <button id="retourButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlRetourListeChat ?>', 'corps', 'chargementCorps', false)"><div class="boutonRetour"></div><div class="boutonFiche">Retour</div></button>
+</div>
+<?php } else {?>  
+  <button id="selectionButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'chats', 'chargementChats', false, 'idNewFa')"><div class="ficheAjouter"></div><div class="boutonFiche">Sélectionner</div></button>
+  <button id="retourButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlRetourListeChat ?>', 'chats', 'chargementChats', false)"><div class="boutonRetour"></div><div class="boutonFiche">Retour</div></button>
+<?php }?>

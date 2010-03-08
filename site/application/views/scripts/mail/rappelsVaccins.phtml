@@ -1,0 +1,14 @@
+<p>Bonjour,
+<br>
+<br>
+Nous vous rappelons que la date limite pour le rappel de vaccins de <?php echo $this->data->getNom() ?> est le <?php echo FP_Util_DateUtil::getDateFormatted($this->data->getDateRappelVaccins()) ?>. 
+<br>
+Merci de ne pas oublier de prendre rendez-vous chez le vétérinaire avant cette date.
+<br>
+<br>
+Cordialement,
+<br>
+L'équipe Felin Possible.
+</p>
+<?php echo $this->render('signature.phtml') ?>
+

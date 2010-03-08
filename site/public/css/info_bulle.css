@@ -1,0 +1,36 @@
+
+a.info_bulle span {
+  background:none;
+  border:none;
+  height:100px;
+  left:-2000em;
+  overflow:hidden;
+  position:absolute;
+  top:-2000em;
+  width:600px;
+  display: none;
+}
+
+a.info_bulle {
+  color:#2F368A;
+  padding:2px 16px 2px 2px;
+  position:relative;
+  text-decoration:none;
+}
+
+a.info_bulle:hover {
+  border:0 none;
+  z-index: 20;
+  color: #aa0000;
+  text-decoration:none;
+}
+
+a.info_bulle:hover span {
+  display: block;
+  height:100px;
+  left:40px;
+  overflow:visible;
+  top:0px;
+  width:400px;
+  text-decoration:none;
+}

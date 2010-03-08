@@ -1,0 +1,12 @@
+<div class="centre_principal">
+<br>
+<?php 
+  $this->form->setAction($this->url(array('controller' => 'admin', 'action' => 'login')));
+  echo $this->form;
+?>
+<br>
+<?php 
+if ($this->errors) {
+  echo $this->errors;
+}?>
+</div>

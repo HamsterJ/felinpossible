@@ -1,0 +1,4 @@
+Author : Grégory Hargous
+URL : http://www.GregLand.Net
+Email address : hgreg@infonie.fr
+Tested on : SpongeStats 3.0

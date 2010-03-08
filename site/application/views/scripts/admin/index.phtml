@@ -1,0 +1,24 @@
+<div class="centre_principal">
+  <br>
+  <h2>Administration</h2>
+  <br>
+  <h3>Indicateurs</h3>
+  <ul>
+    <li><?php echo $this->indicNbChatsAdoption?> chats à l'adoption (dont réservé(s) : <?php echo $this->indicNbChatsRes ?>)</li>
+    <li><?php echo $this->indicNbFichesAValider?> fiche(s) de chat à valider</li>
+    <li><?php echo $this->indicNbFaDispo?> FA disponible(s)</li>
+    <li><?php echo $this->indicNbFaActive?> FA active(s)</li>
+  </ul>
+  <h3>Exports</h3>
+  <div>
+    <button class="exportExcel" id="exportChatButton" dojoType="dijit.form.Button" onclick="exportData('<?php echo $this->urlExportChatUrl ?>')"><div class="boutonExport"></div><div class="boutonFiche">Export chats</div></button>
+    <button class="exportExcel" id="exportFaButton" dojoType="dijit.form.Button" onclick="exportData('<?php echo $this->urlExportFaUrl ?>')"><div class="boutonExport"></div><div class="boutonFiche">Export FA</div></button>
+    <button class="exportExcel" id="exportAdoptantButton" dojoType="dijit.form.Button" onclick="exportData('<?php echo $this->urlExportAdoptantUrl ?>')"><div class="boutonExport"></div><div class="boutonFiche">Export adoptants</div></button>
+    <button class="exportExcel" id="exportContactsButton" dojoType="dijit.form.Button" onclick="exportData('<?php echo $this->urlExportContactUrl ?>')"><div class="boutonExport"></div><div class="boutonFiche">Export contacts</div></button>
+  </div>
+  <h3>Pages spéciales</h3>
+  <div>
+    <button class="" id="tableauChatButton" dojoType="dijit.form.Button" onclick="exportData('<?php echo $this->urlTableauChatUrl ?>')"><div class="menuChat"></div><div class="boutonFiche">Tableau chats pour impression</div></button>
+  </div>
+  <br><br></br>
+</div>

@@ -1,0 +1,30 @@
+  <h3><?php echo $this->titreChat ?></h3>
+  <h4><span id="nbElements"><?php echo $this->nbChats?></span> chat(s)</h4>
+  <br>
+  <div dojoType="dojox.data.QueryReadStore" sortInfo="3" clientSort="true" jsId="gridChatStore" url="<?php echo $this->urlChatListeJson ?>"></div>
+  
+  <div dojoType="dijit.Menu" jsid="gridMenuFaChat" style="display: none;">
+        <div dojoType="dojox.widget.PlaceholderMenuItem" label="GridColumns"></div>
+  </div>
+  <div style="text-align:left">  
+  <div class="chatFaGrid">
+    <table id="gridChat" 
+           rowsPerPage="15"
+           headerMenu="gridMenuFaChat"
+           columnReordering="true"
+           sortInfo="3" 
+           jsId="gridChat" 
+           dojoType="dojox.grid.DataGrid" 
+           store="gridChatStore" 
+           selectable="true" 
+           selectionMode="single" 
+           noDataMessage="Pas de chat dans cette famille d'accueil.">
+      <script type="dojo/connect" event="_onFetchBegin" args="event">initGrid(this.id);</script>
+      <script type="dojo/connect" event="_onFetchComplete" args="event">endGrid(this.id);</script>
+      <?php echo $this->partial($this->headerChatPath) ?>
+    </table>
+  </div>
+  </div>
+  <button id="addButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlChatAddItem ?>', 'chats', 'chargementChats', false)"><div class="ficheAjouter"></div><div class="boutonFiche">Ajouter</div></button>
+  <button id="changeButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlChangerFa ?>', 'gridChat', 'chats', 'chargementChats', false, 'idChat')"><div class="boutonFa"></div><div class="boutonFiche">Changer de FA</div></button>
+  <button id="deleteButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlChatDeleteItem ?>', 'gridChat', 'idChat')"><div class="ficheSupprimer"></div><div class="boutonFiche">Supprimer de la FA</div></button>

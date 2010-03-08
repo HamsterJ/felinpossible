@@ -1,0 +1,32 @@
+<?php if ($this->pageCount): ?>
+<div id="paginationControl" class="ligneText">
+
+<!-- Previous page link --> 
+<?php if (isset($this->previous)): ?> 
+  <a href="<?php echo $this->url(array('page' => $this->previous)); ?>" 
+     onclick="showPage('<?php echo $this->url(array('page' => $this->previous)); ?>'); return false;">
+   &lt; <?php echo "Précédente"; ?>
+  </a> | 
+<?php endif; ?> 
+
+<!-- Numbered page links -->
+<?php foreach ($this->pagesInRange as $page): ?> 
+  <?php if ($page != $this->current): ?>
+    <a href="<?php echo $this->url(array('page' => $page)); ?>"
+       onclick="showPage('<?php echo $this->url(array('page' => $page)); ?>'); return false;">
+     <?php echo $page; ?>
+    </a> | 
+  <?php else: ?>
+    <span class="current"><?php echo $page; ?></span> | 
+  <?php endif; ?>
+<?php endforeach; ?>
+
+<!-- Next page link --> 
+<?php if (isset($this->next)): ?> 
+  <a href="<?php echo $this->url(array('page' => $this->next)); ?>"
+     onclick="showPage('<?php echo $this->url(array('page' => $this->next)); ?>'); return false;">
+   <?php echo "Suivante" ?> &gt;
+  </a>
+<?php endif; ?> 
+</div> 
+<?php endif; ?>

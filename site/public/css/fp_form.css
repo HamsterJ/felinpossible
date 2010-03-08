@@ -1,0 +1,355 @@
+.formOrange {
+	background-color: #e87314;
+	border: 1px solid #000000;
+	padding: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
+	/*width: 280px;*/
+	text-align: left;
+	color: #ffffff;
+}
+
+.dijitReset input {
+	color: #000000;
+}
+
+.formOrange dd {
+	margin-bottom: 5px;
+}
+
+.errors {
+	color: #ffff99;
+	font-weight: bold;
+}
+
+.centre_principal .formOrange p {
+	text-align: left;
+	text-indent: 0em;
+}
+
+.spacer {
+	clear: both;
+}
+
+.adresse {
+	text-align: center;
+}
+
+.deconnexion {
+	font-size: 80%;
+}
+
+.centre_principal {
+	width: 88%;
+	margin: 0 auto;
+	margin-top: 2px;
+	border: 1px solid #276fa3;
+	background-color: #F7F7F7;
+	font-size: 80%;
+	text-align: center;
+}
+
+.centre_principal p {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	text-indent: 2em;
+	text-align: justify;
+}
+
+.centre_principal li {
+	margin-top: 1px;
+	display: list-item;
+	list-style-image: url(image/common/menuChat.png);
+	text-align: justify;
+	margin-right: 0.5em;
+	margin-left: 2em;
+}
+
+.centre_principal h2 {
+	color: #aa0000;
+	text-align: center;
+}
+
+.centre_principal h3 {
+	color: #E87314;
+	text-align: center;
+}
+
+.centre_principal h4 {
+	color: #535353;
+	text-align: center;
+}
+
+.popup {
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+	border: 1px solid #276fa3;
+	background-color: #F7F7F7;
+	font-size: 80%;
+	text-align: center;
+	width: 400px;
+	left: 50%;
+	font-family: verdana, sans-serif;
+	list-style: none;
+}
+
+.news {
+	width: 88%;
+	margin-top: 2px;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #276fa3;
+	background-color: #F7F7F7;
+	font-size: 80%;
+	text-align: center;
+}
+
+.news p {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	text-indent: 2em;
+	text-align: justify;
+}
+
+.news img {
+	display: block;
+	margin: 0 auto;
+}
+
+.news h3 {
+	color: #aa0000;
+}
+
+.news h3 em {
+	color: #808080;
+	font-size: 60%;
+}
+
+/************** Titre Tableau  **************/
+.titreGauche {
+	float: left;
+	margin: 0px;
+	padding: 5px;
+	border-style: solid;
+	border-left-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 0px;
+	border-color: #000000;
+	text-align: center;
+	background-color: #e87314;
+	color: #ffffff;
+	font: bold 10px Verdana, sans-serif;
+	height: 13px;
+}
+
+.titreDroite {
+	float: left;
+	margin: 0px;
+	padding: 5px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 0px;
+	border-color: #000000;
+	text-align: center;
+	background-color: #e87314;
+	color: #ffffff;
+	font-size: 10px;
+	font-weight: bold;
+	height: 13px;
+}
+
+/************** Tableau general **************/
+.link {
+	clear: both;
+	text-align: left;
+	margin-left: 20px;
+}
+
+.link a {
+	text-decoration: none;
+	color: #276fa3;
+	font: bold 11px Arial, Sans-serif;
+}
+
+.link a:hover {
+	text-decoration: underline;
+	color: #808000;
+	font: bold 11px Arial, Sans-serif;
+}
+
+.ligne {
+	clear: both;
+	text-align: center;
+}
+
+.ligneText {
+	clear: both;
+	text-align: center;
+	margin: 0 auto;
+	font-size: 75%;
+}
+
+.ligneNew {
+	text-align: center;
+	margin-left: 60px;
+}
+
+.ligneAD {
+	text-align: center;
+	clear: both;
+	margin-left: 140px;
+}
+
+.ligneFA {
+	text-align: center;
+	clear: both;
+	margin-left: 140px;
+}
+
+.ligneCat {
+	text-align: center;
+	clear: both;
+	margin-left: 150px;
+	margin-right: 120px;
+}
+
+.ligne a {
+	text-decoration: none;
+	color: #276fa3;
+	font: bold 11px Arial, Sans-serif;
+}
+
+.ligne a:hover {
+	text-decoration: underline;
+	color: #808000;
+	font: bold 11px Arial, Sans-serif;
+}
+
+.texteGauche0 {
+	float: left;
+	margin: 0px;
+	padding: 5px;
+	border-style: solid;
+	border-left-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 0px;
+	border-color: #000000;
+	text-align: center;
+	background-color: #E1EDF5;
+	color: #000000;
+	font-size: 10px;
+	font-weight: bold;
+	height: 13px;
+}
+
+.texteGauche1 {
+	float: left;
+	margin: 0px;
+	padding: 5px;
+	border-style: solid;
+	border-left-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 0px;
+	border-color: #000000;
+	text-align: center;
+	background-color: #EFF6FB;
+	color: #000000;
+	font-size: 10px;
+	font-weight: bold;
+	height: 13px;
+}
+
+.texteDroite0 {
+	float: left;
+	margin: 0px;
+	padding: 5px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-top-width: 1px;
+	border-bottom-width: 0px;
+	border-right-width: 1px;
+	border-color: #000000;
+	text-align: center;
+	background-color: #E1EDF5;
+	color: #000000;
+	font-size: 10px;
+	font-weight: bold;
+	height: 13px;
+}
+
+.texteDroite1 {
+	float: left;
+	margin: 0px;
+	padding: 5px;
+	border-style: solid;
+	border-left-width: 0px;
+	border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 0px;
+	border-color: #000000;
+	text-align: center;
+	background-color: #EFF6FB;
+	color: #000000;
+	font-size: 10px;
+	font-weight: bold;
+	height: 13px;
+}
+
+/* Photos chats */
+.chatGauche {
+	float: left;
+	margin-left: 20px;
+	padding: 5px;
+	text-align: center;
+	color: #276fa3;
+	font-size: 10px;
+	font-weight: bold;
+	height: 150px;
+	width: 130px;
+}
+
+.colorFiche {
+	color: #662222;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.colorLabel {
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.paypal {
+	margin-left: 20px;
+}
+
+.paypal_forum {
+	margin-right: 50px;
+	text-align: right;
+	border: 0;
+}
+
+.prixAdoption {
+	font-size: 120%;
+	color: #993300;
+	font-weight: bold;
+}
+
+.en_construction {
+	background-image: url(image/enconstruction.png);
+	height: 100px;
+	width: 300px;
+	display: block;
+	margin: 0 auto;
+}
+
+.hidden {
+	display: none;
+}
