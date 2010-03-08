@@ -1,0 +1,7 @@
+<div class="centre_principal">
+  <?php echo $this->render("admin/indexgrid.phtml"); ?>
+  <button id="envoiMailButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlEnvoiMailItem ?>', 'commonGrid')"><div class="boutonMail"></div><div class="boutonFiche">Envoyer un mail à la FA</div></button>
+  <button id="editButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid')"><div class="ficheEditer"></div><div class="boutonFiche">Editer</div></button>
+  <button id="updateButton" dojoType="dijit.form.Button" onclick="updateItem('<?php echo $this->urlIncrDateItem ?>', 'commonGrid')"><div class="ficheAjouter"></div><div class="boutonFiche">1 an sur la date de vaccins</div></button>
+  <br>
+</div>

@@ -1,0 +1,26 @@
+Nom :
+<span>
+  <input dojoType="dijit.form.TextBox" style="width:160px" id="filterChatNom" type="text" onkeyup="filterChat('<?php echo $this->gridName ?>')" />
+</span>
+<br>
+<br>
+<span class="selectionFiltre">
+  <input dojoType="dijit.form.CheckBox" id="filterChatValider" onchange="filterChat('<?php echo $this->gridName ?>')" />A valider
+</span> 
+<span class="selectionFiltre">
+  <input dojoType="dijit.form.CheckBox" id="filterChatAdoption" onchange="filterChat('<?php echo $this->gridName ?>')" />A l'adoption
+</span> 
+<span class="selectionFiltre">
+  <input dojoType="dijit.form.CheckBox" id="filterChatReserve" onchange="filterChat('<?php echo $this->gridName ?>')" />Réservé
+</span> 
+<span class="selectionFiltre">
+  <input dojoType="dijit.form.CheckBox" id="filterChatParrainer" onchange="filterChat('<?php echo $this->gridName ?>')" />A parrainer
+</span>
+<span class="selectionFiltre">
+  <input dojoType="dijit.form.CheckBox" id="filterChatDisparu" onchange="filterChat('<?php echo $this->gridName ?>')" />Disparu
+</span>
+<br>
+<br>
+<span class="selectionFiltre">
+  <input dojoType="dijit.form.CheckBox" id="filterChatSansContrat" onchange="filterChat('<?php echo $this->gridName ?>')" />Sans contrat d'adoption
+</span>

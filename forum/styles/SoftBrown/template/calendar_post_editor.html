@@ -1,0 +1,117 @@
+<script type="text/javascript">
+  function toggle_all_day_event()
+  {
+    if( document.postform.calAllDay.checked )
+    {
+      document.postform.calMEnd.disabled=true;
+      document.postform.calDEnd.disabled=true;
+      document.postform.calYEnd.disabled=true;
+      document.postform.calHr.disabled=true;
+      document.postform.calMn.disabled=true;
+      document.postform.calHrEnd.disabled=true;
+      document.postform.calMnEnd.disabled=true;
+    }
+    else
+    {
+      document.postform.calMEnd.disabled=false;
+      document.postform.calDEnd.disabled=false;
+      document.postform.calYEnd.disabled=false;
+      document.postform.calHr.disabled=false;
+      document.postform.calMn.disabled=false;
+      document.postform.calHrEnd.disabled=false;
+      document.postform.calMnEnd.disabled=false;
+    }
+  }
+  function update_group_id_state()
+  {
+      if( document.getElementById('calELevel').value == 1 )
+      {
+          document.getElementById('calGroupId').disabled=false;
+      }
+      else
+      {
+          document.getElementById('calGroupId').disabled=true;
+      }
+  }
+
+  </script>
+
+  <fieldset class="fields1">
+	<!-- IF ERROR --><p class="error">{ERROR}</p><!-- ENDIF -->
+
+	<!-- IF S_DELETE_ALLOWED -->
+	<dl>
+		<dt><label for="delete">{L_DELETE_POST}:</label></dt>
+		<dd><label for="delete"><input type="checkbox" name="delete" id="delete" /> {L_DELETE_POST_WARN}</label></dd>
+	</dl>
+	<!-- ENDIF -->
+	<!-- IF S_POST_ACTION -->
+	<dl style="clear: left;">
+		<dt><label for="subject">{L_SUBJECT}:</label></dt>
+		<dd><input type="text" name="subject" id="subject" size="45" maxlength="60" tabindex="2" value="{SUBJECT}" class="inputbox autowidth" /></dd>
+	</dl>
+	<dl style="clear: left;">
+		<dt><label for="calM">{L_START_DATE}:</label></dt>
+		<dd>{MONTH_SEL} {DAY_SEL} {YEAR_SEL}</dd>
+	</dl>
+	<dl style="clear: left;">
+		<dt><label for="calHr">{L_START_TIME}:</label></dt>
+		<dd>{START_HOUR_SEL} {START_MIN_SEL}</dd>
+	</dl>
+	<dl style="clear: left;">
+		<dt><label>{L_ALL_DAY}:</label></dt>
+		<dd>{ALL_DAY_CHECK}</dd>
+	</dl>
+	<dl style="clear: left;">
+		<dt><label for="calMEnd">{L_END_DATE}:</label></dt>
+		<dd>{END_MONTH_SEL} {END_DAY_SEL} {END_YEAR_SEL}</dd>
+	</dl>
+	<dl style="clear: left;">
+		<dt><label for="calHrEnd">{L_END_TIME}:</label></dt>
+		<dd>{END_HOUR_SEL} {END_MIN_SEL}</dd>
+	</dl>
+	<dl style="clear: left;">
+		<dt><label for="calEType">{L_EVENT_TYPE}:</label></dt>
+		<dd>{EVENT_TYPE_SEL}</dd>
+	</dl>
+	<dl style="clear: left;">
+		<dt><label for="calELevel">{L_EVENT_ACCESS_LEVEL}:</label></dt>
+		<dd>{EVENT_ACCESS_LEVEL_SEL}</dd>
+	</dl>
+	<dl style="clear: left;">
+		<dt><label for="calGroupId">{L_EVENT_GROUP}:</label></dt>
+		<dd>{EVENT_GROUP_SEL}</dd>
+	</dl>
+	<!-- ENDIF -->
+
+	<!-- INCLUDE calendar_post_buttons.html -->
+
+	<div id="smiley-box">
+		<!-- IF S_SMILIES_ALLOWED and .smiley -->
+			<strong>{L_SMILIES}</strong><br />
+			<!-- BEGIN smiley -->
+				<a href="#" onclick="insert_text('{smiley.A_SMILEY_CODE}', true); return false;"><img src="{smiley.SMILEY_IMG}" width="{smiley.SMILEY_WIDTH}" height="{smiley.SMILEY_HEIGHT}" alt="{smiley.SMILEY_CODE}" title="{smiley.SMILEY_DESC}" /></a>
+			<!-- END smiley -->
+		<!-- ENDIF -->
+		<!-- IF S_SHOW_SMILEY_LINK and S_SMILIES_ALLOWED-->
+			<br /><a href="{U_MORE_SMILIES}" onclick="window.open('{U_MORE_SMILIES}', '_phpbbsmilies', 'HEIGHT=350,resizable=yes,scrollbars=yes,WIDTH=300'); return false;">{L_MORE_SMILIES}</a>
+		<!-- ENDIF -->
+
+		<!-- IF BBCODE_STATUS -->
+		<!-- IF .smiley --><hr /><!-- ENDIF -->
+		{BBCODE_STATUS}<br />
+		<!-- IF S_BBCODE_ALLOWED -->
+			{IMG_STATUS}<br />
+			{FLASH_STATUS}<br />
+			{URL_STATUS}<br />
+			{SMILIES_STATUS}
+		<!-- ENDIF -->
+		<!-- ENDIF -->
+	</div>
+
+	<div id="message-box">
+		<textarea name="message" id="message" rows="15" cols="76" tabindex="3" onselect="storeCaret(this);" onclick="storeCaret(this);" onkeyup="storeCaret(this);" class="inputbox">{MESSAGE}</textarea>
+	</div>
+</fieldset>
+
+

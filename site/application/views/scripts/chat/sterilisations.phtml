@@ -1,0 +1,6 @@
+<div class="centre_principal">
+  <?php echo $this->render("admin/indexgrid.phtml"); ?>
+  <button id="envoiMailButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlEnvoiMailItem ?>', 'commonGrid')"><div class="boutonMail"></div><div class="boutonFiche">Envoyer un mail</div></button>
+  <button id="editButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid')"><div class="ficheEditer"></div><div class="boutonFiche">Editer</div></button>
+  <br>
+</div>

@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Documentation SpongeStats 3.0</title>
+</head>
+
+<body>
+<h3>Documentation of installation and use of SpongeStats 3</h3>
+<div>
+<ol>
+  <li><a href="#presentation">Presentation</a></li>
+
+  <li><a href="#installation">Installation</a></li>
+  <li><a href="#use">Use</a></li>
+  <li><a href="#configuration">Advanced configuration</a></li>
+  <li><a href="#topic">Use of the topics</a> </li>
+  <li><a href="#faq">Frequent questions</a></li>
+  <li><a href="#credits">Credits</a></li>
+</ol>
+</div>
+<a name="presentation" id="presentation"></a>
+<h3>1. Presentation</h3>
+<div>
+<p><strong>SpongeStats</strong> is a tool for analysis of frequentation in real-time for your Internet site or your blog. It makes it possible to have <strong>an overall picture of the number, profile and source of your visitors</strong>, the annual, monthly and daily statistics are posted in a graphic way or are classified by heading. SpongeStats wants to be notament resolutely directed Web 2.0 with the <strong>support of wire RSS</strong> and an interface of left use <strong>XHTML/CSS</strong> drawing the <strong>Ajax/JQuery</strong> functionalities.  All in all, SpongeStats is a new tool for analysis of frequentation adapted to the new types of sites!</p>
+
+<p>SpongeStats makes it possible to visualize amongst other things  &nbsp;:</p>
+<ul>
+  <li>daily, monthly and annual statistics presented in the form of diagram</li>
+  <li>the detail of the statistics for a day given (number of visitors, beaches time, key words, pages of entry, sites and pages referents, etc&hellip;)</li>
+
+  <li>the monthly classification of the pages most seen</li>
+  <li>the classification of the IP and the host names of the visitors</li>
+  <li>the classification of the pages and the fields having bonds towards the site</li>
+  <li>the list of the platforms customer: operating systems, navigators Web and agr&eacute;gateurs</li>
+  <li>the list of the key words used to arrive on the site<br />
+  </li>
+
+  <li>the list and details of the last visitors having traversed the site</li>
+  <li>the history of the visitors (first and last visits, site referent for each one of its visits, etc&hellip;)<br />
+  </li>
+  <li>statistics of wire RSS as well as the agr&eacute;gateurs used to consult them</li>
+</ul>
+<p>SpongeStats wants to be resolutely modern and directed Web 2.0. Developed in PHP/MySQL, it integrates functionalities of recharging of page into stolen in Ajax (JQUery) and of page layout XHTML/CSS. It does not require to have a complete access to the waiter lodging Internet site to function (use of a include in the files with auditer).</p>
+
+</div>
+<a name="installation" id="installation"></a>
+<h3>2. Installation </h3>
+<div>
+<p>SpongeStats settles rather easily even for users not tested in the field of the creation of Internet site.</p>
+<p>SpongeStats is composed of three parts
+  :</p>
+<ol>
+  <li>The part of visualization of the statistics</li>
+  <li>The administration part </li>
+
+  <li>Script to be integrated in all the pages PHP of which you wish to have the statistics<strong> (stats.php)</strong></li>
+  </ol>
+<h2>Installation</h2>
+<p>To install SpongeStats on your Web site you must follow the following instructions :</p>
+<ul>
+  <li>Download the <a href="http://sourceforge.net/project/showfiles.php?group_id=161042&amp;package_id=181425">last version</a> available on the site of the SpongeStats project</li>
+
+  <li>Uncompress the file on your hard drive</li>
+  <li>Copy the entirety of the /<strong>spongestats</strong> directory to the root of Web site using a <a href="http://en.wikipedia.org/wiki/Ftp#Logiciels_de_FTP">customer ftp</a> </li>
+
+  <li>Go then to the address of your Web site http://www.your-web-site.com/spongestats/, you will be automatically redirected towards the page of installation</li>
+  <li>Enter the parameters of your database (provided by your shelterer). If these parameters are good, you will then have a button allowing you to install SpongeStats on your database</li>
+  <li>To check that the installation correctly was held, make point your navigator on the principal address of SpongeStats http://www.your-web-site.com/spongestats/, should have the interface of visualization to you which appears</li>
+</ul>
+<h2>Integration of the SpongeStats module in the pages with auditer </h2>
+<p>SpongeStats makes use of the file stats.php to enter information of statistics in the database. You will  make a connection between your pages PHP and this script by adding the following code in your pages PHP.</p>
+<pre><strong>&lt;?php include_once(&quot;spongestats/stats.php&quot;); ?&gt;</strong></pre>
+<p>This instruction will make it possible to insert the file <strong>stats.php</strong> of the /<strong>spongestats</strong> directory. </p>
+
+<p><strong>Caution: </strong>The function include () PHP interprets the ways in same way  as if you thus established a link HTML it is necessary well to think of the way towards the file. For example if the file that you wish to add to the statistics is in the /blog/ directory with the root of your Web site and which you copied the directory spongestats with the root also, it will be necessary for you to use the following instruction in the place :</p>
+
+<pre><strong>&lt;?php include(&quot;../spongestats/stats.php&quot;); ?</strong>&gt;</pre>
+</div>
+<a name="use" id="use"></a>
+<h3>3. Use </h3>
+<div>
+<p>To use SpongeStats, go simply on your Web site to the http://www.your-web-site.com/spongestats address.</p>
+<p>The bonds top will enable you to sail and to post the various statistics of frequentation and the files will allow you to see the history of the statistics to the wire of the months.</p>
+<p>The search engine interns will enable you to have more details on the history of a visitor by seeking information by its host name or its address IP. (For example: A research on the IP 82.238.78.124 will give you the history of my course on your Web site (addresses r&eacute;f&eacute;rente the first time, many pages seen per day of connection, etc).</p>
+
+<p>The use of topic is possible since version 2.2. The pull-down menu enables you to choose the topic to be used.</p>
+</div>
+<a name="configuration" id="configuration"></a>
+<h3>4. Configuration and advanced use</h3>
+<div>
+  <h2>To exclude from IP addresses, the hosts or using agents </h2>
+  <p>In the administration part, you can add entries in the fields to modify the configuration by default. You can for example : </p>
+
+  <ul>
+  <li>To exclude from the addresses or the beaches of IP addresses</li>
+  <li>To exclude from the host names</li>
+  <li>Exclude of the navigators or the robots by their host names</li>
+  <li>To modify the topic or the language by default</li>
+
+  <li>To add navigators, agr&eacute;gateurs or operating system (caution, the icons of the software which you will add will not post, if you wish to take part in the evolution of SpongeStats, you can send to us your list of navigators/agr&eacute;gateurs/platforms, we will integrate it in the next version)</li>
+  </ul>
+</div>
+<a name="topic" id="topic"></a>
+<h3>5. Use of the topics </h3>
+<div>
+
+<p>You can modify the topic by default since the interface of administration of SpongeStats.</p>
+<p>If you wish to create your own topic, you can make use of the existing topics like model, create simply a new repertory containing a file style.css and a copy of the file icons already present in the other topics. If you wish to make us share your topics, we will readily integrate them in the next versions.<br />
+</p>
+</div>
+<a name="faq" id="faq"></a>
+<h3>6. Frequent questions </h3>
+<div>
+  <p>Here a list of the most frequent questions about SpongeStats, if you do not find your answer here, please address a request for support to us to <a href="mailto:spongestats@gmail.com">spongestats@gmail.com</a>.</p>
+  <p><strong>1. I installed SpongeStats on my Web site but I still do not see information in the statistics ?
+  </strong> <br />
+Did you finish the installation well by adding the include file stats.php in the pages which you wish auditer ?</p>
+  <p><strong>2. I do not have basic data MySQL, SpongeStats can it function ?</strong><br />
+    Not, SpongeStats is a software functioning with a database MySQL, it cannot thus function without.</p>
+  <p><strong>3. SpongeStats can it be installed on a mutualized waiter ?</strong><br />
+    Yes, you do not need to have access to the configuration of your waiter to install SpongeStats, it is enough for you to copy the files in your repertory ftp and of launching the installation.</p>
+  <p><strong>4. Exist there plugins for Dotclear, Wordpress or other platforms of blog
+    ?</strong><br />
+    Currently, only a plugin for dotclear 1 is available, on the other hand, others plugins and widgets will be available soon.</p>
+  <p><strong>5. The translation is not available in my language, how can I have it ?</strong><br />
+    SpongeStats is currently available in French, English and German. If you usually speak another language and that you wish to take part, you can make your own translation. The files of language are in the repertory local. The file &ldquo;messages.po&rdquo; is the file of edition and the &ldquo;messages.mo&rdquo; is the compiled file. You can use the <a href="http://www.poedit.net/">PoEDIT</a> software to publish the file &ldquo;messages.po&rdquo; and to begin the translation. Once your finished contribution, you can send the file messages.po to us and will put we it in remote loading so that the other users can benefit from it.</p>
+  <p><strong>6. SpongeStats functions it among all shelterers
+    ?</strong><br />
+    Normally yes. SpongeStats does not require specific PHP/MySQL modules to thus function it is supposed to function on all the mutualized platforms of the market. On the other hand, certain shelterers block the use of tool of statistics thus personalized read well the conditions of use of your space Web.</p>
+  <p><strong>7. In the administration, one asks me for my password but do not have it or I lost it, that can I make
+    ?</strong><br />
+    The password to reach the administration is required as of the installation (in the last field of configuration). Many users confuse this password with their basic password of data, perhaps you confused too. Test with your basic password of data or if not without password. In the worst case, this password is modifiable in the table MySQL sps_config, (field param: sps_admin_pass quantified in MD5).</p>
+  <p><strong>8.  My site is lodged at free.fr and I have errors Warning PHP concerning the sessions (Warning: session_start ()), I can regulate the problem ?</strong><br />
+    Yes, Free.fr manages sessions PHP differently other mutualized shelterers. You will need created a repertory &ldquo;sessions&rdquo; with the root of your repertory of lodging (and not with the root of the SpongeStat repertory
+  .</p>
+</div>
+<a name="credits" id="credits"></a>
+<h3>7. Credits</h3>
+<div>
+<p>SpongeStats is a free software under licence <a href="http://www.gnu.org/licenses/gpl.html" target="_XXX">GPL</a>.<br />
+  You can use it, modify it free and diffuse it on your personal or professional Web site.<br />
+  The mention of the use of this script is not obligatory but you can establish a link towards the SpongeStats project to make known it, you will find banners on <a href="http://spongestats.sourceforge.net">the site of the project</a>.<br />
+You can take part in his development by sending your suggestions, reports/ratios of bugs and various information by email with the authors with the address spongestats@gmail.com</p>
+
+<h2>Development and integration</h2>
+<ul>
+  <li><a href="http://www.gougueule.com">Bastien Bobe</a></li>
+  <li><a href="mailto:contact@lahaut.info">Samy Rabih   </a></li>
+</ul>
+<h2>Graphics</h2>
+<ul>
+  <li>Skin by d&eacute;fault : H&eacute;l&egrave;ne Douchet</li>
+
+  <li>Skin SpongeStats : <a href="http://www.gougueule.com">Bastien Bobe</a> </li>
+  <li>Icons : <a href="http://www.famfamfam.com">FamFamFam</a></li>
+  <li>Throbber : <a href="http://www.ajaxload.info/">AjaxLoad</a></li>
+  </ul>
+<h2>BETA Testers</h2>
+<ul>
+  <li><a href="http://dodaki.free.fr/WP/">Joel Bigotte</a></li>
+  <li><a href="http://www.bizetfamily.net/">Guillaume Bizet</a></li>
+  <li><a href="http://www.bbreton.net/">Benoit Breton</a></li>
+  <li><a href="http://www.css4design.com/">Br1o</a></li>
+  <li><a href="http://www.jeanclaudeattitude.com">Gr&eacute;gory Desplac</a></li>
+  <li>H&eacute;l&egrave;ne Douchet </li>
+
+  <li><a href="http://www.zerosept.com">Arnaud Imberteche</a></li>
+  <li><a href="http://www.lyon-blog.fr">Lyon-Blog</a></li>
+  <li><a href="http://www.nainposteur.org/blog">Gilles Morel</a></li>
+  <li><a href="http://olivier.alsacreations.com">Olivier</a></li>
+  </ul>
+<p><strong>And all of the anonymous who contributed to the evolution of this version. Thank you all ! </strong></p>
+<h2>Translation</h2>
+<ul>
+  <li>Bastien Bobe (bastienb@gmail.com) (French, English)</li>
+  <li>Samy Rabih (contact@lahaut.info) (French, English)</li>
+  <li><a href="http://blog.userland.fr/">Goulven CHAMPENOIS </a> (English)</li>
+  <li>Benoit Breton and Greg (German) </li>
+</ul>
+</div>
+</body>
+</html>

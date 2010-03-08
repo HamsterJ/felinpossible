@@ -1,0 +1,32 @@
+  <h3><?php echo $this->titreIndispo ?></h3>
+  <br>
+  <div dojoType="dojox.data.QueryReadStore" sortInfo="-3" clientSort="true" jsId="gridIndispoStore" url="<?php echo $this->urlIndispoListeJson ?>"></div>
+
+  <div dojoType="dijit.Menu" jsid="gridMenuIndisp" style="display: none;">
+      <div dojoType="dojox.widget.PlaceholderMenuItem" label="GridColumns"></div>
+  </div>
+  <div style="text-align:left">
+  <div class="indispoFaGrid">
+<table id="gridIndispo" 
+       headerMenu="gridMenuIndisp" 
+       rowsPerPage="15" 
+       columnReordering="true"
+       sortInfo="-3" 
+       jsId="gridIndispo" 
+       dojoType="dojox.grid.DataGrid" 
+       store="gridIndispoStore" 
+       selectable="true" 
+       noDataMessage="Aucune indisponibilité.">
+	<?php echo $this->partial($this->headerIndispoPath) ?>
+	<script type="dojo/connect" event="_onFetchBegin" args="event">initGrid(this.id);</script>
+	<script type="dojo/connect" event="_onFetchComplete" args="event">endGrid(this.id);</script>
+	<script type="dojo/method" event="onDblClick" args="event">editItem('<?php echo $this->urlIndispoEdit ?>', 'gridIndispo', 'indispo', 'chargementIndispo', false, 'idIndispo')</script>
+	<script type="dojo/method" event="onCellMouseOver" args="event">showTooltip(event)</script>
+    <script type="dojo/method" event="onCellMouseOut" args="event">hideTooltip(event)</script>
+</table>
+</div>
+</div>
+  
+  <button id="addIndispoButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlIndispoAdd ?>', 'indispo', 'chargementIndispo', false)"><div class="ficheAjouter"></div><div class="boutonFiche">Ajouter</div></button>
+  <button id="editIndispoButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlIndispoEdit ?>', 'gridIndispo', 'indispo', 'chargementIndispo', false, 'idIndispo')"><div class="ficheEditer"></div><div class="boutonFiche">Editer</div></button>
+  <button id="deleteIndispoButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlIndispoDelete ?>', 'gridIndispo', 'idIndispo')"><div class="ficheSupprimer"></div><div class="boutonFiche">Supprimer</div></button>

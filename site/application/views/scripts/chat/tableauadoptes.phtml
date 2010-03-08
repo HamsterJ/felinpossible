@@ -1,0 +1,23 @@
+<table>
+<?php 
+$currentLigne = 0;
+$nbChatParLigne = $this->nbChatsParLigne;
+
+foreach ($this->entries as $entry): 
+  if ($currentLigne%$nbChatParLigne == 0 ) {?>
+    <!-- Nouvelle ligne -->
+        <tr>
+      <?php }?>
+      <td><img src="<?php echo $entry->miniature ?>" title="<?php echo $entry->nom ?>" border="0"/><br><?php echo $entry->nom ?></td>
+      
+      <?php 
+      $currentLigne++;
+      if ($currentLigne%$nbChatParLigne == 0 ) {?>
+        <!-- Fin nouvelle ligne -->
+        </tr>
+      <?php }
+    endforeach;
+    if ($currentLigne%$nbChatParLigne != 0 ) {
+       echo "</tr>";
+     }?>
+</table>

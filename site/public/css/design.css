@@ -1,0 +1,581 @@
+html,body {
+	width: 973px;
+	height: 100px;
+	margin: auto;
+	margin-top: 0px;
+	margin-bottom: 20px;
+	background-color: #f4ca9d; /*fffcd5;/*#fffbbf; /*f3e088;*/
+	font-family: verdana, sans-serif;
+	list-style: none;
+}
+
+a:hover {
+	color: #aa0000;
+}
+
+a:visited {
+	color: #FF6600;
+}
+
+:focus {
+	outline-style: none;
+}
+
+/* L'en-tête */
+#header {
+	width: 973px;
+	height: 210px;
+	/*z-index: 3;*/ /*position: relative;*/ /*border: 2px solid #821f0b;*/
+	background-image: url("image/banniere.png");
+}
+
+.deconnexion {
+	padding: 2px 0.5em;
+	margin-right: 20px;
+	float: right;
+}
+
+.menu-d ul {
+	font: bold 13px arial;
+	background: url("image/menu-d.png");
+	padding-left: 0;
+	margin-left: 0;
+	height: 34px;
+	width: 261px;
+	position: absolute;
+	right: 25px;
+	top: 150px;
+}
+
+.menu-d ul li {
+	list-style: none;
+	display: inline;
+}
+
+.menu-d ul li a {
+	padding: 2px 0.5em;
+	text-decoration: none;
+	float: left;
+	color: black;
+}
+
+html>body .menu-d ul li a:active {
+	/* applique un effet mousedown sur les navigateurs autres que IE */
+	border-style: inset;
+}
+
+#all {
+	position: relative;
+	width: 973px;
+	background-image: url("image/background.png");
+}
+
+#b-gauche {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 25px;
+}
+
+#global {
+	margin: 0 0px 0 25px;
+}
+
+.menu {
+	float: left;
+	width: 170px;
+	background-color: #FFFFFF;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.menu li {
+	width: 170px;
+	padding: 0px 0px 10px 0px;
+	margin: 0px;
+	list-style-image: none;
+	background-repeat: no-repeat;
+	float: left;
+}
+
+.menu li a {
+	text-indent: -9999px;
+	height: 32px;
+	display: block;
+	/*color: #FF0000;*/
+	text-decoration: none;
+	background-repeat: no-repeat;
+}
+
+.menu li a.image {
+	text-indent: 0px;
+}
+
+.menu .close ul {
+	display: none;
+}
+
+.menu li ul {
+	margin: 0px;
+	padding: 3px 0px 3px 0px;
+}
+
+.menu li ul li {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	border: none;
+}
+
+.menu li ul li a {
+	margin-left: 1px;
+	text-indent: 0px;
+	font-size: 75%;
+	color: #000000;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.menu li ul li a:hover {
+	color: #aa0000;
+	background-image: none;
+}
+
+#m1 {
+	background-image: url("image/menu-accueil.png");
+}
+
+#m2 {
+	background-image: url("image/menu-asso.png");
+}
+
+#m3 {
+	background-image: url("image/menu-aider.png");
+}
+
+#m4 {
+	background-image: url("image/menu-chat.png");
+}
+
+#m5 {
+	background-image: url("image/menu-adopter.png");
+}
+
+#m6 {
+	background-image: url("image/menu-conseil.png");
+}
+
+#m7 {
+	background-image: url("image/menu-liens.png");
+}
+
+.m1 a:hover {
+	background-image: url("image/menu-accueil-on.png");
+}
+
+.m2 a:hover {
+	background-image: url("image/menu-asso-on.png");
+}
+
+.m3 a:hover {
+	background-image: url("image/menu-aider-on.png");
+}
+
+.m4 a:hover {
+	background-image: url("image/menu-chat-on.png");
+}
+
+.m5 a:hover {
+	background-image: url("image/menu-adopter-on.png");
+}
+
+.m6 a:hover {
+	background-image: url("image/menu-conseil-on.png");
+}
+
+.m7 a:hover {
+	background-image: url("image/menu-liens-on.png");
+}
+
+#corps {
+	float: left;
+	width: 750px;
+	background-image: url("image/bg-corps.png");
+	text-align: center;
+}
+
+.astuce {
+	clear: left;
+}
+
+#footer {
+	position: relative;
+	width: 973px;
+	background-image: url("image/footer.png");
+	background-repeat: no-repeat;
+	height: 110px;
+	font-size: 70%;
+}
+
+.padding {
+	padding: 20px;
+	width: 730px;
+}
+
+.padding2 {
+	margin-left: 50px;
+	padding-top: 75px;
+	text-align: center;
+	width: 835px;
+}
+
+.lien-adm {
+	text-decoration: none;
+	color: #000000;
+}
+
+#signature {
+	text-align: center;
+}
+
+.dojoxGrid table {
+	margin: 0;
+}
+
+.dojoxGridSortNode {
+	cursor: default;
+}
+
+.grid {
+	width: 100%;
+	height: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.chatFaGrid {
+	width: 100%;
+	height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.chatFaAjoutGrid {
+	width: 100%;
+	height: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.indispoFaGrid {
+	width: 100%;
+	height: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*
+ Classes pour les statuts des FA.
+*/
+.faActive {
+	background-image: url("image/fa/active.png");
+	height: 16px;
+	width: 16px;
+}
+
+.faInactive {
+	background-image: url("image/fa/inactive.png");
+	height: 16px;
+	width: 16px;
+}
+
+.faDisponible {
+	background-image: url("image/fa/disponible.png");
+	height: 16px;
+	width: 16px;
+}
+
+.faStandBy {
+	background-image: url("image/fa/standBy.png");
+	height: 16px;
+	width: 16px;
+}
+
+.faVacances {
+	background-image: url("image/fa/enVacances.png");
+	height: 16px;
+	width: 16px;
+}
+
+.faIndesirable {
+	background-image: url("image/fa/indesirable.png");
+	height: 16px;
+	width: 16px;
+}
+
+.faCandidature {
+	background-image: url("image/fa/candidature.png");
+	height: 16px;
+	width: 16px;
+}
+
+/*
+  Classes pour l'affichage des booléens.
+*/
+.booleanVrai {
+	background-image: url("image/common/booleanVrai.png");
+	height: 16px;
+	width: 16px;
+}
+
+.booleanFaux {
+	background-image: url("image/common/booleanFaux.png");
+	height: 16px;
+	width: 16px;
+}
+
+/*
+  Classes pour l'affichage des sexes des chats.
+*/
+.sexeMale {
+	background-image: url("image/common/sexeMale.png");
+	height: 16px;
+	width: 16px;
+}
+
+.sexeFemelle {
+	background-image: url("image/common/sexeFemelle.png");
+	height: 16px;
+	width: 16px;
+}
+
+/*
+  Classes pour l'affichage des indisponibilités
+*/
+.indispoAvenir {
+	background-image: url("image/indispo/avenir.png");
+	height: 16px;
+	width: 16px;
+}
+
+.indispoEnCours {
+	background-image: url("image/indispo/encours.png");
+	height: 16px;
+	width: 16px;
+}
+
+.indispoTerminee {
+	background-image: url("image/indispo/terminee.png");
+	height: 16px;
+	width: 16px;
+}
+
+/*
+ Icone pour les fiches
+*/
+.ficheChat {
+	background-image: url("image/common/ficheChat.png");
+	height: 48px;
+	width: 48px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ficheNews {
+	background-image: url("image/common/ficheNews.png");
+	height: 48px;
+	width: 48px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ficheFa {
+	background-image: url("image/common/ficheFa.png");
+	height: 48px;
+	width: 48px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ficheAdoptant {
+	background-image: url("image/common/ficheAdoptant.png");
+	height: 48px;
+	width: 48px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ficheAjouter {
+	background-image: url("image/common/ficheAjouter.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.ficheEditer {
+	background-image: url("image/common/ficheEditer.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.ficheSupprimer {
+	background-image: url("image/common/ficheSupprimer.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+/*
+ Icone pour les menus
+*/
+.menuAgenda {
+	background-image: url("image/common/menuAgenda.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.menuChat {
+	background-image: url("image/common/menuChat.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.menuFa {
+	background-image: url("image/common/menuFa.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.menuAdoptant {
+	background-image: url("image/common/menuAdoptant.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.menuNews {
+	background-image: url("image/common/menuNews.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+/**
+ Classe pour les boutons
+*/
+.boutonFiche {
+	float: right;
+}
+
+.boutonLogout {
+	background-image: url("image/common/deconnexion.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.boutonFa {
+	background-image: url("image/common/boutonFa.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.boutonRetour {
+	background-image: url("image/common/boutonRetour.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.boutonNoFa {
+	background-image: url("image/common/boutonNoFa.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.boutonMail {
+	background-image: url("image/common/mail.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.boutonExport {
+	background-image: url("image/common/export.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.exportExcel {
+	padding: 0 0 20px 0;
+}
+
+.exportExcelButton {
+	display: inline;
+	float: right;
+}
+
+.ajax {
+	background-image: url(image/ajax-loader.gif);
+	background-repeat: no-repeat;
+	height: 200px;
+	width: 32px;
+	display: none;
+	margin: 0 auto;
+}
+
+/**
+RSS
+*/
+.rss {
+	background-image: url("image/common/rss.png");
+	float: right;
+	height: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+/** 
+ Filtres
+*/
+.filtre {
+	width: 95%;
+	margin: 0 auto;
+	margin-top: 2px;
+	margin-bottom : 10px;
+	border: 1px solid #276fa3;
+	text-align: left;
+	padding: 5px;
+}
+
+.filtreTitle {
+	color: #535353;
+	text-align: center;
+	font-weight: bold;
+}
+
+.selectionFiltre {
+	margin-right: 10px;
+}

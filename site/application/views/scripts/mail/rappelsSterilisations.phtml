@@ -1,0 +1,14 @@
+<p>Bonjour,
+<br>
+<br>
+Nous vous rappelons que la stérilisation de <?php echo $this->data->getNom() ?> sera à faire très prochainement (avant le <?php echo FP_Util_DateUtil::getDateFormatted($this->data->getDateSterilisation()) ?>). 
+<br>
+Merci de ne pas oublier de prendre rendez-vous chez le vétérinaire.
+<br>
+<br>
+Cordialement,
+<br>
+L'équipe Felin Possible.
+</p>
+<?php echo $this->render('signature.phtml') ?>
+

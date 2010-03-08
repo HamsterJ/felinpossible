@@ -1,0 +1,19 @@
+<?php if ($this->urlMaj) {?>
+  <div class="centre_principal">
+  <br>
+  <?php if ($this->form->miniature->getValue() != "") {
+  	echo "<img src='".$this->form->miniature->getValue()."'/><br>";
+  }?>
+
+  <button id="majButton" dojoType="dijit.form.Button" onclick="showPage('<?php echo $this->urlMaj ?>'); return false;">Mettre à jour à partir des données du forum</button>
+
+  </div>
+<?php }?>
+
+<div class="centre_principal">
+<br>
+<?php
+  echo $this->form;
+?>
+<br>
+</div>

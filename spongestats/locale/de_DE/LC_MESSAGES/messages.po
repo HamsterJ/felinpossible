@@ -1,0 +1,811 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: SpongeStats 2.3.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-03-12 20:50+0100\n"
+"PO-Revision-Date: 2008-03-12 21:09+0100\n"
+"Last-Translator: Samy RABIH <spongestats@gmail.com>\n"
+"Language-Team: Bob, Fetard <bastien@gougueule.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: index.php:71
+msgid "Le dossier /install est encore present dans votre repertoire SpongeStats, veuillez le supprimer pour des raisons de securite"
+msgstr ""
+
+#: index.php:82
+msgid "Graphiques"
+msgstr "Graphiken"
+
+#: index.php:84
+msgid "Pages"
+msgstr "Seiten"
+
+#: index.php:86
+msgid "Hotes"
+msgstr "Besucher"
+
+#: index.php:88
+msgid "Referents"
+msgstr "Links"
+
+#: index.php:90
+msgid "Plateformes"
+msgstr "Plattformen "
+
+#: index.php:92
+msgid "Mots-cles"
+msgstr "Schluesselwoerter "
+
+#: index.php:94
+#: admin_home.php:38
+msgid "Administration"
+msgstr "Verwaltung "
+
+#: index.php:102
+msgid "Informations"
+msgstr "Informations"
+
+#: index.php:103
+msgid "Visiteurs de la journee"
+msgstr "Visiteurs de la journée"
+
+#: index.php:104
+msgid "Derniers visiteurs"
+msgstr "letzte Besucher "
+
+#: index.php:105
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: index.php:106
+msgid "Fil RSS de vos statistiques"
+msgstr "Fil RSS de vos statistiques"
+
+#: index.php:111
+#: moteur.php:31
+msgid "Rechercher"
+msgstr "Suchen "
+
+#: index.php:115
+msgid "Themes"
+msgstr "Themen"
+
+#: index.php:121
+msgid "Chargement de la page en cours"
+msgstr ""
+
+#: index.php:146
+msgid "Logiciel libre sous Licence GPL v2"
+msgstr "freie Software unter Lizenz GPL v2"
+
+#: index.php:146
+msgid "Auteurs"
+msgstr "Autoren"
+
+#: rss.php:43
+msgid "Statistiques quotidiennes du"
+msgstr "Tägliche Statistiken für"
+
+#: rss.php:44
+msgid "Statistiques hebdomadaires du"
+msgstr "Wöchentliche Statistiken für"
+
+#: rss.php:45
+msgid "Statistiques mensuelles du"
+msgstr "Monatliche Statistiken für"
+
+#: rss.php:46
+msgid "Statistiques annuelles du"
+msgstr "Jahresstatistiken für"
+
+#: rss.php:53
+msgid "Nombre de visiteurs"
+msgstr "Anzahl der Besucher"
+
+#: rss.php:54
+msgid "Nombre de pages vues"
+msgstr "Anzahl der gelesenen Seiten"
+
+#: rss.php:55
+msgid "Meilleur site referent"
+msgstr "Bester Link"
+
+#: rss.php:56
+msgid "Meilleure page referente"
+msgstr "Beste Linkseite"
+
+#: sps.connect.inc.php:35
+msgid "Connexion a la base impossible"
+msgstr "Datenbankverbindung nicht möglich"
+
+#: action.php:22
+msgid "Installer Spongestats"
+msgstr "Spongestats installieren"
+
+#: functions.php:31
+msgid "Creation table statistiques"
+msgstr "Erstellung von Statistikentabellen"
+
+#: functions.php:41
+msgid "Creation table archives"
+msgstr "Erstellung von "
+
+#: functions.php:48
+msgid "Creation table statistiques du mois"
+msgstr "Erstellung von monatlichen Statistikentabellen"
+
+#: functions.php:56
+msgid "Creation table configuration"
+msgstr "Erstellung von Konfigurationstabellen"
+
+#: admin_home.php:44
+msgid "Entrez le mot de passe pour acceder a l'administration"
+msgstr "Entrez le mot de passe pour accéder à l'administration"
+
+#: admin_home.php:46
+#: admin_home.php:359
+msgid "Valider"
+msgstr "Valider"
+
+#: admin_home.php:57
+msgid "Le mot de passe a bien ete change"
+msgstr "Le mot de passe a bien été changé"
+
+#: admin_home.php:87
+msgid "Les donnees anterieures a la date selectionnee ont ete purgees"
+msgstr "Les donnees antérieures a la date sélectionnée ont été purgées"
+
+#: admin_home.php:106
+msgid "ATENTION: Ne faites des modifications dans les champs ci-dessous uniquement si vous savez ce que vous faites, tous les changements effecutes ne peuvent etre annules."
+msgstr "ATENTION: Ne faites des modifications dans les champs ci-dessous uniquement si vous savez ce que vous faites, tous les changements éffecutés ne peuvent être annulés."
+
+#: admin_home.php:113
+#: admin_home.php:120
+msgid "Configuration"
+msgstr "Configuration"
+
+#: admin_home.php:114
+#: admin_home.php:293
+msgid "Changement du mot de passe"
+msgstr "Changement du mot de passe"
+
+#: admin_home.php:115
+#: admin_home.php:310
+msgid "Purger les donnees"
+msgstr "Purger les donneées"
+
+#: admin_home.php:116
+#: admin_home.php:368
+#: admin_home.php:374
+msgid "Exporter les donnees"
+msgstr "Exporter les donneées"
+
+#: admin_home.php:121
+msgid "Exclusions"
+msgstr "Ausschließungen"
+
+#: admin_home.php:151
+msgid "oui"
+msgstr "Ja"
+
+#: admin_home.php:154
+msgid "non"
+msgstr "nein"
+
+#: admin_home.php:176
+msgid "IP exclues"
+msgstr "ausgeschlossene IP"
+
+#: admin_home.php:179
+msgid "Hote exclus"
+msgstr "ausgeschlossene Besucher"
+
+#: admin_home.php:182
+msgid "Referers exclus"
+msgstr "ausgeschlossene Links"
+
+#: admin_home.php:185
+msgid "Logiciels exclus"
+msgstr "ausgeschlossene Software"
+
+#: admin_home.php:190
+msgid "Interface et affichage"
+msgstr "Oberfläche und Ansicht"
+
+#: admin_home.php:194
+msgid "Langue par defaut"
+msgstr "Standardsprache"
+
+#: admin_home.php:214
+msgid "Affichage de l'aide"
+msgstr "Hilfe"
+
+#: admin_home.php:217
+msgid "Theme par defaut"
+msgstr "Standardthemen"
+
+#: admin_home.php:236
+msgid "Nombre de visiteurs affiches"
+msgstr "Anzahl der angezeigten Besucher"
+
+#: admin_home.php:239
+msgid "Nombre de pages vues affichees"
+msgstr "Nombre de pages vues affichees"
+
+#: admin_home.php:242
+msgid "Nombre de pages d'entree affichees"
+msgstr "Nombre de pages d'entrée affichées"
+
+#: admin_home.php:245
+msgid "Nombre de pages referers affichees"
+msgstr "Nombre de pages referers affichees"
+
+#: admin_home.php:248
+msgid "Nombre de domaines referers affichees"
+msgstr "Nombre de domaines réferents affichés"
+
+#: admin_home.php:251
+msgid "Nombre de mots cles affiches"
+msgstr "Nombre de mots clés affichés"
+
+#: admin_home.php:254
+msgid "Nombre d'occurence des mots cles pour l'affichage"
+msgstr "Nombre d'occurence des mots clés pour l'affichage"
+
+#: admin_home.php:257
+msgid "Nombre de jour pour l'evolution des mots cles"
+msgstr "Nombre de jour pour l'évolution des mots cles"
+
+#: admin_home.php:260
+msgid "Nombre d'ip affichees"
+msgstr "Nombre d'ip affichées"
+
+#: admin_home.php:263
+msgid "Nombre d'hotes affiches"
+msgstr "Nombre d'hotes affiches"
+
+#: admin_home.php:266
+msgid "Afficher les favicon"
+msgstr "Afficher les favicons"
+
+#: admin_home.php:269
+#, fuzzy
+msgid "Exclusions des domaines pour l'affichage des favicons"
+msgstr "Ausschließungen des domaines pour l'affichage des favicons"
+
+#: admin_home.php:274
+#, fuzzy
+msgid "Logiciels et plateformes"
+msgstr "Software  et plateformes"
+
+#: admin_home.php:278
+#: inc.user_agents.php:9
+#: plateformes.php:29
+msgid "Navigateurs"
+msgstr "Browsers"
+
+#: admin_home.php:281
+#: inc.user_agents.php:87
+#: plateformes.php:30
+#, fuzzy
+msgid "Agregateurs"
+msgstr "Agregatoren"
+
+#: admin_home.php:284
+#: inc.user_agents.php:126
+#: plateformes.php:31
+msgid "Systemes d'exploitation"
+msgstr "Betriebssysteme "
+
+#: admin_home.php:290
+msgid "Modifier la configuration"
+msgstr "Modifier la configuration"
+
+#: admin_home.php:298
+msgid "Nouveau mot de passe"
+msgstr "Nouveau mot de passe"
+
+#: admin_home.php:301
+msgid "Confirmation"
+msgstr "Confirmation"
+
+#: admin_home.php:304
+msgid "Changer le mot de passe"
+msgstr "Changer le mot de passe"
+
+#: admin_home.php:314
+msgid "La purge des donnees vous permet d'alleger votre base de donnee. Toutes les informations de statistiques anterieures a la date que vous choisisirez seront perdues Si vous souhaitez reutiliser ces informations, faites d'abord un export de votre base."
+msgstr "La purge des données vous permet d'alleger votre base de données. Toutes les informations de statistiques antérieures a la date que vous choisisirez seront perdues Si vous souhaitez réutiliser ces informations, faites d'abord un export de votre base."
+
+#: admin_home.php:326
+msgid "Purger les donnees plus anciennes que"
+msgstr "Purger les donnees plus anciennes que"
+
+#: admin_home.php:363
+msgid "Aucune donnee a purger"
+msgstr "Aucune donnee a purger"
+
+#: admin_home.php:372
+msgid "L'export de donnee vous permet de faire une sauvegarde complete de vos donnees SpongeStats. L'export est au format .sql, vous pourrez ensuite reimporter ce fichier dans votre base de donnee a l'aide de votre outil de gestion de base MySQL (PHPMyAdmin, Eskuel, mysqladmin, etc...)"
+msgstr "L'export de donnée vous permet de faire une sauvegarde complète de vos données SpongeStats. L'export est au format .sql, vous pourrez ensuite réimporter ce fichier dans votre base de données a l'aide de votre outil de gestion de base MySQL (PHPMyAdmin, Eskuel, mysqladmin, etc...)"
+
+#: archives.php:33
+#: archives.php:54
+msgid "Archives mensuelles"
+msgstr "Monatliche Archive "
+
+#: archives.php:36
+msgid "Archives des mots-cles"
+msgstr "Archive der Schlüsselwörter "
+
+#: archives.php:39
+msgid "Archives des referents"
+msgstr "Archive der Links / Verknüpfungen"
+
+#: archives.php:42
+msgid "Archives des plate-formes"
+msgstr "Archive der Plattformen"
+
+#: archives.php:45
+msgid "Archives des pages vues"
+msgstr "Archive der gelesenen Seiten oder besuchten Seiten"
+
+#: archives.php:48
+msgid "Archives des pages d'entree"
+msgstr "Archive der Startseiten"
+
+#: archives.php:51
+msgid "Archives des noms d'hotes"
+msgstr "Archive der Gaestenamen (Benutzernamen)"
+
+#: archives.php:87
+msgid "Aucune archive"
+msgstr "kein Archiv"
+
+#: home.php:25
+msgid " derniers visiteurs"
+msgstr "letzte Besucher "
+
+#: home.php:29
+msgid "Ce tableau affiche les derniers visiteurs ayant parcouru votre site. En cliquant sur l'icone a cote du nom d'hote, vous pourrez voir le detail de ce visiteur (adresse ip, referent, logiciel, date de premiere visite, etc...)"
+msgstr "Diese Graphik zeigt die letzten Besucher an, die diese Internetseite geöffnet haben. Beim Klicken auf das Icon [den Feld] neben den Gaestename[Besuchername], können Sie die Details dieser Besucher lesen [IP-Adresse, Referent ???, Software, Datum des ersten Besuches, usw...]"
+
+#: home.php:36
+msgid "Hote"
+msgstr "Gastgeber "
+
+#: home.php:36
+#: pages.php:36
+#: stats_annee.php:143
+#: stats_mois.php:165
+msgid "Pages vues"
+msgstr "Gelesenen Seiten "
+
+#: home.php:52
+#: inc.home.php:26
+msgid "Plus de details"
+msgstr ""
+
+#: hotes.php:32
+msgid "Nom d'hotes et adresses IP pour le mois"
+msgstr "Nom dhotes et adresses IP pour le mois"
+
+#: hotes.php:37
+msgid "Noms d'hotes"
+msgstr "Gastgebernamen "
+
+#: hotes.php:38
+msgid "Adresses IP"
+msgstr "IP-Adressen "
+
+#: inc.graph_horaire.php:13
+msgid "Plages horaires de frequentation"
+msgstr "Stundenpläne der Frequentierung (Besuche)"
+
+#: inc.graph_horaire.php:17
+msgid "Ce graphique affiche la repartition horaire des visiteurs pour la periode en cours, l'heure de visite prise en compte est celle de la premiere visite de la journee."
+msgstr "Dieser Graphik zeigt die stündliche Aufteilung der Besucher für die laufende Periode an. Die Uhrzeit des in Betracht genommenen Besuches ist die des ersten Besuches eines Besuchers;"
+
+#: inc.hotes.php:15
+#, php-format
+msgid "Top %s des noms d'hotes"
+msgstr "Top %s der Gastgebernamen"
+
+#: inc.hotes.php:21
+msgid "Les noms d'hotes sont les identifiants des fournisseurs d'acces des visiteurs s'etant connectes au site, ils sont classes par nombre de visites depuis cet hote pour la periode en cours"
+msgstr "Die Gastgebernamen sind die Kennzeichen der Provider der Besucher, die sich auf eine Internetseite eingeloggt haben. Diese sind nach Anzahl der Besuchen anhand dieses Gastgebers für die laufende Periode klassifiziert."
+
+#: inc.hotes.php:52
+#, php-format
+msgid "Top %s des adresses IP"
+msgstr "Top %s der IP-Adressen"
+
+#: inc.hotes.php:57
+msgid "Les adresses IP sont les numeros qui identifient chaque ordinateur connecte a Internet, les visiteurs de votre site sont indexes grace a cet identifiant unique. Elles sont classees par nombre de visites depuis cette adresse IP pour la periode en cours"
+msgstr "Die IP-Adressen sind die Zahlen, die jeder eingeloggte PC in Internet identifiziert. Die Besucher Ihrer Internetseite sind durch diese Benutzeridentifizierung indexiert. Die Adressen sind nach Anzahl der Besuchen von dieser IP-Adresse für die laufende Periode klassifiziert."
+
+#: inc.mots_cles.php:23
+#, php-format
+msgid "Top %s des Mots-cles"
+msgstr "Top %s der Schluesselwoerter"
+
+#: inc.mots_cles.php:31
+msgid "Les mots cles sont les elements de la recherche qui ont permis a un visiteur d'arriver sur votre site. Ils sont classes par nombre de recherche depuis les differents moteurs disponible sur Internet. En cliquant sur l'icone a cote du mot, vous accederez a un lien permettant de faire une recherche sur plusieurs moteurs afin d'etudier votre positionnement pour un mot cle donne.Vous pourrez aussi voir l'evolution de ce mots cles sur les derniers jours."
+msgstr "Schluesselwoerter sind Suchkriterien, die einem Besucher ermöglichen, sich auf Ihrer Internetseite einzuloggen. Diese sind nach Anzahl von Suchen nach den unterschiedlichen Suchmaschinen in Internet klassifiziert. Beim Klicken auf das Icon neben dem Wort, erreichen Sie ein Link, was die Suche auf verschiedenen Suchmaschinen ermöglicht. Sie können auch die Entwicklung dieses Schlüsselwortes für die letzten Tage verfolgen."
+
+#: inc.pages_ent.php:14
+#, php-format
+msgid "Top %s des pages d'entree"
+msgstr "Top %s der Startseiten"
+
+#: inc.pages_ent.php:18
+msgid "Les pages d'entree sont les premieres pages consultees par un visiteur lorsqu'il entre sur votre site. Elles sont classees par nombre de consultation pour la periode en cours."
+msgstr "Die Startseiten sind die von einem Besucher erste gelesene Seiten, wenn er sich auf Ihre Internetseite einloggt. Diese sind nach Anzahl der Konsultierungen für die laufende Periode klassifiziert."
+
+#: inc.referers.php:26
+#, php-format
+msgid "Top %s des sites referents"
+msgstr "Top %s der Linkseiten"
+
+#: inc.referers.php:30
+msgid "Les domaines referers sont les sites qui ont amenes des visiteurs sur votre site, ils sont classes par nombre de visiteurs qu'ils ont amenes. Les moteurs de recherche les plus utilises ne sont pas affiches dans cette liste."
+msgstr "Die Domäne \"Link\" sind die Internetseite, die Besucher geleitet haben auf Ihre Internetseite sich einzuloggen. Diese sind nach Anzahl der Besuche, die diese geleitet haben sich einzuloggen, klassifiziert. In dieser Liste sind die meisten benutzten Suchmaschinen nicht erwähnt."
+
+#: inc.referers.php:63
+#, php-format
+msgid "Top %s des pages referentes"
+msgstr "Top %s der Links"
+
+#: inc.referers.php:67
+msgid "Les pages referers sont les pages des sites qui ont amenes des visiteurs sur votre site, ils sont classes par nombre de visiteurs qu'ils ont amenes. Les moteurs de recherche les plus utilises ne sont pas affiches dans cette liste."
+msgstr "Linkseiten sind Internetseiten, die den Besuchern ermöglichen sich auf Ihrer Internetseite einzuloggen. Diese sind nach Anzahl der Besucherloggins klassifiziert. Google erscheint nicht in dieser Klassifizierung, da Google eine allgemeine Sicht der Linkseiten und nicht der Suchmaschinen anzeigt."
+
+#: inc.referers.php:72
+msgid "Acces direct"
+msgstr "Direkter Zugang "
+
+#: inc.referers.php:112
+#: referers.php:31
+#: stats_jour.php:36
+msgid "Moteurs de recherche"
+msgstr "Suchmaschine"
+
+#: inc.referers.php:116
+msgid "Les moteurs de recherche sont les sites qui ont amenes des visiteurs sur votre site par une recherche par mot cle, ils sont classes par nombre de visiteurs qu'ils ont amenes. Les 100 premiers moteurs sont affiches."
+msgstr "Die Suchmaschinen sind Seiten, die Besucher geleitet haben, sich auf Ihre Internetseite einzuloggen. Dies erfolgte durch eine Suche nach einem Schlüsselwort. Diese sind nach Anzahl der Besucher, die diese Suchmaschinen benutzt haben, klassifiziert. Die hundert ersten Suchmaschinen sind angezeigt. "
+
+#: inc.user_agents.php:12
+msgid "Les navigateurs sont les logiciels utilises par les visiteurs pour consulter votre site. Ils sont classes par nombre de consultation avec ce navigateur pour la periode en cours. Pour editer la liste des navigateurs pris en compte, veuillez vous reporter a la documentation"
+msgstr "Browser ist die Software, die Besucher anwenden, um sich auf Ihre Internetseite einzuloggen. Diese sind nach Anzahl der Loggins für die laufende Periode klassifizierbar. Beziehen Sie sich bitte auf die Dokumentation, um die Liste der Browsers zu editieren."
+
+#: inc.user_agents.php:65
+msgid "Pas de donnees precises pour ce navigateur"
+msgstr ""
+
+#: inc.user_agents.php:74
+msgid "Nombre de visites via un navigateur"
+msgstr "Anzahl der Besuchen via Browsers"
+
+#: inc.user_agents.php:92
+msgid "Les agregateurs sont les logiciels utilises par les visiteurs pour consulter les fils d'informations disponible sur votre site. Ils sont classes par nombre de consultation avec cet agregateur pour la periode en cours, si vous n'avez pas de valeur dans cette partie, c'est surement que votre site ne propose pas de fil d'informations au format RSS ou ATOM. Pour editer la liste des agregateurs pris en compte, veuillez vous reporter a la documentation"
+msgstr "Die Agregatoren sind von Besucher benutzten Software, um die vorhandenen Informationspfaden auf Ihre Internetseite zu konsultieren. Diese sind nach Anzahl der Besuchen anhand dieser Software für die laufende Periode klassifiziert. Wenn Sie keine Werte haben, liegt es bestimmt an dem Fakt, dass Sie keinen Informationspfad mit dem Format RSS oder ATOM benutzen. Beziehen Sie sich bitte auf die Dokumentation, um die Liste der Agregatoren zu editieren."
+
+#: inc.user_agents.php:119
+msgid "Nombre de visites via un agregateur"
+msgstr "Anzahl der Besuchen via Link"
+
+#: inc.user_agents.php:130
+msgid "Les systemes d'exploitation sont les plateformes utilises par les visiteurs pour consulter votre site. Ils sont classes par nombre de consultation avec ce systeme d'exploitation pour la periode en cours. Pour editer la liste des systemes d'exploitation pris en compte, veuillez vous reporter a la documentation"
+msgstr "Betriebssysteme sind die von Besucher benutzten Plattformen, um sich auf Ihre Internetseite einzuloggen. Diese sind nach der Anzahl von Loggins anhand dieser Betriebsysteme für die laufende Periode klassifiziert. Beziehen Sie sich bitte auf die Dokumentation, um die Liste der Browsers zu editieren."
+
+#: moteur.php:25
+msgid "Chercher par nom d'hote"
+msgstr "Nach Gastgebernamen suchen "
+
+#: moteur.php:26
+msgid "Chercher par IP"
+msgstr "Durch IP suchen "
+
+#: moteur.php:27
+msgid "Chercher par referer"
+msgstr "Nach Links suchen "
+
+#: mots_cles.php:26
+msgid "Mots-cles pour le mois"
+msgstr "Schluesselwoerter pour le mois"
+
+#: pages.php:33
+msgid "Pages les plus vues pour le mois"
+msgstr "Seiten, die für den Monat gesehen wurden "
+
+#: pages.php:37
+msgid "Pages d'entree"
+msgstr "Startseiten"
+
+#: pages.php:41
+msgid "Pages les plus vues"
+msgstr "Am meisten gelesenen Seiten "
+
+#: pages.php:44
+msgid "Les pages les plus vues sont les pages les plus consultees de votre site par l'ensemble des visiteurs. Elles sont classees par nombre de consultation pour la periode en cours. Si vous cliquez sur le nom de la page, vous serez redirige automatiquement vers la page affichee"
+msgstr "Die meistens gelesenen Seiten, sind die meistens geöffnete Seiten Ihrer Internetseite von dem ( Suggestion) den Besuchern. Diese sind nach Anzahl der Konsultierungen der laufenden Periode klassifiziert. Wenn Sie auf den Namen der Seite Klicken, werden Sie automatisch zu der angezeigten Seite geleitet."
+
+#: plages_horaires.php:21
+msgid "Plages horaires de frequentation pour"
+msgstr "Stundenpläne der Frequentierung (Besuche) für"
+
+#: plateformes.php:25
+msgid "Plateformes pour le mois"
+msgstr "Plattformen für den Monat "
+
+#: plus_details.php:39
+msgid "Adresse IP"
+msgstr "IP-Adressen "
+
+#: plus_details.php:40
+#: recherche.php:53
+#, fuzzy
+msgid "Referent"
+msgstr "Link"
+
+#: plus_details.php:42
+msgid "Logiciel"
+msgstr "Software "
+
+#: plus_details.php:43
+msgid "Page d'entree"
+msgstr "Startseiten"
+
+#: plus_details.php:49
+msgid "Aujourd'hui"
+msgstr "heute"
+
+#: plus_details.php:50
+msgid "Premiere visite"
+msgstr "Erster Besuch"
+
+#: plus_details.php:58
+msgid "Visite precedente"
+msgstr "vorheriger Besuch"
+
+#: plus_details.php:59
+msgid "Voir l'historique de ce visiteur"
+msgstr "Siehe Historie dieses Besuchers"
+
+#: plus_details.php:73
+#, php-format
+msgid "Detail et evolution pour le mot cle %s"
+msgstr ""
+
+#: plus_details.php:79
+#: plus_details.php:80
+#: plus_details.php:81
+#: plus_details.php:82
+msgid "Voir le positionnement dans"
+msgstr "Siehe die Lokalisierung in "
+
+#: plus_details.php:86
+#, php-format
+msgid "Evolution sur les %s derniers jours"
+msgstr "Entwicklung der Prozentangaben %s Letzte Tage"
+
+#: plus_details.php:152
+msgid "L'evolution n'est pas disponible pour les donnees quotidiennes"
+msgstr ""
+
+#: plus_details.php:157
+#, fuzzy
+msgid "Derniers referents pour ce mot cle"
+msgstr "Links für den Monat"
+
+#: plus_details.php:178
+msgid "Les derniers referents ne sont disponibles pour les donnees quotidiennes"
+msgstr ""
+
+#: recherche.php:47
+msgid "enregistrements"
+msgstr "enregistrements"
+
+#: recherche.php:52
+msgid "IP"
+msgstr "IP"
+
+#: recherche.php:54
+msgid "Hits"
+msgstr "Hits"
+
+#: recherche.php:93
+msgid "Aucune valeur enregistree pour l'"
+msgstr "Keine gespeicherte Datei für"
+
+#: referers.php:25
+msgid "Referents pour le mois"
+msgstr "Links für den Monat"
+
+#: referers.php:29
+msgid "Domaines referents"
+msgstr "Domäne"
+
+#: referers.php:30
+msgid "Pages referentes"
+msgstr "Linkseiten"
+
+#: stats_annee.php:22
+msgid "Statistiques pour l'annee"
+msgstr "Jahresstatistiken "
+
+#: stats_annee.php:42
+msgid "Pages vues et Visiteurs uniques"
+msgstr "Gelesene Seiten und einmalige Besucher"
+
+#: stats_annee.php:91
+#: stats_mois.php:103
+msgid "Nombre de visiteurs total"
+msgstr "Gesamtanzahl der Besucher"
+
+#: stats_annee.php:92
+#: stats_mois.php:104
+msgid "Nombre de pages vues total"
+msgstr "Gesamtanzahl der gelesenen Seiten"
+
+#: stats_annee.php:93
+#: stats_mois.php:105
+msgid "Nombre de visiteurs maximum"
+msgstr "höchste Anzahl der Besucher"
+
+#: stats_annee.php:94
+#: stats_mois.php:106
+msgid "Nombre de pages vues maximum"
+msgstr "höchste Anzahl der gelesenen Seiten"
+
+#: stats_annee.php:95
+#: stats_mois.php:107
+msgid "Moyenne du nombre de visiteurs"
+msgstr "Durchschnittliche Anzahl der Besucher"
+
+#: stats_annee.php:96
+#: stats_mois.php:108
+msgid "Moyenne du nombre de pages vues par visiteur"
+msgstr "Durchschnittliche Anzahl der gelesenen Seiten pro Besucher"
+
+#: stats_annee.php:143
+#: stats_mois.php:165
+msgid "Visiteurs"
+msgstr "Besucher"
+
+#: stats_jour.php:25
+#, fuzzy
+msgid "Statistiques du"
+msgstr "Statistiken der"
+
+#: stats_jour.php:31
+#: stats_mois.php:35
+msgid "Voir les statistiques horaires"
+msgstr "Siehe stündliche Statistiken"
+
+#: stats_jour.php:32
+msgid "Voir les hotes"
+msgstr "Siehe Gastgeber"
+
+#: stats_jour.php:33
+msgid "Voir les IP"
+msgstr "Siehe IP-Adressen"
+
+#: stats_jour.php:34
+msgid "Voir les domaines referents"
+msgstr "Siehe die \"Links\""
+
+#: stats_jour.php:35
+msgid "Voir les pages referentes"
+msgstr "Siehe Linkseiten"
+
+#: stats_jour.php:37
+msgid "Voir les pages d'entree"
+msgstr "Siehe Startseiten"
+
+#: stats_jour.php:38
+msgid "Voir les navigateurs"
+msgstr "Siehe Browsers"
+
+#: stats_jour.php:39
+msgid "Voir les agregateurs"
+msgstr "Siehe die Agregatoren"
+
+#: stats_jour.php:40
+msgid "Voir les systemes d'exploitation"
+msgstr "Siehe Betriebsysteme"
+
+#: stats_jour.php:41
+msgid "Voir les mots cles"
+msgstr "Siehe Schluesselwoerter"
+
+#: stats_mois.php:27
+msgid "Janvier"
+msgstr "Januar"
+
+#: stats_mois.php:27
+msgid "Fevrier"
+msgstr "Februar"
+
+#: stats_mois.php:27
+msgid "Mars"
+msgstr "März"
+
+#: stats_mois.php:27
+msgid "Mai"
+msgstr "Mai"
+
+#: stats_mois.php:27
+msgid "Juin"
+msgstr "Juni"
+
+#: stats_mois.php:27
+msgid "Juillet"
+msgstr "Juli"
+
+#: stats_mois.php:27
+msgid "Aout"
+msgstr "August"
+
+#: stats_mois.php:27
+msgid "Septembre"
+msgstr "September"
+
+#: stats_mois.php:27
+msgid "Octobre"
+msgstr "Oktober"
+
+#: stats_mois.php:27
+msgid "Novembre"
+msgstr "November"
+
+#: stats_mois.php:27
+msgid "Decembre"
+msgstr "Dezember"
+
+#: stats_mois.php:28
+msgid "Statistiques de"
+msgstr "Statistiken der"
+
+#: stats_mois.php:33
+msgid "Voir les statistiques globales pour l'annee"
+msgstr "Siehe Gesamtjahresstatistiken"
+
+#: stats_mois.php:34
+msgid "Voir les statistiques de frequentation"
+msgstr "Siehe Statistiken der Besucher"
+
+#: stats_mois.php:53
+msgid "Statistiques de frequentation"
+msgstr "Statistiken der Besuche"
+
+#: stats_mois.php:119
+msgid "Ce graphique affiche le nombre de visiteurs et de pages vues pour la periode en cours, cliquez sur les barres ou sur le chiffre pour obtenir le detail des visiteurs pour cette journee."
+msgstr "Diese Graphik zeigt die Anzahl der Besucher und gelesenen Seiten für die laufende Periode an. Klicken Sie auf das Icon [die Felder]???? oder auf die Ziffer, um die Details der Besucher für diesen Tag zu erhalten."
+
+#: update.php:20
+msgid "Impossible de verifier les mises a jour"
+msgstr "Ueberpruefung der Aktualisierungen (Updates) nicht möglich"
+
+#: update.php:29
+msgid "Votre version est a jour"
+msgstr "Ihre Version ist aktualisiert"
+
+#: update.php:30
+#: update.php:34
+#: update.php:35
+#: update.php:33
+msgid "Une nouvelle version est disponible"
+msgstr "Eine neue Version ist vorhanden"
+
+#: update.php:30
+#: update.php:34
+#: update.php:33
+msgid "Cliquez ici pour telecharger la nouvelle version"
+msgstr ""
+

@@ -1,0 +1,16 @@
+<div class="centre_principal">
+  <div id="chargementChats" class="ajax" style="display:none"></div>
+    <div id="chats">
+      <?php echo $this->render("admin/indexgrid.phtml"); ?>
+      <button id="addButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlAddItem ?>', 'commonGrid')"><div class="ficheAjouter"></div><div class="boutonFiche">Ajouter</div></button>
+      <button id="editButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid')"><div class="ficheEditer"></div><div class="boutonFiche">Editer</div></button>
+      <button id="genererFicheSoinsButton" dojoType="dijit.form.Button" onclick="genereDocument('<?php echo $this->urlGenererFicheSoins ?>', 'commonGrid', 'id')"><div class="ficheEditer"></div><div class="boutonFiche">Fiche soins</div></button>
+      <button id="deleteButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid')"><div class="ficheSupprimer"></div><div class="boutonFiche">Supprimer</div></button>
+      <br>
+      <button id="selectFaButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlSelectFaItem ?>', 'commonGrid', 'corps', 'chargementCorps', false, 'idChat')"><div class="boutonFa"></div><div class="boutonFiche">Choisir FA</div></button>
+      <button id="deleteFaButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlDeleteFa ?>', 'commonGrid', 'idChat')"><div class="boutonNoFa"></div><div class="boutonFiche">Aucune FA</div></button>
+      <button id="selectAdButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlSelectAdItem ?>', 'commonGrid', 'corps', 'chargementCorps', false, 'idChat')"><div class="menuAdoptant"></div><div class="boutonFiche">Choisir Adoptant</div></button>
+      <button id="deleteAdButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlDeleteAd ?>', 'commonGrid', 'idChat')"><div class="boutonNoFa"></div><div class="boutonFiche">Aucun adoptant</div></button>
+    <br>
+  </div>
+</div>

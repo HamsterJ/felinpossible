@@ -1,0 +1,31 @@
+Nom :
+<span>
+  <input dojoType="dijit.form.TextBox" style="width:120px" id="filterFaNom" type="text" onkeyup="filterFa('<?php echo $this->gridName ?>')" />
+</span>
+Prénom :
+<span>
+  <input dojoType="dijit.form.TextBox" style="width:120px" id="filterFaPrenom" type="text" onkeyup="filterFa('<?php echo $this->gridName ?>')" />
+</span>
+Login :
+<span>
+  <input dojoType="dijit.form.TextBox" style="width:120px" id="filterFaLogin" type="text" onkeyup="filterFa('<?php echo $this->gridName ?>')" />
+</span>
+<br>
+<br> 
+<div id="statutStore" style="display:none" dojoType="dojo.data.ItemFileReadStore" jsId="statutStore" url="<?php echo $this->url(array('action' => 'listestatuts')) ?>"></div>
+Statut : 
+<span>
+  <input id="filterFaStatut" 
+               dojoType="dijit.form.FilteringSelect"
+               store="statutStore"
+               searchAttr="nom"
+               autocomplete="true"
+               ignoreCase="true"
+               required="false"
+               onchange="filterFa('<?php echo $this->gridName ?>')"/>
+</span>
+<br>
+<br>
+<span class="selectionFiltre">
+  <input dojoType="dijit.form.CheckBox" id="filterFaSansContrat" onchange="filterFa('<?php echo $this->gridName ?>')" />Sans contrat FA
+</span>
