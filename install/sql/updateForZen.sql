@@ -116,3 +116,12 @@ CONSTRAINT fk_ad_cat_cat FOREIGN KEY ( idChat ) REFERENCES fp_cat_fiche( id ) ON
 CONSTRAINT uniq_ad_cat UNIQUE ( idChat )
 ) ENGINE InnoDB;
 
+
+-- Dates envoi rappels stérilisation + date Contrats
+ALTER TABLE fp_cat_fiche ADD (
+  dateEnvoiRappelVac date NULL,
+  dateEnvoiRappelSte date NULL,
+  dateContratAdoption date NULL
+)
+
+ALTER TABLE fp_fa_fiche ADD (dateContratFa date NULL);
