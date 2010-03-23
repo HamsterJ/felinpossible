@@ -14,7 +14,7 @@ update fp_cat_fiche cf, phpbb_topics t set cf.adopte=0, cf.reserve=0, cf.parrain
 -- Update chats a l'adoption
 update fp_cat_fiche cf, phpbb_topics t set cf.adopte=0, cf.reserve=0, cf.disparu=0 where cf.topic_id = t.topic_id and t.forum_id = 10;
 
--- Update date d'adoption (date de déplacement du sujet)
+-- Update date d'adoption (date de dÃ©placement du sujet)
 update fp_cat_fiche fiche set fiche.date_adoption = 
  (select max(from_unixtime(log.log_time)) 
   from phpbb_log log 
@@ -25,12 +25,12 @@ update fp_cat_fiche fiche set fiche.date_adoption =
   where fiche.date_adoption is null
       and fiche.adopte = 1;
       
--- Création des nouvelles fiches
+-- CrÃ©ation des nouvelles fiches
 insert into fp_cat_fiche (nom, idSexe, date, race, idCouleur, yeux, tests, vaccins, tatouage, caractere, commentaires, miniature, topic, topic_id, post_id, to_check )
   select TRIM(substring_index( result.subject, '-', 1 )) AS NOM,
           CAST( result.text REGEXP '^(.)*[S|s]exe(.)*[F|f]emelle' AS CHAR ) +1 AS SEXE,
           NOW(),
-          'Type européen',
+          'Type europÃ©en',
           1,
           '',
           '',
@@ -48,7 +48,7 @@ insert into fp_cat_fiche (nom, idSexe, date, race, idCouleur, yeux, tests, vacci
     FROM phpbb_posts post, phpbb_topics topic
     LEFT JOIN fp_cat_fiche fiche ON fiche.topic_id = topic.topic_id
     WHERE fiche.id IS NULL
-      AND (topic.forum_id = 10 or topic.forum_id = 54)
+      AND (topic.forum_id = 10 or topic.forum_id = 54 or topic.forum_id = 108)
       AND post.topic_id = topic.topic_id
       AND topic.topic_type = 0
     ORDER BY post.post_id
