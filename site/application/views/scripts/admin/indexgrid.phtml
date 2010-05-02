@@ -45,7 +45,7 @@
       <button class="exportExcelButton" id="exportButton" dojoType="dijit.form.Button" onclick="exportData('<?php echo $this->urlExportUrl ?>', 'commonGrid')"><div class="boutonExport"></div><div class="boutonFiche">Export excel</div></button>
   <?php }?>
   <?php if ( !$this->redefineButtons) {?>
-    <button id="addButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlAddItem ?>', 'commonGrid')"><div class="ficheAjouter"></div><div class="boutonFiche">Ajouter</div></button>
+    <button id="addButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlAddItem ?>')"><div class="ficheAjouter"></div><div class="boutonFiche">Ajouter</div></button>
     <button id="editButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid')"><div class="ficheEditer"></div><div class="boutonFiche">Editer</div></button>
     <button id="deleteButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid')"><div class="ficheSupprimer"></div><div class="boutonFiche">Supprimer</div></button>
   <?php }?>

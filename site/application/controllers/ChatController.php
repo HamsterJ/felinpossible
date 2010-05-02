@@ -95,8 +95,8 @@ class ChatController extends FP_Controller_CommonController
 		$this->view->urlSelectAdItem = $this->view->url(array('controller' => 'adoptant', 'action' => 'choisirad', 'callback' => $action));
 		$this->view->urlDeleteFa = $this->view->url(array('controller' => 'fa', 'action' => 'deletechat'));
 		$this->view->urlDeleteAd = $this->view->url(array('controller' => 'adoptant', 'action' => 'deletechat'));
-		$this->view->urlGenererFicheSoins = $this->view->url(array('action' => 'generefichesoins'));
-		
+		$this->view->urlGenererFicheSoins = $this->view->url(array('action' => 'fichesoins'));
+
 		$this->view->defaultSort = 3;
 
 		$this->view->headerPath = "chat/headeradm.phtml";
@@ -209,7 +209,7 @@ class ChatController extends FP_Controller_CommonController
 
 			$this->view->titre = "Rappels de vaccins à venir";
 			$this->view->defaultSort = 8;
-			
+
 			$this->view->headerPath = "chat/headervaccins.phtml";
 			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_AVEC_DATE_VACCINS));
 			$this->view->urlEnvoiMailItem = $this->view->url(array('action' => 'mailvaccins'));
@@ -229,7 +229,7 @@ class ChatController extends FP_Controller_CommonController
 
 			$this->view->titre = "Stérilisations à faire";
 			$this->view->defaultSort = 9;
-			
+
 			$this->view->headerPath = "chat/headersterilisation.phtml";
 			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_A_STERILISER));
 			$this->view->urlEnvoiMailItem = $this->view->url(array('action' => 'mailsterilisation'));
@@ -247,7 +247,7 @@ class ChatController extends FP_Controller_CommonController
 			$request = $this->getRequest();
 			$form = new FP_Form_common_MailForm();
 			$idChat = $request->getParam('id', null);
-			
+
 			if ($request->isPost()) {
 				if ($form->isValid($request->getPost())) {
 					FP_Service_MailServices::getInstance()->envoiMail($form->getValues());
@@ -270,7 +270,7 @@ class ChatController extends FP_Controller_CommonController
 			$request = $this->getRequest();
 			$form = new FP_Form_common_MailForm();
 			$idChat = $request->getParam('id', null);
-			
+
 			if ($request->isPost()) {
 				if ($form->isValid($request->getPost())) {
 					FP_Service_MailServices::getInstance()->envoiMail($form->getValues());
@@ -317,18 +317,42 @@ class ChatController extends FP_Controller_CommonController
 	}
 
 	/**
+	 * Action pour ouvrir la page de génération de fiche de soins.
+	 */
+	public function fichesoinsAction() {
+		if ($this->checkIsLogged()) {
+			$request = $this->getRequest();
+			$form = new FP_Form_chat_FicheSoinsForm();
+
+			$chatId = $request->getParam('id', null);
+
+			if ($chatId) {
+				$data = $this->getService()->getDataFicheSoins($chatId);
+				$form->populate($data);
+			}
+
+			$form->setAction($this->view->url(array('action' => 'generefichesoins')));
+			$this->view->form = $form;
+		}
+	}
+
+
+	/**
 	 * Action pour générer une fiche de soins pour le chat sélectionné.
 	 */
 	public function generefichesoinsAction() {
 		if ($this->checkIsLogged()) {
-			$chatId = $this->getRequest()->getParam('id', null);
-			if ($chatId) {
-				$this->getService()->generateFicheSoins($chatId);
+			$request = $this->getRequest();
+			$form = new FP_Form_chat_FicheSoinsForm();
+			if ($request->isPost()) {
+				if ($form->isValid($request->getPost())) {
+					$this->getService()->generateFicheSoins($form);
+				}
 			}
-			exit;
 		}
+		exit;
 	}
-	
+
 	/**
 	 * Affichage des chats à adoptés (sans les réservés) pour impression.
 	 */

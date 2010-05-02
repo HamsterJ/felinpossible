@@ -72,7 +72,8 @@ class AdoptantController extends FP_Controller_SubFormController
 	}
 
 	/**
-	 * Export excel pour les toutes les adoptants.
+	 * (non-PHPdoc)
+	 * @see site/application/controllers/FP_Controller_SubFormController#exportAction()
 	 */
 	public function exportAction() {
 		if ($this->checkIsLogged()) {

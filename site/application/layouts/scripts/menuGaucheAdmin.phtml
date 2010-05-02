@@ -15,15 +15,16 @@
         
         <li id="m3"><a href="#" title="Fiches">&nbsp;</a>
           <ul>
-            <li><a href="<?php echo $url = $this->url(array('controller' => 'fa', 'action' => 'indexadm')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Fiches des FA"><div class="menuFa"></div>Fiches des FA</a></li>
+            <li><a href="<?php echo $url = $this->url(array('controller' => 'fa', 'action' => 'indexadm')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Fiches des FA"><div class="menuFa"></div>FA</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'fa', 'action' => 'indexgestion')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Gestion des FA"><div class="menuFa"></div>Gérer les FA</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'fa', 'action' => 'indexindispo')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Indisponibilités des FA"><div class="menuFa"></div>Indisponibilités des FA</a></li>
-            <li><a href="<?php echo $url = $this->url(array('controller' => 'adoptant', 'action' => 'indexadm')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Fiches des adoptants"><div class="menuAdoptant"></div>Fiches des adoptants</a></li>
+            <li><a href="<?php echo $url = $this->url(array('controller' => 'adoptant', 'action' => 'indexadm')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Fiches des adoptants"><div class="menuAdoptant"></div>Adoptants</a></li>
+            <li><a href="<?php echo $url = $this->url(array('controller' => 'veto', 'action' => 'indexadm')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Fiches des vétérinaires"><div class="menuVeto"></div>Vétérinaires</a></li>
           </ul>
         </li>
         <li id="m4"><a href="#" title="Les chats">&nbsp;</a>
           <ul>
-            <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'indexadm')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Fiches"><div class="menuChat"></div>Fiches</a></li>
+            <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'indexadm')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Fiches"><div class="menuChat"></div>Chats</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'vaccins')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Rappels de vaccins"><div class="menuChat"></div>Rappels de vaccins</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'sterilisations')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Rappels stérilisation"><div class="menuChat"></div>Rappels stérilisations</a></li>
          </ul>

@@ -36,6 +36,12 @@ class FP_Util_Constantes {
 	const CONFIG_ID = 'config';
 
 	/**
+	 * Id correspondant à aucune valeur dans les listes de choix.
+	 * @var int
+	 */
+	const EMPTY_VALUE_ID = -1;
+	
+	/**
 	 * Constantes pour les sexes des chats.
 	 * @var int
 	 */

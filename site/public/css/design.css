@@ -406,6 +406,14 @@ html>body .menu-d ul li a:active {
 	margin-right: auto;
 }
 
+.ficheVeto {
+	background-image: url("image/common/ficheVeto.png");
+	height: 48px;
+	width: 48px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .ficheAjouter {
 	background-image: url("image/common/ficheAjouter.png");
 	height: 16px;
@@ -459,6 +467,14 @@ html>body .menu-d ul li a:active {
 
 .menuAdoptant {
 	background-image: url("image/common/menuAdoptant.png");
+	height: 16px;
+	width: 16px;
+	float: left;
+	margin-right: 2px;
+}
+
+.menuVeto {
+	background-image: url("image/common/menuVeto.png");
 	height: 16px;
 	width: 16px;
 	float: left;

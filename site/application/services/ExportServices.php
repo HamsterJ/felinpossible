@@ -46,11 +46,11 @@ class FP_Service_ExportServices {
 
 		foreach ($data as $ligneData) {
 			$worksheet->write($ligneTmp, $colTmp,$ligneTmp);
-			
+				
 			if ($ligneData && $ligneData instanceof Zend_Db_Table_Row_Abstract) {
 				$ligneData = $ligneData->toArray();
 			}
-			
+				
 			foreach ($ligneData as $key => $value) {
 				if ($ligneTmp == 1) {
 					$worksheet->write(0, $colTmp, utf8_decode(ucfirst($key)), $formatHeader);
@@ -109,18 +109,28 @@ class FP_Service_ExportServices {
 	}
 
 	/**
+	 * Construit le fichier excel pour les vétos.
+	 * @return Spreadsheet_Excel_Writer_Worksheet
+	 */
+	public function buildExcelAllVetos() {
+		$data = FP_Service_VetoServices::getInstance()->getDataForExport();
+		$filename = "veterinaires.xls";
+		return $this->buildExcelFile($data, $filename);
+	}
+
+	/**
 	 * Envoi csv
 	 * @param string $filename
 	 * @return unknown_type
 	 */
 	private function sendCsv($filename) {
-        header("Content-Type: text; charset=ISO-8859-1");
-        header("Content-Disposition: attachment; filename=\"$filename\"");
-        header("Expires: 0");
-        header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
-        header("Pragma: public");
+		header("Content-Type: text; charset=ISO-8859-1");
+		header("Content-Disposition: attachment; filename=\"$filename\"");
+		header("Expires: 0");
+		header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+		header("Pragma: public");
 	}
-	
+
 	/**
 	 * Construit le fichier csv contenant les contacts du forum.
 	 * @return string (flux csv)
@@ -128,14 +138,14 @@ class FP_Service_ExportServices {
 	public function buildCsvContactsForum() {
 		$this->sendCsv("contacts".FP_Util_DateUtil::getDateFormattedForExport().".csv");
 		$userMapper = FP_Model_Mapper_MapperFactory::getInstance()->userMapper;
-		
+
 		$listeUsers = $userMapper->getListeContacts();
 		foreach ($listeUsers as $user) {
 			$ligne = html_entity_decode($user->getLogin(), ENT_NOQUOTES, 'ISO-8859-1').",";
 			$ligne .= $user->getEmail().",";
 			$ligne .= $user->getGroupName();
 			$ligne .= "\n";
-			
+				
 			echo utf8_decode($ligne);
 		}
 	}

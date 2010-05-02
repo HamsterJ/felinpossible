@@ -40,10 +40,18 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 
 	/**
 	 * Return le mapper des Adoptants
-	 * @return FP_Model_Mapper_FaMapper
+	 * @return FP_Model_Mapper_AdoptantMapper
 	 */
 	protected function getAdoptantMapper() {
 		return FP_Model_Mapper_MapperFactory::getInstance()->adoptantMapper;
+	}
+
+	/**
+	 * Return le mapper des Vetos
+	 * @return FP_Model_Mapper_VetoMapper
+	 */
+	protected function getVetoMapper() {
+		return FP_Model_Mapper_MapperFactory::getInstance()->vetoMapper;
 	}
 
 	/**
@@ -260,13 +268,40 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 	}
 
 	/**
-	 * Génère la fiche de soins pour le chat sélectionné.
+	 * Retourne les données pour la fiche de soins pour le chat sélectionné.
 	 * @param string $idChat
 	 */
-	public function generateFicheSoins($idChat) {
+	public function getDataFicheSoins($idChat) {
 		$beanFa = $this->getFaMapper()->getFaForChat($idChat);
 		$beanChat = $this->getMapper()->find($idChat);
+		$beanFicheSoins = new FP_Model_Bean_FicheSoins();
 
+		$beanFicheSoins->setId($idChat);
+
+		if ($beanFa) {
+			$beanFicheSoins->setNom($beanFa->getPrenom()." ".$beanFa->getNom());
+			$beanFicheSoins->setQualite("Famille d'accueil");
+			$beanFicheSoins->setAdresse($beanFa->getAdresse());
+			$beanFicheSoins->setVille($beanFa->getVille());
+			$beanFicheSoins->setCodePostal($beanFa->getCodePostal());
+			$beanFicheSoins->setTelephoneFixe($beanFa->getTelephoneFixe());
+			$beanFicheSoins->setTelephonePortable($beanFa->getTelephonePortable());
+		}
+		if ($beanChat) {
+			$beanFicheSoins->setNomChat($beanChat->getNom());
+			$beanFicheSoins->setCouleur($beanChat->getLibelleCouleur());
+			$beanFicheSoins->setIdentification($beanChat->getTatouage());
+			$beanFicheSoins->setDateNaissance(FP_Util_DateUtil::getDateFormatted($beanChat->getDateNaissance()));
+			$beanFicheSoins->setSexe($beanChat->getLibelleSexe());
+		}
+		return $beanFicheSoins->toArray();
+	}
+
+	/**
+	 * Génère la fiche de soins pour le chat sélectionné.
+	 * @param FP_Form_chat_FicheSoinsForm $ficheSoinForm
+	 */
+	public function generateFicheSoins($ficheSoinForm) {
 		$nomDocument = "ficheSoins";
 
 		$config = Zend_Registry::get(FP_Util_Constantes::CONFIG_ID);
@@ -276,27 +311,51 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 		if ($phpLiveDocx) {
 			$phpLiveDocx->setLocalTemplate(FP_Util_Constantes::DOCUMENT_FICHE_SOINS_PATH);
 
-			if ($beanFa) {
-				$phpLiveDocx->assign('nom', $beanFa->getPrenom()." ".$beanFa->getNom());
-				$phpLiveDocx->assign('qualite', "Famille d'accueil");
-				$phpLiveDocx->assign('adresse', $beanFa->getAdresse());
-				$phpLiveDocx->assign('ville', $beanFa->getVille());
-				$phpLiveDocx->assign('code_postal', $beanFa->getCodePostal());
-				$phpLiveDocx->assign('tel_fixe', $beanFa->getTelephoneFixe());
-				$phpLiveDocx->assign('tel_mobile', $beanFa->getTelephonePortable());
-			}
-			if ($beanChat) {
-				$phpLiveDocx->assign('nom_chat', $beanChat->getNom());
-				$phpLiveDocx->assign('couleur_chat', $beanChat->getLibelleCouleur());
-				$phpLiveDocx->assign('identification_chat', $beanChat->getTatouage());
-				$phpLiveDocx->assign('naissance_chat', FP_Util_DateUtil::getDateFormatted($beanChat->getDateNaissance()));
-				$phpLiveDocx->assign('sexe_chat', $beanChat->getLibelleSexe());
+			if ($ficheSoinForm) {
+				$nomDocument .= "_".$ficheSoinForm->nomChat->getValue();
+				$beanVeto = $this->getVetoMapper()->find($ficheSoinForm->idVeto->getValue());
 
-				$nomDocument .= "_".$beanChat->getNom();
-			}
+				if ($beanVeto) {
+					$phpLiveDocx->assign('raison_veto', $beanVeto->getRaison());
+					$phpLiveDocx->assign('adresse_veto', $beanVeto->getAdresse());
+					$phpLiveDocx->assign('code_postal_veto', $beanVeto->getCodePostal());
+					$phpLiveDocx->assign('ville_veto', $beanVeto->getVille());
+					$phpLiveDocx->assign('telephone_veto', $beanVeto->getTelephoneFixe());
+				}
 
-			$phpLiveDocx->createDocument();
-			$document = $phpLiveDocx->retrieveDocument('pdf');
+				$phpLiveDocx->assign('nom', $ficheSoinForm->nom->getValue());
+				$phpLiveDocx->assign('qualite', $ficheSoinForm->qualite->getValue());
+				$phpLiveDocx->assign('adresse', $ficheSoinForm->adresse->getValue());
+				$phpLiveDocx->assign('ville', $ficheSoinForm->ville->getValue());
+				$phpLiveDocx->assign('code_postal', $ficheSoinForm->codePostal->getValue());
+				$phpLiveDocx->assign('tel_fixe', $ficheSoinForm->telephoneFixe->getValue());
+				$phpLiveDocx->assign('tel_mobile', $ficheSoinForm->telephonePortable->getValue());
+				$phpLiveDocx->assign('nom_chat', $ficheSoinForm->nomChat->getValue());
+				$phpLiveDocx->assign('couleur_chat', $ficheSoinForm->couleur->getValue());
+				$phpLiveDocx->assign('identification_chat', $ficheSoinForm->identification->getValue());
+				$phpLiveDocx->assign('naissance_chat', $ficheSoinForm->dateNaissance->getValue());
+				$phpLiveDocx->assign('sexe_chat', $ficheSoinForm->sexe->getValue());
+
+				if ($ficheSoinForm->soinPuce->checked) {
+					$phpLiveDocx->assign('soin_puce', 'Identification (puce)');
+				}
+				if ($ficheSoinForm->soinTatouage->checked) {
+					$phpLiveDocx->assign('soin_tatouage', 'Identification (tatouage)');
+				}
+				if ($ficheSoinForm->soinVaccins->checked) {
+					$phpLiveDocx->assign('soin_vaccins', 'Vaccins TCL');
+				}
+				if ($ficheSoinForm->soinTests->checked) {
+					$phpLiveDocx->assign('soin_tests', 'Tests FIV/FELV');
+				}
+				if ($ficheSoinForm->soinSterilisation->checked) {
+					$phpLiveDocx->assign('soin_sterilisation', 'Ovariectomie / Hystérectomie / Castration');
+				}
+				if ($ficheSoinForm->soinAutre->getValue()) {
+					$phpLiveDocx->assign('soin_autre', $ficheSoinForm->soinAutre->getValue());
+				}
+
+			}
 
 			header("Content-type: pdf");
 			header("Content-Disposition: attachment; filename=\"".$nomDocument.".pdf\"");
@@ -304,6 +363,8 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 			header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
 			header("Pragma: public");
 
+			$phpLiveDocx->createDocument();
+			$document = $phpLiveDocx->retrieveDocument('pdf');
 			echo $document;
 		}
 			

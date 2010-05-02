@@ -487,6 +487,20 @@ function filterAdoptant(gridName) {
 }
 
 /**
+ * Filtre pour les Vétos.
+ */
+function filterVeto(gridName) {
+  var obj = new Object();
+  obj['raison'] = dijit.byId('filterVetoRaison').getValue();
+  obj['cp'] = dijit.byId('filterVetoCp').getValue();
+  obj['ville'] = dijit.byId('filterVetoVille').getValue();
+  
+  var grid = dijit.byId(gridName);
+  grid.filter(obj);
+  grid.showMessage(grid.loadingMessage);
+}
+
+/**
  * Filtre pour les chats.
  */
 function filterChat(gridName) {
