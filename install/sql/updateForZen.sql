@@ -125,3 +125,17 @@ ALTER TABLE fp_cat_fiche ADD (
 )
 
 ALTER TABLE fp_fa_fiche ADD (dateContratFa date NULL);
+
+-- Fiches vétérinaires
+CREATE TABLE fp_veto_fiche(
+id int NOT NULL auto_increment,
+raison text,
+adresse text,
+cp text,
+ville text,
+fixe text,
+portable text,
+email text,
+PRIMARY KEY ( id ) 
+) ENGINE InnoDB;
+

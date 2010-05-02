@@ -50,8 +50,10 @@ class FP_Model_Mapper_UserMapper extends FP_Model_Mapper_CommonMapper {
 		$select = $this->getDbTable()->select()
 		->setIntegrityCheck(false)
 		->from(array('users' => 'phpbb_users'))
-		->join(array('groups' => 'phpbb_groups'), 'users.group_id = groups.group_id')
-		->where('groups.group_id != ?  and groups.group_id != ?', 6, 1)
+		->joinLeft(array('groups' => 'phpbb_groups'), 'users.group_id = groups.group_id')
+		->joinRight(array('fa' => 'fp_fa_fiche'), 'users.user_email = fa.email', array('username' => 'concat(fa.nom, " ", fa.prenom)', 'user_email' => 'fa.email'))
+		->where('users.user_email is not null and fa.email is null and (groups.group_id != ?  and groups.group_id != ?)', 6, 1)
+		->orWhere('fa.email is not null and users.user_email is null')
 		->order('users.username');
 
 		$stmt = $select->query();

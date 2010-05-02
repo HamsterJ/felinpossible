@@ -45,7 +45,7 @@ abstract class FP_Model_Mapper_CommonMapper
 	 * @var array
 	 */
 	protected $filterKeyToDbKey = array();
-	
+
 	/**
 	 * Return the DbTable class name.
 	 * @return string
@@ -77,7 +77,7 @@ abstract class FP_Model_Mapper_CommonMapper
 	public function getFilterKeyToDbKey() {
 		return $this->filterKeyToDbKey;
 	}
-	
+
 	/**
 	 * Return the key to exclued for mapping : model fields => db fields
 	 * @return array
@@ -198,14 +198,14 @@ abstract class FP_Model_Mapper_CommonMapper
 		if ($sort) {
 			$sortKey =  $sort;
 			if ($order) {
-			  $sortKey .= " $order";
-			} 
+				$sortKey .= " $order";
+			}
 		}
 
 		return $this->getDbTable()->fetchAll($where, $sortKey, $count, $start);
 	}
 
-	
+
 	/**
 	 * Retourne les données à export pour l'export Excel.
 	 * @param string $where
@@ -214,7 +214,7 @@ abstract class FP_Model_Mapper_CommonMapper
 	public function fetchAllToArrayForExport ($where) {
 		return $this->fetchAllToArray(null, null, null, null, $where);
 	}
-	
+
 	/**
 	 * Retourne la clause where à partir de son id.
 	 * @param int $clauseId
@@ -386,17 +386,27 @@ abstract class FP_Model_Mapper_CommonMapper
 	 * Contruit le tableau (id => valeur) pour l'affichage dans le formulaire.
 	 * @param string $idColumnName
 	 * @param string $valueColumnName
+	 * @param boolean $otherColumn
+	 * @param string $emptyValue
 	 * @return array
 	 */
-	public function buildArrayForForm($idColumnName = 'id', $valueColumnName = 'name') {
+	public function buildArrayForForm($idColumnName = 'id', $valueColumnName = 'name', $otherColumn = null, $emptyValue = false) {
 		$select = $this->getDbTable()->select();
-		$select->from($this->getDbTable(), array($idColumnName, $valueColumnName));
+		$select->from($this->getDbTable(), array($idColumnName, $valueColumnName, $otherColumn));
 		$select->order($valueColumnName);
 		$stmt = $select->query();
 
 		$result = array();
+		if ($emptyValue) {
+			$result[FP_Util_Constantes::EMPTY_VALUE_ID] = "Aucun";
+		}
+
 		foreach ($stmt->fetchAll() as $row) {
-			$result[$row[$idColumnName]] = $row[$valueColumnName];
+			$valueRow = $row[$valueColumnName];
+			if ($row[$otherColumn]) {
+				$valueRow = $valueRow." - ".$row[$otherColumn];
+			}
+			$result[$row[$idColumnName]] = $valueRow;
 		}
 
 		return $result;

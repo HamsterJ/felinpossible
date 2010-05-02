@@ -2,7 +2,7 @@
 <projectProfile>
   <projectDirectory>
     <projectProfileFile/>
-    <applicationDirectory>
+    <applicationDirectory classNamePrefix="Application_">
       <apisDirectory enabled="false"/>
       <configsDirectory>
         <applicationConfigFile type="ini"/>
@@ -25,6 +25,9 @@
           <actionMethod actionName="index"/>
         </controllerFile>
         <controllerFile controllerName="admin">
+          <actionMethod actionName="index"/>
+        </controllerFile>
+        <controllerFile controllerName="Veto">
           <actionMethod actionName="index"/>
         </controllerFile>
       </controllersDirectory>
@@ -52,6 +55,9 @@
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="admin">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Veto">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
@@ -85,6 +91,7 @@
       <testApplicationDirectory>
         <testApplicationBootstrapFile/>
         <testApplicationControllerDirectory>
+          <testApplicationControllerFile/>
           <testApplicationControllerFile/>
           <testApplicationControllerFile/>
           <testApplicationControllerFile/>
