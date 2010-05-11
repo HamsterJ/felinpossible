@@ -1,4 +1,4 @@
 <?php
-//header("Location: http://localhost/site/public");
-//exit();
+header("Location: /");
+exit();
 ?>
