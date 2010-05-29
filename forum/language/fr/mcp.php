@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* mcp [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: mcp.php 9854 2009-07-25 18:06:25Z naderman $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* mcp [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: mcp.php 10455 2010-01-26 14:06:00Z nickvergessen $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -44,12 +53,12 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'ACTION'				=> 'Action',
 	'ACTION_NOTE'			=> 'Action/note',
-	'ADD_FEEDBACK'			=> 'Ajouter une évaluation',
-	'ADD_FEEDBACK_EXPLAIN'	=> 'Veuillez compléter le formulaire suivant afin d’ajouter une évaluation. N’utilisez que du texte brut, l’HTML, le BBCode, etc. n’est pas autorisé.',
+	'ADD_FEEDBACK'			=> 'Ajouter une remarque',
+	'ADD_FEEDBACK_EXPLAIN'	=> 'Veuillez compléter le formulaire suivant afin d’ajouter une remarque. N’utilisez que du texte brut. L’HTML, le BBCode, etc. ne sont pas autorisés.',
 	'ADD_WARNING'			=> 'Ajouter un avertissement',
 	'ADD_WARNING_EXPLAIN'	=> 'Veuillez compléter le formulaire suivant afin de distribuer un avertissement à cet utilisateur. N’utilisez que du texte brut, l’HTML, le BBCode, etc. n’est pas autorisé.',
 	'ALL_ENTRIES'			=> 'Toutes les entrées',
-	'ALL_NOTES_DELETED'		=> 'Toutes les notes de cet utilisateur ont été supprimées avec succès.',
+	'ALL_NOTES_DELETED'		=> 'Toutes les notes sur cet utilisateur ont été supprimées avec succès.',
 	'ALL_REPORTS'			=> 'Tous les rapports',
 	'ALREADY_REPORTED'		=> 'Ce message a déjà été rapporté.',
 	'ALREADY_REPORTED_PM'	=> 'Ce message privé a déjà été rapporté.',
@@ -101,7 +110,7 @@ $lang = array_merge($lang, array(
 	'EMPTY_REPORT'					=> 'Vous devez saisir une description lorsque vous sélectionnez cette raison.',
 	'EMPTY_TOPICS_REMOVED_WARNING'	=> 'Veuillez noter qu’un ou plusieurs sujets ont été supprimés de la base de données car ils étaient ou devenaient vides.',
 
-	'FEEDBACK'				=> 'Évaluation',
+	'FEEDBACK'				=> 'Remarque',
 	'FORK'					=> 'Copier',
 	'FORK_TOPIC'			=> 'Copier le sujet',
 	'FORK_TOPIC_CONFIRM'	=> 'Êtes-vous sûr de vouloir copier ce sujet ?',
@@ -144,7 +153,7 @@ $lang = array_merge($lang, array(
 	'LOOKUP_ALL'				=> 'Rechercher toutes les IP',
 	'LOOKUP_IP'					=> 'Rechercher une IP',
 
-	'MARKED_NOTES_DELETED'		=> 'Toutes les notes de l’utilisateur que vous avez sélectionné ont été supprimées avec succès.',
+	'MARKED_NOTES_DELETED'		=> 'Toutes les notes que vous avez sélectionné sur l’utilisateur ont été supprimées avec succès.',
 
 	'MCP_ADD'						=> 'Ajouter un avertissement',
 
@@ -180,7 +189,7 @@ $lang = array_merge($lang, array(
 	'MCP_MAKE_NORMALS'				=> 'Modifier en “Sujets standards”',
 	'MCP_MAKE_NORMALS_CONFIRM'		=> 'Êtes-vous sûr de vouloir modifier les sujets sélectionnés en “Sujets standards” ?',
 
-	'MCP_NOTES'						=> 'Notes de l’utilisateur',
+	'MCP_NOTES'						=> 'Notes sur l’utilisateur',
 	'MCP_NOTES_FRONT'				=> 'Page principale',
 	'MCP_NOTES_USER'				=> 'Informations sur l’utilisateur',
 
@@ -217,7 +226,7 @@ $lang = array_merge($lang, array(
 
 	'MERGE_POSTS'			=> 'Fusionner les messages',
 	'MERGE_POSTS_CONFIRM'	=> 'Êtes-vous sûr de vouloir fusionner les messages sélectionnés ?',
-	'MERGE_TOPIC_EXPLAIN'	=> 'En utilisant le formulaire ci-dessous, vous pouvez fusionner les messages que vous avez sélectionnés dans un autre sujet. Ces messages ne seront pas réordonnés et apparaîtront comme si les utilisateurs les avaient publiés dans le nouveau sujet.<br />Veuillez saisir le numéro d’identification du sujet de destination ou cliquer sur <em>Sélectionner le sujet</em> afin d’en rechercher un.',
+	'MERGE_TOPIC_EXPLAIN'	=> 'En utilisant le formulaire ci-dessous, vous pouvez fusionner les messages que vous avez sélectionné dans un autre sujet. Ces messages ne seront pas réordonnés et apparaîtront comme si les utilisateurs les avaient publiés dans le nouveau sujet.<br />Veuillez saisir le numéro d’identification du sujet de destination ou cliquer sur <em>Sélectionner le sujet</em> afin d’en rechercher un.',
 	'MERGE_TOPIC_ID'		=> 'Numéro d’identification du sujet de destination',
 	'MERGE_TOPICS'			=> 'Fusionner les sujets',
 	'MERGE_TOPICS_CONFIRM'	=> 'Êtes-vous sûr de vouloir fusionner les sujets sélectionnés ?',
@@ -238,7 +247,7 @@ $lang = array_merge($lang, array(
 	'NO_DESTINATION_FORUM'			=> 'Veuillez sélectionner un forum de destination.',
 	'NO_DESTINATION_FORUM_FOUND'	=> 'Aucun forum de destination n’est disponible.',
 	'NO_ENTRIES'					=> 'Aucun historique n’existe sur cette période.',
-	'NO_FEEDBACK'					=> 'Aucune évaluation n’existe pour cet utilisateur.',
+	'NO_FEEDBACK'					=> 'Aucune remarque n’existe sur cet utilisateur.',
 	'NO_FINAL_TOPIC_SELECTED'		=> 'Vous devez sélectionner un sujet de destination afin de fusionner les messages.',
 	'NO_MATCHES_FOUND'				=> 'Aucun résultat n’a été trouvé.',
 	'NO_POST'						=> 'Vous devez sélectionner un message avant d’avertir un utilisateur concernant un de ses messages.',
@@ -259,6 +268,8 @@ $lang = array_merge($lang, array(
 	'PM_REPORT_DELETED_SUCCESS'	=> 'Le rapport de MP sélectionné a été supprimé avec succès.',
 	'PM_REPORTED_SUCCESS'		=> 'Ce message privé a été rapporté avec succès.',
 	'PM_REPORT_TOTAL'			=> 'Au total, il y a <strong>1</strong> rapport de MP à traiter.',
+	'PM_REPORTS_CLOSED_SUCCESS'	=> 'Les rapports de MP sélectionnés ont été fermés avec succès.',
+	'PM_REPORTS_DELETED_SUCCESS'=> 'Les rapport de MP sélectionnés ont été supprimés avec succès.',
 	'PM_REPORTS_TOTAL'			=> 'Au total, il y a <strong>%d</strong> rapports de MP à traiter.',
 	'PM_REPORTS_ZERO_TOTAL'		=> 'Il n’y a aucun rapport de MP à traiter.',
 	'PM_REPORT_DETAILS'			=> 'Informations sur le rapport de message privé',
@@ -279,7 +290,7 @@ $lang = array_merge($lang, array(
 	'POST_REPORTED_SUCCESS'		=> 'Ce message a été rapporté avec succès.',
 	'POST_UNLOCKED_SUCCESS'		=> 'Le message a été déverrouillé avec succès.',
 
-	'READ_USERNOTES'			=> 'Notes de l’utilisateur',
+	'READ_USERNOTES'			=> 'Notes sur l’utilisateur',
 	'READ_WARNINGS'				=> 'Avertissements de l’utilisateur',
 	'REPORTER'					=> 'Auteur du rapport',
 	'REPORTED'					=> 'Rapporté',
@@ -312,9 +323,9 @@ $lang = array_merge($lang, array(
 	'RETURN_TOPIC_SIMPLE'		=> '%sRetour au sujet%s',
 
 	'SEARCH_POSTS_BY_USER'				=> 'Rechercher les messages de',
-	'SELECT_ACTION'						=> 'Sélectionner une action désirée',
+	'SELECT_ACTION'						=> 'Sélectionner une action souhaitée',
 	'SELECT_FORUM_GLOBAL_ANNOUNCEMENT'	=> 'Veuillez sélectionner le forum dans lequel vous souhaitez afficher cette annonce globale.',
-	'SELECT_FORUM_GLOBAL_ANNOUNCEMENTS'	=> 'Un ou plusieurs sujets que vous avez sélectionnés sont des annonces globales. Veuillez sélectionner le forum dans lequel vous souhaitez qu’elles soient affichées.',
+	'SELECT_FORUM_GLOBAL_ANNOUNCEMENTS'	=> 'Un ou plusieurs sujets que vous avez sélectionné sont des annonces globales. Veuillez sélectionner le forum dans lequel vous souhaitez qu’elles soient affichées.',
 	'SELECT_MERGE'						=> 'Sélectionner pour la fusion',
 	'SELECT_TOPICS_FROM'				=> 'Sélectionner les sujets de',
 	'SELECT_TOPIC'						=> 'Sélectionner un sujet',
@@ -333,6 +344,7 @@ $lang = array_merge($lang, array(
 	'SPLIT_TOPIC_BEYOND_CONFIRM'		=> 'Êtes-vous sûr de vouloir diviser ce sujet à partir du message sélectionné ?',
 	'SPLIT_TOPIC_EXPLAIN'				=> 'En utilisant le formulaire ci-dessous, vous pouvez diviser un sujet en deux. Pour ce faire, sélectionnez individuellement les sujets ou divisez le sujet à partir d’un message sélectionné.',
 
+	'THIS_PM_IP'				=> 'IP de ce message privé',
 	'THIS_POST_IP'				=> 'IP de ce message.',
 	'TOPICS_APPROVED_SUCCESS'	=> 'Les sujets sélectionnés ont été approuvés avec succès.',
 	'TOPICS_DELETED_SUCCESS'	=> 'Les sujets sélectionnés ont été supprimés de la base de données avec succès.',
@@ -373,7 +385,7 @@ $lang = array_merge($lang, array(
 	'UNLOCK_TOPICS_CONFIRM'			=> 'Êtes-vous sûr de vouloir déverrouiller tous les sujets sélectionnés ?',
 	'USER_CANNOT_POST'				=> 'Vous ne pouvez pas publier de messages dans ce forum.',
 	'USER_CANNOT_REPORT'			=> 'Vous ne pouvez pas rapporter les messages de ce forum.',
-	'USER_FEEDBACK_ADDED'			=> 'L’utilisateur a été évalué avec succès.',
+	'USER_FEEDBACK_ADDED'			=> 'La remarque a été ajouté sur l’utilisateur avec succès.',
 	'USER_WARNING_ADDED'			=> 'L’utilisateur a été averti avec succès.',
 
 	'VIEW_DETAILS'			=> 'Voir les informations',

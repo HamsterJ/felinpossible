@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* common [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: common.php 9845 2009-07-24 11:13:32Z acydburn $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* common [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: common.php 10481 2010-02-07 00:50:21Z bantu $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -46,7 +55,7 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'TRANSLATION_INFO'	=> 'Traduction réalisée par <a href="http://twitter.com/maelsoucaze">Maël Soucaze</a> &copy; 2010 <a href="http://www.phpbb.fr/">phpBB.fr</a>',	// You can delete this line to remove the visible copyright of the translation, but the copyright localised in the files MUST BE preserved, according the General Public License!
+	'TRANSLATION_INFO'	=> 'Traduction réalisée par <a href="http://twitter.com/maelsoucaze">Maël Soucaze</a> &copy; 2010 <a href="http://www.phpbb.fr/">phpBB.fr</a>',
 	'DIRECTION'			=> 'ltr',
 	'DATE_FORMAT'		=> '|d F Y|',	// 01 January 2007 (with Relative days enabled)
 	'USER_LANG'			=> 'fr',
@@ -65,7 +74,7 @@ $lang = array_merge($lang, array(
 	'ACP'							=> 'Panneau de contrôle de l’administrateur',
 	'ACP_CALENDAR'				=> 'Calendar',
 	'ACTIVE'						=> 'actif',
-	'ACTIVE_ERROR'					=> 'Le nom d’utilisateur que vous avez spécifié est actuellement inactif. Veuillez contacter un administrateur du forum si vous continuez à rencontrer des problèmes lors de l’activation de votre compte.',
+	'ACTIVE_ERROR'					=> 'Le nom d’utilisateur que vous avez spécifié est actuellement inactif. Si vous continuez à rencontrer des problèmes lors de l’activation de votre compte, contactez un administrateur du forum.',
   'ACP_CALENDAR_SETTINGS'				=> 'Paramètre du calendrier',
   'ACP_CALENDAR_DELETE_EVENT_TYPE'	=> 'Suppression d’un type d’événement',
   'ACP_CALENDAR_ETYPES'				=> 'Gestion des types d’événements',
@@ -80,14 +89,14 @@ $lang = array_merge($lang, array(
 	'ALL_POSTS'						=> 'Tous les messages',
 	'ALL_TIMES'						=> 'Heures au format %1$s %2$s',
 	'ALL_TOPICS'					=> 'Tous les sujets',
-	'AND'							=> 'Et',
-	'ARE_WATCHING_FORUM'			=> 'Vous êtes à présent abonné à ce forum afin d’être averti des nouveaux messages publiés dans celui-ci.',
-	'ARE_WATCHING_TOPIC'			=> 'Vous êtes à présent abonné à ce sujet afin d’être averti des nouveaux messages publiés dans celui-ci.',
+	'AND'							=> 'et',
+	'ARE_WATCHING_FORUM'			=> 'Vous êtes à présent abonné à ce forum. Vous serez averti de tous les nouveaux messages publiés dans celui-ci.',
+	'ARE_WATCHING_TOPIC'			=> 'Vous êtes à présent abonné à ce sujet. Vous serez averti de tous les nouveaux messages publiés dans celui-ci.',
 	'ASCENDING'						=> 'Croissant',
 	'ATTACHMENTS'					=> 'Pièces jointes',
 	'ATTACHED_IMAGE_NOT_IMAGE'		=> 'L’image que vous avez essayé d’insérer est incorrecte.',
 	'AUTHOR'						=> 'Auteur',
-	'AUTH_NO_PROFILE_CREATED'		=> 'La création d’un profil utilisateur a échouée.',
+	'AUTH_NO_PROFILE_CREATED'		=> 'La création d’un profil utilisateur a échoué.',
 	'AVATAR_DISALLOWED_CONTENT'		=> 'Le transfert a été rejeté car le fichier transféré a été identifié comme un vecteur d’attaque possible.',
 	'AVATAR_DISALLOWED_EXTENSION'	=> 'Ce fichier ne peut pas être affiché car l’extension <strong>%s</strong> n’est pas autorisée.',
 	'AVATAR_EMPTY_REMOTE_DATA'		=> 'L’avatar que vous avez spécifié n’a pas pu être transféré car les données distantes semblent corrompues ou incorrectes.',
@@ -95,13 +104,13 @@ $lang = array_merge($lang, array(
 	'AVATAR_INVALID_FILENAME'		=> 'Le nom du fichier <strong>%s</strong> est incorrect.',
 	'AVATAR_NOT_UPLOADED'			=> 'Le transfert de l’avatar a échoué.',
 	'AVATAR_NO_SIZE'				=> 'La largeur ou la hauteur de l’avatar lié n’a pas pu être déterminée. Veuillez les saisir manuellement.',
-	'AVATAR_PARTIAL_UPLOAD'			=> 'Le fichier que vous avez spécifié n’a été que partiellement transféré.',
+	'AVATAR_PARTIAL_UPLOAD'			=> 'Le fichier que vous avez spécifié n’a été transféré que partiellement.',
 	'AVATAR_PHP_SIZE_NA'			=> 'La taille de l’avatar est trop importante.<br />La taille maximale autorisée par PHP, située dans le fichier <var>php.ini</var>, n’a pas pu être déterminée.',
-	'AVATAR_PHP_SIZE_OVERRUN'		=> 'La taille de l’avatar est trop importante, la taille maximale autorisée est de %1$d %2$s.<br />Veuillez noter que ce réglage est situé dans le fichier <var>php.ini</var> et ne peut pas être écrasé.',
+	'AVATAR_PHP_SIZE_OVERRUN'		=> 'La taille de l’avatar est trop importante. La taille maximale autorisée est de %1$d %2$s.<br />Veuillez noter que ce réglage est situé dans le fichier <var>php.ini</var> et qu’il ne peut pas être écrasé.',
 	'AVATAR_URL_INVALID'			=> 'Le lien que vous avez spécifié est incorrect.',
 	'AVATAR_URL_NOT_FOUND'			=> 'Le fichier que vous avez spécifié est introuvable.',
 	'AVATAR_WRONG_FILESIZE'			=> 'La taille de l’avatar doit être comprise entre 0 et %1d %2s.',
-	'AVATAR_WRONG_SIZE'				=> 'La taille de l’avatar que vous avez envoyé est de %5$d pixels de large et %6$d pixels de haut. Cependant, la taille des avatars doit être comprise entre %1$d pixels de large et %2$d pixels de haut mais ne doit pas dépasser %3$d pixels de large et %4$d pixels de haut.',
+	'AVATAR_WRONG_SIZE'				=> 'La taille de l’avatar que vous avez envoyé est de %5$d pixels de large et de %6$d pixels de haut. Cependant, la taille des avatars doit être comprise entre %1$d pixels de large et %2$d pixels de haut mais ne doit pas dépasser %3$d pixels de large et %4$d pixels de haut.',
 
 	'BACK_TO_TOP'			=> 'Haut',
 	'BACK_TO_PREV'			=> 'Retour à la page précédente',
@@ -114,13 +123,13 @@ $lang = array_merge($lang, array(
 	'BOARD_BAN_PERM'		=> 'Vous avez été banni <strong>définitivement</strong> de ce forum.<br /><br />Pour plus d’informations, veuillez contacter l’%2$sadministrateur du forum%3$s.',
 	'BOARD_BAN_REASON'		=> 'Raison du bannissement : <strong>%s</strong>',
 	'BOARD_BAN_TIME'		=> 'Vous avez été banni de ce forum jusqu’au <strong>%1$s</strong>.<br /><br />Pour plus d’informations, veuillez contacter l’%2$sadministrateur du forum%3$s.',
-	'BOARD_DISABLE'			=> 'Désolé mais ce forum est actuellement indisponible.',
+	'BOARD_DISABLE'			=> 'Désolé, mais ce forum est actuellement indisponible.',
 	'BOARD_DISABLED'		=> 'Ce forum est actuellement désactivé.',
-	'BOARD_UNAVAILABLE'		=> 'Désolé mais ce forum est actuellement indisponible, veuillez réessayer dans quelques minutes.',
+	'BOARD_UNAVAILABLE'		=> 'Désolé, mais ce forum est actuellement indisponible, veuillez réessayer dans quelques minutes.',
 	'BROWSING_FORUM'		=> 'Utilisateur(s) parcourant actuellement ce forum : %1$s',
 	'BROWSING_FORUM_GUEST'	=> 'Utilisateur(s) parcourant actuellement ce forum : %1$s et %2$d invité',
 	'BROWSING_FORUM_GUESTS'	=> 'Utilisateur(s) parcourant actuellement ce forum : %1$s et %2$d invité(s)',
-	'BYTES'					=> 'Octets',
+	'BYTES'					=> 'octets',
 
   'CALENDAR'				=> 'Agenda',
 	'CANCEL'				=> 'Annuler',
@@ -135,12 +144,12 @@ $lang = array_merge($lang, array(
 	'COMMA_SEPARATOR'		=> ', ',	// Used in pagination of ACP & prosilver, use localised comma if appropriate, eg: Ideographic or Arabic
 	'CONFIRM'				=> 'Confirmer',
 	'CONFIRM_CODE'			=> 'Code de confirmation',
-	'CONFIRM_CODE_EXPLAIN'	=> 'Entrez le code exactement comme il apparaît dans l’image. Veuillez noter qu’il n’est pas sensible à la casse et qu’il ne peut pas y avoir de zéro.',
-	'CONFIRM_CODE_WRONG'	=> 'Le code de confirmation que vous avez saisi est incorrect.',
+	'CONFIRM_CODE_EXPLAIN'	=> 'Saisissez le code tel qu’il apparaît dans l’image. Veuillez noter que toutes les lettres sont insensibles à la casse.',
+	'CONFIRM_CODE_WRONG'	=> 'Le code de confirmation que vous avez spécifié est incorrect.',
 	'CONFIRM_OPERATION'		=> 'Êtes-vous sûr de vouloir effectuer cette opération ?',
 	'CONGRATULATIONS'		=> 'Félicitations à',
-	'CONNECTION_FAILED'		=> 'La connexion a échouée.',
-	'CONNECTION_SUCCESS'	=> 'Connecté avec succès !',
+	'CONNECTION_FAILED'		=> 'La connexion a échoué.',
+	'CONNECTION_SUCCESS'	=> 'Vous vous êtes connecté avec succès !',
 	'COOKIES_DELETED'		=> 'Tous les cookies du forum ont été supprimés avec succès.',
 	'CURRENT_TIME'			=> 'Nous sommes actuellement le %s',
 
@@ -163,17 +172,17 @@ $lang = array_merge($lang, array(
 	'DOWNLOADING_FILE'		=> 'Téléchargement du fichier',
 	'DOWNLOAD_COUNT'		=> 'Téléchargé %d fois',
 	'DOWNLOAD_COUNTS'		=> 'Téléchargé %d fois',
-	'DOWNLOAD_COUNT_NONE'	=> 'Jamais téléchargé',
+	'DOWNLOAD_COUNT_NONE'	=> 'Aucun téléchargement',
 	'VIEWED_COUNT'			=> 'Consulté %d fois',
 	'VIEWED_COUNTS'			=> 'Consulté %d fois',
-	'VIEWED_COUNT_NONE'		=> 'Jamais consulté',
+	'VIEWED_COUNT_NONE'		=> 'Aucune consultation',
 
 	'EDIT_POST'							=> 'Éditer le message',
 	'EMAIL'								=> 'E-mail', // Short form for EMAIL_ADDRESS
 	'EMAIL_ADDRESS'						=> 'Adresse e-mail',
 	'EMAIL_SMTP_ERROR_RESPONSE'			=> 'Une erreur est survenue lors de l’envoi de l’e-mail à la <strong>ligne %1$s</strong>. Réponse : %2$s.',
-	'EMPTY_SUBJECT'						=> 'Vous devez spécifier un titre lors de la rédaction d’un nouveau sujet.',
-	'EMPTY_MESSAGE_SUBJECT'				=> 'Vous devez spécifier un titre lors de la rédaction d’un nouveau message.',
+	'EMPTY_SUBJECT'						=> 'Vous devez spécifier le titre du sujet.',
+	'EMPTY_MESSAGE_SUBJECT'				=> 'Vous devez spécifier le titre du message.',
 	'ENABLED'							=> 'Activé',
 	'ENCLOSURE'							=> 'Pièce jointe',
 	'ERR_CHANGING_DIRECTORY'			=> 'Une erreur est survenue lors de la modification du répertoire.',
@@ -181,15 +190,15 @@ $lang = array_merge($lang, array(
 	'ERR_JAB_AUTH'						=> 'Une erreur est survenue lors de l’authentification au serveur Jabber.',
 	'ERR_JAB_CONNECT'					=> 'Une erreur est survenue lors de la connexion au serveur Jabber.',
 	'ERR_UNABLE_TO_LOGIN'				=> 'Le nom d’utilisateur ou le mot de passe que vous avez spécifié est incorrect.',
-	'ERR_UNWATCHING'               => 'Une erreur est survenue lors du désabonnement.',
-  'ERR_WATCHING'                  => 'Une erreur est survenue lors de l’abonnement.',
+	'ERR_UNWATCHING'					=> 'Une erreur est survenue lors du désabonnement.',
+	'ERR_WATCHING'						=> 'Une erreur est survenue lors de l’abonnement.',
 	'ERR_WRONG_PATH_TO_PHPBB'			=> 'Le chemin vers phpBB que vous avez spécifié semble incorrect.',
 	'EXPAND_VIEW'						=> 'Agrandir',
 	'EXTENSION'							=> 'Extension',
 	'EXTENSION_DISABLED_AFTER_POSTING'	=> 'L’extension <strong>%s</strong> a été désactivée et ne peut plus être affichée.',
 
 	'FAQ'					=> 'FAQ',
-	'FAQ_EXPLAIN'			=> 'Foire Aux Questions',
+	'FAQ_EXPLAIN'			=> 'Foire aux questions',
 	'FILENAME'				=> 'Nom du fichier',
 	'FILESIZE'				=> 'Taille du fichier',
 	'FILEDATE'				=> 'Date du fichier',
@@ -246,8 +255,8 @@ $lang = array_merge($lang, array(
 	'GROUP'						=> 'Groupe',
 	'GROUPS'					=> 'Groupes',
 	'GROUP_ERR_TYPE'			=> 'Le type de groupe que vous avez spécifié est incorrect.',
-	'GROUP_ERR_USERNAME'		=> 'Aucun nom de groupe n’a été spécifié.',
-	'GROUP_ERR_USER_LONG'		=> 'Les noms des groupes ne doivent pas dépasser 60 caractères. Le nom du groupe que vous avez spécifié est trop long.',
+	'GROUP_ERR_USERNAME'		=> 'Vous devez spécifier le nom du groupe.',
+	'GROUP_ERR_USER_LONG'		=> 'Le nom du groupe que vous avez spécifié est trop long. Les noms des groupes ne doivent pas dépasser 60 caractères.',
 	'GUEST'						=> 'Invité',
 	'GUEST_USERS_ONLINE'		=> 'Il y a %d invités en ligne',
 	'GUEST_USERS_TOTAL'			=> '%d invités',
@@ -281,8 +290,8 @@ $lang = array_merge($lang, array(
 	'ICQ_STATUS'				=> 'Statut ICQ',	
 	'IF'						=> 'Si',
 	'IMAGE'						=> 'Image',
-	'IMAGE_FILETYPE_INVALID'	=> 'Les images de type %d pour le standard MIME %s ne sont pas supportées.',
-	'IMAGE_FILETYPE_MISMATCH'	=> 'Le type de l’image ne correspond pas : l’extension %1$s était attendue mais l’extension %2$s a été fournie.',
+	'IMAGE_FILETYPE_INVALID'	=> 'Les images de type %d concernant le standard MIME %s ne sont pas supportées.',
+	'IMAGE_FILETYPE_MISMATCH'	=> 'Le type de l’image ne correspond pas. L’extension %1$s était attendue mais l’extension %2$s a été fournie.',
 	'IN'						=> 'dans',
 	'INDEX'						=> 'Page d’index',
 	'INFORMATION'				=> 'Information',
@@ -290,13 +299,13 @@ $lang = array_merge($lang, array(
 	'INVALID_DIGEST_CHALLENGE'	=> 'Le <var>digest-challenge</var> est incorrect.',
 	'INVALID_EMAIL_LOG'			=> 'L’adresse e-mail <strong>%s</strong> est éventuellement incorrecte ?',
 	'IP'						=> 'IP',
-	'IP_BLACKLISTED'			=> 'Votre adresse IP %1$s a été bloquée car elle est dans la liste noire. Pour plus d’informations, veuillez consulter <a href="%2$s">%2$s</a>.',
+	'IP_BLACKLISTED'			=> 'Votre adresse IP %1$s a été bloquée car elle apparaît dans la liste noire. Pour plus d’informations, veuillez consulter <a href="%2$s">%2$s</a>.',
 
 	'JABBER'				=> 'Jabber',
 	'JOINED'				=> 'Inscrit le',
-	'JUMP_PAGE'				=> 'Entrez le numéro de la page que vous souhaitez atteindre',
-	'JUMP_TO'				=> 'Sauter vers',
-	'JUMP_TO_PAGE'			=> 'Cliquez ici afin de sauter vers la page…',
+	'JUMP_PAGE'				=> 'Saisissez le numéro de la page que vous souhaitez atteindre',
+	'JUMP_TO'				=> 'Aller vers',
+	'JUMP_TO_PAGE'			=> 'Cliquez ici afin d’aller vers la page…',
 
 	'KB'					=> 'Ko',
 	'KIB'					=> 'Kio',
@@ -306,22 +315,22 @@ $lang = array_merge($lang, array(
 	'LAST_VISIT'						=> 'Dernière visite',
 	'LDAP_NO_LDAP_EXTENSION'			=> 'L’extension LDAP est indisponible.',
 	'LDAP_NO_SERVER_CONNECTION'			=> 'Impossible de se connecter au serveur LDAP.',
-	'LEGEND'							=> 'Légende',
+	'LEGEND'							=> 'Légende ',
 	'LOCATION'							=> 'Localisation',
 	'LOCK_POST'							=> 'Verrouiller le message',
 	'LOCK_POST_EXPLAIN'					=> 'Empêche toute édition',
 	'LOCK_TOPIC'						=> 'Verrouiller le sujet',
 	'LOGIN'								=> 'Connexion',
-	'LOGIN_CHECK_PM'					=> 'Se connecter afin de vérifier ses messages privés.',
+	'LOGIN_CHECK_PM'					=> 'Se connecter afin de consulter ses messages privés.',
 	'LOGIN_CONFIRMATION'				=> 'Confirmation de connexion',
 	'LOGIN_CONFIRM_EXPLAIN'				=> 'Afin d’empêcher une éventuelle usurpation de compte, vous devez saisir un code de confirmation visuelle après un certain nombre de tentatives de connexions échouées. Le code est affiché dans l’image que vous devriez voir ci-dessous. Si vous êtes visuellement déficient ou que vous éprouvez des difficultés à lire ce code correctement, veuillez contacter l’%sadministrateur du forum%s.',
 	'LOGIN_ERROR_ATTEMPTS'				=> 'Vous avez dépassé le nombre maximum de tentatives de connexions autorisées. En plus de votre nom d’utilisateur et de votre mot de passe, vous devez à présent saisir le code de confirmation visuelle que vous devriez voir ci-dessous.',
 	'LOGIN_ERROR_EXTERNAL_AUTH_APACHE'	=> 'Vous n’avez pas été authentifié par Apache.',
-	'LOGIN_ERROR_PASSWORD'				=> 'Vous avez spécifié un mot de passe incorrect. Veuillez vérifier votre mot de passe et réessayer. Veuillez contacter l’%sadministrateur du forum%s si ce problème persiste.',
-	'LOGIN_ERROR_PASSWORD_CONVERT'		=> 'Il n’a pas été possible de convertir votre mot de passe lors de la mise à jour de ce logiciel de forum. Vous pouvez demander un %snouveau mot de passe%s. Veuillez contacter l’%sadministrateur du forum%s si ce problème persiste.',
-	'LOGIN_ERROR_USERNAME'				=> 'Vous avez spécifié un nom d’utilisateur incorrect. Veuillez vérifier votre nom d’utilisateur et réessayer. Veuillez contacter l’%sadministrateur du forum%s si ce problème persiste.',
-	'LOGIN_FORUM'						=> 'Afin de consulter ou publier des messages dans ce forum, vous devez saisir son mot de passe.',
-	'LOGIN_INFO'						=> 'Avant de pouvoir vous connecter, vous devez être inscrit. L’inscription prend seulement quelques secondes et vous offre de nombreux avantages. Par exemple, l’administrateur du forum peut accorder des permissions supplémentaires aux utilisateurs inscrits. Avant de vous inscrire, assurez-vous d’avoir pris connaissance de nos conditions d’utilisation et de notre politique de confidentialité. Veuillez également vous assurer d’avoir consulté toutes les règles du forum.',
+	'LOGIN_ERROR_PASSWORD'				=> 'Vous avez spécifié un mot de passe incorrect. Veuillez vérifier votre mot de passe, puis réessayer. Si ce problème persiste, contactez l’%sadministrateur du forum%s.',
+	'LOGIN_ERROR_PASSWORD_CONVERT'		=> 'Il n’a pas été possible de convertir votre mot de passe lors de la mise à jour de ce logiciel de forum. Vous pouvez demander un %snouveau mot de passe%s. Si ce problème persiste, contactez l’%sadministrateur du forum%s.',
+	'LOGIN_ERROR_USERNAME'				=> 'Vous avez spécifié un nom d’utilisateur incorrect. Veuillez vérifier votre nom d’utilisateur, puis réessayer. Si ce problème persiste, contactez l’%sadministrateur du forum%s.',
+	'LOGIN_FORUM'						=> 'Vous devez saisir le mot de passe de ce forum afin de consulter ou de publier des messages.',
+	'LOGIN_INFO'						=> 'Vous devez être inscrit afin de pouvoir vous connecter. L’inscription prend seulement quelques secondes et vous offre de nombreux avantages. Par exemple, l’administrateur du forum peut accorder des fonctionnalités supplémentaires aux utilisateurs inscrits. Avant de vous inscrire, assurez-vous d’avoir pris connaissance de nos conditions d’utilisation et de notre politique de confidentialité. Veuillez également vous assurer d’avoir consulté toutes les règles du forum.',
 	'LOGIN_VIEWFORUM'					=> 'Vous devez vous inscrire et vous connecter afin de consulter ce forum.',
 	'LOGIN_EXPLAIN_EDIT'				=> 'Vous devez vous inscrire et vous connecter afin d’éditer les messages de ce forum.',
 	'LOGIN_EXPLAIN_VIEWONLINE'			=> 'Vous devez vous inscrire et vous connecter afin de consulter la liste des utilisateurs en ligne.',
@@ -336,7 +345,7 @@ $lang = array_merge($lang, array(
 	'MIB'					=> 'Mio',
 	'MCP'					=> 'Panneau de contrôle du modérateur',
 	'MEMBERLIST'			=> 'Membres',
-	'MEMBERLIST_EXPLAIN'	=> 'Voir la liste complète des membres',
+	'MEMBERLIST_EXPLAIN'	=> 'Visualiser la liste complète des membres',
 	'MERGE'					=> 'Fusionner',
 	'MERGE_POSTS'			=> 'Fusionner les messages',
 	'MERGE_TOPIC'			=> 'Fusionner le sujet',
@@ -365,8 +374,8 @@ $lang = array_merge($lang, array(
 	'NO'						=> 'Non',
 	'NOT_ALLOWED_MANAGE_GROUP'	=> 'Vous n’êtes pas autorisé à gérer ce groupe.',
 	'NOT_AUTHORISED'			=> 'Vous n’êtes pas autorisé à accéder à cette zone.',
-	'NOT_WATCHING_FORUM'		=> 'Vous n’êtes à présent plus abonné et ne recevrez plus les mises à jour de ce forum.',
-	'NOT_WATCHING_TOPIC'		=> 'Vous n’êtes à présent plus abonné et ne recevrez plus les mises à jour de ce sujet.',
+	'NOT_WATCHING_FORUM'		=> 'Vous n’êtes à présent plus abonné à ce forum. Vous ne recevrez plus d’avertissements associés à ce dernier.',
+	'NOT_WATCHING_TOPIC'		=> 'Vous n’êtes à présent plus abonné à ce sujet. Vous ne recevrez plus d’avertissements associés à ce dernier.',
 	'NOTIFY_ADMIN'				=> 'Veuillez avertir le webmestre ou un administrateur du forum.',
 	'NOTIFY_ADMIN_EMAIL'		=> 'Veuillez avertir le webmestre ou un administrateur du forum : <a href="mailto:%1$s">%1$s</a>',
 	'NO_ACCESS_ATTACHMENT'		=> 'Vous n’êtes pas autorisé à accéder à ce fichier.',
@@ -376,12 +385,12 @@ $lang = array_merge($lang, array(
 	'NO_AUTH_ADMIN_USER_DIFFER'	=> 'Vous n’êtes pas autorisé à vous authentifier de nouveau avec un compte utilisateur différent du vôtre.',
 	'NO_AUTH_OPERATION'			=> 'Vous n’avez pas les permissions appropriées afin d’accomplir cette opération.',
 	'NO_CONNECT_TO_SMTP_HOST'	=> 'Impossible de se connecter à l’hôte SMTP : %1$s : %2$s',
-	'NO_BIRTHDAYS'				=> 'Il n’y a aucun anniversaire aujourd’hui',
+	'NO_BIRTHDAYS'				=> 'Aucun membre ne fête son anniversaire aujourd’hui',
 	'NO_EMAIL_MESSAGE'			=> 'Le contenu du message de cet e-mail est vide.',
-	'NO_EMAIL_RESPONSE_CODE'	=> 'Impossible de récupérer les codes de réponses du serveur e-mail.',
-	'NO_EMAIL_SUBJECT'			=> 'Vous n’avez pas spécifié le sujet de l’e-mail.',
+	'NO_EMAIL_RESPONSE_CODE'	=> 'Impossible de récupérer les codes de réponse du serveur e-mail.',
+	'NO_EMAIL_SUBJECT'			=> 'Vous devez spécifier le sujet de l’e-mail.',
 	'NO_FORUM'					=> 'Le forum que vous souhaitez consulter n’existe pas.',
-	'NO_FORUMS'					=> 'Il n’y a aucun forum.',
+	'NO_FORUMS'					=> 'Aucun forum.',
 	'NO_GROUP'					=> 'Le groupe d’utilisateurs que vous souhaitez consulter n’existe pas.',
 	'NO_GROUP_MEMBERS'			=> 'Ce groupe n’a actuellement aucun membre.',
 	'NO_IPS_DEFINED'			=> 'Aucun nom d’hôte ou adresse IP n’a été défini',
@@ -398,7 +407,7 @@ $lang = array_merge($lang, array(
 	'NO_FEED_ENABLED'			=> 'Les flux ne sont pas disponibles sur ce forum.',
 	'NO_FEED'					=> 'Le flux que vous recherchez n’est pas disponible.',
 	'NO_SUBJECT'				=> 'Aucun sujet n’a été spécifié',								// Used for posts having no subject defined but displayed within management pages.
-	'NO_SUCH_SEARCH_MODULE'		=> 'Le format de stockage de la recherche que vous avez spécifié n’existe pas.',
+	'NO_SUCH_SEARCH_MODULE'		=> 'Le format de stockage que vous avez spécifié concernant la recherche n’existe pas.',
 	'NO_SUPPORTED_AUTH_METHODS'	=> 'Aucune méthode d’authentification n’est supportée.',
 	'NO_TOPIC'					=> 'Le sujet que vous souhaitez consulter n’existe pas.',
 	'NO_TOPIC_FORUM'			=> 'Le sujet ou le forum que vous souhaitez consulter n’existe plus.',
@@ -407,7 +416,7 @@ $lang = array_merge($lang, array(
 	'NO_UNREAD_PM'				=> '<strong>0</strong> message non lu',
 	'NO_UPLOAD_FORM_FOUND'		=> 'Le transfert a commencé mais aucun fichier transféré n’est correct.',
 	'NO_USER'					=> 'L’utilisateur que vous avez spécifié n’existe pas.',
-	'NO_USERS'					=> 'Les utilisateurs que vous avez spécifiés n’existent pas.',
+	'NO_USERS'					=> 'Les utilisateurs que vous avez spécifié n’existent pas.',
 	'NO_USER_SPECIFIED'			=> 'Aucun nom d’utilisateur n’a été spécifié.',
 
 	// Nullar/Singular/Plural language entry. The key numbers define the number range in which a certain grammatical expression is valid.
@@ -428,6 +437,7 @@ $lang = array_merge($lang, array(
 
 	'PAGE_OF'				=> 'Page <strong>%1$d</strong> sur <strong>%2$d</strong>',
 	'PASSWORD'				=> 'Mot de passe',
+	'PIXEL'					=> 'px',
 	'PLAY_QUICKTIME_FILE'	=> 'Lire le fichier Quicktime',
 	'PM'					=> 'MP',
 	'POSTING_MESSAGE'		=> 'Rédige un message dans %s',
@@ -449,7 +459,7 @@ $lang = array_merge($lang, array(
 	'POST_PCT_ACTIVE'		=> '%.2f%% des messages de l’utilisateur',
 	'POST_PCT_ACTIVE_OWN'	=> '%.2f%% de vos messages',
 	'POST_REPLY'			=> 'Publier une réponse',
-	'POST_REPORTED'			=> 'Cliquez ici afin de consulter le rapport',
+	'POST_REPORTED'			=> 'Veuillez cliquer ici afin de consulter le rapport',
 	'POST_SUBJECT'			=> 'Sujet du message',
 	'POST_TIME'				=> 'Date du message',
 	'POST_TOPIC'			=> 'Publier un nouveau sujet',
@@ -503,6 +513,8 @@ $lang = array_merge($lang, array(
 	'RETURN_TO'					=> 'Retour vers',
 	'FEED'						=> 'Flux',
 	'FEED_NEWS'					=> 'Nouveautés',
+	'FEED_TOPICS_ACTIVE'		=> 'Sujets actifs',
+	'FEED_TOPICS_NEW'			=> 'Nouveaux sujets',
 	'RULES_ATTACH_CAN'			=> 'Vous <strong>pouvez</strong> insérer des pièces jointes dans ce forum',
 	'RULES_ATTACH_CANNOT'		=> 'Vous <strong>ne pouvez pas</strong> insérer de pièces jointes dans ce forum',
 	'RULES_DELETE_CAN'			=> 'Vous <strong>pouvez</strong> supprimer vos messages dans ce forum',
@@ -557,7 +569,7 @@ $lang = array_merge($lang, array(
 	'SORT_TOPIC_TITLE'			=> 'Titre du sujet',
 	'SORT_USERNAME'				=> 'Nom d’utilisateur',
 	'SPLIT_TOPIC'				=> 'Diviser le sujet',
-	'SQL_ERROR_OCCURRED'		=> 'Une erreur SQL est survenue lors du chargement de la page. Veuillez contacter l’%sadministrateur du forum%s si ce problème persiste.',
+	'SQL_ERROR_OCCURRED'		=> 'Une erreur SQL est survenue lors du chargement de la page. Si ce problème persiste, contactez l’%sadministrateur du forum%s.',
 	'STATISTICS'				=> 'Statistiques',
 	'START_WATCHING_FORUM'		=> 'S’abonner au forum',
 	'START_WATCHING_TOPIC'		=> 'S’abonner au sujet',
@@ -573,46 +585,46 @@ $lang = array_merge($lang, array(
 	'THE_TEAM'			=> 'L’équipe',
 	'TIME'				=> 'Date',
 
-	'TOO_LONG'                  => 'La valeur que vous avez saisie est trop longue.',
+	'TOO_LONG'						=> 'La valeur que vous avez saisi est trop longue.',
 
 	'TOO_LONG_AIM'					=> 'Le nom d’utilisateur AIM que vous avez spécifié est trop long.',
 	'TOO_LONG_CONFIRM_CODE'			=> 'Le code de confirmation que vous avez spécifié est trop long.',
 	'TOO_LONG_DATEFORMAT'			=> 'Le format de la date que vous avez spécifié est trop long.',
 	'TOO_LONG_ICQ'					=> 'Le numéro ICQ que vous avez spécifié est trop long.',
-	'TOO_LONG_INTERESTS'			=> 'Les centres d’intérêt que vous avez spécifiés sont trop longs.',
+	'TOO_LONG_INTERESTS'			=> 'Les centres d’intérêt que vous avez spécifié sont trop longs.',
 	'TOO_LONG_JABBER'				=> 'Le nom du compte Jabber que vous avez spécifié est trop long.',
-	'TOO_LONG_LOCATION'				=> 'La localisation que vous avez spécifiée est trop longue.',
+	'TOO_LONG_LOCATION'				=> 'La localisation que vous avez spécifié est trop longue.',
 	'TOO_LONG_MSN'					=> 'Le nom d’utilisateur MSNM/WLM que vous avez spécifié est trop long.',
 	'TOO_LONG_NEW_PASSWORD'			=> 'Le mot de passe que vous avez spécifié est trop long.',
 	'TOO_LONG_OCCUPATION'			=> 'L’emploi que vous avez spécifié est trop long.',
 	'TOO_LONG_PASSWORD_CONFIRM'		=> 'Le mot de passe de confirmation que vous avez spécifié est trop long.',
 	'TOO_LONG_USER_PASSWORD'		=> 'Le mot de passe que vous avez spécifié est trop long.',
 	'TOO_LONG_USERNAME'				=> 'Le nom d’utilisateur que vous avez spécifié est trop long.',
-	'TOO_LONG_EMAIL'				=> 'L’adresse e-mail que vous avez spécifiée est trop longue.',
-	'TOO_LONG_EMAIL_CONFIRM'		=> 'L’adresse e-mail de confirmation que vous avez spécifiée est trop longue.',
-	'TOO_LONG_WEBSITE'				=> 'L’adresse du site Internet que vous avez spécifiée est trop longue.',
+	'TOO_LONG_EMAIL'				=> 'L’adresse e-mail que vous avez spécifié est trop longue.',
+	'TOO_LONG_EMAIL_CONFIRM'		=> 'L’adresse e-mail de confirmation que vous avez spécifié est trop longue.',
+	'TOO_LONG_WEBSITE'				=> 'L’adresse du site Internet que vous avez spécifié est trop longue.',
 	'TOO_LONG_YIM'					=> 'Le nom d’utilisateur Yahoo! Messenger que vous avez spécifié est trop long.',
 
-	'TOO_MANY_VOTE_OPTIONS'			=> 'Vous avez voté pour un nombre trop important d’options.',
+	'TOO_MANY_VOTE_OPTIONS'			=> 'Vous avez voté pour un trop grand nombre d’options.',
 
-	'TOO_SHORT'                  => 'La valeur que vous saisie est trop courte.',
+	'TOO_SHORT'						=> 'La valeur que vous avez saisi est trop courte.',
 
 	'TOO_SHORT_AIM'					=> 'Le nom d’utilisateur AIM que vous avez spécifié est trop court.',
 	'TOO_SHORT_CONFIRM_CODE'		=> 'Le code de confirmation que vous avez spécifié est trop court.',
 	'TOO_SHORT_DATEFORMAT'			=> 'Le format de la date que vous avez spécifié est trop court.',
 	'TOO_SHORT_ICQ'					=> 'Le numéro ICQ que vous avez spécifié est trop court.',
-	'TOO_SHORT_INTERESTS'			=> 'Les centres d’intérêt que vous avez spécifiés sont trop courts.',
+	'TOO_SHORT_INTERESTS'			=> 'Les centres d’intérêt que vous avez spécifié sont trop courts.',
 	'TOO_SHORT_JABBER'				=> 'Le nom du compte Jabber que vous avez spécifié est trop court.',
-	'TOO_SHORT_LOCATION'			=> 'La localisation que vous avez spécifiée est trop courte.',
+	'TOO_SHORT_LOCATION'			=> 'La localisation que vous avez spécifié est trop courte.',
 	'TOO_SHORT_MSN'					=> 'Le nom d’utilisateur MSNM/WLM que vous avez spécifié est trop court.',
 	'TOO_SHORT_NEW_PASSWORD'		=> 'Le mot de passe que vous avez spécifié est trop court.',
 	'TOO_SHORT_OCCUPATION'			=> 'L’emploi que vous avez spécifié est trop court.',
 	'TOO_SHORT_PASSWORD_CONFIRM'	=> 'Le mot de passe de confirmation que vous avez spécifié est trop court.',
 	'TOO_SHORT_USER_PASSWORD'		=> 'Le mot de passe que vous avez spécifié est trop court.',
 	'TOO_SHORT_USERNAME'			=> 'Le nom d’utilisateur que vous avez spécifié est trop court.',
-	'TOO_SHORT_EMAIL'				=> 'L’adresse e-mail que vous avez spécifiée est trop courte.',
-	'TOO_SHORT_EMAIL_CONFIRM'		=> 'L’adresse e-mail de confirmation que vous avez spécifiée est trop courte.',
-	'TOO_SHORT_WEBSITE'				=> 'L’adresse du site Internet que vous avez spécifiée est trop courte.',
+	'TOO_SHORT_EMAIL'				=> 'L’adresse e-mail que vous avez spécifié est trop courte.',
+	'TOO_SHORT_EMAIL_CONFIRM'		=> 'L’adresse e-mail de confirmation que vous avez spécifié est trop courte.',
+	'TOO_SHORT_WEBSITE'				=> 'L’adresse du site Internet que vous avez spécifié est trop courte.',
 	'TOO_SHORT_YIM'					=> 'Le nom d’utilisateur Yahoo! Messenger que vous avez spécifié est trop court.',
 
 	'TOPIC'				=> 'Sujet',
@@ -631,7 +643,7 @@ $lang = array_merge($lang, array(
 	'TOTAL_NO_PM'		=> '<strong>0</strong> message privé au total',
 	'TOTAL_PM'			=> '<strong>1</strong> message privé au total',
 	'TOTAL_PMS'			=> '<strong>%d</strong> messages privés au total',
-	'TOTAL_POSTS'		=> 'Total de messages',
+	'TOTAL_POSTS'		=> 'Messages au total',
 	'TOTAL_POSTS_OTHER'	=> '<strong>%d</strong> messages au total',
 	'TOTAL_POSTS_ZERO'	=> '<strong>0</strong> message au total',
 	'TOPIC_REPORTED'	=> 'Ce sujet a été rapporté',
@@ -641,8 +653,8 @@ $lang = array_merge($lang, array(
 	'TOTAL_USERS_ZERO'	=> '<strong>0</strong> membre au total',
 	'TRACKED_PHP_ERROR'	=> 'Erreurs PHP survenues : %s',
 
-	'UNABLE_GET_IMAGE_SIZE'	=> 'Il n’a pas été possible de déterminer les dimensions de l’image.',
-	'UNABLE_TO_DELIVER_FILE'=> 'Il n’a pas été possible de délivrer le fichier.',
+	'UNABLE_GET_IMAGE_SIZE'	=> 'Impossible de déterminer les dimensions de l’image.',
+	'UNABLE_TO_DELIVER_FILE'=> 'Impossible de délivrer le fichier.',
 	'UNKNOWN_BROWSER'		=> 'Navigateur inconnu',
 	'UNMARK_ALL'			=> 'Tout décocher',
 	'UNREAD_MESSAGES'		=> 'Messages non lus',
@@ -658,13 +670,13 @@ $lang = array_merge($lang, array(
 	'USERNAME'				=> 'Nom d’utilisateur',
 	'USERNAMES'				=> 'Noms d’utilisateurs',
 	'USER_AVATAR'			=> 'Avatar de l’utilisateur',
-	'USER_CANNOT_READ'		=> 'Vous ne pouvez consulter aucun message dans ce forum.',
+	'USER_CANNOT_READ'		=> 'Vous n’êtes pas autorisé à consulter les messages de ce forum.',
 	'USER_POST'				=> '%d message',
 	'USER_POSTS'			=> '%d messages',
 	'USERS'					=> 'Utilisateurs',
 	'USE_PERMISSIONS'		=> 'Tester les permissions de l’utilisateur',
 
-  'USER_NEW_PERMISSION_DISALLOWED'	=> 'Désolé mais vous n’êtes pas autorisé à utiliser cette fonctionnalité. Vous devez seulement vous inscrire ici et participer un peu plus activement afin d’utiliser cette fonctionnalité.',
+  'USER_NEW_PERMISSION_DISALLOWED'	=> 'Vous n’êtes pas autorisé à utiliser cette fonctionnalité. Pour ce faire, vous devez simplement vous inscrire ici et participer un peu plus activement.',
 
 	'VARIANT_DATE_SEPARATOR'	=> ' / ',	// Used in date format dropdown, eg: "Today, 13:37 / 01 Jan 2007, 13:37" ... to join a relative date with calendar date
 	'VIEWED'					=> 'Consulte',
@@ -680,7 +692,7 @@ $lang = array_merge($lang, array(
 	'VIEW_BOOKMARKS'			=> 'Voir les favoris',
 	'VIEW_FORUM_LOGS'			=> 'Voir l’historique',
 	'VIEW_LATEST_POST'			=> 'Voir le dernier message',
-	'VIEW_NEWEST_POST'			=> 'Voir le plus récent message non lu',
+	'VIEW_NEWEST_POST'			=> 'Voir le message non lu le plus récent',
 	'VIEW_NOTES'				=> 'Voir les notes de l’utilisateur',
 	'VIEW_ONLINE_TIME'			=> 'basé sur les utilisateurs actifs de la dernière minute',
 	'VIEW_ONLINE_TIMES'			=> 'basé sur les utilisateurs actifs des %d dernières minutes',
@@ -704,18 +716,18 @@ $lang = array_merge($lang, array(
 
 	'WRONG_DATA_ICQ'			=> 'Le numéro ICQ que vous avez spécifié est incorrect.',
 	'WRONG_DATA_JABBER'			=> 'Le nom du compte Jabber que vous avez spécifié est incorrect.',
-	'WRONG_DATA_LANG'			=> 'La langue que vous avez spécifiée est incorrecte.',
-	'WRONG_DATA_WEBSITE'		=> 'L’adresse du site Internet doit être une adresse correcte, incluant le protocole. Par exemple, http://www.exemple.com/.',
+	'WRONG_DATA_LANG'			=> 'La langue que vous avez spécifié est incorrecte.',
+	'WRONG_DATA_WEBSITE'		=> 'L’adresse du site Internet doit être une adresse correcte, incluant son protocole. Par exemple, http://www.exemple.com/.',
 	'WROTE'						=> 'a écrit',
 
 	'YEAR'				=> 'Année',
 	'YEAR_MONTH_DAY'	=> '(AAAA-MM-JJ)',
 	'YES'				=> 'Oui',
 	'YIM'				=> 'YIM',	
-	'YOU_LAST_VISIT'	=> 'Dernière visite le : %s',
+	'YOU_LAST_VISIT'	=> 'Dernière visite : %s',
 	'YOU_NEW_PM'		=> 'Un nouveau message privé vous attend dans votre boîte de réception.',
 	'YOU_NEW_PMS'		=> 'De nouveaux messages privés vous attendent dans votre boîte de réception.',
-	'YOU_NO_NEW_PM'		=> 'Aucun nouveau message privé ne vous attend.',
+	'YOU_NO_NEW_PM'		=> 'Aucun nouveau message privé ne vous attend dans votre boîte de réception.',
 
 	'datetime'			=> array(
 		'TODAY'		=> 'Aujourd’hui',

@@ -1,25 +1,34 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* search_ignore_words [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: search_ignore_words.php 8479 2008-03-29 00:22:48Z naderman $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* search_ignore_words [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: search_ignore_words.php 8479 2008-03-29 00:22:48Z naderman $
 */
 
 if (!defined('IN_PHPBB'))
 {
 	exit;
 }
-
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
 
 $words = array(
 	'a',

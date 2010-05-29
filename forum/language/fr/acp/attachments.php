@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* acp_attachments [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: attachments.php 8946 2008-09-26 18:32:05Z toonarmy $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* acp_attachments [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: attachments.php 8946 2008-09-26 18:32:05Z toonarmy $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -44,7 +53,7 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'ACP_ATTACHMENT_SETTINGS_EXPLAIN'	=> 'Vous pouvez configurer ici les réglages principaux et les catégories spéciales relatifs aux pièces jointes.',
 	'ACP_EXTENSION_GROUPS_EXPLAIN'		=> 'Vous pouvez ajouter, supprimer, modifier ou désactiver ici vos groupes d’extensions. Vous pouvez également leur attribuer des catégories spéciales, modifier le mécanisme de téléchargement et définir une icône de transfert qui sera affichée devant la pièce jointe qui appartient au groupe.',
-	'ACP_MANAGE_EXTENSIONS_EXPLAIN'		=> 'Vous pouvez gérer ici les extensions autorisées. Pour activer vos extensions, veuillez vous rendre sur le panneau de gestion des groupes d’extensions. Nous vous recommandons fortement de ne pas autoriser les extensions de langages de programmation (comme <code>php</code>, <code>php3</code>, <code>php4</code>, <code>phtml</code>, <code>pl</code>, <code>cgi</code>, <code>py</code>, <code>rb</code>, <code>asp</code>, <code>aspx</code>, et d’autres encore…).',
+	'ACP_MANAGE_EXTENSIONS_EXPLAIN'		=> 'Vous pouvez gérer ici les extensions autorisées. Pour activer vos extensions, veuillez vous rendre sur le panneau de gestion des groupes d’extensions. Nous vous recommandons fortement de ne pas autoriser les extensions de langages de programmation (comme <code>php</code>, <code>php3</code>, <code>php4</code>, <code>phtml</code>, <code>pl</code>, <code>cgi</code>, <code>py</code>, <code>rb</code>, <code>asp</code>, <code>aspx</code> et d’autres encore…).',
 	'ACP_ORPHAN_ATTACHMENTS_EXPLAIN'	=> 'Vous pouvez consulter ici les fichiers orphelins. Ces fichiers se produisent la plupart du temps lorsque les utilisateurs insèrent des pièces jointes mais n’envoient pas le message. Vous pouvez supprimer ces fichiers ou les insérer à des messages existants, ce qui vous demande de spécifier correctement l’identification liée au message. La pièce jointe sera alors insérée au message.',
 	'ADD_EXTENSION'						=> 'Ajouter une extension',
 	'ADD_EXTENSION_GROUP'				=> 'Ajouter un groupe d’extensions',
@@ -86,7 +95,7 @@ $lang = array_merge($lang, array(
 	'DEFINE_ALLOWED_IPS'			=> 'Définir les IP ou noms d’hôtes autorisés',
 	'DEFINE_DISALLOWED_IPS'			=> 'Définir les IP ou noms d’hôtes interdits',
 	'DOWNLOAD_ADD_IPS_EXPLAIN'		=> 'Pour spécifier plusieurs adresses IP ou noms d’hôtes, saisissez chacun d’eux sur une nouvelle ligne. Pour spécifier une plage d’adresses IP, séparez le début et la fin par un tiret (-) et utilisez “*” comme joker.',
-	'DOWNLOAD_REMOVE_IPS_EXPLAIN'	=> 'Vous pouvez supprimer ou ne plus exclure plusieurs adresses IP en une seule fois en utilisant la combinaison appropriée de la souris et du clavier de votre ordinateur et de notre navigateur. Les adresses IP exclues apparaissent sur fond bleu.',
+	'DOWNLOAD_REMOVE_IPS_EXPLAIN'	=> 'Vous pouvez supprimer ou ne plus exclure plusieurs adresses IP en une seule fois en utilisant la combinaison appropriée de la souris et du clavier de votre ordinateur et de votre navigateur. Les adresses IP exclues apparaissent sur fond bleu.',
 	'DISPLAY_INLINED'				=> 'Afficher les images dans la ligne',
 	'DISPLAY_INLINED_EXPLAIN'		=> 'Si réglé sur <samp>Non</samp>, les images insérées en pièces jointes s’afficheront comme un lien.',
 	'DISPLAY_ORDER'					=> 'Ordre d’affichage des pièces jointes',
@@ -107,7 +116,7 @@ $lang = array_merge($lang, array(
 	'GROUP_NAME'			=> 'Nom du groupe',
 
 	'IMAGE_LINK_SIZE'			=> 'Dimensions du lien de l’image',
-	'IMAGE_LINK_SIZE_EXPLAIN'	=> 'Affiche l’image insérée en pièce jointe comme un lien si l’image dépasse ces valeurs. Pour désactiver ce comportement, Réglez les valeurs sur 0 px par 0 px.',
+	'IMAGE_LINK_SIZE_EXPLAIN'	=> 'Affiche l’image insérée en pièce jointe comme un lien si l’image dépasse ces valeurs. Pour désactiver ce comportement, réglez les valeurs sur 0 px par 0 px.',
 	'IMAGICK_PATH'				=> 'Chemin d’Imagemagick',
 	'IMAGICK_PATH_EXPLAIN'		=> 'Le chemin complet vers l’application de conversion Imagemagick, comme : <samp>/usr/bin/</samp>.',
 

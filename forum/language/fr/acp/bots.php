@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* acp_bots [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: bots.php 8479 2008-03-29 00:22:48Z naderman $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* acp_bots [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: bots.php 8479 2008-03-29 00:22:48Z naderman $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -69,7 +78,7 @@ $lang = array_merge($lang, array(
 	'BOT_UPDATED'		=> 'Le robot a été mis à jour avec succès.',
 
 	'ERR_BOT_AGENT_MATCHES_UA'	=> 'L’agent du robot que vous avez spécifié est identique à celui que vous utilisez actuellement. Veuillez spécifier un autre agent concernant ce robot.',
-	'ERR_BOT_NO_IP'				=> 'Les adresses IP que vous avez spécifiées sont incorrectes ou le nom d’hôte est introuvable.',
+	'ERR_BOT_NO_IP'				=> 'Les adresses IP que vous avez spécifié sont incorrectes ou le nom d’hôte est introuvable.',
 	'ERR_BOT_NO_MATCHES'		=> 'Vous devez spécifier un agent ou une adresse IP concernant la correspondance de ce robot.',
 
 	'NO_BOT'		=> 'Aucun robot correspondant à l’identification spécifiée n’a été trouvé.',

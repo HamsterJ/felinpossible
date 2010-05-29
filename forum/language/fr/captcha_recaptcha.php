@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* recaptcha [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: captcha_recaptcha.php 9933 2009-08-06 09:12:21Z marshalrusty $
-* @copyright (c) 2009 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* recaptcha [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2009 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: captcha_recaptcha.php 9933 2009-08-06 09:12:21Z marshalrusty $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -43,16 +52,16 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'RECAPTCHA_LANG'				=> 'fr',
-	'RECAPTCHA_NOT_AVAILABLE'		=> 'Avant de pouvoir utiliser reCaptcha, vous devez créer un compte sur <a href="http://recaptcha.net">reCaptcha.net</a>.',
+	'RECAPTCHA_NOT_AVAILABLE'		=> 'Vous devez créer un compte sur <a href="http://recaptcha.net">reCaptcha.net</a> afin de pouvoir utiliser reCaptcha.',
 	'CAPTCHA_RECAPTCHA'				=> 'reCaptcha',
-	'RECAPTCHA_INCORRECT'			=> 'Le code de confirmation visuelle que vous avez envoyé est incorrect',
+	'RECAPTCHA_INCORRECT'			=> 'Le code de confirmation visuelle que vous avez saisi est incorrect',
 
 	'RECAPTCHA_PUBLIC'				=> 'Clé reCaptcha publique',
-	'RECAPTCHA_PUBLIC_EXPLAIN'		=> 'Votre clé reCaptcha publique. Les clés peuvent être obtenues sur <a href="http://recaptcha.net">reCaptcha.net</a>.',
+	'RECAPTCHA_PUBLIC_EXPLAIN'		=> 'Votre clé reCaptcha publique. Vous pouvez obtenir des clés sur <a href="http://recaptcha.net">reCaptcha.net</a>.',
 	'RECAPTCHA_PRIVATE'				=> 'Clé reCaptcha privée',
-	'RECAPTCHA_PRIVATE_EXPLAIN'		=> 'Votre clé reCaptcha privée. Les clés peuvent être obtenues sur <a href="http://recaptcha.net">reCaptcha.net</a>.',
+	'RECAPTCHA_PRIVATE_EXPLAIN'		=> 'Votre clé reCaptcha privée. Vous pouvez obtenir des clés sur <a href="http://recaptcha.net">reCaptcha.net</a>.',
 
-	'RECAPTCHA_EXPLAIN'				=> 'Afin d’empêcher les actions automatisées, nous vous demandons de bien vouloir saisir dans le champ de texte les deux mots affichés ci-dessous.',
+	'RECAPTCHA_EXPLAIN'				=> 'Afin d’empêcher les actions automatisées, nous vous demandons de bien vouloir saisir les deux mots affichés dans le champ de texte ci-dessous.',
 ));
 
 ?>
