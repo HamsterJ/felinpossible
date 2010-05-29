@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* captcha_qa [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: captcha_qa.php 9966 2009-08-12 15:12:03Z Kellanved $
-* @copyright (c) 2009 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* captcha_qa [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2009 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: captcha_qa.php 10450 2010-01-26 10:57:00Z Kellanved $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -47,23 +56,25 @@ $lang = array_merge($lang, array(
 	'CONFIRM_QUESTION_WRONG'	=> 'Vous n’avez pas répondu correctement à la question de confirmation.',
 
 	'QUESTION_ANSWERS'			=> 'Réponses',
-	'ANSWERS_EXPLAIN'			=> 'Veuillez saisir des réponses correctes à la question. Chaque réponse doit être saisie sur une nouvelle ligne.',
+	'ANSWERS_EXPLAIN'			=> 'Veuillez répondre correctement à la question. Chaque réponse doit être saisie sur une nouvelle ligne.',
 	'CONFIRM_QUESTION'			=> 'Question',
 
 	'ANSWER'					=> 'Réponse',
 	'EDIT_QUESTION'				=> 'Modifier la question',
 	'QUESTIONS'					=> 'Questions',
-	'QUESTIONS_EXPLAIN'			=> 'Durant leur inscription, les utilisateurs devront répondre à une des questions spécifiées ici. Pour utiliser ce plugin, vous devez régler au moins une question dans la langue par défaut. Nous vous recommandons de cibler ces questions selon votre audience afin que les réponses soient plus faciles à trouver pour vos utilisateurs, contrairement aux robots capables de réaliser des recherches sur Google™, qui devraient rencontrer plus de difficultés. L’utilisation et la mise à jour régulière d’un grand nombre de questions fournira de meilleurs résultats. Activez la vérification stricte si votre question demande une ou des réponses contenant des signes de ponctuation ou des majuscules.',
+	'QUESTIONS_EXPLAIN'			=> 'Durant leur inscription, les utilisateurs devront répondre à une des questions spécifiées ici. Pour utiliser ce plugin, vous devez régler au moins une question dans la langue par défaut. Nous vous recommandons de cibler ces questions selon votre audience afin que les réponses soient plus faciles à trouver pour vos utilisateurs qu’aux robots capables d’exécuter des recherches sur Google™, qui devraient rencontrer plus de difficultés. L’utilisation et la mise à jour régulière d’un grand nombre de questions fournira de meilleurs résultats. Activez la vérification stricte si votre question demande une ou des réponses contenant des signes de ponctuation ou des majuscules.',
 	'QUESTION_DELETED'			=> 'Question supprimée',
 	'QUESTION_LANG'				=> 'Langue',
 	'QUESTION_LANG_EXPLAIN'		=> 'La langue dans laquelle cette question et ses réponses sont rédigées.',
 	'QUESTION_STRICT'			=> 'Vérification stricte',
-	'QUESTION_STRICT_EXPLAIN'	=> 'Si activée, les majuscules et les espaces seront également appliqués.',
+	'QUESTION_STRICT_EXPLAIN'	=> 'Si activée, les majuscules et les espaces seront également pris en compte.',
 
 	'QUESTION_TEXT'				=> 'Question',
 	'QUESTION_TEXT_EXPLAIN'		=> 'La question qui sera demandée lors des inscriptions.',
 
 	'QA_ERROR_MSG'				=> 'Veuillez remplir tous les champs et saisir au moins une réponse.',
+	'QA_LAST_QUESTION'			=> 'Vous ne pouvez pas supprimer toutes les questions lorsque le plugin est actif.',
+
 ));
 
 ?>

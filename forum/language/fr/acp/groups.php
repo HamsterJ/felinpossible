@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* acp_groups [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: groups.php 9701 2009-06-28 12:13:11Z toonarmy $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* acp_groups [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: groups.php 9701 2009-06-28 12:13:11Z toonarmy $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -70,7 +79,7 @@ $lang = array_merge($lang, array(
 	'GROUP_DEMOTE'					=> 'Rétrograder le responsable du groupe',
 	'GROUP_DESC'					=> 'Description du groupe',
 	'GROUP_DETAILS'					=> 'Informations sur le groupe',
-	'GROUP_EDIT_EXPLAIN'			=> 'Vous pouvez éditer ici un groupe existant. Vous pouvez modifier son nom, sa description et son type (ouvert, fermé, etc.). Vous pouvez également régler certaines options du groupe comme sa couleur, son rang, etc. Les modifications effectués ici écraseront les réglages des utilisateurs. Veuillez noter que si les permissions des utilisateurs le permettent, les membres d’un groupe pourront écraser l’avatar du groupe.',
+	'GROUP_EDIT_EXPLAIN'			=> 'Vous pouvez éditer ici un groupe existant. Vous pouvez modifier son nom, sa description et son type (ouvert, fermé, etc.). Vous pouvez également régler certaines options du groupe comme sa couleur, son rang, etc. Les modifications effectuées ici écraseront les réglages des utilisateurs. Veuillez noter que si les permissions des utilisateurs le permettent, les membres d’un groupe pourront écraser l’avatar du groupe.',
 	'GROUP_ERR_USERS_EXIST'			=> 'Les utilisateurs spécifiés sont déjà membres de ce groupe.',
 	'GROUP_FOUNDER_MANAGE'			=> 'Gestion par les fondateurs uniquement',
 	'GROUP_FOUNDER_MANAGE_EXPLAIN'	=> 'Limiter la gestion de ce groupe aux fondateurs uniquement. Les utilisateurs ayant les permissions du groupe peuvent voir ce groupe, ainsi que ses membres.',
@@ -122,7 +131,7 @@ $lang = array_merge($lang, array(
 	'NO_VALID_USERS'			=> 'Vous n’avez spécifié aucun utilisateur éligible pour cette action.',
 
 	'SPECIAL_GROUPS'			=> 'Groupes prédéfinis',
-	'SPECIAL_GROUPS_EXPLAIN'	=> 'Les groupes prédéfinis sont des groupes spéciaux, ils ne peuvent ni être supprimés, ni être directement modifiés. Cependant, vous pouvez y ajouter des utilisateurs et y modifier les réglages basiques.',
+	'SPECIAL_GROUPS_EXPLAIN'	=> 'Les groupes prédéfinis sont des groupes spéciaux, ils ne peuvent ni être supprimés, ni être directement modifiés. Cependant, vous pouvez y ajouter des utilisateurs et y modifier les réglages de base.',
 
 	'TOTAL_MEMBERS'				=> 'Membres',
 

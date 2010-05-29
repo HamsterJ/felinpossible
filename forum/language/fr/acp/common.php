@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* acp_common [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: common.php 10134 2009-09-10 15:32:16Z marshalrusty $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* acp_common [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: common.php 10458 2010-01-26 15:26:07Z jelly_doughnut $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -63,7 +72,7 @@ $lang = array_merge($lang, array(
 	'ACP_BOARD_MANAGEMENT'		=> 'Gestion du forum',
 	'ACP_BOARD_SETTINGS'		=> 'Réglages du forum',
 	'ACP_BOTS'					=> 'Robots',
-	
+
 	'ACP_CALENDAR'				=> 'Agenda',
   'ACP_CALENDAR_SETTINGS'				=> 'Paramètres de l’agenda',
   'ACP_CALENDAR_DELETE_EVENT_TYPE'	=> 'Supprimer le type d’événement',
@@ -94,8 +103,8 @@ $lang = array_merge($lang, array(
 	'ACP_EMAIL_SETTINGS'		=> 'Réglages des e-mails',
 	'ACP_EXTENSION_GROUPS'		=> 'Gérer les groupes d’extensions',
 
-	'ACP_FORUM_BASED_PERMISSIONS'	=> 'Permissions basiques des forums',
-	'ACP_FORUM_LOGS'				=> 'Historique des forums',
+	'ACP_FORUM_BASED_PERMISSIONS'	=> 'Permissions liées aux forums',
+	'ACP_FORUM_LOGS'				=> 'Historiques du forum',
 	'ACP_FORUM_MANAGEMENT'			=> 'Gestion des forums',
 	'ACP_FORUM_MODERATORS'			=> 'Modérateurs des forums',
 	'ACP_FORUM_PERMISSIONS'			=> 'Permissions des forums',
@@ -143,8 +152,8 @@ $lang = array_merge($lang, array(
 	'ACP_ORPHAN_ATTACHMENTS'	=> 'Pièces jointes orphelines',
 
 	'ACP_PERMISSIONS'			=> 'Permissions',
-	'ACP_PERMISSION_MASKS'		=> 'Masques des permissions',
-	'ACP_PERMISSION_ROLES'		=> 'Rôles des permissions',
+	'ACP_PERMISSION_MASKS'		=> 'Permissions des masques',
+	'ACP_PERMISSION_ROLES'		=> 'Permissions des rôles',
 	'ACP_PERMISSION_TRACE'		=> 'Trace de permission',
 	'ACP_PHP_INFO'				=> 'Informations sur PHP',
 	'ACP_POST_SETTINGS'			=> 'Réglages des messages',
@@ -164,7 +173,7 @@ $lang = array_merge($lang, array(
 	'ACP_FEED_SETTINGS'			=> 'Réglages des flux',
 
 	'ACP_SEARCH'				=> 'Configuration de la recherche',
-	'ACP_SEARCH_INDEX'			=> 'Index de la recherche',
+	'ACP_SEARCH_INDEX'			=> 'Indexation de la recherche',
 	'ACP_SEARCH_SETTINGS'		=> 'Réglages de la recherche',
 
 	'ACP_SECURITY_SETTINGS'		=> 'Réglages de la sécurité',
@@ -188,7 +197,7 @@ $lang = array_merge($lang, array(
 	'ACP_USERS_PERMISSIONS'			=> 'Permissions des utilisateurs',
 	'ACP_USER_ATTACH'				=> 'Pièces jointes',
 	'ACP_USER_AVATAR'				=> 'Avatars',
-	'ACP_USER_FEEDBACK'				=> 'Commentaires',
+	'ACP_USER_FEEDBACK'				=> 'Remarques',
 	'ACP_USER_GROUPS'				=> 'Groupes',
 	'ACP_USER_MANAGEMENT'			=> 'Gestion des utilisateurs',
 	'ACP_USER_OVERVIEW'				=> 'Vue d’ensemble',
@@ -278,7 +287,6 @@ $lang = array_merge($lang, array(
 	'PARSE_URLS'						=> 'Autoriser les liens',
 	'PERMISSIONS_TRANSFERRED'			=> 'Les permissions ont été transférées',
 	'PERMISSIONS_TRANSFERRED_EXPLAIN'	=> 'Vous utilisez actuellement les permissions de %1$s. Vous pouvez parcourir le forum avec ses permissions mais vous ne pouvez plus accéder au panneau de contrôle de l’administrateur car les permissions des administrateurs n’ont pas été transférées. Vous pouvez <a href="%2$s"><strong>retourner aux réglages de vos permissions</strong></a> à tout moment.',
-	'PIXEL'								=> 'px',
 	'PROCEED_TO_ACP'					=> '%sAller au PCA%s',
 
 	'REMIND'							=> 'Rappeler',
@@ -350,6 +358,8 @@ $lang = array_merge($lang, array(
 	'NUMBER_TOPICS'		=> 'Nombre de sujets',
 	'NUMBER_USERS'		=> 'Nombre d’utilisateurs',
 	'NUMBER_ORPHAN'		=> 'Pièces jointes orphelines',
+
+	'PHP_VERSION_OLD'	=> 'La version de PHP utilisée sur ce serveur ne sera pas compatible avec les futures versions de phpBB. %sPlus d’informations%s',
 
 	'POSTS_PER_DAY'		=> 'Messages par jour',
 
@@ -517,15 +527,15 @@ $lang = array_merge($lang, array(
 
 	'LOG_APPROVE_TOPIC'			=> '<strong>Approbation d’un sujet</strong><br />» %s',
 	'LOG_BUMP_TOPIC'			=> '<strong>Sujet remonté par un utilisateur</strong><br />» %s',
-	'LOG_DELETE_POST'			=> '<strong>Suppression du message “%1$s” écrit par</strong><br />» %s',
-	'LOG_DELETE_SHADOW_TOPIC'   => '<strong>Suppression d’une redirection de sujet</strong><br />» %s',
-  'LOG_DELETE_TOPIC'         => '<strong>Suppression du sujet “%1$s” écrit par</strong><br />» %s',
-  'LOG_FORK'               => '<strong>Copie d’un sujet</strong><br />» de %s',
-  'LOG_LOCK'               => '<strong>Verrouillage d’un sujet</strong><br />» %s',
-  'LOG_LOCK_POST'            => '<strong>Verrouillage d’un message</strong><br />» %s',
-  'LOG_MERGE'               => '<strong>Fusion de messages</strong> dans le sujet<br />» %s',
-  'LOG_MOVE'               => '<strong>Déplacement d’un sujet</strong><br />» de %1$s vers %2$s',
-  'LOG_PM_REPORT_CLOSED'		=> '<strong>Fermeture d’un rapport de MP</strong><br />» %s',
+	'LOG_DELETE_POST'			=> '<strong>Suppression du message “%1$s” écrit par</strong><br />» %2$s',
+	'LOG_DELETE_SHADOW_TOPIC'	=> '<strong>Suppression d’une redirection de sujet</strong><br />» %s',
+	'LOG_DELETE_TOPIC'			=> '<strong>Suppression du sujet “%1$s” écrit par</strong><br />» %2$s',
+	'LOG_FORK'					=> '<strong>Copie d’un sujet</strong><br />» de %s',
+	'LOG_LOCK'					=> '<strong>Verrouillage d’un sujet</strong><br />» %s',
+	'LOG_LOCK_POST'				=> '<strong>Verrouillage d’un message</strong><br />» %s',
+	'LOG_MERGE'					=> '<strong>Fusion de messages</strong> dans le sujet<br />» %s',
+	'LOG_MOVE'					=> '<strong>Déplacement d’un sujet</strong><br />» de %1$s vers %2$s',
+	'LOG_PM_REPORT_CLOSED'		=> '<strong>Fermeture d’un rapport de MP</strong><br />» %s',
 	'LOG_PM_REPORT_DELETED'		=> '<strong>Suppression d’un rapport de MP</strong><br />» %s',
 	'LOG_POST_APPROVED'			=> '<strong>Approbation d’un message</strong><br />» %s',
 	'LOG_POST_DISAPPROVED'		=> '<strong>Désapprobation du message “%1$s” avec la raison suivante</strong><br />» %2$s',
@@ -667,7 +677,7 @@ $lang = array_merge($lang, array(
 	'LOG_REASON_UPDATED'	=> '<strong>Mise à jour d’un rapport ou d’une raison</strong><br />» %s',
 
 	'LOG_REFERER_INVALID'		=> '<strong>Échec de la validation du référant</strong><br />»Le référant était “<em>%1$s</em>”. La requête a été rejetée et la session a été coupée.',
-  'LOG_RESET_DATE'			=> '<strong>Réinitialisation de la date d’ouverture du forum</strong>',
+	'LOG_RESET_DATE'			=> '<strong>Réinitialisation de la date d’ouverture du forum</strong>',
 	'LOG_RESET_ONLINE'			=> '<strong>Réinitialisation du nombre maximum d’utilisateurs en ligne</strong>',
 	'LOG_RESYNC_POSTCOUNTS'		=> '<strong>Réinitialisation du compteur des messages des utilisateurs</strong>',
 	'LOG_RESYNC_POST_MARKING'	=> '<strong>Resynchronisation des sujets pointés</strong>',
@@ -724,7 +734,7 @@ $lang = array_merge($lang, array(
 	'LOG_USER_ACTIVE_USER'		=> '<strong>Activation du compte d’un utilisateur</strong>',
 	'LOG_USER_DEL_AVATAR_USER'	=> '<strong>Suppression de l’avatar d’un utilisateur</strong>',
 	'LOG_USER_DEL_SIG_USER'		=> '<strong>Suppression de la signature d’un utilisateur</strong>',
-	'LOG_USER_FEEDBACK'			=> '<strong>Ajout d’une rétroaction par un utilisateur</strong><br />» %s',
+	'LOG_USER_FEEDBACK'			=> '<strong>Ajout d’une remarque sur un utilisateur</strong><br />» %s',
 	'LOG_USER_GENERAL'			=> '<strong>Ajout d’une entrée :</strong><br />» %s',
 	'LOG_USER_INACTIVE_USER'	=> '<strong>Désactivation du compte d’un utilisateur</strong>',
 	'LOG_USER_LOCK'				=> '<strong>Verrouillage des propres sujets d’un utilisateur</strong><br />» %s',

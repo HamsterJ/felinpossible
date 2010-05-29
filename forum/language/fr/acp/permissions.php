@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* acp_permissions [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: permissions.php 10017 2009-08-18 14:37:49Z bantu $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* acp_permissions [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: permissions.php 10017 2009-08-18 14:37:49Z bantu $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -150,7 +159,7 @@ $lang = array_merge($lang, array(
 	'NO_ROLE_SELECTED'			=> 'Le rôle est introuvable.',
 	'NO_USER_GROUP_SELECTED'	=> 'Vous n’avez sélectionné aucun utilisateur ou groupe d’utilisateurs.',
 
-	'ONLY_FORUM_DEFINED'	=> 'Vous n’avez sélectionnez que des forums. Veuillez également sélectionner au moins un utilisateur ou un groupe d’utilisateurs.',
+	'ONLY_FORUM_DEFINED'	=> 'Vous n’avez sélectionné que des forums. Veuillez également sélectionner au moins un utilisateur ou un groupe d’utilisateurs.',
 
 	'PERMISSION_APPLIED_TO_ALL'		=> 'Les permissions et les rôles seront également appliqués à tous les éléments cochés',
 	'PLUS_SUBFORUMS'				=> '+Sous-forums',
@@ -226,7 +235,7 @@ $lang = array_merge($lang, array(
 	'SELECTED_FORUM_NOT_EXIST'		=> 'Le(s) forum(s) sélectionné(s) n’existe(nt) pas.',
 	'SELECTED_GROUP_NOT_EXIST'		=> 'Le(s) groupe(s) sélectionné(s) n’existe(nt) pas.',
 	'SELECTED_USER_NOT_EXIST'		=> 'L’utilisateur(s) sélectionné(s) n’existe(nt) pas.',
-	'SELECT_FORUM_SUBFORUM_EXPLAIN'	=> 'Le forum que vous avez sélectionné ici incluera tous ses sous-forums',
+	'SELECT_FORUM_SUBFORUM_EXPLAIN'	=> 'Le forum que vous avez sélectionné ici inclura tous ses sous-forums',
 	'SELECT_ROLE'					=> 'Sélectionner un rôle…',
 	'SELECT_TYPE'					=> 'Sélectionner un type',
 	'SET_PERMISSIONS'				=> 'Régler les permissions',

@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* posting [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: posting.php 9742 2009-07-09 10:34:40Z bantu $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* posting [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: posting.php 9742 2009-07-09 10:34:40Z bantu $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -47,8 +56,8 @@ $lang = array_merge($lang, array(
 	'ADD_FILE'					=> 'Ajouter le fichier',
 	'ADD_POLL'					=> 'Création d’un sondage',
 	'ADD_POLL_EXPLAIN'			=> 'Laissez ces champs vides si vous ne souhaitez pas ajouter de sondage à votre sujet.',
-	'ALREADY_DELETED'			=> 'Désolé mais ce message a déjà été supprimé.',
-	'ATTACH_QUOTA_REACHED'		=> 'Désolé mais la limite du nombre de pièces jointes sur le forum a été atteinte.',
+	'ALREADY_DELETED'			=> 'Désolé, mais ce message a déjà été supprimé.',
+	'ATTACH_QUOTA_REACHED'		=> 'Désolé, mais la limite du nombre de pièces jointes sur le forum a été atteinte.',
 	'ATTACH_SIG'				=> 'Insérer une signature (les signatures peuvent être modifiées dans le PCU)',
 
 	'BBCODE_A_HELP'				=> 'Transférer une pièce jointe dans la ligne : [attachment=]nomdufichier.ext[/attachment]',
@@ -70,11 +79,11 @@ $lang = array_merge($lang, array(
 	'BBCODE_D_HELP'				=> 'Flash : [flash=largeur,hauteur]http://lien[/flash]',
 	'BUMP_ERROR'				=> 'Vous ne pouvez pas remonter ce sujet aussitôt après en avoir publié un.',
 
-	'CANNOT_DELETE_REPLIED'		=> 'Désolé mais vous ne pouvez pas supprimer les messages qui comportent une ou plusieurs réponses.',
+	'CANNOT_DELETE_REPLIED'		=> 'Désolé, mais vous ne pouvez pas supprimer les messages qui comportent une ou plusieurs réponses.',
 	'CANNOT_EDIT_POST_LOCKED'	=> 'Ce message a été verrouillé. Vous ne pouvez désormais plus l’éditer.',
 	'CANNOT_EDIT_TIME'			=> 'Vous ne pouvez désormais plus éditer ou supprimer ce message.',
-	'CANNOT_POST_ANNOUNCE'		=> 'Désolé mais vous ne pouvez pas publier d’annonces.',
-	'CANNOT_POST_STICKY'		=> 'Désolé mais vous ne pouvez pas publier de notes.',
+	'CANNOT_POST_ANNOUNCE'		=> 'Désolé, mais vous ne pouvez pas publier d’annonce.',
+	'CANNOT_POST_STICKY'		=> 'Désolé, mais vous ne pouvez pas publier de note.',
 	'CHANGE_TOPIC_TO'			=> 'Modifier le type de sujet en',
 	'CLOSE_TAGS'				=> 'Fermer les balises',
 	'CURRENT_TOPIC'				=> 'Sujet actuel',
@@ -82,7 +91,7 @@ $lang = array_merge($lang, array(
 	'DELETE_FILE'				=> 'Supprimer le fichier',
 	'DELETE_MESSAGE'			=> 'Supprimer le message',
 	'DELETE_MESSAGE_CONFIRM'	=> 'Êtes-vous sûr de vouloir supprimer ce message ?',
-	'DELETE_OWN_POSTS'			=> 'Désolé mais vous ne pouvez supprimer que vos propres messages.',
+	'DELETE_OWN_POSTS'			=> 'Désolé, mais vous ne pouvez supprimer que vos propres messages.',
 	'DELETE_POST_CONFIRM'		=> 'Êtes-vous sûr de vouloir supprimer ce message ?',
 	'DELETE_POST_WARN'			=> 'Une fois supprimé, le message ne pourra pas être récupéré',
 	'DISABLE_BBCODE'			=> 'Désactiver le BBCode',
@@ -120,7 +129,7 @@ $lang = array_merge($lang, array(
 
 	'LOAD'						=> 'Charger',
 	'LOAD_DRAFT'				=> 'Charger un brouillon',
-	'LOAD_DRAFT_EXPLAIN'		=> 'Vous pouvez sélectionner ici le brouillon que vous souhaitez continuer à rédiger. Votre message actuel sera annulé et tout son contenu sera supprimé. Vous pouvez consulter, éditer et supprimer vos brouillons dans le panneau de contrôle de l’utilisateur.',
+	'LOAD_DRAFT_EXPLAIN'		=> 'Vous pouvez sélectionner ici le brouillon que vous souhaitez continuer à rédiger. Votre message actuel sera annulé et tout son contenu sera supprimé. Vous pouvez consulter, éditer et supprimer vos brouillons depuis le panneau de contrôle de l’utilisateur.',
 	'LOGIN_EXPLAIN_BUMP'		=> 'Vous devez vous connecter afin de pouvoir remonter les sujets de ce forum.',
 	'LOGIN_EXPLAIN_DELETE'		=> 'Vous devez vous connecter afin de pouvoir supprimer les sujets de ce forum.',
 	'LOGIN_EXPLAIN_POST'		=> 'Vous devez vous connecter afin de pouvoir publier des messages dans ce forum.',
@@ -165,7 +174,7 @@ $lang = array_merge($lang, array(
 	'POSTED_ATTACHMENTS'		=> 'Pièces jointes publiées',
 	'POST_APPROVAL_NOTIFY'		=> 'Vous serez averti lorsque votre message sera approuvé.',
 	'POST_CONFIRMATION'			=> 'Confirmation du message',
-	'POST_CONFIRM_EXPLAIN'		=> 'Afin d’empêcher la publication de messages automatisés, vous devez saisir un code de confirmation. Le code est affiché dans l’image que vous devriez voir ci-dessous. Veuillez contacter l’%sadministrateur du forum%s si vous êtes visuellement déficient ou que vous éprouvez des difficultés à lire ce code correctement.',
+	'POST_CONFIRM_EXPLAIN'		=> 'Afin d’empêcher la publication de messages automatisés, vous devez saisir un code de confirmation. Le code est affiché dans l’image que vous devriez voir ci-dessous. Si vous êtes visuellement déficient ou que vous éprouvez des difficultés à lire ce code correctement, veuillez contacter l’%sadministrateur du forum%s.',
 	'POST_DELETED'				=> 'Ce message a été supprimé avec succès.',
 	'POST_EDITED'				=> 'Ce message a été édité avec succès.',
 	'POST_EDITED_MOD'			=> 'Ce message a été édité avec succès mais il doit être approuvé par un modérateur afin d’être visible publiquement.',
@@ -208,7 +217,7 @@ $lang = array_merge($lang, array(
 	'TOO_MANY_USER_OPTIONS'		=> 'Vous ne pouvez pas indiquer plus d’options par utilisateur que d’options qui existent pour le sondage.',
 	'TOPIC_BUMPED'				=> 'Le sujet a été remonté avec succès.',
 
-	'UNAUTHORISED_BBCODE'		=> 'Vous ne pouvez pas utiliser certains BBCode : %s.',
+	'UNAUTHORISED_BBCODE'		=> 'Vous ne pouvez pas utiliser certains BBCodes : %s.',
 	'UNGLOBALISE_EXPLAIN'		=> 'Pour rétablir cette annonce globale en sujet standard, vous devez sélectionner le forum dans lequel vous souhaitez voir ce sujet affiché.',
 	'UPDATE_COMMENT'			=> 'Mettre à jour la description',
 	'URL_INVALID'				=> 'Le lien que vous avez spécifié est incorrect.',
@@ -225,7 +234,7 @@ $lang = array_merge($lang, array(
 	'VIEW_PRIVATE_MESSAGE'		=> '%sVoir le message privé que vous avez envoyé%s',
 
 	'WRONG_FILESIZE'			=> 'Le fichier est trop lourd, la taille maximale autorisée est de %1d %2s.',
-	'WRONG_SIZE'				=> 'La taille de l’image doit être au moins de %1$d pixels de large et %2$d pixels de haut et au plus de %3$d pixels de large et %4$d pixels de haut. L’image que vous avez envoyée est de %5$d pixels de large et %6$d pixels de haut.',
+	'WRONG_SIZE'				=> 'La taille de l’image doit être au moins de %1$d pixels de large et %2$d pixels de haut et au plus de %3$d pixels de large et %4$d pixels de haut. L’image que vous avez envoyé est de %5$d pixels de large et %6$d pixels de haut.',
 ));
 
 ?>

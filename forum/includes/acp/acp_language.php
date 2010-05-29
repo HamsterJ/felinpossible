@@ -2,7 +2,7 @@
 /**
 *
 * @package acp
-* @version $Id: acp_language.php 9669 2009-06-24 13:31:04Z leviatan21 $
+* @version $Id$
 * @copyright (c) 2005 phpBB Group
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -768,28 +768,28 @@ class acp_language
 
 				if (confirm_box(true))
 				{
-				$db->sql_query('DELETE FROM ' . LANG_TABLE . ' WHERE lang_id = ' . $lang_id);
+					$db->sql_query('DELETE FROM ' . LANG_TABLE . ' WHERE lang_id = ' . $lang_id);
 
-				$sql = 'UPDATE ' . USERS_TABLE . "
-					SET user_lang = '" . $db->sql_escape($config['default_lang']) . "'
-					WHERE user_lang = '" . $db->sql_escape($row['lang_iso']) . "'";
-				$db->sql_query($sql);
+					$sql = 'UPDATE ' . USERS_TABLE . "
+						SET user_lang = '" . $db->sql_escape($config['default_lang']) . "'
+						WHERE user_lang = '" . $db->sql_escape($row['lang_iso']) . "'";
+					$db->sql_query($sql);
 
-				// We also need to remove the translated entries for custom profile fields - we want clean tables, don't we?
-				$sql = 'DELETE FROM ' . PROFILE_LANG_TABLE . ' WHERE lang_id = ' . $lang_id;
-				$db->sql_query($sql);
+					// We also need to remove the translated entries for custom profile fields - we want clean tables, don't we?
+					$sql = 'DELETE FROM ' . PROFILE_LANG_TABLE . ' WHERE lang_id = ' . $lang_id;
+					$db->sql_query($sql);
 
-				$sql = 'DELETE FROM ' . PROFILE_FIELDS_LANG_TABLE . ' WHERE lang_id = ' . $lang_id;
-				$db->sql_query($sql);
+					$sql = 'DELETE FROM ' . PROFILE_FIELDS_LANG_TABLE . ' WHERE lang_id = ' . $lang_id;
+					$db->sql_query($sql);
 
-				$sql = 'DELETE FROM ' . STYLES_IMAGESET_DATA_TABLE . " WHERE image_lang = '" . $db->sql_escape($row['lang_iso']) . "'";
-				$result = $db->sql_query($sql);
+					$sql = 'DELETE FROM ' . STYLES_IMAGESET_DATA_TABLE . " WHERE image_lang = '" . $db->sql_escape($row['lang_iso']) . "'";
+					$result = $db->sql_query($sql);
 
-				$cache->destroy('sql', STYLES_IMAGESET_DATA_TABLE);
+					$cache->destroy('sql', STYLES_IMAGESET_DATA_TABLE);
 
-				add_log('admin', 'LOG_LANGUAGE_PACK_DELETED', $row['lang_english_name']);
+					add_log('admin', 'LOG_LANGUAGE_PACK_DELETED', $row['lang_english_name']);
 
-				trigger_error(sprintf($user->lang['LANGUAGE_PACK_DELETED'], $row['lang_english_name']) . adm_back_link($this->u_action));
+					trigger_error(sprintf($user->lang['LANGUAGE_PACK_DELETED'], $row['lang_english_name']) . adm_back_link($this->u_action));
 				}
 				else
 				{
@@ -1120,6 +1120,11 @@ class acp_language
 		{
 			while (($file = readdir($dp)) !== false)
 			{
+				if (!is_dir($phpbb_root_path . 'language/' . $file))
+				{
+					continue;
+				}
+
 				if ($file[0] != '.' && file_exists("{$phpbb_root_path}language/$file/iso.txt"))
 				{
 					if (!in_array($file, $installed))

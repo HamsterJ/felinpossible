@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* ucp [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: ucp.php 10138 2009-09-11 14:38:23Z Kellanved $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* ucp [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: ucp.php 10329 2009-12-13 14:03:45Z Kellanved $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -43,7 +52,7 @@ if (empty($lang) || !is_array($lang))
 
 // Privacy policy and T&C
 $lang = array_merge($lang, array(
-	'TERMS_OF_USE_CONTENT'	=> 'En accédant à “%1$s” (désigné ici par “nous”, “notre”, “nos”, “%1$s”, “%2$s”), vous acceptez d’être légalement responsable des conditions suivantes. Si vous n’acceptez pas d’être légalement responsable de toutes les conditions suivantes, veuillez ne pas utiliser et/ou accéder à “%1$s”. Nous pouvons modifier ces conditions à n’importe quel moment et nous essaierons de vous informer de ces modifications, bien que nous vous conseillons de vérifier régulièrement cela de vous-même car si vous continuez à participer à “%1$s” après que les modifications aient été effectuées, vous acceptez d’être légalement responsable des conditions modifiées et/ou mises à jour.<br />
+	'TERMS_OF_USE_CONTENT'	=> 'En accédant à “%1$s” (désigné ici par “nous”, “notre”, “nos”, “%1$s”, “%2$s”), vous acceptez d’être légalement responsable des conditions suivantes. Si vous n’acceptez pas d’être légalement responsable de toutes les conditions suivantes, veuillez ne pas utiliser et/ou accéder à “%1$s”. Nous pouvons modifier ces conditions à n’importe quel moment et nous essaierons de vous informer de ces modifications, bien que nous vous conseillons de vérifier régulièrement cela par vous-même car si vous continuez à participer à “%1$s” après que les modifications aient été effectuées, vous acceptez d’être légalement responsable des conditions modifiées et/ou mises à jour.<br />
 	<br />
 	Nos forums sont propulsés par phpBB (désignés ici par “ils”, “eux”, “leur”, “logiciel phpBB”, “www.phpbb.com”, “phpBB Group”, “Équipes de phpBB”), qui est une solution de création de forums, déclaré sous la licence “<a href="http://opensource.org/licenses/gpl-license.php">Licence Publique Générale</a>” (désignée ici par “GPL”) et qui peut être téléchargé depuis <a href="http://www.phpbb.fr/">www.phpbb.fr</a> ou <a href="http://www.phpbb.com/">www.phpbb.com</a>. Le logiciel phpBB a pour seul but de faciliter les discussions sur Internet, le phpBB Group n’est pas responsable de la conduite et/ou du contenu que nous acceptons et/ou que nous n’acceptons pas. Pour plus d’informations à propos de phpBB, veuillez consulter <a href="http://www.phpbb.fr/">http://www.phpbb.fr/</a> ou <a href="http://www.phpbb.com/">http://www.phpbb.com/</a>.<br />
 	<br />
@@ -85,7 +94,7 @@ $lang = array_merge($lang, array(
 	'ADD_NEW_RULE'					=> 'Ajouter une nouvelle règle',
 	'ADD_RULE'						=> 'Ajouter une règle',
 	'ADD_TO'						=> 'Ajouter [À]',
-	'ADD_USERS_UCP_EXPLAIN'			=> 'Vous pouvez ajouter ici de nouveaux utilisateurs à un groupe. Vous pouvez décider que ce groupe deviendra le nouveau groupe par défaut pour les utilisateurs sélectionnés. Veuillez saisir chaque nom d’utilisateur sur une ligne séparée.',
+	'ADD_USERS_UCP_EXPLAIN'			=> 'Vous pouvez ajouter ici de nouveaux utilisateurs à un groupe. Vous pouvez décider que ce groupe deviendra le nouveau groupe par défaut pour les utilisateurs sélectionnés. Veuillez saisir chaque nom d’utilisateur sur une ligne différente.',
 	'ADMIN_EMAIL'					=> 'Les administrateurs peuvent m’informer par e-mail',
 	'AGREE'							=> 'J’accepte ces conditions',
 	'ALLOW_PM'						=> 'Autoriser les utilisateurs à vous envoyer des messages privés',
@@ -183,7 +192,7 @@ $lang = array_merge($lang, array(
 	'EMAIL_REMIND'				=> 'Ceci doit être l’adresse e-mail qui est associée à votre compte. Si vous ne l’avez pas modifiée par l’intermédiaire de votre panneau de contrôle de l’utilisateur, il s’agit de l’adresse que vous avez saisie lors de l’inscription de votre compte.',
 	'EMAIL_TAKEN_EMAIL'			=> 'L’adresse e-mail que vous avez saisie est déjà utilisée.',
 	'EMPTY_DRAFT'				=> 'Vous devez saisir un message afin d’envoyer vos modifications.',
-	'EMPTY_DRAFT_TITLE'			=> 'Vous devez saisir un titre concernant le brouillon.',
+	'EMPTY_DRAFT_TITLE'			=> 'Vous devez saisir le titre du brouillon.',
 	'EXPORT_AS_XML'				=> 'Exporter en XML',
 	'EXPORT_AS_CSV'				=> 'Exporter en CSV',
 	'EXPORT_AS_CSV_EXCEL'		=> 'Exporter en CSV (Excel)',
@@ -205,7 +214,7 @@ $lang = array_merge($lang, array(
 	'FOES_EXPLAIN'				=> 'Les ignorés sont des utilisateurs qui seront ignorés par défaut. Les messages de ces utilisateurs ne seront pas entièrement visibles. Les messages personnels des ignorés sont tout de même autorisés. Veuillez noter que vous ne pouvez pas ignorer les modérateurs ou les administrateurs.',
 	'FOES_UPDATED'				=> 'Votre liste d’ignorés a été mise à jour avec succès.',
 	'FOLDER_ADDED'				=> 'Le dossier a été ajouté avec succès.',
-	'FOLDER_MESSAGE_STATUS'		=> '%1$d de %2$d messages stockés',
+	'FOLDER_MESSAGE_STATUS'		=> '%1$d sur %2$d messages stockés',
 	'FOLDER_NAME_EMPTY'			=> 'Vous devez saisir le nom de ce dossier.',
 	'FOLDER_NAME_EXIST'			=> 'Le dossier <strong>%s</strong> existe déjà.',
 	'FOLDER_OPTIONS'			=> 'Options du dossier',
@@ -216,7 +225,7 @@ $lang = array_merge($lang, array(
 	'FORCE_PASSWORD_EXPLAIN'	=> 'Vous devez modifier votre mot de passe avant que vous ne puissiez continuer à naviguer sur le forum.',
 	'FRIEND_MESSAGE'			=> 'Message d’un ami',
 	'FRIENDS'					=> 'Amis',
-	'FRIENDS_EXPLAIN'			=> 'Les amis vous permettent d’accéder plus rapidement aux membres avec qui vous communiquez fréquemment. Si le template le permet, les messages de vos amis seront mis en surbrillance.',
+	'FRIENDS_EXPLAIN'			=> 'Les amis vous permettent d’accéder plus rapidement aux membres avec qui vous communiquez fréquemment. Si le template le permet, les messages de vos amis apparaîtront en surbrillance.',
 	'FRIENDS_OFFLINE'			=> 'Hors-ligne',
 	'FRIENDS_ONLINE'			=> 'En ligne',
 	'FRIENDS_UPDATED'			=> 'Votre liste d’amis a été mise à jour avec succès.',
@@ -250,7 +259,7 @@ $lang = array_merge($lang, array(
 	'LINK_REMOTE_SIZE_EXPLAIN'	=> 'Spécifiez la largeur et la hauteur de l’avatar. Laissez vide afin de tenter une vérification automatique.',
 	'LOGIN_EXPLAIN_UCP'			=> 'Veuillez vous connecter afin d’accéder au panneau de contrôle de l’utilisateur.',
 	'LOGIN_REDIRECT'			=> 'Vous vous êtes connecté avec succès.',
-	'LOGOUT_FAILED'				=> 'Vous n’avez pas été déconnecté car la requête n’a pas fonctionnée sur votre session. Veuillez contacter l’administrateur du forum si le problème persiste.',
+	'LOGOUT_FAILED'				=> 'Vous n’avez pas été déconnecté car la requête n’a pas fonctionné sur votre session. Si le problème persiste, veuillez contacter l’administrateur du forum.',
 	'LOGOUT_REDIRECT'			=> 'Vous vous êtes déconnecté avec succès.',
 
 	'MARK_IMPORTANT'				=> 'Cocher/décocher comme important',
@@ -303,11 +312,11 @@ $lang = array_merge($lang, array(
 	'NO_AUTH_EDIT_MESSAGE'			=> 'Vous n’êtes pas autorisé à éditer les messages privés.',
 	'NO_AUTH_FORWARD_MESSAGE'		=> 'Vous n’êtes pas autorisé à transmettre des messages privés.',
 	'NO_AUTH_GROUP_MESSAGE'			=> 'Vous n’êtes pas autorisé à envoyer des messages privés aux groupes.',
-	'NO_AUTH_PASSWORD_REMINDER'      => 'Vous n’êtes pas autorisé à demander un nouveau mot de passe.',
-  'NO_AUTH_READ_HOLD_MESSAGE'      => 'Vous n’êtes pas autorisé à lire les messages privés qui sont en attente.',
-  'NO_AUTH_READ_MESSAGE'         => 'Vous n’êtes pas autorisé à lire les messages privés.',
-  'NO_AUTH_READ_REMOVED_MESSAGE'   => 'Vous n’êtes pas autorisé à lire ce message car il a été supprimé par son auteur.',
-  'NO_AUTH_SEND_MESSAGE'         => 'Vous n’êtes pas autorisé à envoyer des messages privés.',
+	'NO_AUTH_PASSWORD_REMINDER'		=> 'Vous n’êtes pas autorisé à demander un nouveau mot de passe.',
+	'NO_AUTH_READ_HOLD_MESSAGE'		=> 'Vous n’êtes pas autorisé à lire les messages privés qui sont en attente.',
+	'NO_AUTH_READ_MESSAGE'			=> 'Vous n’êtes pas autorisé à lire les messages privés.',
+	'NO_AUTH_READ_REMOVED_MESSAGE'	=> 'Vous n’êtes pas autorisé à lire ce message car il a été supprimé par son auteur.',
+	'NO_AUTH_SEND_MESSAGE'			=> 'Vous n’êtes pas autorisé à envoyer des messages privés.',
 	'NO_AUTH_SIGNATURE'				=> 'Vous n’êtes pas autorisé à définir une signature.',
 
 	'NO_BCC_RECIPIENT'			=> 'Aucun',
@@ -322,7 +331,7 @@ $lang = array_merge($lang, array(
 	'NO_GROUP_SELECTED'			=> 'Aucun groupe n’a été spécifié.',
 	'NO_IMPORTANT_NEWS'			=> 'Aucune annonce importante n’est présente.',
 	'NO_MESSAGE'				=> 'Le message privé est introuvable.',
-	'NO_NEW_FOLDER_NAME'		=> 'Vous devez spécifier un nom concernant le nouveau dossier.',
+	'NO_NEW_FOLDER_NAME'		=> 'Vous devez spécifier le nom du nouveau dossier.',
 	'NO_NEWER_PM'				=> 'Aucun nouveau message.',
 	'NO_OLDER_PM'				=> 'Aucun ancien message.',
 	'NO_PASSWORD_SUPPLIED'		=> 'Vous ne pouvez pas vous connecter sans saisir un mot de passe.',
@@ -415,7 +424,7 @@ $lang = array_merge($lang, array(
 
 	'UCP'						=> 'Panneau de contrôle de l’utilisateur',
 	'UCP_ACTIVATE'				=> 'Activer le compte',
-	'UCP_ADMIN_ACTIVATE'		=> 'Veuillez noter que vous avez besoin de saisir une adresse e-mail correcte avant que votre compte soit activé. L’administrateur vérifiera votre compte et s’il est approuvé, vous recevrez un e-mail à l’adresse que vous avez spécifiée.',
+	'UCP_ADMIN_ACTIVATE'		=> 'Veuillez noter que vous devez saisir une adresse e-mail correcte avant que votre compte soit activé. L’administrateur vérifiera votre compte et s’il est approuvé, vous recevrez un e-mail à l’adresse que vous avez spécifié.',
 	'UCP_AIM'					=> 'AOL Instant Messenger',
 	'UCP_ATTACHMENTS'			=> 'Pièces jointes',
 	'UCP_COPPA_BEFORE'			=> 'Avant le %s',
@@ -466,16 +475,17 @@ $lang = array_merge($lang, array(
 	'UCP_ZEBRA'						=> 'Amis &amp; ignorés',
 	'UCP_ZEBRA_FOES'				=> 'Gérer les ignorés',
 	'UCP_ZEBRA_FRIENDS'				=> 'Gérer les amis',
+	'UNDISCLOSED_RECIPIENT'			=> 'Destinataire confidentiel',
 	'UNKNOWN_FOLDER'				=> 'Dossier inconnu',
 	'UNWATCH_MARKED'				=> 'Ne plus surveiller la sélection',
 	'UPLOAD_AVATAR_FILE'			=> 'Transférer depuis votre ordinateur',
 	'UPLOAD_AVATAR_URL'				=> 'Transférer depuis un lien',
 	'UPLOAD_AVATAR_URL_EXPLAIN'		=> 'Saisissez le lien où l’image est stockée. L’image sera copiée sur ce site.',
-	'USERNAME_ALPHA_ONLY_EXPLAIN'	=> 'Le nom d’utilisateur doit être compris entre %1$d et %2$d caractères de long et ne doit utiliser que des caractères alphanumériques.',
-	'USERNAME_ALPHA_SPACERS_EXPLAIN'=> 'Le nom d’utilisateur doit être compris entre %1$d et %2$d caractères de long et doit utiliser des caractères alphanumériques, des espaces ou des caractères -+_[].',
-	'USERNAME_ASCII_EXPLAIN'		=> 'Le nom d’utilisateur doit être compris entre %1$d et %2$d caractères de long et ne doit utiliser que des caractères ASCII, donc aucun symboles spéciaux.',
-	'USERNAME_LETTER_NUM_EXPLAIN'	=> 'Le nom d’utilisateur doit être compris entre %1$d et %2$d caractères de long et ne doit utiliser que des lettres ou des nombres.',
-	'USERNAME_LETTER_NUM_SPACERS_EXPLAIN'=> 'Le nom d’utilisateur doit être compris entre %1$d et %2$d caractères de long et doit utiliser des lettres, des nombres, des espaces ou des caractères -+_[].',
+	'USERNAME_ALPHA_ONLY_EXPLAIN'	=> 'Le nom d’utilisateur doit être compris entre %1$d et %2$d caractères de long et ne doit contenir que des caractères alphanumériques.',
+	'USERNAME_ALPHA_SPACERS_EXPLAIN'=> 'Le nom d’utilisateur doit être compris entre %1$d et %2$d caractères de long et doit contenir des caractères alphanumériques, des espaces ou des caractères -+_[].',
+	'USERNAME_ASCII_EXPLAIN'		=> 'Le nom d’utilisateur doit être compris entre %1$d et %2$d caractères de long et ne doit contenir que des caractères ASCII, donc aucun symboles spéciaux.',
+	'USERNAME_LETTER_NUM_EXPLAIN'	=> 'Le nom d’utilisateur doit être compris entre %1$d et %2$d caractères de long et ne doit contenir que des lettres ou des nombres.',
+	'USERNAME_LETTER_NUM_SPACERS_EXPLAIN'=> 'Le nom d’utilisateur doit être compris entre %1$d et %2$d caractères de long et doit contenir des lettres, des nombres, des espaces ou des caractères -+_[].',
 	'USERNAME_CHARS_ANY_EXPLAIN'	=> 'La longueur doit être comprise entre %1$d et %2$d caractères.',
 	'USERNAME_TAKEN_USERNAME'		=> 'Le nom d’utilisateur que vous avez saisi est déjà utilisé, veuillez en choisir un autre.',
 	'USERNAME_DISALLOWED_USERNAME'	=> 'Le nom d’utilisateur que vous avez saisi a été interdit ou contient un mot interdit. Veuillez choisir un nom différent.',
@@ -545,7 +555,7 @@ $lang = array_merge($lang, array(
 	),
 
 
-	'GROUPS_EXPLAIN'	=> 'Les groupes d’utilisateurs permettent aux administrateurs de mieux administrer les utilisateurs. Par défaut, vous serez placé dans un groupe spécifique et celui-ci est votre groupe par défaut. Ce groupe défini comment vous pouvez apparaître aux autres utilisateurs, comme par exemple par l’intermédiaire de la couleur de votre nom d’utilisateur, de votre avatar, de votre rang, etc. Si l’administrateur l’autorise, vous pouvez modifier votre groupe par défaut. Vous pouvez également être placé dans celui-ci ou autorisé à rejoindre d’autres groupes. Certains groupes peuvent vous donner des permissions additionnelles afin de voir un certain contenu ou augmenter vos fonctionnalités dans d’autres zones.',
+	'GROUPS_EXPLAIN'	=> 'Les groupes d’utilisateurs permettent aux administrateurs de mieux administrer les utilisateurs. Par défaut, vous serez placé dans un groupe spécifique et celui-ci est votre groupe par défaut. Ce groupe défini comment vous pouvez apparaître aux autres utilisateurs, comme par exemple par l’intermédiaire de la couleur de votre nom d’utilisateur, de votre avatar, de votre rang, etc. Si l’administrateur l’autorise, vous pouvez modifier votre groupe par défaut. Vous pouvez également être placé dans celui-ci ou être autorisé à rejoindre d’autres groupes. Certains groupes peuvent vous donner des permissions additionnelles afin de voir un certain contenu ou augmenter vos fonctionnalités dans d’autres zones.',
 	'GROUP_LEADER'		=> 'Responsables',
 	'GROUP_MEMBER'		=> 'Membres',
 	'GROUP_PENDING'		=> 'Membres en attente',

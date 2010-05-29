@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* acp_search [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: search.php 9438 2009-04-11 11:09:45Z acydburn $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* acp_search [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: search.php 9438 2009-04-11 11:09:45Z acydburn $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -58,13 +67,13 @@ $lang = array_merge($lang, array(
 	'DELETING_INDEX_IN_PROGRESS'			=> 'Suppression de l’index en cours.',
 	'DELETING_INDEX_IN_PROGRESS_EXPLAIN'	=> 'La méthode d’indexation de la recherche est actuellement en train de vider son index. Cela peut prendre quelques minutes.',
 
-	'FULLTEXT_MYSQL_INCOMPATIBLE_VERSION'	=> 'L’indexation FULLTEXT de MySQL ne peut être utilisé qu’avec MySQL4 et plus.',
-	'FULLTEXT_MYSQL_NOT_MYISAM'				=> 'Les indexations FULLTEXT de MySQL ne peuvent être utilisés qu’avec les tables MyISAM.',
+	'FULLTEXT_MYSQL_INCOMPATIBLE_VERSION'	=> 'L’indexation plein texte de MySQL ne peut être utilisée qu’avec MySQL4 et plus.',
+	'FULLTEXT_MYSQL_NOT_MYISAM'				=> 'Les indexations plein texte de MySQL ne peuvent être utilisées qu’avec les tables MyISAM.',
 	'FULLTEXT_MYSQL_TOTAL_POSTS'			=> 'Nombre total de messages indexés',
-	'FULLTEXT_MYSQL_MBSTRING'				=> 'Support des caractères UTF-8 non-latin utilisant mbstring :',
-	'FULLTEXT_MYSQL_PCRE'					=> 'Support des caractères UTF-8 non-latin utilisant PCRE :',
+	'FULLTEXT_MYSQL_MBSTRING'				=> 'Support des caractères UTF-8 non-latins utilisant mbstring :',
+	'FULLTEXT_MYSQL_PCRE'					=> 'Support des caractères UTF-8 non-latins utilisant PCRE :',
 	'FULLTEXT_MYSQL_MBSTRING_EXPLAIN'		=> 'Si PCRE n’a aucune propriété de caractère unicode, l’index de la recherche essaiera d’utiliser le moteur d’expressions régulières de mbstring.',
-	'FULLTEXT_MYSQL_PCRE_EXPLAIN'			=> 'Si vous souhaitez rechercher des caractères non-latin, vous allez avoir besoin des propriétés de caractère unicode de PCRE qui ne sont disponibles que dans PHP 4.4, 5.1 et plus.',
+	'FULLTEXT_MYSQL_PCRE_EXPLAIN'			=> 'Si vous souhaitez rechercher des caractères non-latins, vous allez avoir besoin des propriétés de caractère unicode de PCRE qui ne sont disponibles que dans PHP 4.4, 5.1 et plus.',
 
 	'GENERAL_SEARCH_SETTINGS'				=> 'Réglages généraux de la recherche',
 	'GO_TO_SEARCH_INDEX'					=> 'Aller sur la page d’index de la recherche',
@@ -98,7 +107,7 @@ $lang = array_merge($lang, array(
 	'SEARCH_STORE_RESULTS'					=> 'Durée de la mise en cache des résultats de la recherche',
 	'SEARCH_STORE_RESULTS_EXPLAIN'			=> 'Les résultats de la recherche mis en cache expireront après cette durée exprimée en secondes. Réglez ceci à “0” afin de désactiver la mise en cache des résultats de la recherche.',
 	'SEARCH_TYPE'							=> 'Méthode d’indexation de la recherche',
-	'SEARCH_TYPE_EXPLAIN'					=> 'phpBB vous permet de choisir la méthode d’indexation qui est utilisée lors de la recherche de texte dans le contenu des messages. Par défaut, la recherche de phpBB utilisera FULLTEXT.',
+	'SEARCH_TYPE_EXPLAIN'					=> 'phpBB vous permet de choisir la méthode d’indexation qui est utilisée lors de la recherche de texte dans le contenu des messages. Par défaut, la recherche utilisera la recherche plein texte propre à phpBB.',
 	'SWITCHED_SEARCH_BACKEND'				=> 'Vous avez modifié la méthode d’indexation de la recherche avec succès. Vous devriez à présent recréer un index.',
 
 	'TOTAL_WORDS'							=> 'Nombre total de mots indexés',
@@ -106,8 +115,8 @@ $lang = array_merge($lang, array(
 
 	'YES_SEARCH'							=> 'Activer la fonctionnalité de la recherche',
 	'YES_SEARCH_EXPLAIN'					=> 'Active la fonctionnalité de la recherche, incluant la recherche des membres.',
-	'YES_SEARCH_UPDATE'						=> 'Activer la mise à jour de FULLTEXT',
-	'YES_SEARCH_UPDATE_EXPLAIN'				=> 'Met à jour les indexs de FULLTEXT lors de la publication de messages. La recherche sera écrasée si ceci est activé.',
+	'YES_SEARCH_UPDATE'						=> 'Activer la mise à jour plein texte',
+	'YES_SEARCH_UPDATE_EXPLAIN'				=> 'Met à jour les index plein texte lors des publications. Ce réglage n’est pas pris en compte si la recherche est désactivée.',
 ));
 
 ?>

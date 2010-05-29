@@ -6,13 +6,13 @@ Vous recevez cet avertissement car vous surveillez le forum "{FORUM_NAME}" sur "
 
 {U_NEWEST_POST}
 
-Si vous souhaitez consulter le sujet, veuillez cliquer sur lien suivant :
+Si vous souhaitez consulter le sujet, veuillez cliquer sur le lien suivant :
 {U_TOPIC}
 
-Si vous souhaitez consulter le forum, veuillez cliquer sur lien suivant :
+Si vous souhaitez consulter le forum, veuillez cliquer sur le lien suivant :
 {U_FORUM}
 
-Si vous ne souhaitez plus surveiller ce forum, vous pouvez cliquer sur le lien "Se désabonner au forum" situé au dessous du forum en question ou cliquer sur le lien suivant :
+Si vous ne souhaitez plus surveiller ce forum, vous pouvez cliquer sur le lien "Se désabonner au forum" situé au-dessous du forum en question ou cliquer sur le lien suivant :
 
 {U_STOP_WATCHING_FORUM}
 

@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* acp_posting [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: posting.php 9902 2009-08-01 11:07:48Z acydburn $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* acp_posting [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: posting.php 10516 2010-02-21 11:33:29Z Kellanved $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -46,6 +55,9 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'ACP_BBCODES_EXPLAIN'		=> 'Le BBCode est une implémentation spéciale du HTML qui offre un plus grand contrôle sur quoi et comment quelque chose doit être affiché. De cette page, vous pouvez ajouter, supprimer et éditer des BBCodes personnalisés.',
 	'ADD_BBCODE'				=> 'Ajouter un nouveau BBCode',
+
+	'BBCODE_DANGER'				=> 'Le BBCode que vous êtes en train d’essayer d’ajouter semble utiliser une chaîne de symboles {TEXT} dans l’attribut HTML. Ceci peut être un éventuel problème de sécurité XSS. Essayez d’utiliser un type plus restrictif à la place, comme {SIMPLETEXT} ou {INTTEXT}. Ne procédez uniquement à cela que si vous comprenez les risque encourus et que vous considérez que l’utilisation de {TEXT} est absolumement inévitable.',
+	'BBCODE_DANGER_PROCEED'		=> 'Procéder', //'I understand the risk',
 
 	'BBCODE_ADDED'				=> 'Le BBCode a été ajouté avec succès.',
 	'BBCODE_EDITED'				=> 'Le BBCode a été édité avec succès.',
@@ -74,13 +86,14 @@ $lang = array_merge($lang, array(
 
 	'TOKEN'					=> 'Chaîne de symboles',
 	'TOKENS'				=> 'Chaînes de symboles',
-	'TOKENS_EXPLAIN'		=> 'Les marques sont des conteneurs pour les utilisateurs. Les entrées ne seront validées que si elles trouvent la définition correspondante. Si besoin, vous pouvez les numéroter en y ajoutant un nombre entre des accolades comme dernier caractère, comme {TEXT1}, {TEXT2}.<br /><br />Vous pouvez, en plus du remplacement de l’HTML, utiliser une chaîne de langue dans votre répertoire language/ comme ceci : {L_<em>&lt;STRINGNAME&gt;</em>} où <em>&lt;STRINGNAME&gt;</em> est le nom de la chaîne traduite que vous souhaitez ajouter. Par exemple, {L_WROTE} sera affiché en tant que “a écrit” ou sa traduction selon la langue locale de l’utilisateur.<br /><br /><strong>Veuillez noter que seules les chaînes listées ci-dessous sont autorisées à être utilisées dans les BBCodes personnalisés.</strong>',
+	'TOKENS_EXPLAIN'		=> 'Les chaînes de symboles sont des conteneurs pour les utilisateurs. Les entrées ne seront validées que si elles trouvent la définition correspondante. Si besoin, vous pouvez les numéroter en y ajoutant un nombre entre des accolades comme dernier caractère, comme {TEXT1}, {TEXT2}.<br /><br />Vous pouvez, en plus du remplacement de l’HTML, utiliser une chaîne de langue dans votre répertoire language/ comme ceci : {L_<em>&lt;STRINGNAME&gt;</em>} où <em>&lt;STRINGNAME&gt;</em> est le nom de la chaîne traduite que vous souhaitez ajouter. Par exemple, {L_WROTE} sera affiché en tant que “a écrit” ou sa traduction selon la langue locale de l’utilisateur.<br /><br /><strong>Veuillez noter que seules les chaînes listées ci-dessous sont autorisées à être utilisées dans les BBCodes personnalisés.</strong>',
 	'TOKEN_DEFINITION'		=> 'Qu’est-ce que c’est ?',
 	'TOO_MANY_BBCODES'		=> 'Vous ne pouvez pas créer d’autres BBCodes. Veuillez supprimer un ou plusieurs BBCodes, puis réessayer.',
 
 	'tokens'	=>	array(
-		'TEXT'			=> 'Du texte, incluant des caractères étrangers, des chiffres, etc. Vous ne devriez pas utiliser cette variable dans les balises HTML. Essayez d’utiliser à la place IDENTIFIER ou SIMPLETEXT.',
-		'SIMPLETEXT'	=> 'Des caractères de l’alphabet latin (A-Z), des chiffres, des espaces, des virgules, des points, des plus et des moins, des tirets et des tirets-bas.',
+		'TEXT'			=> 'Du texte, incluant des caractères étrangers, des chiffres, etc. Vous ne devriez pas utiliser cette chaîne de symboles dans les balises HTML. Essayez d’utiliser à la place IDENTIFIER, INTTEXT ou SIMPLETEXT.',
+		'SIMPLETEXT'	=> 'Des caractères de l’alphabet latin (A-Z), des chiffres, des espaces, des virgules, des points, des plus, des moins, des tirets et des tirets-bas.',
+		'INTTEXT'		=> 'Des lettres de caractères Unicode, des chiffres, des espaces, des virgules, des points, des plus, des moins, des tirets-bas et des espaces insécables.',
 		'IDENTIFIER'	=> 'Des caractères de l’alphabet latin (A-Z), des chiffres, des tirets et des tirets-bas.',
 		'NUMBER'		=> 'Une série de chiffres',
 		'EMAIL'			=> 'Une adresse e-mail valide',

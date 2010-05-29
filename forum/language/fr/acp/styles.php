@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* acp_styles [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: styles.php 10074 2009-08-31 11:25:28Z acydburn $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* acp_styles [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: styles.php 10074 2009-08-31 11:25:28Z acydburn $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -325,7 +334,7 @@ $lang = array_merge($lang, array(
 	'REPLACE_STYLE'				=> 'Remplacer le style par',
 	'REPLACE_STYLE_EXPLAIN'		=> 'Ce style remplacera celui qui a été supprimé pour les membres l’utilisant.',
 	'REPLACE_TEMPLATE'			=> 'Remplacer l’archive de templates par',
-	'REPLACE_TEMPLATE_EXPLAIN'	=> 'Cette archive de templates remplacera cellle que vous supprimez dans tous les styles l’utilisant.',
+	'REPLACE_TEMPLATE_EXPLAIN'	=> 'Cette archive de templates remplacera celle que vous supprimez dans tous les styles l’utilisant.',
 	'REPLACE_THEME'				=> 'Remplacer le thème par',
 	'REPLACE_THEME_EXPLAIN'		=> 'Ce thème remplacera celui que vous supprimez dans tous les styles l’utilisant.',
 	'REQUIRES_IMAGESET'			=> 'Ce style requiert l’installation de l’archive d’images %s.',
@@ -336,7 +345,7 @@ $lang = array_merge($lang, array(
 	'SELECT_TEMPLATE'			=> 'Sélectionner le fichier template',
 	'SELECT_THEME'				=> 'Sélectionner le fichier thème',
 	'SELECTED_IMAGE'			=> 'Image sélectionnée',
-	'SELECTED_IMAGESET'			=> 'Archive d’images sélectionnéz',
+	'SELECTED_IMAGESET'			=> 'Archive d’images sélectionnée',
 	'SELECTED_TEMPLATE'			=> 'Template sélectionné',
 	'SELECTED_TEMPLATE_FILE'	=> 'Fichier template sélectionné',
 	'SELECTED_THEME'			=> 'Thème sélectionné',
@@ -386,7 +395,7 @@ $lang = array_merge($lang, array(
 	'TEMPLATE_ERR_NAME_CHARS'	=> 'Le nom de l’archive de templates ne doit contenir que des caractères alphanumériques, -, +, _ et des espaces.',
 	'TEMPLATE_ERR_NAME_EXIST'	=> 'Une archive de templates portant ce nom existe déjà.',
 	'TEMPLATE_ERR_NAME_LONG'	=> 'Le nom de l’archive de templates ne doit pas dépasser 30 caractères.',
-	'TEMPLATE_ERR_NOT_TEMPLATE'	=> 'Le fichier compressé que vous avez spécifié ne contient pas d’archive de templates valide.',
+	'TEMPLATE_ERR_NOT_TEMPLATE'	=> 'Le fichier compressé que vous avez spécifié ne contient aucune archive de templates valide.',
 	'TEMPLATE_ERR_REQUIRED_OR_INCOMPLETE' => 'La nouvelle archive de templates requiert l’installation du template %s et ne doit pas hériter de ce dernier.',
 	'TEMPLATE_ERR_STYLE_NAME'	=> 'Vous devez spécifier le nom de cette archive de templates.',
 	'TEMPLATE_EXPORT'			=> 'Exporter une archive de templates',
@@ -420,7 +429,7 @@ $lang = array_merge($lang, array(
 	'THEME_ERR_STYLE_NAME'		=> 'Vous devez spécifier le nom de ce thème.',
 	'THEME_FILE'				=> 'Fichier thème',
 	'THEME_EXPORT'				=> 'Exporter un thème',
-	'THEME_EXPORT_EXPLAIN'		=> 'Vous pouvez exporter ici un thème sous forme de fichier compréssé. Ce fichier compressé contiendra toutes les données nécessaires à à l’installation du thème sur un autre forum. Vous pouvez soit télécharger le fichier directement, soit le placer dans votre répertoire de stockage afin de le télécharger ultérieurement par FTP.',
+	'THEME_EXPORT_EXPLAIN'		=> 'Vous pouvez exporter ici un thème sous forme de fichier compréssé. Ce fichier compressé contiendra toutes les données nécessaires à l’installation du thème sur un autre forum. Vous pouvez soit télécharger le fichier directement, soit le placer dans votre répertoire de stockage afin de le télécharger ultérieurement par FTP.',
 	'THEME_EXPORTED'			=> 'Le thème a été exporté et stocké dans %s avec succès.',
 	'THEME_LOCATION'			=> 'Stocker la feuille de style dans',
 	'THEME_LOCATION_EXPLAIN'	=> 'Les images sont toujours stockées dans le système de fichiers.',

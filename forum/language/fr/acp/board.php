@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* acp_board [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: board.php 10080 2009-08-31 14:57:04Z nickvergessen $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* acp_board [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: board.php 10556 2010-02-28 21:01:16Z Marshalrusty $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -76,7 +85,8 @@ $lang = array_merge($lang, array(
 	'ALLOW_NO_CENSORS'			=> 'Autoriser la désactivation de la censure de mots',
 	'ALLOW_NO_CENSORS_EXPLAIN'	=> 'Les utilisateurs pourront désactiver la censure de mots automatique dans les messages et les messages privés.',
 	'ALLOW_QUICK_REPLY'			=> 'Autoriser la réponse rapide',
-	'ALLOW_QUICK_REPLY_EXPLAIN'	=> 'Ce réglage définit si la réponse rapide est activée ou non. Si ce réglage est activé, les forums doivent également avoir l’option de réponse rapide activée.',
+	'ALLOW_QUICK_REPLY_EXPLAIN'	=> 'Autorise la réponse rapide à être désactivée sur tout le forum. Lorsque ceci activé, les réglages spécifiques des forums seront utilisés afin de déterminer si la réponse rapide est désactivée ou non dans les forums individuels.',
+	'ALLOW_QUICK_REPLY_BUTTON'	=> 'Envoyer et activer la réponse rapide dans tous les forums',
 	'ALLOW_PM_ATTACHMENTS'		=> 'Autoriser les pièces jointes dans les messages privés',
 	'ALLOW_PM_REPORT'			=> 'Autoriser les utilisateurs à rapporter les messages privés',
 	'ALLOW_PM_REPORT_EXPLAIN'	=> 'Si ce réglage est activé, les utilisateurs peuvent rapporter aux modérateurs du forum un message privé qu’ils ont reçu ou envoyé. Ces messages privés deviendront alors visibles depuis le panneau de contrôle du modérateur.',
@@ -90,7 +100,7 @@ $lang = array_merge($lang, array(
 	'ALLOW_SMILIES'				=> 'Autoriser les émoticônes',
 	'ALLOW_TOPIC_NOTIFY'		=> 'Autoriser l’abonnement aux sujets',
 	'BOARD_PM'					=> 'Messagerie privée',
-	'BOARD_PM_EXPLAIN'			=> 'Activer ou désactiver la messagerie privée pour tous les utilisateurs.',
+	'BOARD_PM_EXPLAIN'			=> 'Activer la messagerie privée pour tous les utilisateurs.',
 //-- mod : purge cache from any page --------------------------------------------------------
 //-- add
 	'ALLOW_PURGE_CACHE'			=> 'Autoriser la purge du cache depuis n’importe quelle page',
@@ -103,7 +113,7 @@ $lang = array_merge($lang, array(
 	'ACP_AVATAR_SETTINGS_EXPLAIN'	=> 'Les avatars sont généralement de petites images uniques qu’un utilisateur peut associer à sa personnalité. Selon le style utilisé, ils sont habituellement affichés sous le nom d’utilisateur lorsque vous consultez des sujets. Vous pouvez déterminer ici quels sont les utilisateurs qui peuvent utiliser des avatars. Veuillez noter que pour transférer des avatars, vous devez avoir préalablement créé le répertoire que vous indiquerez ci-dessous et vous assurer qu’il soit accessible en écriture sur le serveur Internet. Veuillez également noter que les limitations de taille ne sont imposées qu’aux avatars transférés, elles ne s’appliquent pas aux images à distance.',
 
 	'ALLOW_AVATARS'					=> 'Activer les avatars',
-	'ALLOW_AVATARS_EXPLAIN'			=> 'Autorise l’utilisation générale des avatars ;<br />Si vous désactivez les avatars en général ou les avatars d’un certain mode, les avatars désactivés ne s’afficheront plus sur le forum mais les utilisateurs pourront toujours télécharger leurs propres avatars depuis le panneau de contrôle de l’utilisateur.',
+	'ALLOW_AVATARS_EXPLAIN'			=> 'Autorise l’utilisation générale des avatars ;<br />Si vous désactivez l’utilisation générale ou particulière des avatars, les avatars désactivés ne s’afficheront plus sur le forum mais les utilisateurs seront toujours capables de télécharger leurs propres avatars depuis le panneau de contrôle de l’utilisateur.',
 	'ALLOW_LOCAL'					=> 'Activer la galerie d’avatars',
 	'ALLOW_REMOTE'					=> 'Activer les avatars à distance',
 	'ALLOW_REMOTE_EXPLAIN'			=> 'Les avatars situés sur un site Internet externe.',
@@ -148,7 +158,7 @@ $lang = array_merge($lang, array(
 	'PM_EDIT_TIME'				=> 'Durée limite d’édition',
 	'PM_EDIT_TIME_EXPLAIN'		=> 'Limite la durée disponible afin d’éditer les messages privés qui n’ont pas encore été délivrés. Le réglage de cette valeur à <samp>0</samp> désactive ce comportement.',
 	'PM_MAX_RECIPIENTS'         => 'Nombre maximum de destinataires autorisés',
-  'PM_MAX_RECIPIENTS_EXPLAIN'   => 'Le nombre maximum de destinataires autorisés pour un message privé. Réglez cette valeur à <samp>0</samp> si vous ne souhaitez pas limiter le nombre de destinataires. Ce réglage peut être ajusté pour chaque groupe dans la page des réglages des groupes.',
+	'PM_MAX_RECIPIENTS_EXPLAIN'   => 'Le nombre maximum de destinataires autorisés pour un message privé. Réglez cette valeur à <samp>0</samp> si vous ne souhaitez pas limiter le nombre de destinataires. Ce réglage peut être ajusté pour chaque groupe dans la page des réglages des groupes.',
 ));
 
 // Post Settings
@@ -160,8 +170,8 @@ $lang = array_merge($lang, array(
 	'ALLOW_POST_FLASH_EXPLAIN'			=> 'Si refusé, la balise BBCode <code>[FLASH]</code> sera désactivée dans les messages. Dans le cas contraire, le système de permission déterminera quels seront les utilisateurs qui pourront utiliser la balise BBCode <code>[FLASH]</code>.',
 
 	'BUMP_INTERVAL'					=> 'Intervalle de remontée des sujets',
-	'BUMP_INTERVAL_EXPLAIN'			=> 'Nombre de minutes, heures ou jours entre le dernier message d’un sujet et la possibilité de remonter ce sujet.',
-	'CHAR_LIMIT'					=> 'Nombre maximum de caractères par message',
+	'BUMP_INTERVAL_EXPLAIN'			=> 'Nombre de minutes, heures ou jours entre le dernier message d’un sujet et la possibilité de remonter ce sujet. Réglez cette valeur à <samp>0</samp> afin de désactiver cette fonctionnalité.',
+	'CHAR_LIMIT'					=> 'Nombre maximum de caractères par message ou message privé',
 	'CHAR_LIMIT_EXPLAIN'			=> 'Le nombre maximum de caractères autorisés dans un message ou un message privé. Réglez cette valeur à <samp>0</samp> afin de ne pas limiter le nombre de caractères.',
 	'DELETE_TIME'					=> 'Durée limite de suppression',
 	'DELETE_TIME_EXPLAIN'			=> 'Limite la durée disponible afin de supprimer un nouveau message. Réglez cette valeur à <samp>0</samp> afin de désactiver ce comportement.',
@@ -257,32 +267,40 @@ $lang = array_merge($lang, array(
 
 // Feeds
 $lang = array_merge($lang, array(
-	'ACP_FEED_MANAGEMENT'				=> 'Réglages des flux de syndication',
+	'ACP_FEED_MANAGEMENT'				=> 'Réglages des flux de syndication généraux',
 	'ACP_FEED_MANAGEMENT_EXPLAIN'		=> 'Ce module rend disponible de multiples flux ATOM, en décomposant tout BBCode dans les messages afin de les rendre lisibles dans les flux externes.',
 
+	'ACP_FEED_GENERAL'					=> 'Réglages du flux général',
+  'ACP_FEED_POST_BASED'				=> 'Réglages du flux lié aux messages',
+	'ACP_FEED_TOPIC_BASED'				=> 'Réglages du flux lié aux sujets',
+	'ACP_FEED_SETTINGS_OTHER'			=> 'Autres réglages et flux',
+
 	'ACP_FEED_ENABLE'					=> 'Activer les flux',
-	'ACP_FEED_ENABLE_EXPLAIN'			=> 'Activer ou désactiver les flux ATOM sur la totalité du forum.<br />En désactivant cela, tous les flux seront désactivés, sans prendre compte des réglages des options ci-dessous.',
+	'ACP_FEED_ENABLE_EXPLAIN'			=> 'Activer ou désactiver les flux ATOM sur la totalité du forum.<br />En désactivant cela, tous les flux seront désactivés, sans prendre en compte les réglages des options ci-dessous.',
 	'ACP_FEED_LIMIT'					=> 'Nombre d’objets',
 	'ACP_FEED_LIMIT_EXPLAIN'			=> 'Le nombre maximum d’objets à afficher dans les flux.',
 
-	'ACP_FEED_OVERALL_FORUMS'			=> 'Activer le flux de l’ensemble des forums',
-	'ACP_FEED_OVERALL_FORUMS_EXPLAIN'	=> 'Ce flux affiche les derniers messages de tous les sujets des forums.',
-	'ACP_FEED_OVERALL_FORUMS_LIMIT'		=> 'Nombre d’objets par page à afficher dans le flux des forums',
-
-	'ACP_FEED_OVERALL_TOPIC'			=> 'Activer le flux de l’ensemble des sujets',
-	'ACP_FEED_OVERALL_TOPIC_EXPLAIN'	=> 'Active le flux de tous les sujets',
-	'ACP_FEED_OVERALL_TOPIC_LIMIT'		=> 'Nombre d’objets par page à afficher dans le flux des sujets',
+	'ACP_FEED_OVERALL'					=> 'Activer le flux de l’ensemble du forum',
+	'ACP_FEED_OVERALL_EXPLAIN'			=> 'Nouveaux messages de l’ensemble du forum.',
 	'ACP_FEED_FORUM'					=> 'Activer les flux par forum',
-	'ACP_FEED_FORUM_EXPLAIN'			=> 'Les nouveaux messages d’un seul forum.',
+	'ACP_FEED_FORUM_EXPLAIN'			=> 'Nouveaux messages d’un seul forum et des sous-forums.',
 	'ACP_FEED_TOPIC'					=> 'Activer les flux par sujet',
-	'ACP_FEED_TOPIC_EXPLAIN'			=> 'Les nouveaux messages d’un seul sujet.',
-	'ACP_FEED_NEWS'						=> 'Les flux des nouveautés',
-	'ACP_FEED_NEWS_EXPLAIN'				=> 'Placer le premier message à partir de ces forums. Ne sélectionnez aucun forum afin de sélectionner le flux des nouveautés.<br />Sélectionnez plusieurs forums en pressant <samp>CTRL</samp> et en cliquant.',
+	'ACP_FEED_TOPIC_EXPLAIN'			=> 'Nouveaux messages d’un seul sujet.',
 
-	'ACP_FEED_GENERAL'					=> 'Réglages du flux général',
+  'ACP_FEED_TOPICS_NEW'				=> 'Activer le flux des nouveaux sujets',
+	'ACP_FEED_TOPICS_NEW_EXPLAIN'		=> 'Active le flux des “nouveaux sujets”, qui affiche les derniers sujets créés, en incluant le premier message.',
+	'ACP_FEED_TOPICS_ACTIVE'			=> 'Active le flux des sujets actifs',
+	'ACP_FEED_TOPICS_ACTIVE_EXPLAIN'	=> 'Active le flux des “sujet actifs”, qui affiche les derniers sujets actifs, en incluant le premier message.',
+  'ACP_FEED_NEWS'						=> 'Flux des nouveautés',
+	'ACP_FEED_NEWS_EXPLAIN'				=> 'Place le premier message à partir de ces forums. Ne sélectionnez aucun forum afin de désactiver le flux des nouveautés.<br />Sélectionnez plusieurs forums en pressant <samp>CTRL</samp> et en cliquant.',
 
+	'ACP_FEED_OVERALL_FORUMS'			=> 'Activer le flux des forums',
+	'ACP_FEED_OVERALL_FORUMS_EXPLAIN'	=> 'Active le flux de “tous les forums”, qui affiche une liste des forums.',
+
+	'ACP_FEED_HTTP_AUTH'				=> 'Autoriser l’authentification HTTP',
+	'ACP_FEED_HTTP_AUTH_EXPLAIN'		=> 'Autorise l’authentification HTTP, ce qui permet aux utilisateurs de recevoir un contenu caché aux invités disponible en ajoutant le paramètre <samp>auth=http</samp> à l’adresse du flux. Veuillez noter que certaines installations de PHP demandent à effectuer des modifications additionnelles sur le fichier .htaccess. Toutes les instructions sont contenues dans ce fichier.',
 	'ACP_FEED_ITEM_STATISTICS'			=> 'Statistiques de l’objet',
-	'ACP_FEED_ITEM_STATISTICS_EXPLAIN'	=> 'Afficher les statistiques individuelles sous les articles du flux<br />(Publié par, date et heure, réponses, consultations)',
+	'ACP_FEED_ITEM_STATISTICS_EXPLAIN'	=> 'Affiche les statistiques individuelles sous les articles du flux.<br />(Exemple : publié par, date et heure, réponses, consultations)',
 	'ACP_FEED_EXCLUDE_ID'				=> 'Exclure ces forums',
 	'ACP_FEED_EXCLUDE_ID_EXPLAIN'		=> 'Le contenu de ces forums ne seront <strong>pas inclus dans ces flux</strong>. Ne sélectionnez aucun forum afin d’extraire les données de ces forums.<br />Sélectionnez ou désélectionnez plusieurs forums en pressant <samp>CTRL</samp> et en cliquant.',
 ));
@@ -321,8 +339,6 @@ $lang = array_merge($lang, array(
 	'CONFIGURE'								=> 'Configurer',
 	'CAPTCHA_NO_OPTIONS'					=> 'Ce CAPTCHA n’a aucune option de configuration.',
 
-	'CAPTCHA_PREVIEW_MSG'					=> 'Les modifications que vous avez apportées sur le réglage concernant la confirmation visuelle n’ont pas été sauvegardées. Ceci est seulement un aperçu.',
-	'CAPTCHA_PREVIEW_EXPLAIN'				=> 'Représente le CAPTCHA tel qu’il ressemblera avec les réglages actuels. Utilisez le bouton de prévisualisation afin de le rafraîchir. Notez que le CAPTCHA est aléatoire et qu’il sera différent à chaque fois.',
 	'VISUAL_CONFIRM_POST'					=> 'Activer la confirmation visuelle pour les invités',
 	'VISUAL_CONFIRM_POST_EXPLAIN'			=> 'Oblige les invités à saisir un code aléatoire basé sur une image afin d’empêcher la publication de messages automatisés.',
 	'VISUAL_CONFIRM_REG'					=> 'Activer la confirmation visuelle lors des inscriptions',
@@ -396,7 +412,7 @@ $lang = array_merge($lang, array(
 	'LDAP_NO_EMAIL'					=> 'L’attribut de l’e-mail que vous avez spécifié n’existe pas.',
 	'LDAP_NO_IDENTITY'				=> 'L’identifiant de connexion concernant %s est introuvable.',
 	'LDAP_PASSWORD'					=> 'Mot de passe LDAP',
-	'LDAP_PASSWORD_EXPLAIN'			=> 'Laissez ceci vide afin d’utiliser une connexion anonyme. Dans le cas contraire, indiquez le mot de passe concernant l’utilisateur spécifié ci-dessus. Ceci est obligatoire pour les serveurs à répertoire dit actif. <strong>ATTENTION :</strong> ce mot de passe sera stocké en texte brut dans la base de données et sera pas conséquent visible à tous ceux qui ont accès à votre base de données ou à la page de configuration.',
+	'LDAP_PASSWORD_EXPLAIN'			=> 'Laissez ceci vide afin d’utiliser une connexion anonyme. Dans le cas contraire, indiquez le mot de passe concernant l’utilisateur spécifié ci-dessus. Ceci est obligatoire pour les serveurs à répertoire dit actif.<br /><em><strong>Attention :</strong> ce mot de passe sera stocké en texte brut dans la base de données et sera pas conséquent visible à tous ceux qui ont accès à votre base de données ou à la page de configuration.</em>',
 	'LDAP_PORT'						=> 'Port du serveur LDAP',
 	'LDAP_PORT_EXPLAIN'				=> 'Si vous le souhaitez, vous pouvez spécifier un port LDAP qui sera utilisé afin de vous connecter sur un port différent au port 389 qui est utilisé par défaut.',
 	'LDAP_SERVER'					=> 'Nom du serveur LDAP',
@@ -404,7 +420,7 @@ $lang = array_merge($lang, array(
 	'LDAP_UID'						=> 'Clé <var>uid</var> de LDAP',
 	'LDAP_UID_EXPLAIN'				=> 'Ceci correspond à la clé avec laquelle vous pouvez rechercher un identifiant de connexion, comme <var>uid</var>, <var>sn</var>, etc.',
 	'LDAP_USER'						=> 'Utilisateur <var>dn</var> LDAP',
-	'LDAP_USER_EXPLAIN'				=> 'Laissez ceci vide afin d’utiliser une connexion anonyme. Si cela a été renseigné dans phpBB, utilisez le nom absolu que vous avez spécifié lors des tentatives de connexion afin de trouver l’utilisateur correct, comme <samp>uid=Nom,ou=MonUnité,o=MaCompagnie,c=FR</samp>. Ceci est obligatoire pour les serveurs à répertoire dit actif.',
+	'LDAP_USER_EXPLAIN'				=> 'Laissez ceci vide afin d’utiliser une connexion anonyme. Si cela a été renseigné dans phpBB, utilisez le nom absolu que vous avez spécifié lors des tentatives de connexion afin de trouver l’utilisateur correct, comme <samp>uid=Nom,ou=MonUnité,o=MaCompagnie,c=FR</samp>. Ceci est obligatoire pour les serveurs à répertoires dit actifs.',
 	'LDAP_USER_FILTER'				=> 'Filtre de l’utilisateur LDAP',
 	'LDAP_USER_FILTER_EXPLAIN'		=> 'Si vous le souhaitez, vous pouvez limiter les objets recherchés grâce à des filtres additionnels. Par exemple, <samp>objectClass=posixGroup</samp> deviendra <samp>(&(uid=$username)(objectClass=posixGroup))</samp> lors de l’utilisation.',
 ));
@@ -469,7 +485,7 @@ $lang = array_merge($lang, array(
 	'NO_IP_VALIDATION'				=> 'Aucune',
 	'NO_REF_VALIDATION'				=> 'Aucune',
 	'PASSWORD_TYPE'					=> 'Complexité du mot de passe',
-	'PASSWORD_TYPE_EXPLAIN'			=> 'Détermine la complexité des mots de passe qui sont demandés ou modifiés. Chaque option inclue les options précédentes.',
+	'PASSWORD_TYPE_EXPLAIN'			=> 'Détermine la complexité des mots de passe qui sont demandés ou modifiés. Chaque option inclut les options précédentes.',
 	'PASS_TYPE_ALPHA'				=> 'Doit contenir des lettres et des nombres',
 	'PASS_TYPE_ANY'					=> 'Aucune obligation',
 	'PASS_TYPE_CASE'				=> 'Doit contenir des majuscules et des minuscules',
@@ -484,7 +500,7 @@ $lang = array_merge($lang, array(
 
 // Email Settings
 $lang = array_merge($lang, array(
-	'ACP_EMAIL_SETTINGS_EXPLAIN'	=> 'Ces informations sont utilisées lors de l’envoi d’e-mails à vos utilisateurs. Veuillez vous assurer que l’adresse e-mail que vous avez spécifiée est correcte car les messages refusés ou qui ne peuvent pas être envoyés seront probablement retournés à cette adresse. Si votre hébergeur ne fournit aucun service d’envoi d’e-mails en PHP par défaut, vous pouvez envoyer directement des messages en utilisant le protocole SMTP. Cela demande l’adresse d’un serveur approprié (si besoin, demandez cela à votre hébergeur). Si le serveur exige une authentification (et seulement dans ce cas), saisissez le nom d’utilisateur, le mot de passe et la méthode d’authentification nécessaire.',
+	'ACP_EMAIL_SETTINGS_EXPLAIN'	=> 'Ces informations sont utilisées lors de l’envoi d’e-mails à vos utilisateurs. Veuillez vous assurer que l’adresse e-mail que vous avez spécifié est correcte car les messages refusés ou qui ne peuvent pas être envoyés seront probablement retournés à cette adresse. Si votre hébergeur ne fournit aucun service d’envoi d’e-mails en PHP par défaut, vous pouvez envoyer directement des messages en utilisant le protocole SMTP. Cela demande l’adresse d’un serveur approprié (si besoin, demandez cela à votre hébergeur). Si le serveur exige une authentification (et seulement dans ce cas), saisissez le nom d’utilisateur, le mot de passe et la méthode d’authentification nécessaire.',
 
 	'ADMIN_EMAIL'					=> 'Adresse e-mail de retour',
 	'ADMIN_EMAIL_EXPLAIN'			=> 'Cette adresse sera utilisée comme l’adresse de retour dans tous les e-mails. Cela correspond à l’adresse e-mail du contact technique. Elle sera toujours utilisée comme l’adresse du <samp>Chemin de retour</samp> et de l’<samp>Expéditeur</samp> dans les e-mails.',
@@ -508,7 +524,7 @@ $lang = array_merge($lang, array(
 	'SMTP_DIGEST_MD5'				=> 'DIGEST-MD5',
 	'SMTP_LOGIN'					=> 'LOGIN',
 	'SMTP_PASSWORD'					=> 'Mot de passe SMTP',
-	'SMTP_PASSWORD_EXPLAIN'			=> 'Ne saisissez un mot de passe que si votre serveur SMTP le demande.',
+	'SMTP_PASSWORD_EXPLAIN'			=> 'Ne saisissez un mot de passe que si votre serveur SMTP le demande.<br /><em><strong>Attention :</strong> ce mot de passe sera stocké en texte brut dans la base de données et sera visible à tous ceux qui peuvent accéder à votre base de données ou qui peuvent consulter cette page de configuration.</em>',
 	'SMTP_PLAIN'					=> 'PLAIN',
 	'SMTP_POP_BEFORE_SMTP'			=> 'POP-BEFORE-SMTP',
 	'SMTP_PORT'						=> 'Port du serveur SMTP',
@@ -531,6 +547,7 @@ $lang = array_merge($lang, array(
 	'JAB_PACKAGE_SIZE'			=> 'Nombre de messages envoyés en une fois',
 	'JAB_PACKAGE_SIZE_EXPLAIN'	=> 'Ceci correspond au nombre de messages envoyés en une seule fois. Si cette valeur est réglée sur <samp>0</samp>, les messages seront envoyés immédiatement et ne seront pas placés en file d’attente.',
 	'JAB_PASSWORD'				=> 'Mot de passe de Jabber',
+	'JAB_PASSWORD_EXPLAIN'		=> '<em><strong>Attention :</strong> ce mot de passe sera stocké en texte brut dans la base de données et sera visible à tous ceux qui peuvent accéder à votre base de données ou qui peuvent consulter cette page de configuration.</em>',
 	'JAB_PORT'					=> 'Port de Jabber',
 	'JAB_PORT_EXPLAIN'			=> 'Laissez vide, sauf si vous savez que le port utilisé n’est pas le 5222.',
 	'JAB_SERVER'				=> 'Serveur Jabber',

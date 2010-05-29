@@ -2,7 +2,7 @@
 /**
 *
 * @package acp
-* @version $Id: acp_styles.php 10074 2009-08-31 11:25:28Z acydburn $
+* @version $Id$
 * @copyright (c) 2005 phpBB Group
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -212,23 +212,23 @@ parse_css_file = {PARSE_CSS_FILE}
 
 						if (($action == 'deactivate' && confirm_box(true)) || $action == 'activate')
 						{
-						$sql = 'UPDATE ' . STYLES_TABLE . '
-							SET style_active = ' . (($action == 'activate') ? 1 : 0) . '
-							WHERE style_id = ' . $style_id;
-						$db->sql_query($sql);
-
-						// Set style to default for any member using deactivated style
-						if ($action == 'deactivate')
-						{
-							$sql = 'UPDATE ' . USERS_TABLE . '
-								SET user_style = ' . $config['default_style'] . "
-								WHERE user_style = $style_id";
+							$sql = 'UPDATE ' . STYLES_TABLE . '
+								SET style_active = ' . (($action == 'activate') ? 1 : 0) . '
+								WHERE style_id = ' . $style_id;
 							$db->sql_query($sql);
 
-							$sql = 'UPDATE ' . FORUMS_TABLE . '
-								SET forum_style = 0
-								WHERE forum_style = ' . $style_id;
-							$db->sql_query($sql);
+							// Set style to default for any member using deactivated style
+							if ($action == 'deactivate')
+							{
+								$sql = 'UPDATE ' . USERS_TABLE . '
+									SET user_style = ' . $config['default_style'] . "
+									WHERE user_style = $style_id";
+								$db->sql_query($sql);
+
+								$sql = 'UPDATE ' . FORUMS_TABLE . '
+									SET forum_style = 0
+									WHERE forum_style = ' . $style_id;
+								$db->sql_query($sql);
 							}
 						}
 						else if ($action == 'deactivate')
@@ -643,6 +643,11 @@ parse_css_file = {PARSE_CSS_FILE}
 		{
 			while (($file = readdir($dp)) !== false)
 			{
+				if (!is_dir($phpbb_root_path . 'styles/' . $file))
+				{
+					continue;
+				}
+
 				$subpath = ($mode != 'style') ? "$mode/" : '';
 				if ($file[0] != '.' && file_exists("{$phpbb_root_path}styles/$file/$subpath$mode.cfg"))
 				{

@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* acp_ban [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: ban.php 9727 2009-07-07 13:33:53Z nickvergessen $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* acp_ban [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: ban.php 9727 2009-07-07 13:33:53Z nickvergessen $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -62,7 +71,7 @@ $lang = array_merge($lang, array(
 	'EMAIL_BAN_EXPLAIN'			=> 'Pour spécifier plusieurs adresses e-mails, saisissez chacune d’elles sur une nouvelle ligne. Pour utiliser partiellement des adresses, utilisez * comme joker, comme <samp>*@hotmail.com</samp>, <samp>*@*.domaine.tld</samp>, etc.',
 	'EMAIL_NO_BANNED'			=> 'Aucune adresse e-mail n’a été bannie',
 	'EMAIL_UNBAN'				=> 'Exclure les e-mails du bannissement',
-	'EMAIL_UNBAN_EXPLAIN'		=> 'Vous pouvez exclure plusieurs adresses e-mails du bannissement en une seule fois en utilisant la combinaison appropriée de la souris et du clavier de votre ordinateur et de notre navigateur. Les adresses e-mails exclues sont grisées.',
+	'EMAIL_UNBAN_EXPLAIN'		=> 'Vous pouvez exclure plusieurs adresses e-mails du bannissement en une seule fois en utilisant la combinaison appropriée de la souris et du clavier de votre ordinateur et de votre navigateur. Les adresses e-mails exclues sont grisées.',
 
 	'IP_BAN'					=> 'Bannir une ou plusieurs IP',
 	'IP_BAN_EXCLUDE_EXPLAIN'	=> 'Activez ceci afin d’exclure les adresses IP spécifiées de tous les bannissements actuels.',
@@ -70,7 +79,7 @@ $lang = array_merge($lang, array(
 	'IP_HOSTNAME'				=> 'Adresses IP ou noms d’hôtes',
 	'IP_NO_BANNED'				=> 'Aucune adresse IP n’a été bannie',
 	'IP_UNBAN'					=> 'Exclure les IP du bannissement',
-	'IP_UNBAN_EXPLAIN'			=> 'Vous pouvez exclure plusieurs adresses IP du bannissement en une seule fois en utilisant la combinaison appropriée de la souris et du clavier de votre ordinateur et de notre navigateur. Les adresses IP exclues sont grisées.',
+	'IP_UNBAN_EXPLAIN'			=> 'Vous pouvez exclure plusieurs adresses IP du bannissement en une seule fois en utilisant la combinaison appropriée de la souris et du clavier de votre ordinateur et de votre navigateur. Les adresses IP exclues sont grisées.',
 
 	'LENGTH_BAN_INVALID'		=> 'La date doit être au format <kbd>AAAA-MM-JJ</kbd>.',
 
@@ -82,7 +91,7 @@ $lang = array_merge($lang, array(
 	'USER_BAN_EXPLAIN'			=> 'Pour spécifier plusieurs utilisateurs, saisissez chacun d’eux sur une nouvelle ligne. Utilisez la fonction <span style="text-decoration: underline;">Trouver un membre</span> afin de rechercher et d’ajouter automatiquement un ou plusieurs utilisateurs.',
 	'USER_NO_BANNED'			=> 'Aucun nom d’utilisateur n’a été banni',
 	'USER_UNBAN'				=> 'Exclure les noms d’utilisateurs',
-	'USER_UNBAN_EXPLAIN'		=> 'Vous pouvez exclure plusieurs utilisateurs du bannissement en une seule fois en utilisant la combinaison appropriée de la souris et du clavier de votre ordinateur et de notre navigateur. Les utilisateurs exclus sont grisés.',
+	'USER_UNBAN_EXPLAIN'		=> 'Vous pouvez exclure plusieurs utilisateurs du bannissement en une seule fois en utilisant la combinaison appropriée de la souris et du clavier de votre ordinateur et de votre navigateur. Les utilisateurs exclus sont grisés.',
 ));
 
 ?>

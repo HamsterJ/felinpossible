@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* help_faq [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: help_faq.php 9623 2009-06-18 18:12:28Z nickvergessen $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* help_faq [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: help_faq.php 10493 2010-02-16 20:42:55Z bantu $
 */
 
 /**
@@ -17,12 +32,6 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -62,11 +71,11 @@ $help = array(
 	),
 	array(
 		0 => 'Je suis inscrit mais ne peux pas me connecter !',
-		1 => 'Premièrement, vérifiez votre nom d’utilisateur et votre mot de passe. S’ils sont corrects, alors une des deux choses suivantes a pu s’être produite. Si le support de la COPPA est activé et que vous avez spécifié avoir en dessous de 13 ans pendant l’inscription, vous devrez suivre les instructions que vous avez reçues. Certains forums exigeront également que les nouvelles inscriptions doivent être activées, par vous-même ou par un administrateur, avant que vous puissiez ouvrir une session ; cette information était affichée pendant l’inscription. Si un e-mail vous a déjà été envoyé, suivez les instructions. Si vous n’avez pas reçu d’e-mail, vous avez pu avoir spécifié une adresse e-mail incorrecte ou l’e-mail a pu avoir été considéré comme un courrier indésirable. Si vous êtes certain que l’adresse e-mail que vous avez spécifiée était correcte, essayez de contacter un administrateur.'
+		1 => 'Premièrement, vérifiez votre nom d’utilisateur et votre mot de passe. S’ils sont corrects, alors une des deux choses suivantes a pu s’être produite. Si le support de la COPPA est activé et que vous avez spécifié avoir en dessous de 13 ans pendant l’inscription, vous devrez suivre les instructions que vous avez reçu. Certains forums exigeront également que les nouvelles inscriptions doivent être activées, par vous-même ou par un administrateur, avant que vous puissiez ouvrir une session ; cette information était affichée pendant l’inscription. Si un e-mail vous a déjà été envoyé, suivez les instructions. Si vous n’avez pas reçu d’e-mail, vous avez pu avoir spécifié une adresse e-mail incorrecte ou l’e-mail a pu avoir été considéré comme un courrier indésirable. Si vous êtes certain que l’adresse e-mail que vous avez spécifié était correcte, essayez de contacter un administrateur.'
 	),
 	array(
 		0 => 'Je m’étais déjà inscrit mais ne peux plus me connecter à présent ?!',
-		1 => 'Essayez de retrouver l’e-mail qui vous a été envoyé lorsque vous vous êtes inscrit pour la première fois, vérifiez votre nom d’utilisateur et votre mot de passe et réessayez. Il est possible qu’un administrateur ait désactivé ou supprimé votre compte pour une certaine raison. Beaucoup de forums suppriment périodiquement les utilisateurs qui n’ont rien publiés depuis un certain temps afin de réduire la taille de la base de données. Si tel était le cas, inscrivez-vous à nouveau et essayez de participer plus activement aux discussions.',
+		1 => 'Essayez de retrouver l’e-mail qui vous a été envoyé lorsque vous vous êtes inscrit pour la première fois, vérifiez votre nom d’utilisateur et votre mot de passe, puis réessayez. Il est possible qu’un administrateur ait désactivé ou supprimé votre compte pour une certaine raison. Beaucoup de forums suppriment périodiquement les utilisateurs qui n’ont rien publiés depuis un certain temps afin de réduire la taille de la base de données. Si tel était le cas, inscrivez-vous à nouveau et essayez de participer plus activement aux discussions.',
 	),
 	array(
 		0 => 'Qu’est-ce que la COPPA ?',
@@ -74,7 +83,7 @@ $help = array(
 	),
 	array(
 		0 => 'Pourquoi ne puis-je pas m’inscrire ?',
-		1 => 'Il est possible que le propriétaire du site Internet ait banni votre adresse IP ou interdit le nom d’utilisateur que vous souhaitez utiliser afin de vous inscrire. Le propriétaire du site Internet peut également avoir désactivé les inscriptions afin d’empêcher les nouveaux visiteurs de s’inscrire. Veuillez contacter l’administrateur du forum pour plus d’informations.',
+		1 => 'Il est possible que le propriétaire du site Internet ait banni votre adresse IP ou interdit le nom d’utilisateur que vous souhaitez utiliser afin de vous inscrire. Le propriétaire du site Internet peut également avoir désactivé les inscriptions afin d’empêcher les nouveaux visiteurs de s’inscrire. Pour plus d’informations, veuillez contacter l’administrateur du forum.',
 	),
 	array(
 		0 => 'À quoi sert “Supprimer tous les cookies du forum” ?',
@@ -98,11 +107,11 @@ $help = array(
 	),
 	array(
 		0 => 'Ma langue n’apparaît pas dans la liste !',
-		1 => 'Soit l’administrateur n’a pas installé votre langue, soit personne n’a encore traduit phpBB dans votre langue. Essayez de demander à l’administrateur du forum s’il peut installer le pack de langue que vous désirez. Si le pack de langue n’existe pas, vous êtes libre de vous porter volontaire afin de créer une nouvelle traduction. Veuillez vous rendre sur le site de phpBB.com (accessible depuis le lien situé en bas de toutes les pages du forum) pour plus d’informations.'
+		1 => 'Soit l’administrateur n’a pas installé votre langue, soit personne n’a encore traduit phpBB dans votre langue. Essayez de demander à l’administrateur du forum s’il peut installer l’archive de langue que vous désirez. Si l’archive de langue n’existe pas, vous êtes libre de vous porter volontaire afin de créer une nouvelle traduction. Pour plus d’informations, veuillez vous rendre sur le site de phpBB.com (accessible depuis le lien situé en bas de toutes les pages du forum).'
 	),
 	array(
-		0 => 'Comment puis-je afficher une image sous mon nom d’utilisateur ?',
-		1 => 'Il y a deux images qui peuvent apparaître sous un nom d’utilisateur lors de la consultation de messages. La première peut être une image associée à votre rang, généralement en forme d’étoiles, de carrés ou de ronds, qui indiquent le nombre de messages à votre actif ou votre statut sur le forum. La seconde, habituellement une plus grande image, est connue sous le nom d’avatar et est généralement unique ou personnelle à chaque utilisateur. C’est à l’administrateur du forum d’activer les avatars et de décider de la manière dont ils sont mis à disposition. Si vous ne pouvez pas utiliser d’avatars, contactez l’administrateur du forum et demandez-lui pour quelles raisons a t-il souhaité désactiver cette fonctionnalité.'
+		0 => 'Comment puis-je afficher une image associée à mon nom d’utilisateur ?',
+		1 => 'Il y a deux images qui peuvent être associées à un nom d’utilisateur lors de la consultation de messages. L’une d’elles peut être une image associée à votre rang, généralement en forme d’étoiles, de carrés ou de ronds, qui indiquent le nombre de messages à votre actif ou votre statut sur le forum. L’autre, habituellement une plus grande image, est connue sous le nom d’avatar et est généralement unique ou personnelle à chaque utilisateur. C’est à l’administrateur du forum d’activer les avatars et de décider de la manière dont ils sont mis à disposition. Si vous ne pouvez pas utiliser d’avatars, contactez l’administrateur du forum et demandez-lui pour quelles raisons a t-il souhaité désactiver cette fonctionnalité.'
 	),
 	array(
 		0 => 'Quel est mon rang et comment puis-je le modifier ?',
@@ -122,7 +131,7 @@ $help = array(
 	),
 	array(
 		0 => 'Comment puis-je éditer ou supprimer un message ?',
-		1 => 'À moins que vous ne soyez un administrateur ou un modérateur du forum, vous ne pouvez éditer ou supprimer que vos propres messages. Vous pouvez éditer un message en cliquant le bouton adéquat, parfois dans une limite de temps après que le message ait été publié. Si quelqu’un a déjà répondu au message, vous trouverez un petit bout de texte en dessous du message lorsque vous revenez au sujet qui énumère le nombre de fois que vous l’avez édité, contenant la date et l’heure. Ceci n’apparaîtra que si quelqu’un a effectué une réponse ; cela n’apparaîtra pas si un modérateur ou un administrateur a édité le message, bien qu’ils puissent laisser une note exprimant leur raison. Veuillez noter que les utilisateurs normaux ne peuvent pas supprimer de message une fois que quelqu’un y a répondu.'
+		1 => 'À moins que vous ne soyez un administrateur ou un modérateur du forum, vous ne pouvez éditer ou supprimer que vos propres messages. Vous pouvez éditer un message en cliquant le bouton adéquat, parfois dans une limite de temps après que le message ait été publié. Si quelqu’un a déjà répondu au message, vous trouverez un petit bout de texte en dessous du message lorsque vous revenez au sujet qui énumère le nombre de fois que vous l’avez édité, contenant la date et l’heure. Ceci n’apparaîtra que si quelqu’un a effectué une réponse ; cela n’apparaîtra pas si un modérateur ou un administrateur a édité le message, bien qu’ils puissent laisser une note discrète exprimant leur raison. Veuillez noter que les utilisateurs normaux ne peuvent pas supprimer de message une fois que quelqu’un y a répondu.'
 	),
 	array(
 		0 => 'Comment puis-je ajouter une signature à un message ?',
@@ -162,7 +171,7 @@ $help = array(
 	),
 	array(
 		0 => 'Pourquoi mon message a-t-il besoin d’être approuvé ?',
-		1 => 'L’administrateur du forum peut décider que les messages que vous publiez sur le forum doivent être vérifiés avant d’être publiés. Il est également possible que l’administrateur vous ait placé dans un groupe d’utilisateurs pour lequel il juge nécessaire que les messages doivent être vérifiés avant d’être publiés. Veuillez contacter l’administrateur du forum pour plus d’informations.'
+		1 => 'L’administrateur du forum peut décider que les messages que vous publiez sur le forum doivent être vérifiés avant d’être publiés. Il est également possible que l’administrateur vous ait placé dans un groupe d’utilisateurs pour lequel il juge nécessaire que les messages doivent être vérifiés avant d’être publiés. Pour plus d’informations, veuillez contacter l’administrateur du forum.'
 	),
 	array(
 		0 => 'Comment puis-je remonter mes sujets ?',
@@ -263,7 +272,7 @@ $help = array(
 	),
 	array(
 		0 => 'J’ai reçu un spam ou un e-mail non désiré de la part de quelqu’un sur ce forum !',
-		1 => 'Nous en sommes désolés. Le formulaire d’envoi d’e-mail de ce forum possède des protections afin d’essayer de dépister les utilisateurs qui envoient de tels messages. Vous devriez envoyer par e-mail à un administrateur du forum une copie complète de l’e-mail que vous avez reçu. Il est très important que celui-ci inclut les en-têtes contenant les informations de l’auteur de l’e-mail. Il pourra alors agir en conséquence.'
+		1 => 'Nous en sommes désolés. Le formulaire d’envoi d’e-mail de ce forum possède des protections afin d’essayer de dépister les utilisateurs qui envoient de tels messages. Vous devriez envoyer par e-mail à un administrateur du forum une copie complète de l’e-mail que vous avez reçu. Il est très important que celui-ci inclue les en-têtes contenant les informations de l’auteur de l’e-mail. Il pourra alors agir en conséquence.'
 	),
 	array(
 		0 => '--',
@@ -291,7 +300,7 @@ $help = array(
 	),
 	array(
 		0 => 'Pourquoi ma recherche renvoie à une page blanche ?!',
-		1 => 'Votre recherche a retournée trop de résultats pour que le serveur puisse les afficher. Utilisez la recherche avancée et soyez plus précis dans les termes utilisés et les forums dans lesquels vous souhaitez effectuer une recherche.'
+		1 => 'Votre recherche a retourné trop de résultats pour que le serveur puisse les afficher. Utilisez la recherche avancée et soyez plus précis dans les termes utilisés et les forums dans lesquels vous souhaitez effectuer une recherche.'
 	),
 	array(
 		0 => 'Comment puis-je rechercher des utilisateurs ?',
@@ -327,7 +336,7 @@ $help = array(
 	),
 	array(
 		0 => 'Comment puis-je retrouver toutes mes pièces jointes ?',
-		1 => 'Pour retrouver la liste des pièces jointes que vous avez transférées, rendez-vous sur le panneau de contrôle de l’utilisateur et suivez les liens vers la section des pièces jointes.'
+		1 => 'Pour retrouver la liste des pièces jointes que vous avez transféré, rendez-vous sur le panneau de contrôle de l’utilisateur et suivez les liens vers la section des pièces jointes.'
 	),
 	array(
 		0 => '--',
@@ -335,7 +344,7 @@ $help = array(
 	),
 	array(
 		0 => 'Qui a écrit ce système de forum ?',
-		1 => 'Ce programme (dans sa forme non modifiée) est produit, distribué et est sous copyright par le <a href="http://www.phpbb.com/">phpBB Group</a>. Il est rendu accessible sous la Licence Publique Générale GNU et peut être distribué gratuitement. Veuillez cliquer sur le lien pour plus d’informations.'
+		1 => 'Ce programme (dans sa forme non modifiée) est produit, distribué et est sous copyright par le <a href="http://www.phpbb.com/">phpBB Group</a>. Il est rendu accessible sous la Licence Publique Générale GNU et peut être distribué gratuitement. Pour plus d’informations, veuillez cliquer sur le lien.'
 	),
 	array(
 		0 => 'Pourquoi la fonctionnalité X n’est pas disponible ?',

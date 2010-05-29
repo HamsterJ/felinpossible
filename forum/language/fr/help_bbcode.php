@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* help_bbcode [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: help_bbcode.php 9623 2009-06-18 18:12:28Z nickvergessen $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* help_bbcode [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: help_bbcode.php 9623 2009-06-18 18:12:28Z nickvergessen $
 */
 
 /**
@@ -17,12 +32,6 @@ if (!defined('IN_PHPBB'))
 	exit;
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -42,7 +51,7 @@ $help = array(
 	),
 	array(
 		0 => 'Qu’est-ce que le BBCode ?',
-		1 => 'Le BBCode est une implémentation spéciale de l’HTML. Vous pouvez l’insérer dans vos messages sur le forum si celui-ci a été autorisé par l’administrateur. De plus, vous pouvez désactiver le BBCode sur chacun de vos messages par l’intermédiaire du formulaire de rédaction. Le BBCode est similaire à l’architecture de l’HTML, les balises sont contenues entre des crochets <strong>[</strong> et <strong>]</strong> à la place de <strong>&lt;</strong> et <strong>&gt;</strong>, et il offre un meilleur contrôle sur la mise en forme. Selon le template que vous utilisez, vous pouvez trouver et ajouter très facilement du BBCode dans vos messages par l’intermédiaire d’une interface cliquable située juste au-dessus du formulaire de rédaction. Si ces brèves explications ne vous conviennent pas, vous pouvez consulter le guide suivant qui s’avère très explicite.'
+		1 => 'Le BBCode est une implémentation spéciale de l’HTML. S’il a été autorisé par l’administrateur, vous pouvez l’insérer dans vos messages sur le forum. De plus, vous pouvez désactiver le BBCode sur chacun de vos messages par l’intermédiaire du formulaire de rédaction. Le BBCode est similaire à l’architecture de l’HTML, les balises sont contenues entre des crochets <strong>[</strong> et <strong>]</strong> à la place de <strong>&lt;</strong> et <strong>&gt;</strong>, et il offre un meilleur contrôle sur la mise en forme. Selon le template que vous utilisez, vous pouvez trouver et ajouter très facilement du BBCode dans vos messages par l’intermédiaire d’une interface cliquable située juste au-dessus du formulaire de rédaction. Si ces brèves explications ne vous conviennent pas, vous pouvez consulter le guide suivant qui s’avère très explicite.'
 	),
 	array(
 		0 => '--',
@@ -50,7 +59,7 @@ $help = array(
 	),
 	array(
 		0 => 'Comment puis-je mettre du texte en gras, en italique et en souligné ?',
-		1 => 'Le BBCode inclut des balises qui vous permettent de modifier rapidement le style de votre texte brut. Ceci est réalisé grâce aux méthodes suivantes : <ul><li>Pour mettre une partie d’un texte en gras, il faut l’enfermer entre les balises <strong>[b][/b]</strong>. Par exemple :<br /><br /><strong>[b]</strong>Bonjour<strong>[/b]</strong><br /><br />Deviendra : <strong>Bonjour</strong></li><br /><li>Pour souligner une partie d’un texte, utilisez les balises <strong>[u][/u]</strong>. Par exemple :<br /><br /><strong>[u]</strong>Bon appétit !<strong>[/u]</strong><br /><br />Deviendra : <span style="text-decoration: underline">Bon appétit !</span></li><br /><li>Pour mettre une partie d’un texte en italique, utilisez les balises <strong>[i][/i]</strong>. Par exemple :<br /><br />C’est <strong>[i]</strong>excellent !<strong>[/i]</strong><br /><br />Deviendra : C’est <i>excellent !</i></li></ul>'
+		1 => 'Le BBCode inclut des balises qui vous permettent de modifier rapidement le style de votre texte brut. Cela est réalisé grâce aux méthodes suivantes :<ul><li>Pour mettre une partie d’un texte en gras, il faut l’enfermer entre les balises <strong>[b][/b]</strong>. Par exemple :<br /><br /><strong>[b]</strong>Bonjour<strong>[/b]</strong><br /><br />Deviendra : <strong>Bonjour</strong></li><br /><li>Pour souligner une partie d’un texte, utilisez les balises <strong>[u][/u]</strong>. Par exemple :<br /><br /><strong>[u]</strong>Bon appétit !<strong>[/u]</strong><br /><br />Deviendra : <span style="text-decoration: underline">Bon appétit !</span></li><br /><li>Pour mettre une partie d’un texte en italique, utilisez les balises <strong>[i][/i]</strong>. Par exemple :<br /><br />C’est <strong>[i]</strong>excellent !<strong>[/i]</strong><br /><br />Deviendra : C’est <i>excellent !</i></li></ul>'
 	),
 	array(
 		0 => 'Comment puis-je modifier la taille ou la couleur du texte ?',
@@ -70,7 +79,7 @@ $help = array(
 	),
 	array(
 		0 => 'Mise en forme de codes ou de données de largeur fixe',
-		1 => 'Si vous souhaitez insérer un fragment de code ou quelque chose qui demande une largeur fixe, comme le type de police Courier, vous devez enfermer le texte entre les balises <strong>[code][/code]</strong>. Par exemple :<br /><br /><strong>[code]</strong>echo &quot;Ceci est un fragment de code&quot;;<strong>[/code]</strong><br /><br />Toutes les balises de mise en forme présentes entre les balises <strong>[code][/code]</strong> sont conservées telles quelles lorsque vous consulterez le message ultérieurement. La syntaxe PHP peut être mise en évidence en utilisant les balises <strong>[code=php][/code]</strong> et il est recommandé de publier réellement des fragments de code PHP afin d’en améliorer la lisibilité.'
+		1 => 'Si vous souhaitez insérer un fragment de code ou quelque chose qui demande une largeur fixe, comme le type de police Courier, vous devez enfermer le texte entre les balises <strong>[code][/code]</strong>. Par exemple :<br /><br /><strong>[code]</strong>echo &quot;Ceci est un fragment de code&quot;;<strong>[/code]</strong><br /><br />Toutes les balises de mise en forme présentes entre les balises <strong>[code][/code]</strong> sont conservées telles quelles lorsque vous consulterez le message ultérieurement. La syntaxe PHP peut être mise en évidence en utilisant les balises <strong>[code=php][/code]</strong> et il est recommandé de publier de réels fragments de code PHP afin d’en améliorer la lisibilité.'
 	),
 	array(
 		0 => '--',
@@ -95,7 +104,7 @@ $help = array(
 	),
 	array(
 		0 => 'Insérer un lien vers un site quelconque',
-		1 => 'Le BBCode de phpBB propose un certain nombre de manières de créer des URI (Uniform Resource Indicators), plus connues sous le nom d’URL.<br /><br /><ul><li>La première de celles-ci emploie la balise <strong>[url=][/url]</strong> et ce qui est inséré après le signe = fait agir le contenu de cette balise en tant que lien. Par exemple, afin d’insérer un lien vers phpBB.fr, vous devez utiliser :<br /><br /><strong>[url=http://www.phpbb.fr/]</strong>Visitez phpBB.fr !<strong>[/url]</strong><br /><br />Cela génèrera le lien suivant : <a href="http://www.phpbb.fr/">Visitez phpBB.fr !</a>. Veuillez noter que selon les réglages du navigateur des utilisateurs, le lien peut s’ouvrir dans la même fenêtre ou dans une nouvelle fenêtre.</li><br /><li>Si vous souhaitez que le lien soit affichée comme un lien basique, vous pouvez employer simplement ceci :<br /><br /><strong>[url]</strong>http://www.phpbb.fr/<strong>[/url]</strong><br /><br />Cela générera le lien suivant : <a href="http://www.phpbb.fr/">http://www.phpbb.fr/</a></li><br /><li>De plus, les fonctionnalités de phpBB permettent d’insérer une fonctionnalité appelée les <i>liens magiques</i>. Cela transformera n’importe quel lien en lien syntaxiquement correct, sans que vous ayez besoin de l’indiquer devant toutes les balises ou même encore d’ajouter http://. Par exemple, en écrivant www.phpbb.fr dans votre message, cela se complètera automatiquement en <a href="http://www.phpbb.fr/">www.phpbb.fr</a> lorsque vous verrez votre message par la suite.</li><br /><li>La même chose est valable pour les adresses e-mails, vous pouvez indiquer sur l’un ou sur l’autre une adresse explicite, par exemple :<br /><br /><strong>[email]</strong>inconnu@domaine.adr<strong>[/email]</strong><br /><br />Générera : <a href="mailto:inconnu@domaine.adr">inconnu@domaine.adr</a>, ou vous pouvez simplement écrire inconnu@domaine.adr dans votre message et celui-ci sera automatiquement complété lors de la visualisation.</li></ul>Comme avec toutes les balises BBCode, vous pouvez insérer des liens autour d’autres balises comme <strong>[img][/img]</strong> (voir la prochaine question), <strong>[b][/b]</strong>, etc. Comme pour les balises de mise en forme, il vous appartient d’en assurer l’usage correct d’ouverture et de fermeture des balises, et cela dans le bon ordre. Par exemple :<br /><br /><strong>[url=http://www.google.fr/][img]</strong>http://www.google.fr/intl/fr_fr/images/logo.gif<strong>[/url][/img]</strong><br /><br />N’est <span style="text-decoration: underline">pas</span> correct, ce qui peut mener à la suppression de votre message.'
+		1 => 'Le BBCode de phpBB propose un certain nombre de manières de créer des URI (Uniform Resource Indicators), plus connues sous le nom d’URL.<br /><br /><ul><li>La première de celles-ci emploie la balise <strong>[url=][/url]</strong> et ce qui est inséré après le signe = fait agir le contenu de cette balise en tant que lien. Par exemple, afin d’insérer un lien vers phpBB.fr, vous devez utiliser :<br /><br /><strong>[url=http://www.phpbb.fr/]</strong>Visitez phpBB.fr !<strong>[/url]</strong><br /><br />Cela génèrera le lien suivant : <a href="http://www.phpbb.fr/">Visitez phpBB.fr !</a>. Veuillez noter que selon les réglages du navigateur des utilisateurs, le lien peut s’ouvrir dans la même fenêtre ou dans une nouvelle fenêtre.</li><br /><li>Si vous souhaitez que le lien soit affiché comme un lien basique, vous pouvez employer simplement ceci :<br /><br /><strong>[url]</strong>http://www.phpbb.fr/<strong>[/url]</strong><br /><br />Cela générera le lien suivant : <a href="http://www.phpbb.fr/">http://www.phpbb.fr/</a></li><br /><li>De plus, les fonctionnalités de phpBB permettent d’insérer une fonctionnalité appelée les <i>liens magiques</i>. Cela transformera n’importe quel lien en lien syntaxiquement correct, sans que vous n’ayez besoin de l’indiquer devant toutes les balises ou même encore d’ajouter http://. Par exemple, en écrivant www.phpbb.fr dans votre message, cela se complètera automatiquement en <a href="http://www.phpbb.fr/">www.phpbb.fr</a> lorsque vous verrez votre message par la suite.</li><br /><li>La même chose est valable pour les adresses e-mails, vous pouvez indiquer sur l’un ou sur l’autre une adresse explicite, par exemple :<br /><br /><strong>[email]</strong>inconnu@domaine.adr<strong>[/email]</strong><br /><br />Générera : <a href="mailto:inconnu@domaine.adr">inconnu@domaine.adr</a>, ou vous pouvez simplement écrire inconnu@domaine.adr dans votre message et celui-ci sera automatiquement complété lors de la visualisation.</li></ul>Comme avec toutes les balises BBCode, vous pouvez insérer des liens autour d’autres balises comme <strong>[img][/img]</strong> (voir la prochaine question), <strong>[b][/b]</strong>, etc. Comme pour les balises de mise en forme, il vous appartient d’en assurer l’usage correct d’ouverture et de fermeture des balises, et cela dans le bon ordre. Par exemple :<br /><br /><strong>[url=http://www.google.fr/][img]</strong>http://www.google.fr/intl/fr_fr/images/logo.gif<strong>[/url][/img]</strong><br /><br />N’est <span style="text-decoration: underline">pas</span> correct, ce qui peut mener à la suppression de votre message.'
 	),
 	array(
 		0 => '--',
@@ -115,7 +124,7 @@ $help = array(
 	),
 	array(
 		0 => 'Puis-je ajouter mes propres balises ?',
-		1 => 'Si vous êtes un administrateur de ce forum et que vous avez les permissions appropriées, vous pouvez ajouter davantage de BBCode dans la section “Personnaliser les BBCode”.'
+		1 => 'Si vous êtes un administrateur de ce forum et que vous avez les permissions appropriées, vous pouvez ajouter davantage de BBCode dans la section “Personnaliser les BBCodes”.'
 	)
 );
 

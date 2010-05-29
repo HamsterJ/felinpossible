@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* memberlist [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: memberlist.php 9933 2009-08-06 09:12:21Z marshalrusty $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* memberlist [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: memberlist.php 9933 2009-08-06 09:12:21Z marshalrusty $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -59,10 +68,10 @@ $lang = array_merge($lang, array(
 	'DEST_LANG'				=> 'Langue',
 	'DEST_LANG_EXPLAIN'		=> 'Sélectionnez une langue appropriée, si elle existe, pour le destinataire de ce message.',
 
-	'EMAIL_BODY_EXPLAIN'	=> 'Ce message sera envoyé en texte brut, n’y incluez pas d’HTML ou de BBCode. L’adresse de retour de ce message sera votre adresse e-mail.',
-	'EMAIL_DISABLED'		=> 'Désolé mais toutes les fonctionnalités relatives aux e-mails ont été désactivées.',
+	'EMAIL_BODY_EXPLAIN'	=> 'Ce message sera envoyé en texte brut, n’y incluez aucun HTML ou BBCode. L’adresse de retour de ce message sera votre adresse e-mail.',
+	'EMAIL_DISABLED'		=> 'Désolé, mais toutes les fonctionnalités relatives aux e-mails ont été désactivées.',
 	'EMAIL_SENT'			=> 'L’e-mail a été envoyé avec succès.',
-	'EMAIL_TOPIC_EXPLAIN'	=> 'Ce message sera envoyé en texte brut, n’y incluez pas d’HTML ou de BBCode. Veuillez noter que le contenu du sujet est déjà inclut dans le message. L’adresse de retour de ce message sera votre adresse e-mail.',
+	'EMAIL_TOPIC_EXPLAIN'	=> 'Ce message sera envoyé en texte brut, n’y incluez aucun HTML ou BBCode. Veuillez noter que le contenu du sujet est déjà inclus dans le message. L’adresse de retour de ce message sera votre adresse e-mail.',
 	'EMPTY_ADDRESS_EMAIL'	=> 'Vous devez fournir une adresse e-mail correcte concernant le destinataire.',
 	'EMPTY_MESSAGE_EMAIL'	=> 'Vous devez saisir le contenu du message afin d’envoyer un e-mail.',
 	'EMPTY_MESSAGE_IM'		=> 'Vous devez saisir le contenu du message afin de l’envoyer.',

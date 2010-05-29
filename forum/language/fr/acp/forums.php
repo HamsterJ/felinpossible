@@ -1,13 +1,28 @@
 <?php
 /**
+* This file is part of French (Formal Honorifics) phpBB Translation.
+* Copyright (C) 2010 phpBB.fr
 *
-* acp_forums [French]
+* This program is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; version 2 of the License.
 *
-* @package language
-* @version $Id: forums.php 9896 2009-07-31 12:46:15Z Kellanved $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
 *
+* You should have received a copy of the GNU General Public License along
+* with this program; if not, write to the Free Software Foundation, Inc.,
+* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+*
+* acp_forums [French (Formal Honorifics)]
+*
+* @package   language
+* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
+* @copyright 2005 phpBB Group
+* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
+* @version   $Id: forums.php 10514 2010-02-20 22:36:22Z Marshalrusty $
 */
 
 /**
@@ -23,12 +38,6 @@ if (empty($lang) || !is_array($lang))
 	$lang = array();
 }
 
-// TRANSLATION DETAILS
-//
-// Author: Maël Soucaze
-// E-mail: maelsoucaze@gmail.com
-// Website: http://twitter.com/maelsoucaze
-//
 // DEVELOPERS PLEASE NOTE
 //
 // All language files should use UTF-8 as their encoding and the files must not contain a BOM.
@@ -72,7 +81,7 @@ $lang = array_merge($lang, array(
 	'ENABLE_POST_REVIEW'			=> 'Activer la revue des messages',
 	'ENABLE_POST_REVIEW_EXPLAIN'	=> 'Si réglé sur <samp>Oui</samp>, les utilisateurs pourront revoir leur message en éditant celui-ci alors que des réponses ont été publiées. Il est conseillé de ne pas activer cela sur les forums de discussions.',
 	'ENABLE_QUICK_REPLY'			=> 'Activer la réponse rapide',
-	'ENABLE_QUICK_REPLY_EXPLAIN'	=> 'Si réglé sur Oui, les utilisateurs pourront répondre rapidement à partir d’un champ sur ce forum. Si l’option globale pour la réponse rapide est désactivée ou que le forum n’est pas publiable, alors le champ de réponse rapide ne sera pas affiché, même si cela est réglé sur Oui ici.',
+	'ENABLE_QUICK_REPLY_EXPLAIN'	=> 'Active la réponse rapide dans ce forum. Ce réglage n’est pas pris en compte si la réponse rapide a été désactivée sur tout le forum. La réponse rapide ne sera affichée qu’aux utilisateurs ayant la permission de publier dans ce forum.',
 	'ENABLE_RECENT'					=> 'Afficher les sujets actifs',
 	'ENABLE_RECENT_EXPLAIN'			=> 'Si réglé sur <samp>Oui</samp>, les sujets actifs du forum seront affichés dans la liste des sujets actifs.',
 	'ENABLE_TOPIC_ICONS'			=> 'Activer les icônes de sujets',
@@ -105,8 +114,8 @@ $lang = array_merge($lang, array(
 	'FORUM_PASSWORD_EXPLAIN'			=> 'Met en place un mot de passe sur ce forum. Utilisez de préférence un système de permissions.',
 	'FORUM_PASSWORD_UNSET'				=> 'Supprimer le mot de passe du forum',
 	'FORUM_PASSWORD_UNSET_EXPLAIN'		=> 'Ne cochez cette case que si vous souhaitez supprimer le mot de passe du forum.',
-	'FORUM_PASSWORD_OLD'				=> 'Le mot de passe du forum est obsolète. Veuillez en saisir un autre.',
-	'FORUM_PASSWORD_MISMATCH'			=> 'Les mots de passe que vous avez saisis ne concordent pas.',
+	'FORUM_PASSWORD_OLD'				=> 'Le mot de passe du forum utilise une méthode de hachage obsolète. Vous devriez la modifier.',
+	'FORUM_PASSWORD_MISMATCH'			=> 'Les mots de passe que vous avez saisi ne concordent pas.',
 	'FORUM_PRUNE_SETTINGS'				=> 'Réglages du délestage du forum',
 	'FORUM_RESYNCED'					=> 'Le forum <strong>%s</strong> a été resynchronisé avec succès',
 	'FORUM_RULES_EXPLAIN'				=> 'Les règles du forum sont affichées sur toutes les pages du forum.',
