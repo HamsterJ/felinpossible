@@ -31,6 +31,9 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 		$dateNaissance->setRequired(true);
 		$dateNaissance->setAttrib('dojoType', "dijit.form.DateTextBox");
 		
+		$dateNaissanceApprox = new Zend_Form_Element_Checkbox('dateApproximative');
+		$dateNaissanceApprox->setLabel('Date de naissance approximative ?');
+		
 		$datePriseEnCharge = new Zend_Form_Element_Text('datePriseEnCharge');
 		$datePriseEnCharge->setLabel('Date de prise en charge');
 		$datePriseEnCharge->setAttrib('dojoType', "dijit.form.DateTextBox");
@@ -154,6 +157,7 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
         $this->addElement($nom);
         $this->addElement($sexe);
         $this->addElement($dateNaissance);
+        $this->addElement($dateNaissanceApprox);
         $this->addElement($datePriseEnCharge);
         $this->addElement($dateAdoption);
         $this->addElement($dateContratAdoption);
