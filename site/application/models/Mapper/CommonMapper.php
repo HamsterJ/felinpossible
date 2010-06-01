@@ -403,7 +403,7 @@ abstract class FP_Model_Mapper_CommonMapper
 
 		foreach ($stmt->fetchAll() as $row) {
 			$valueRow = $row[$valueColumnName];
-			if ($row[$otherColumn]) {
+			if ($otherColumn && $row[$otherColumn]) {
 				$valueRow = $valueRow." - ".$row[$otherColumn];
 			}
 			$result[$row[$idColumnName]] = $valueRow;

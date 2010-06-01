@@ -149,4 +149,12 @@ class FP_Util_Constantes {
 	/** Templates pour les documents */
 	const DOCUMENT_FICHE_SOINS_PATH = "documents/ficheSoins.docx";
 	
+	/**
+	 * Stérilisations possibles.
+	 */
+	public static $LISTE_STERILISATION =  array(0 => 'Aucune',
+	1 => 'Ovariectomie à faire',
+	2 => 'Ovario-hystérectomie à faire',
+	3 => 'Castration à faire');
+	
 }

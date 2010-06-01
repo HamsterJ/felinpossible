@@ -61,6 +61,9 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
 		$dateNaissance->setLabel('Date de naissance');
 		$dateNaissance->setFilters(array('StringTrim'));
 		
+		$dateApprox = new Zend_Form_Element_Checkbox('dateNaissanceApprox');
+		$dateApprox->setLabel('Date de naissance approximative');
+		
 		$sexe = new Zend_Form_Element_Text('sexe');
 		$sexe->setLabel('Sexe');
 		$sexe->setFilters(array('StringTrim'));
@@ -77,13 +80,15 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
 		$soinTests = new Zend_Form_Element_Checkbox('soinTests');
 		$soinTests->setLabel('Tests FIV/FELV à faire');
 		
-		$soinAutre = new Zend_Form_Element_Text('soinAutre');
-		$soinAutre->setLabel('Autre soin(s) à faire');
-		$soinAutre->setAttrib('size', 60);
+		$soinAutre = new Zend_Form_Element_Textarea('soinAutre');
+		$soinAutre->setLabel('Commentaires (précisions sur les soins, autre(s) soin(s) à faire etc)');
+		$soinAutre->setAttrib('cols', '60');
+		$soinAutre->setAttrib('rows', '3');
 		$soinAutre->setFilters(array('StringTrim'));
 		
-		$soinSterilisation = new Zend_Form_Element_Checkbox('soinSterilisation');
-		$soinSterilisation->setLabel('Ovariectomie / Hystérectomie / Castration à faire');
+		$soinSterilisation = new Zend_Form_Element_Select('soinSterilisation');
+		$soinSterilisation->setLabel('Stérilisation');
+		$soinSterilisation->addMultiOptions(FP_Util_Constantes::$LISTE_STERILISATION);
 		
 		$veto = new Zend_Form_Element_Select('idVeto');
 		$veto->setLabel('Vétérinaire');
@@ -102,6 +107,7 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
         $this->addElement($couleurChat);
         $this->addElement($identification);
         $this->addElement($dateNaissance);
+        $this->addElement($dateApprox);
         $this->addElement($sexe);
         $this->addElement($veto);
         $this->addElement($soinPuce);
