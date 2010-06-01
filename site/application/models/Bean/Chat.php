@@ -18,6 +18,8 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	protected $idSexe;
 	/** @var date  */
 	protected $dateNaissance;
+	/** @var boolean  */
+	protected $dateApproximative;
 	/** @var string  */
 	protected $race;
 	/** @var int  */
@@ -852,6 +854,21 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	 */
 	public function setDateContratAdoption($dateContratAdoption) {
 		$this->dateContratAdoption = $dateContratAdoption;
+	}
+	
+	/**
+	 * Gets the dateApproximative field.
+	 * @return the field value.
+	 */
+	public function getDateApproximative() {
+	  return $this->dateApproximative;
+	}
+	
+	/**
+	 * Sets the dateApproximative field.
+	 */
+	public function setDateApproximative($dateApproximative) {
+	  $this->dateApproximative = (int) $dateApproximative;
 	}
 	
 }

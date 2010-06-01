@@ -20,6 +20,7 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 	                 'commentaires' => 'commentaires',
 	                 'date_adoption' => 'dateAdoption',
 	                 'date' => 'dateNaissance',
+	                 'dateApproximative' => 'dateApproximative',
 	                 'disparu' => 'disparu',
 	                 'idCouleur' => 'idCouleur',
 	                 'idSexe' => 'idSexe',
