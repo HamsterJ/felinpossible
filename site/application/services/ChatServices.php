@@ -286,7 +286,19 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 			$beanFicheSoins->setCodePostal($beanFa->getCodePostal());
 			$beanFicheSoins->setTelephoneFixe($beanFa->getTelephoneFixe());
 			$beanFicheSoins->setTelephonePortable($beanFa->getTelephonePortable());
+		} else  {
+			$beanAdoptant = $this->getAdoptantMapper()->getAdForChat($idChat);
+			if ($beanAdoptant) {
+				$beanFicheSoins->setNom($beanAdoptant->getPrenom()." ".$beanAdoptant->getNom());
+				$beanFicheSoins->setQualite("Adoptant");
+				$beanFicheSoins->setAdresse($beanAdoptant->getAdresse());
+				$beanFicheSoins->setVille($beanAdoptant->getVille());
+				$beanFicheSoins->setCodePostal($beanAdoptant->getCodePostal());
+				$beanFicheSoins->setTelephoneFixe($beanAdoptant->getTelephoneFixe());
+				$beanFicheSoins->setTelephonePortable($beanAdoptant->getTelephonePortable());
+			}
 		}
+
 		if ($beanChat) {
 			$beanFicheSoins->setNomChat($beanChat->getNom());
 			$beanFicheSoins->setCouleur($beanChat->getLibelleCouleur());
@@ -336,6 +348,10 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 				$phpLiveDocx->assign('naissance_chat', $ficheSoinForm->dateNaissance->getValue());
 				$phpLiveDocx->assign('sexe_chat', $ficheSoinForm->sexe->getValue());
 
+				if ($ficheSoinForm->dateNaissanceApprox->checked) {
+					$phpLiveDocx->assign('date_approx', 'approximative');
+				}
+
 				if ($ficheSoinForm->soinPuce->checked) {
 					$phpLiveDocx->assign('soin_puce', 'Identification (puce)');
 				}
@@ -348,13 +364,14 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 				if ($ficheSoinForm->soinTests->checked) {
 					$phpLiveDocx->assign('soin_tests', 'Tests FIV/FELV');
 				}
-				if ($ficheSoinForm->soinSterilisation->checked) {
-					$phpLiveDocx->assign('soin_sterilisation', 'Ovariectomie / Hystérectomie / Castration');
+				if ($ficheSoinForm->soinSterilisation->getValue()) {
+					$phpLiveDocx->assign('soin_sterilisation', $ficheSoinForm->soinSterilisation->getLabel());
 				}
 				if ($ficheSoinForm->soinAutre->getValue()) {
 					$phpLiveDocx->assign('soin_autre', $ficheSoinForm->soinAutre->getValue());
 				}
-
+				
+				$phpLiveDocx->assign('date_fiche', date('d/m/Y à H\hi', time()));
 			}
 
 			header("Content-type: pdf");
