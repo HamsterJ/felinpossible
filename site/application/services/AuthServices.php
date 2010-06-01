@@ -64,15 +64,7 @@ class FP_Service_AuthServices {
 	 * @return Zend_Auth
 	 */
 	private function getAuth() {
-		$storage = new Zend_Auth_Storage_Session();
-		$sessionNamespace = new Zend_Session_Namespace($storage->getNamespace());
-		
-		$config = Zend_Registry::get(FP_Util_Constantes::CONFIG_ID);
-		$sessionNamespace->setExpirationSeconds($config->session->timeout);
-		
-		$auth = Zend_Auth::getInstance();
-		$auth->setStorage($storage);
-		
+		$auth = Zend_Auth::getInstance();		
 		return $auth;
 	}
 }
