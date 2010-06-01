@@ -305,6 +305,7 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 			$beanFicheSoins->setIdentification($beanChat->getTatouage());
 			$beanFicheSoins->setDateNaissance(FP_Util_DateUtil::getDateFormatted($beanChat->getDateNaissance()));
 			$beanFicheSoins->setSexe($beanChat->getLibelleSexe());
+			$beanFicheSoins->setDateNaissanceApprox($beanChat->getDateApproximative());
 		}
 		return $beanFicheSoins->toArray();
 	}

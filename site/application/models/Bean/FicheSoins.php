@@ -34,6 +34,8 @@ class FP_Model_Bean_FicheSoins extends FP_Model_Bean_Common
 	protected $identification;
 	/** @var string  */
 	protected $dateNaissance;
+	/** @var boolean  */
+	protected $dateNaissanceApprox;
 	/** @var string  */
 	protected $sexe;
 	/** @var string  */
@@ -365,5 +367,21 @@ class FP_Model_Bean_FicheSoins extends FP_Model_Bean_Common
 	public function setIdVeto($idVeto) {
 	  $this->idVeto = $idVeto;
 	}
+	
+	/**
+	 * Gets the dateNaissanceApprox field.
+	 * @return the field value.
+	 */
+	public function getDateNaissanceApprox() {
+	  return (boolean) $this->dateNaissanceApprox;
+	}
+	
+	/**
+	 * Sets the dateNaissanceApprox field.
+	 */
+	public function setDateNaissanceApprox($dateNaissanceApprox) {
+	  $this->dateNaissanceApprox = (boolean) $dateNaissanceApprox;
+	}
+	
 	
 }
