@@ -350,7 +350,7 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 				$phpLiveDocx->assign('sexe_chat', $ficheSoinForm->sexe->getValue());
 
 				if ($ficheSoinForm->dateNaissanceApprox->checked) {
-					$phpLiveDocx->assign('date_approx', 'approximative');
+					$phpLiveDocx->assign('date_approx', 'date approximative');
 				}
 
 				if ($ficheSoinForm->soinPuce->checked) {
