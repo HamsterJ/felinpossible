@@ -366,7 +366,7 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 					$phpLiveDocx->assign('soin_tests', 'Tests FIV/FELV');
 				}
 				if ($ficheSoinForm->soinSterilisation->getValue()) {
-					$phpLiveDocx->assign('soin_sterilisation', $ficheSoinForm->soinSterilisation->getLabel());
+					$phpLiveDocx->assign('soin_sterilisation', $ficheSoinForm->soinSterilisation->getMultiOption($ficheSoinForm->soinSterilisation->getValue()));
 				}
 				if ($ficheSoinForm->soinAutre->getValue()) {
 					$phpLiveDocx->assign('soin_autre', $ficheSoinForm->soinAutre->getValue());
