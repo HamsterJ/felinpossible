@@ -1,0 +1,4 @@
+AuthName "Page d'administration protégée"
+AuthType Basic
+AuthUserFile "/home/www/felinpossible.fr/spongestats/.htpasswd"
+Require valid-user
