@@ -236,7 +236,13 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 
 		if ($beanChat) {
 			$mailService = FP_Service_MailServices::getInstance();
-			$data['sujet'] = FP_Util_Constantes::MAIL_RAPPEL_STERILISATION_SUJET.$beanChat->getNom();
+			$nomChat = $beanChat->getRenomme();
+			
+			if (!$nomChat || $nomChat =="") {
+				$nomChat = $beanChat->getNom();
+			}
+			
+			$data['sujet'] = FP_Util_Constantes::MAIL_RAPPEL_STERILISATION_SUJET.$nomChat;
 			$data['contenu'] = $mailService->getMailBody(FP_Util_Constantes::MAIL_TEMPLATE_STERILISATION_FA, $beanChat);
 		}
 

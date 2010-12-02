@@ -14,6 +14,8 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	protected $id;
 	/** @var string  */
 	protected $nom;
+	/** @var string  */
+	protected $renomme;
 	/** @var int  */
 	protected $idSexe;
 	/** @var date  */
@@ -123,6 +125,21 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 		$this->nom = $nom;
 	}
 
+	/**
+	 * Gets the renomme field.
+	 * @return the field value.
+	 */
+	public function getRenomme() {
+	  return $this->renomme;
+	}
+	
+	/**
+	 * Sets the renomme field.
+	 */
+	public function setRenomme($renomme) {
+	  $this->renomme = $renomme;
+	}
+	
 	/**
 	 * Retrieve idSexe
 	 *
