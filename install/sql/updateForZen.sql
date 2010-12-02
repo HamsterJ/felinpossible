@@ -142,3 +142,5 @@ PRIMARY KEY ( id )
 
 -- Ajout dateApproximative
 ALTER TABLE fp_cat_fiche ADD (dateApproximative int default 0);
+
+ALTER TABLE fp_cat_fiche ADD (renomme text NOT NULL default "");

@@ -21,6 +21,10 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 		$nom->setRequired(true);
 		$nom->setFilters(array('StringTrim'));
 
+		$renomme = new Zend_Form_Element_Text('renomme');
+		$renomme->setLabel('Renommé');
+		$renomme->setFilters(array('StringTrim'));
+		
 		$sexe = new Zend_Form_Element_Select('idSexe');
 		$sexe->setLabel('Sexe');
 		$sexe->setRequired(true);
@@ -155,6 +159,7 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
         $idChat = new Zend_Form_Element_Hidden('id');
         
         $this->addElement($nom);
+        $this->addElement($renomme);
         $this->addElement($sexe);
         $this->addElement($dateNaissance);
         $this->addElement($dateNaissanceApprox);

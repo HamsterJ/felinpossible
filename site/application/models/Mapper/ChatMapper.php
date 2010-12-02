@@ -27,6 +27,7 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 	                 'topic' => 'lienTopic',
 	                 'miniature' => 'miniature',
 	                 'nom' => 'nom',
+	                 'renomme' => 'renomme',
 	                 'parrain' => 'parrain',
 	                 'post_id' => 'postId',
 	                 'race' => 'race',

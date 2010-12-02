@@ -1,14 +1,22 @@
 <p>Bonjour,
 <br>
 <br>
-Nous vous rappelons que la stérilisation de <?php echo $this->data->getNom() ?> sera à faire très prochainement (avant le <?php echo FP_Util_DateUtil::getDateFormatted($this->data->getDateSterilisation()) ?>). 
+Nous vous rappelons que la stérilisation de <?php 
+$nomChat = $this->data->getRenomme();		
+if (!$nomChat || $nomChat == "") {
+  $nomChat = $this->data->getNom();
+}
+echo $nomChat;
+?> sera à faire très prochainement. 
 <br>
-Merci de ne pas oublier de prendre rendez-vous chez le vétérinaire.
+N'oubliez pas de prendre rendez-vous chez le vétérinaire.
+<br>
+Ceci est un mail automatique. Si le rendez-vous est déjà pris, ou que l'opération a été faite récemment, merci de ne pas en tenir compte.
 <br>
 <br>
 Cordialement,
 <br>
-L'équipe Felin Possible.
+L'équipe Félin Possible.
 </p>
 <?php echo $this->render('signature.phtml') ?>
 
