@@ -243,6 +243,7 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 	{
 		$columnsToExport = array('Identifiant' => 'cat.id',
 		'Nom' => 'cat.nom',
+		'Renommé' => 'cat.renomme',
 		'Sexe' => 'sexe.name',
 		'Couleur' => 'couleur.name',
 		'Identification' => 'cat.tatouage',
