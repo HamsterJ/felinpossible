@@ -35,6 +35,9 @@ class FP_Service_MailServices {
 	 * @param string $mailContent contenu du mail
 	 */
 	private function sendMail($mailArguments) {
+		$template = null;
+		$mailCc = null;
+
 		if (array_key_exists(self::MAIL_TEMPLATE_KEY, $mailArguments)) {
 			$template = $mailArguments[self::MAIL_TEMPLATE_KEY];
 		} else {
@@ -42,7 +45,9 @@ class FP_Service_MailServices {
 		}
 
 		$mailTo = $mailArguments[self::MAIL_TO_KEY];
-		$mailCc = $mailArguments[self::MAIL_CC_KEY];
+		if (array_key_exists(self::MAIL_CC_KEY, $mailArguments)) {
+			$mailCc = $mailArguments[self::MAIL_CC_KEY];
+		}
 		$subject = $mailArguments[self::MAIL_SUBJECT_KEY];
 
 		$config = Zend_Registry::get(FP_Util_Constantes::CONFIG_ID);
@@ -63,8 +68,17 @@ class FP_Service_MailServices {
 			$mail->addTo($mailCc);
 		}
 
+		$configSmtp = array(
+                  'auth' => 'plain',
+                  'username' => $config->email->smtp->login,
+                  'password' => $config->email->smtp->password,
+                  'ssl' => 'tls',
+                  'port' => 25
+		);
+		$transport = new Zend_Mail_Transport_Smtp($config->email->smtp->hostname , $configSmtp);
+
 		$mail->setSubject(utf8_decode($subject));
-		$mail->send();
+		$transport->send($mail);
 	}
 
 
