@@ -113,7 +113,8 @@ class FP_Model_Mapper_AdoptantMapper extends FP_Model_Mapper_CommonMapper {
 		'Code Postal' => 'ad.cp',
 		'Ville' => 'ad.ville',
 		'Tél. portable' => 'ad.portable',
-		'Tél. fixe' => 'ad.fixe'
+		'Tél. fixe' => 'ad.fixe',
+		'Email' => 'ad.email'
 		);
 
 		$select = $this->getDbTable()->getAdapter()->select()
