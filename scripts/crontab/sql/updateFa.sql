@@ -35,7 +35,7 @@ UPDATE fp_fa_fiche fa, fp_fa_indispo indispo
   -- Indisponible
   SET fa.idStatut = 5
   WHERE fa.id = indispo.idFa
-    AND fa.idStatut <> 2 AND fa.idStatut <> 4
+    AND fa.idStatut <> 2 AND fa.idStatut <> 6
     AND indispo.idStatut = 2;
 
 -- Mise à jour des statuts FA si aucune indispo en cours
