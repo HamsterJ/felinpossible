@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* viewforum [French (Formal Honorifics)]
+* viewforum [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: viewforum.php 8479 2008-03-29 00:22:48Z naderman $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -63,15 +65,20 @@ $lang = array_merge($lang, array(
 
 	'MARK_TOPICS_READ'		=> 'Marquer les sujets comme lus',
 
-	'NEW_POSTS_HOT'			=> 'Nouveaux messages [ Populaires ]',
-	'NEW_POSTS_LOCKED'		=> 'Nouveaux messages [ Verrouillés ]',
-	'NO_NEW_POSTS_HOT'		=> 'Aucun nouveau message [ Populaire ]',
-	'NO_NEW_POSTS_LOCKED'	=> 'Aucun nouveau message [ Verrouillé ]',
+	'NEW_POSTS_HOT'			=> 'Nouveaux messages [ Populaires ]',	// Not used anymore
+	'NEW_POSTS_LOCKED'		=> 'Nouveaux messages [ Verrouillés ]',	// Not used anymore
+	'NO_NEW_POSTS_HOT'		=> 'Aucun nouveau message [ Populaire ]',	// Not used anymore
+	'NO_NEW_POSTS_LOCKED'	=> 'Aucun nouveau message [ Verrouillé ]',	// Not used anymore
 	'NO_READ_ACCESS'		=> 'Vous n’avez pas les permissions appropriées afin de lire les sujets de ce forum.',
+	'NO_UNREAD_POSTS_HOT'		=> 'Aucun message non lu [ Populaire ]',
+	'NO_UNREAD_POSTS_LOCKED'	=> 'Aucun message non lu [ Verrouillé ]',
 
 	'POST_FORUM_LOCKED'		=> 'Le forum est verrouillé',
 
 	'TOPICS_MARKED'			=> 'Les sujets de ce forum sont à présent marqués comme lus.',
+
+	'UNREAD_POSTS_HOT'		=> 'Messages non lus [ Populaires ]',
+	'UNREAD_POSTS_LOCKED'	=> 'Messages non lus [ Verrouillés ]',
 
 	'VIEW_FORUM'			=> 'Voir le forum',
 	'VIEW_FORUM_TOPIC'		=> '1 sujet',

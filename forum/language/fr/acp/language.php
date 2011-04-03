@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* acp_language [French (Formal Honorifics)]
+* acp_language [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: language.php 9649 2009-06-21 19:17:20Z bantu $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -73,7 +75,7 @@ $lang = array_merge($lang, array(
 	'LANGUAGE_PACK_ALREADY_INSTALLED'	=> 'Cette archive de langue est déjà installée.',
 	'LANGUAGE_PACK_DELETED'				=> 'L’archive de langue <strong>%s</strong> a été supprimée avec succès. Tous les utilisateurs qui utilisaient cette langue utilisent à présent la langue par défaut du forum.',
 	'LANGUAGE_PACK_DETAILS'				=> 'Informations sur l’archive de langue',
-	'LANGUAGE_PACK_INSTALLED'			=> 'L’archive de langue <strong>%s</strong> a été supprimée avec succès.',
+	'LANGUAGE_PACK_INSTALLED'			=> 'L’archive de langue <strong>%s</strong> a été installée avec succès.',
 	'LANGUAGE_PACK_ISO'					=> 'ISO',
 	'LANGUAGE_PACK_LOCALNAME'			=> 'Nom national',
 	'LANGUAGE_PACK_NAME'				=> 'Nom',

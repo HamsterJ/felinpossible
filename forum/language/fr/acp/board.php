@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* acp_board [French (Formal Honorifics)]
+* acp_board [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: board.php 10556 2010-02-28 21:01:16Z Marshalrusty $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -65,7 +67,8 @@ $lang = array_merge($lang, array(
 	'SITE_DESC'						=> 'Description du forum',
 	'SITE_NAME'						=> 'Nom du forum',
 	'SYSTEM_DST'					=> 'Activer l’heure d’été',
-	'SYSTEM_TIMEZONE'				=> 'Fuseau horaire',
+	'SYSTEM_TIMEZONE'				=> 'Fuseau horaire des invités',
+	'SYSTEM_TIMEZONE_EXPLAIN'			=> 'Fuseau horaire utilisé afin d’afficher les heures aux utilisateurs qui ne sont pas connectés (comme les invités et les robots). Les utilisateurs connectés règlent eux-mêmes leurs heures durant leur inscription ou en modifiant ce réglage par l’intermédiaire du panneau de contrôle de l’utilisateur.',
 	'WARNINGS_EXPIRE'				=> 'Durée des avertissements',
 	'WARNINGS_EXPIRE_EXPLAIN'		=> 'Nombre de jours qui s’écoulera avant qu’un avertissement expire automatiquement.',
 ));
@@ -196,8 +199,8 @@ $lang = array_merge($lang, array(
 	'MIN_CHAR_LIMIT_EXPLAIN'		=> 'Le nombre minimum de caractères que l’utilisateur doit saisir dans un message ou un message privé.',
 	'POSTING'						=> 'Publication',
 	'POSTS_PER_PAGE'				=> 'Messages par page',
-	'QUOTE_DEPTH_LIMIT'				=> 'Nombre maximum de citations imbriquées par message',
-	'QUOTE_DEPTH_LIMIT_EXPLAIN'		=> 'Nombre maximum de citations imbriquées dans un message. Réglez cette valeur à <samp>0</samp> afin de ne pas limiter ce nombre.',
+	'QUOTE_DEPTH_LIMIT'				=> 'Profondeur maximale d’imbrication pour les citations',
+	'QUOTE_DEPTH_LIMIT_EXPLAIN'		=> 'Profondeur maximale d’imbrication de citations dans un message. Réglez cette valeur à <samp>0</samp> afin de ne pas limiter cette profondeur.',
 	'SMILIES_LIMIT'					=> 'Nombre maximum d’émoticônes par message',
 	'SMILIES_LIMIT_EXPLAIN'			=> 'Nombre maximum d’émoticônes dans un message. Réglez cette valeur à <samp>0</samp> afin de ne pas limiter le nombre d’émoticônes.',
 	'SMILIES_PER_PAGE'				=> 'Émoticônes par page',
@@ -231,7 +234,7 @@ $lang = array_merge($lang, array(
 	'NEW_MEMBER_POST_LIMIT'			=> 'Limite des messages des nouveaux membres',
 	'NEW_MEMBER_POST_LIMIT_EXPLAIN'	=> 'Les nouveaux membres sont dans le groupe des <em>Utilisateurs inscrits récemment</em> jusqu’à ce qu’ils atteignent ce nombre de messages. Vous pouvez utiliser ce groupe afin de ne pas les autoriser à utiliser le système des MP ou de contrôler leurs messages. <strong>Une valeur de 0 désactive cette fonctionnalité.</strong>',
 	'NEW_MEMBER_GROUP_DEFAULT'		=> 'Régler par défaut le groupe des utilisateurs inscrits récemment',
-	'NEW_MEMBER_GROUP_DEFAULT_EXPLAIN'	=> 'Si cela est réglé sur Oui et que la limite des messages des nouveaux membres est spécifiée, les utilisateurs inscrits récemment ne seront pas uniquement dans le groupe des <em>Utilisateurs inscrits récemment</em> mais ce groupe deviendra celui par défaut. Cela peut être pratique si vous souhaitez attribuer un rang ou un avatar par défaut afin que les nouveaux utilisateur en hérite.',
+	'NEW_MEMBER_GROUP_DEFAULT_EXPLAIN'	=> 'Si cela est réglé sur Oui et que la limite des messages des nouveaux membres est spécifiée, les utilisateurs inscrits récemment ne seront pas uniquement placés dans le groupe des <em>Utilisateurs inscrits récemment</em> mais ce groupe sera également celui par défaut. Cela peut être pratique si vous souhaitez attribuer un rang ou un avatar par défaut afin que les nouveaux utilisateur en hérite.',
 
 	'ACC_ADMIN'					=> 'Par l’administrateur',
 	'ACC_DISABLE'				=> 'Désactivée',
@@ -307,44 +310,44 @@ $lang = array_merge($lang, array(
 
 // Visual Confirmation Settings
 $lang = array_merge($lang, array(
-	'ACP_VC_SETTINGS_EXPLAIN'		=> 'Vous pouvez sélectionner et configurer ici les plugins du CAPTCHA qui implémentent de nombreux outils permettant d’éviter les inscriptions indésirables de la part de certains robots malveillants.',
+	'ACP_VC_SETTINGS_EXPLAIN'		=> 'Vous pouvez sélectionner et configurer ici les plugins qui permettent de lutter contre l’envoi de formulaires par des robots indésirables. Ces plugins fonctionnent en général en demandant aux utilisateur de résoudre un <em>CAPTCHA</em>, qui est un outil permettant de différencier un utilisateur humain d’un robot.',
 	'AVAILABLE_CAPTCHAS'					=> 'Plugins disponibles',
-	'CAPTCHA_UNAVAILABLE'					=> 'Le CAPTCHA ne peut pas être sélectionné tant que ses exigences ne sont pas remplies.',
-	'CAPTCHA_GD'							=> 'Bruit GD du CAPTCHA',
-	'CAPTCHA_GD_3D'						=> 'Bruit GD en 3D du CAPTCHA',
-	'CAPTCHA_GD_FOREGROUND_NOISE'			=> 'Bruit GD de premier plan du CAPTCHA',
-	'CAPTCHA_GD_EXPLAIN'					=> 'Utiliser l’extension GD afin de rendre le CAPTCHA plus difficile à déchiffrer.',
-	'CAPTCHA_GD_FOREGROUND_NOISE_EXPLAIN'	=> 'Utiliser un bruit de premier plan afin de rendre le CAPTCHA, basé sur l’extension GD, plus difficile à déchiffrer.',
-	'CAPTCHA_GD_X_GRID'						=> 'Bruit GD de fond sur l’axe des abscisses du CAPTCHA',
-	'CAPTCHA_GD_X_GRID_EXPLAIN'				=> 'Utilisez des valeurs faibles afin de rendre le CAPTCHA, basé sur l’extension GD, plus difficile à déchiffrer. Réglez cette valeur à <samp>0</samp> afin de désactiver le bruit de fond sur l’axe des abscisses.',
-	'CAPTCHA_GD_Y_GRID'						=> 'Bruit GD de fond sur l’axe des ordonnées du CAPTCHA',
-	'CAPTCHA_GD_Y_GRID_EXPLAIN'				=> 'Utilisez des valeurs faibles afin de rendre le CAPTCHA, basé sur l’extension GD, plus difficile à déchiffrer. Réglez cette valeur à <samp>0</samp> afin de désactiver le bruit de fond sur l’axe des ordonnées.',
-	'CAPTCHA_GD_WAVE'						=> 'Distorsion GD en vagues du CAPTCHA',
-	'CAPTCHA_GD_WAVE_EXPLAIN'				=> 'Cela mettra en place sur le CAPTCHA une distorsion en forme de vagues.',
+	'CAPTCHA_UNAVAILABLE'					=> 'Le plugin ne peut pas être sélectionné tant que ses exigences ne sont pas remplies.',
+	'CAPTCHA_GD'							=> 'Bruit GD de l’image',
+	'CAPTCHA_GD_3D'						=> 'Bruit GD en 3D de l’image',
+	'CAPTCHA_GD_FOREGROUND_NOISE'			=> 'Bruit GD de premier plan',
+	'CAPTCHA_GD_EXPLAIN'					=> 'Utilisez l’extension GD afin de rendre l’image plus difficile à déchiffrer.',
+	'CAPTCHA_GD_FOREGROUND_NOISE_EXPLAIN'	=> 'Utilisez un bruit de premier plan afin de rendre l’image plus difficile à déchiffrer.',
+	'CAPTCHA_GD_X_GRID'						=> 'Bruit de fond sur l’axe des abscisses',
+	'CAPTCHA_GD_X_GRID_EXPLAIN'				=> 'Utilisez des valeurs faibles afin de rendre l’image plus difficile à déchiffrer. Réglez cette valeur à <samp>0</samp> afin de désactiver le bruit de fond sur l’axe des abscisses.',
+	'CAPTCHA_GD_Y_GRID'						=> 'Bruit de fond sur l’axe des ordonnées',
+	'CAPTCHA_GD_Y_GRID_EXPLAIN'				=> 'Utilisez des valeurs faibles afin de rendre l’image plus difficile à déchiffrer. Réglez cette valeur à <samp>0</samp> afin de désactiver le bruit de fond sur l’axe des ordonnées.',
+	'CAPTCHA_GD_WAVE'						=> 'Distorsion en forme de vagues',
+	'CAPTCHA_GD_WAVE_EXPLAIN'				=> 'Cela mettra en place une distorsion en forme de vagues sur l’image.',
  	'CAPTCHA_GD_3D_NOISE'					=> 'Ajouter des objets de bruit en 3D',
-	'CAPTCHA_GD_3D_NOISE_EXPLAIN'			=> 'Cela ajoutera des objets supplémentaires sur le CAPTCHA, par-dessus les lettres.',
+	'CAPTCHA_GD_3D_NOISE_EXPLAIN'			=> 'Cela ajoutera des objets supplémentaires sur l’image, par-dessus les lettres.',
   'CAPTCHA_GD_FONTS'						=> 'Utiliser des polices différentes',
 	'CAPTCHA_GD_FONTS_EXPLAIN'				=> 'Ce réglage contrôle le nombre de différentes formes de lettres qui seront utilisées. Vous pouvez seulement utiliser les formes par défaut ou introduire de nouvelles lettres. L’ajout de lettres en minuscules est également possible.',
 	'CAPTCHA_FONT_DEFAULT'					=> 'Défaut',
 	'CAPTCHA_FONT_NEW'						=> 'Nouvelles formes',
 	'CAPTCHA_FONT_LOWER'					=> 'Utiliser également des minuscules',
-	'CAPTCHA_NO_GD'							=> 'CAPTCHA sans GD',
-	'CAPTCHA_PREVIEW_MSG'					=> 'Vos modifications du réglage de la confirmation visuelle ne seront pas sauvegardés. Ceci est seulement une prévisualisation.',
-	'CAPTCHA_PREVIEW_EXPLAIN'				=> 'Le CAPTCHA tel qu’il ressemblera lors de l’utilisation de la sélection actuelle.',
+	'CAPTCHA_NO_GD'							=> 'Image simple',
+	'CAPTCHA_PREVIEW_MSG'					=> 'Vos modifications n’ont pas été enregistrées, ceci n’est qu’une prévisualisation.',
+	'CAPTCHA_PREVIEW_EXPLAIN'				=> 'Le plugin tel qu’il ressemblera lors de l’utilisation de la sélection actuelle.',
 
-	'CAPTCHA_SELECT'						=> 'Plugins du CAPTCHA installés',
-	'CAPTCHA_SELECT_EXPLAIN'				=> 'La liste déroulante des plugins du CAPTCHA reconnus par le forum. Les entrées grises ne sont pas encore disponibles et peuvent avoir besoin d’être configurées avant de pouvoir les utiliser.',
-	'CAPTCHA_CONFIGURE'						=> 'Configurer les CAPTCHA',
-	'CAPTCHA_CONFIGURE_EXPLAIN'				=> 'Modifie les réglages du CAPTCHA que vous avez sélectionné.',
+	'CAPTCHA_SELECT'						=> 'Plugins installés',
+	'CAPTCHA_SELECT_EXPLAIN'				=> 'La liste déroulante des plugins reconnus par le forum. Les entrées grises ne sont pas encore disponibles et peuvent avoir besoin d’être configurées avant de pouvoir les utiliser.',
+	'CAPTCHA_CONFIGURE'						=> 'Configurer les plugins',
+	'CAPTCHA_CONFIGURE_EXPLAIN'				=> 'Modifie les réglages du plugin que vous avez sélectionné.',
 	'CONFIGURE'								=> 'Configurer',
-	'CAPTCHA_NO_OPTIONS'					=> 'Ce CAPTCHA n’a aucune option de configuration.',
+	'CAPTCHA_NO_OPTIONS'					=> 'Ce plugin n’a aucune option de configuration.',
 
-	'VISUAL_CONFIRM_POST'					=> 'Activer la confirmation visuelle pour les invités',
-	'VISUAL_CONFIRM_POST_EXPLAIN'			=> 'Oblige les invités à saisir un code aléatoire basé sur une image afin d’empêcher la publication de messages automatisés.',
-	'VISUAL_CONFIRM_REG'					=> 'Activer la confirmation visuelle lors des inscriptions',
-	'VISUAL_CONFIRM_REG_EXPLAIN'			=> 'Oblige les nouveaux utilisateurs à saisir un code aléatoire basé sur une image afin d’empêcher les inscriptions automatisées.',
-	'VISUAL_CONFIRM_REFRESH'				=> 'Autoriser les utilisateurs à rafraîchir l’image de confirmation',
-	'VISUAL_CONFIRM_REFRESH_EXPLAIN'		=> 'Autorise les utilisateurs à demander de nouveaux codes de confirmation s’ils sont incapables de déchiffrer la confirmation visuelle durant l’inscription. Il se peut que certains plugins ne supportent pas cette option.',
+	'VISUAL_CONFIRM_POST'					=> 'Activer les mesures anti-robots indésirables pour les invités',
+	'VISUAL_CONFIRM_POST_EXPLAIN'			=> 'Oblige les invités à compléter les mesures anti-robots indésirables afin d’empêcher la publication de messages automatisés.',
+	'VISUAL_CONFIRM_REG'					=> 'Activer les mesures anti-robots indésirables lors des inscriptions',
+	'VISUAL_CONFIRM_REG_EXPLAIN'			=> 'Oblige les nouveaux utilisateurs à compléter les mesures anti-robots indésirables afin d’empêcher les inscriptions automatisées.',
+	'VISUAL_CONFIRM_REFRESH'				=> 'Autoriser les utilisateurs à rafraîchir les mesures anti-robots indésirables',
+	'VISUAL_CONFIRM_REFRESH_EXPLAIN'		=> 'Autorise les utilisateurs à demander une nouvelle mesure anti-robots indésirables s’ils sont incapables de déchiffrer la mesure actuelle durant l’inscription. Il se peut que certains plugins ne supportent pas cette option.',
 ));
 
 // Cookie Settings
@@ -379,7 +382,7 @@ $lang = array_merge($lang, array(
 	'RECOMPILE_STYLES'				=> 'Recompiler les composants périmés des styles',
 	'RECOMPILE_STYLES_EXPLAIN'		=> 'Vérifie les mises à jour des composants périmés des styles installés sur le système, puis les recompile.',
 	'YES_ANON_READ_MARKING'			=> 'Activer l’indicateur de lecture des sujets pour les invités',
-	'YES_ANON_READ_MARKING_EXPLAIN'	=> 'Stocke l’indicateur de lecture des sujets (s’ils sont lus ou non lus) pour les invités. Si cette option est désactivée, les messages apparaîtront toujours comme lus pour les invités.',
+	'YES_ANON_READ_MARKING_EXPLAIN'	=> 'Stocke l’indicateur de lecture des sujets (s’ils sont lus ou non lus) pour les invités. Si cette option est désactivée, les messages seront toujours marqués comme lus pour les invités.',
 	'YES_BIRTHDAYS'					=> 'Activer la liste des anniversaires',
 	'YES_BIRTHDAYS_EXPLAIN'			=> 'Si cette option est désactivée, la liste des anniversaires ne sera plus affichée. Pour que ce réglage prenne effet, la fonctionnalité des anniversaires doit également être activée.',
 	'YES_JUMPBOX'					=> 'Activer l’affichage de l’accès rapide aux forums',
@@ -394,6 +397,7 @@ $lang = array_merge($lang, array(
 	'YES_POST_MARKING_EXPLAIN'		=> 'Indique à l’utilisateur s’il a publié un message ou non dans un sujet.',
 	'YES_READ_MARKING'				=> 'Activer l’indicateur de lecture par le serveur',
 	'YES_READ_MARKING_EXPLAIN'		=> 'Stocke l’indicateur de lecture des sujets (s’ils sont lus ou non lus) dans la base de données plutôt que dans un cookie.',
+	'YES_UNREAD_SEARCH'				=> 'Activer la recherche des messages non lus',
 ));
 
 // Auth settings
@@ -481,7 +485,7 @@ $lang = array_merge($lang, array(
 	'IP_VALID'						=> 'Validation de la session IP',
 	'IP_VALID_EXPLAIN'				=> 'Détermine quelle partie de l’IP des utilisateurs sera utilisée afin de valider une session ; <samp>Tous</samp> compare l’adresse complète, <samp>A.B.C</samp> les premiers x.x.x, <samp>A.B</samp> les premiers x.x et <samp>Aucune</samp> désactive cette vérification. Concernant les adresses IPv6, <samp>A.B.C</samp> compare les 4 premiers blocs et <samp>A.B</samp> les 3 premiers blocs.',
 	'MAX_LOGIN_ATTEMPTS'			=> 'Nombre maximum de tentatives de connexion',
-	'MAX_LOGIN_ATTEMPTS_EXPLAIN'	=> 'Une fois que ce nombre de tentatives de connexions infructueuses a été atteint, un code de confirmation visuelle sera demandé à l’utilisateur.',
+	'MAX_LOGIN_ATTEMPTS_EXPLAIN'	=> 'Une fois que ce nombre de tentatives de connexions infructueuses a été atteint, une mesure anti-robots indésirables devra être complétée par l’utilisateur.',
 	'NO_IP_VALIDATION'				=> 'Aucune',
 	'NO_REF_VALIDATION'				=> 'Aucune',
 	'PASSWORD_TYPE'					=> 'Complexité du mot de passe',

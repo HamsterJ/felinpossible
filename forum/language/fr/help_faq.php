@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* help_faq [French (Formal Honorifics)]
+* help_faq [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: help_faq.php 10493 2010-02-16 20:42:55Z bantu $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -55,39 +57,39 @@ $help = array(
 	),
 	array(
 		0 => 'Pourquoi ai-je besoin de m’inscrire, après tout ?',
-		1 => 'Vous pouvez ne pas le faire, il appartient à l’administrateur du forum d’exiger ou non que vous soyez inscrit afin de pouvoir publier des messages. Cependant, l’inscription vous donnera accès à des fonctionnalités supplémentaires qui ne sont pas disponibles aux visiteurs, comme les avatars personnalisés, la messagerie privée, l’envoi d’e-mails aux autres utilisateurs, l’adhésion à un groupe d’utilisateurs, etc. Cela ne vous prend qu’un court instant et nous vous recommandons par conséquence de le faire.'
+		1 => 'Vous pouvez ne pas le faire, il appartient à l’administrateur du forum d’exiger ou non que vous soyez inscrit afin de pouvoir publier des messages. Cependant, l’inscription vous donnera accès à des fonctionnalités supplémentaires qui ne sont pas disponibles aux visiteurs, comme les avatars personnalisés, la messagerie privée, l’envoi d’e-mails aux autres utilisateurs, l’adhésion à un groupe d’utilisateurs, etc. Cela ne vous prend qu’un court instant et nous vous recommandons par conséquent de le faire.'
 	),
 	array(
 		0 => 'Pourquoi suis-je déconnecté automatiquement ?',
-		1 => 'Si vous ne cochez pas la case <em>Me connecter automatiquement</em> lors de votre connexion au forum, vous ne resterez connecté que pour une période prédéfinie. Cette prévention empêche l’utilisation de votre compte par une personne malveillante. Pour rester connecté, cochez cette case lors de votre connexion, mais ce n’est pas recommandé si vous accédez au forum par un ordinateur public, par exemple dans une librairie, un cybercafé, une université, etc. Si vous ne voyez pas cette case à cocher, cela signifie que votre administrateur a désactivé cette fonctionnalité.'
+		1 => 'Si vous ne cochez pas la case <em>Me connecter automatiquement</em> lors de votre connexion, vous ne resterez connecté au forum que pour une période prédéfinie. This prevents misuse of your account by anyone else. To stay logged in, check the box during login. This is not recommended if you access the board from a shared computer, e.g. library, internet cafe, university computer lab, etc. If you do not see this checkbox, it means the board administrator has disabled this feature.'
 	),
 	array(
-		0 => 'Comment puis-je empêcher l’apparition de mon nom d’utilisateur dans la liste des utilisateurs en ligne ?',
-		1 => 'Dans le panneau de contrôle de l’utilisateur, en-dessous de “Préférences du forum”, vous trouverez une option intitulée <em>Masquer votre statut en ligne</em>. Si vous activez cette option en cochant <samp>Oui</samp>, vous ne serez visible qu’aux administrateurs, aux modérateurs et à vous-même. Vous serez compté comme étant un utilisateur invisible.'
+		0 => 'Comment puis-je empêcher l’affichage de mon nom d’utilisateur dans la liste des utilisateurs en ligne ?',
+		1 => 'Dans le panneau de contrôle de l’utilisateur, en-dessous des “Préférences du forum”, vous trouverez l’option <em>Masquer votre statut en ligne</em>. Activez cette option en cochant <samp>Oui</samp> afin de n’être visible qu’aux administrateurs, aux modérateurs et à vous-même. Vous serez compté comme étant un utilisateur invisible.'
 	),
 	array(
 		0 => 'J’ai perdu mon mot de passe !',
-		1 => 'Pas de panique ! Bien que votre mot de passe ne puisse pas être récupéré, il peut facilement être réinitialisé. Rendez-vous sur la page de connexion et cliquez sur <em>J’ai perdu mon mot de passe</em>. Suivez les instructions et vous devriez pouvoir vous connecter de nouveau.'
+		1 => 'Pas de panique ! Bien que votre mot de passe ne puisse pas être récupéré, il peut facilement être réinitialisé. Rendez-vous sur la page de connexion et cliquez sur <em>J’ai perdu mon mot de passe</em>. Suivez les instructions et vous devriez être en mesure de pouvoir vous connecter de nouveau dans peu de temps.'
 	),
 	array(
 		0 => 'Je suis inscrit mais ne peux pas me connecter !',
-		1 => 'Premièrement, vérifiez votre nom d’utilisateur et votre mot de passe. S’ils sont corrects, alors une des deux choses suivantes a pu s’être produite. Si le support de la COPPA est activé et que vous avez spécifié avoir en dessous de 13 ans pendant l’inscription, vous devrez suivre les instructions que vous avez reçu. Certains forums exigeront également que les nouvelles inscriptions doivent être activées, par vous-même ou par un administrateur, avant que vous puissiez ouvrir une session ; cette information était affichée pendant l’inscription. Si un e-mail vous a déjà été envoyé, suivez les instructions. Si vous n’avez pas reçu d’e-mail, vous avez pu avoir spécifié une adresse e-mail incorrecte ou l’e-mail a pu avoir été considéré comme un courrier indésirable. Si vous êtes certain que l’adresse e-mail que vous avez spécifié était correcte, essayez de contacter un administrateur.'
+		1 => 'Premièrement, vérifiez votre nom d’utilisateur et votre mot de passe. S’ils sont corrects, alors une des deux choses suivantes a pu s’être produite. Si le support de la COPPA est activé et que vous avez spécifié avoir en dessous de 13 ans pendant l’inscription, vous devrez suivre les instructions que vous avez reçu. Certains forums exigeront également que les nouvelles inscriptions doivent être activées, soit par vous-même ou soit par un administrateur, avant que vous puissiez ouvrir une session ; cette information était présente lors de votre inscription. Si vous aviez reçu un e-mail, consultez les instructions. Si vous ne recevez pas d’e-mail, vous avez probablement spécifié une mauvaise adresse e-mail ou l’e-mail a été filtré en tant que courrier indésirable. Si vous êtes certain que l’adresse e-mail que vous avez spécifié était correcte, essayez de contacter un administrateur.'
 	),
 	array(
-		0 => 'Je m’étais déjà inscrit mais ne peux plus me connecter à présent ?!',
-		1 => 'Essayez de retrouver l’e-mail qui vous a été envoyé lorsque vous vous êtes inscrit pour la première fois, vérifiez votre nom d’utilisateur et votre mot de passe, puis réessayez. Il est possible qu’un administrateur ait désactivé ou supprimé votre compte pour une certaine raison. Beaucoup de forums suppriment périodiquement les utilisateurs qui n’ont rien publiés depuis un certain temps afin de réduire la taille de la base de données. Si tel était le cas, inscrivez-vous à nouveau et essayez de participer plus activement aux discussions.',
+		0 => 'Je m’étais déjà inscrit par le passé mais ne peux à présent plus me connecter ?!',
+		1 => 'Essayez de retrouver l’e-mail qui vous a été envoyé lorsque vous vous êtes inscrit pour la première fois, vérifiez votre nom d’utilisateur et votre mot de passe, puis réessayez. Il est possible qu’un administrateur ait désactivé ou supprimé votre compte pour une quelconque raison. Beaucoup de forums suppriment périodiquement les utilisateurs qui n’ont rien publiés depuis un certain temps afin de réduire la taille de la base de données. Si tel était le cas, inscrivez-vous à nouveau et essayez de participer plus activement aux discussions sur le forum.'
 	),
 	array(
 		0 => 'Qu’est-ce que la COPPA ?',
-		1 => 'La COPPA, ou la “Child Online Privacy and Protection Act”, est une loi des États-Unis qui exige que les sites Internet pouvant potentiellement collecter des informations sur des mineurs âgés de moins de 13 ans doivent avoir le consentement écrit des parents ou des tuteurs légaux. Si vous n’êtes pas sûr que cette loi s’applique également à votre inscription, ou au site Internet dans lequel vous souhaitez vous inscrire, contactez des conseillers ou avocats légaux qui pourront vous informer. Veuillez noter que les équipes de phpBB ne peuvent pas vous fournir d’assistance légale et ne sont pas le contact approprié pour des problèmes légaux de la sorte, excepté comme décrit ci-dessous.',
+		1 => 'La COPPA (Child Online Privacy and Protection Act) est une loi des États-Unis qui demande aux sites Internet collectant potentiellement des informations sur les mineurs âgés de moins de 13 ans un consentement écrit des parents ou des tuteurs légaux des mineurs concernés. Si vous ne savez pas si cette loi s’applique également aux mineurs âgés de moins de 13 ans inscrits sur votre forum, nous vous conseillons de contacter un conseiller juridique ou un avocat qui pourront vous fournir ce type de renseignement. Veuillez noter que le phpBB Group ne peut pas vous fournir d’assistance légale et n’est donc pas l’organisme à contacter, excepté pour ce qui est décrit ci-dessous.',
 	),
 	array(
 		0 => 'Pourquoi ne puis-je pas m’inscrire ?',
-		1 => 'Il est possible que le propriétaire du site Internet ait banni votre adresse IP ou interdit le nom d’utilisateur que vous souhaitez utiliser afin de vous inscrire. Le propriétaire du site Internet peut également avoir désactivé les inscriptions afin d’empêcher les nouveaux visiteurs de s’inscrire. Pour plus d’informations, veuillez contacter l’administrateur du forum.',
+		1 => 'Il est possible que le propriétaire du site Internet ait banni votre adresse IP ou interdit le nom d’utilisateur que vous souhaitez utiliser. Le propriétaire du forum peut également avoir décidé de désactiver les inscriptions afin d’empêcher tous les nouveaux visiteurs de s’inscrire. Pour plus d’informations, veuillez contacter un administrateur du forum.',
 	),
 	array(
 		0 => 'À quoi sert “Supprimer tous les cookies du forum” ?',
-		1 => 'L’option “Supprimer tous les cookies du forum” permet d’effacer tous les cookies créés par phpBB3 qui conservent votre authentification et votre connexion sur le forum. Cela fournit également des fonctionnalités telles que l’enregistrement du statut des messages, lu ou non lu, si cela a été activé par le propriétaire du forum. Si vous rencontrez des problèmes de connexion ou de déconnexion, la suppression des cookies du forum peut vous les corriger.',
+		1 => 'L’option “Supprimer tous les cookies du forum” vous permet d’effacer tous les cookies générés par phpBB3 qui conservent votre authentification et votre connexion au forum. Les cookies permettent également d’enregistrer le statut des messages, s’ils sont lus ou non lus, si cette fonctionnalité a été activée par le propriétaire du forum. Si vous rencontrez des problèmes de connexion ou de déconnexion au forum, la suppression des cookies peut vous aider à les corriger.',
 	),
 	array(
 		0 => '--',
@@ -95,31 +97,31 @@ $help = array(
 	),
 	array(
 		0 => 'Comment puis-je modifier mes réglages ?',
-		1 => 'Si vous êtes un utilisateur inscrit, tous vos réglages sont stockés dans la base de données du forum. Pour les modifier, rendez-vous sur votre panneau de contrôle de l’utilisateur ; ce lien se situe en haut de toutes les pages du forum. Ce système vous permettra de modifier tous vos réglages et toutes vos préférences.'
+		1 => 'Si vous êtes un utilisateur inscrit, tous vos réglages sont stockés dans la base de données du forum. Si vous souhaitez les modifier, rendez-vous sur votre panneau de contrôle de l’utilisateur ; ce lien se situe généralement en haut des pages du forum. Ce système vous permettra de modifier tous vos réglages et toutes vos préférences.'
 	),
 	array(
 		0 => 'L’heure n’est pas correcte !',
-		1 => 'Il est possible que l’heure affichée soit réglée sur un fuseau horaire différent de celui dans lequel vous êtes. Si tel était le cas, rendez-vous sur votre panneau de contrôle de l’utilisateur et modifiez le fuseau horaire afin de trouver votre zone adéquate, par exemple Londres, Paris, New York, Sydney, etc. Veuillez noter que la modification du fuseau horaire, comme la plupart des réglages, n’est accessible qu’aux utilisateurs inscrits. Si vous n’êtes pas inscrit, c’est le moment idéal de le faire.'
+		1 => 'Il est possible que l’heure affichée soit réglée sur un fuseau horaire différent de celui dans lequel vous êtes. Si tel était le cas, rendez-vous sur votre panneau de contrôle de l’utilisateur et modifiez le fuseau horaire afin de trouver votre zone adéquate, par exemple Londres, Paris, New York, Sydney, etc. Veuillez noter que la modification du fuseau horaire, comme la plupart des réglages, n’est accessible qu’aux utilisateurs inscrits. Si vous n’êtes pas inscrit, c’est l’occasion idéale de le faire.'
 	),
 	array(
-		0 => 'J’ai modifié le fuseau horaire et l’heure n’est toujours pas correcte !',
-		1 => 'Si vous êtes certain d’avoir correctement réglé le fuseau horaire et l’heure d’été mais que l’heure est encore erronée, alors l’heure de l’horloge du serveur est incorrecte et les administrateurs devront la corriger.'
+		0 => 'J’ai modifié le fuseau horaire mais l’heure n’est toujours pas correcte !',
+		1 => 'Si vous êtes certain d’avoir correctement réglé le fuseau horaire et l’heure d’été mais que l’heure n’est toujours pas correcte, il est probable que l’heure de l’horloge du serveur soit erronée. Veuillez contacter un administrateur afin de lui communiquer ce problème.'
 	),
 	array(
 		0 => 'Ma langue n’apparaît pas dans la liste !',
-		1 => 'Soit l’administrateur n’a pas installé votre langue, soit personne n’a encore traduit phpBB dans votre langue. Essayez de demander à l’administrateur du forum s’il peut installer l’archive de langue que vous désirez. Si l’archive de langue n’existe pas, vous êtes libre de vous porter volontaire afin de créer une nouvelle traduction. Pour plus d’informations, veuillez vous rendre sur le site de phpBB.com (accessible depuis le lien situé en bas de toutes les pages du forum).'
+		1 => 'Soit l’administrateur n’a pas installé votre langue sur le forum, soit personne n’a encore traduit le logiciel dans votre langue. Essayez de demander à un administrateur du forum s’il est possible qu’il puisse installer l’archive de langue que vous souhaitez. Si l’archive de langue désirée n’existe pas, vous êtes libre de vous porter volontaire et commencer une nouvelle traduction. Pour plus d’informations, veuillez vous rendre sur le site officiel (accessible depuis un des liens situés en bas de toutes les pages du forum).'
 	),
 	array(
 		0 => 'Comment puis-je afficher une image associée à mon nom d’utilisateur ?',
-		1 => 'Il y a deux images qui peuvent être associées à un nom d’utilisateur lors de la consultation de messages. L’une d’elles peut être une image associée à votre rang, généralement en forme d’étoiles, de carrés ou de ronds, qui indiquent le nombre de messages à votre actif ou votre statut sur le forum. L’autre, habituellement une plus grande image, est connue sous le nom d’avatar et est généralement unique ou personnelle à chaque utilisateur. C’est à l’administrateur du forum d’activer les avatars et de décider de la manière dont ils sont mis à disposition. Si vous ne pouvez pas utiliser d’avatars, contactez l’administrateur du forum et demandez-lui pour quelles raisons a t-il souhaité désactiver cette fonctionnalité.'
+		1 => 'Deux types d’images, visibles lors de la consultation de messages, peuvent être associés à votre nom d’utilisateur. L’un d’entre eux peut être une image associée à votre rang, généralement en forme d’étoiles, de carrés ou de ronds, qui indiquent le nombre de messages à votre actif ou votre statut sur le forum. L’autre type, habituellement une image plus imposante, est connue sous le nom d’avatar et est généralement unique et personnelle à chaque utilisateur. C’est à l’administrateur du forum d’activer ou non les avatars et de décider de la manière dont ils sont mis à disposition. Si vous ne pouvez pas utiliser les avatars, contactez l’administrateur du forum et demandez-lui pour quelles raisons a t-il souhaité désactiver cette fonctionnalité.'
 	),
 	array(
 		0 => 'Quel est mon rang et comment puis-je le modifier ?',
-		1 => 'Les rangs, qui apparaissent en dessous de votre nom d’utilisateur, indiquent le nombre de messages que vous avez publié ou identifient certains utilisateurs, comme les modérateurs et les administrateurs. Dans la plupart des cas, vous ne pouvez pas directement modifier le texte des rangs du forum car ils sont réglés par l’administrateur du forum. Veuillez ne pas abuser de ce système en publiant inutilement des messages afin d’augmenter seulement votre rang sur le forum. Beaucoup de forums ne toléreront pas cela et un modérateur ou un administrateur abaissera votre compteur de messages.'
+		1 => 'Les rangs, qui apparaissent en dessous de votre nom d’utilisateur, indiquent le nombre de messages que vous avez à votre actif ou identifient certains utilisateurs spéciaux, comme les modérateurs et les administrateurs. Dans la plupart des cas, seul un administrateur du forum peut modifier le texte des rangs du forum. Merci de ne pas abuser de ce système en publiant inutilement des messages afin d’augmenter votre rang sur le forum. Beaucoup de forums ne toléreront pas cela et un modérateur ou un administrateur abaissera votre compteur de messages.'
 	),
 	array(
 		0 => 'Lorsque je clique sur le lien de l’e-mail d’un utilisateur, il m’est demandé de me connecter ?',
-		1 => 'Seuls les utilisateurs inscrits peuvent envoyer des e-mails aux autres utilisateurs par l’intermédiaire du formulaire e-mail intégré, si l’administrateur a activé cette fonctionnalité. Cela a pour but d’empêcher toute utilisation malveillante du système e-mail par des utilisateurs anonymes ou par des agents automatisés.'
+		1 => 'Si l’administrateur a activé cette fonctionnalité, seuls les utilisateurs inscrits peuvent envoyer des e-mails aux autres utilisateurs par l’intermédiaire d’un formulaire. Cela permet d’empêcher une utilisation malveillante du système e-mail par des utilisateurs anonymes ou des robots.'
 	),
 	array(
 		0 => '--',
@@ -127,55 +129,55 @@ $help = array(
 	),
 	array(
 		0 => 'Comment puis-je publier un sujet dans un forum ?',
-		1 => 'Pour publier un nouveau sujet dans un forum, cliquez sur le bouton adéquat situé sur l’écran du forum ou du sujet. Il se peut que vous ayez besoin d’être inscrit avant de pouvoir rédiger un message. Une liste de vos permissions sur chaque forum est disponible en bas de l’écran du forum ou du sujet. Par exemple : vous pouvez publier de nouveaux sujets, vous pouvez voter dans les sondages, etc.'
+		1 => 'Pour publier un nouveau sujet dans un forum, cliquez sur le bouton adéquat situé sur l’écran du forum ou du sujet. Il se peut que vous ayez besoin d’être inscrit avant de pouvoir rédiger un message. Sur chaque forum, une liste de vos permissions est affichée en bas de l’écran du forum ou du sujet. Par exemple : vous pouvez publier de nouveaux sujets, vous pouvez voter dans les sondages, etc.'
 	),
 	array(
 		0 => 'Comment puis-je éditer ou supprimer un message ?',
-		1 => 'À moins que vous ne soyez un administrateur ou un modérateur du forum, vous ne pouvez éditer ou supprimer que vos propres messages. Vous pouvez éditer un message en cliquant le bouton adéquat, parfois dans une limite de temps après que le message ait été publié. Si quelqu’un a déjà répondu au message, vous trouverez un petit bout de texte en dessous du message lorsque vous revenez au sujet qui énumère le nombre de fois que vous l’avez édité, contenant la date et l’heure. Ceci n’apparaîtra que si quelqu’un a effectué une réponse ; cela n’apparaîtra pas si un modérateur ou un administrateur a édité le message, bien qu’ils puissent laisser une note discrète exprimant leur raison. Veuillez noter que les utilisateurs normaux ne peuvent pas supprimer de message une fois que quelqu’un y a répondu.'
+		1 => 'À moins que vous ne soyez un administrateur ou un modérateur du forum, vous ne pouvez éditer ou supprimer que vos propres messages. Vous pouvez éditer un de vos messages en cliquant le bouton adéquat, parfois dans une limite de temps après que le message initial ait été publié. Si quelqu’un a déjà répondu au message, un petit texte situé en dessous du message énumèrera le nombre de fois que vous l’avez édité, contenant la date et l’heure de l’édition. Ce petit texte n’apparaîtra pas s’il s’agit d’une édition effectuée par un modérateur ou un administrateur, bien qu’ils puissent prendre l’initiative de rédiger une note discrète exprimant la raison de leur édition. Veuillez noter que les utilisateurs normaux ne peuvent pas supprimer leur propre message si une réponse a été publiée.'
 	),
 	array(
 		0 => 'Comment puis-je ajouter une signature à un message ?',
-		1 => 'Pour ajouter une signature à un message, vous devez tout d’abord en créer une par l’intermédiaire de votre panneau de contrôle de l’utilisateur. Une fois créée, vous pouvez cocher la case <em>Insérer une signature</em> sur le formulaire de rédaction afin d’ajouter votre signature. Vous pouvez également ajouter une signature par défaut sur tous vos messages en cochant la case appropriée dans votre profil. Si vous faites cela, vous pouvez alors empêcher l’ajout individuel de la signature sur les messages en décochant la case d’ajout de la signature dans le formulaire de rédaction.'
+		1 => 'Pour ajouter une signature à un message, vous devez tout d’abord en créer une par l’intermédiaire de votre panneau de contrôle de l’utilisateur. Une fois créée, vous pouvez cocher la case <em>Insérer une signature</em> sur le formulaire de rédaction afin d’insérer votre signature. Vous pouvez également ajouter une signature qui sera insérée à tous vos messages en cochant la case appropriée dans votre profil. Si vous choisissez cette dernière option, il ne vous sera plus utile de spécifier sur chaque message votre souhait d’insérer votre signature.'
 	),
 	array(
 		0 => 'Comment puis-je créer un sondage ?',
-		1 => 'Lorsque vous rédigez un nouveau sujet ou éditez le premier message d’un sujet, cliquez sur l’onglet “Création d’un sondage” en-dessous du formulaire principal de rédaction ; si vous ne pouvez pas le voir, c’est que vous n’avez pas les permissions appropriées afin de créer des sondages. Veuillez saisir le titre du sondage en incluant au moins deux options dans les champs adéquats, chaque option devant être dans une ligne séparée de la zone du texte. Vous pouvez également régler le nombre d’options par utilisateur en sélectionnant lors du vote “Options par utilisateur”, puis une limite de temps en jours pour le sondage (“0” pour une durée illimité) et enfin autoriser ou non les utilisateurs à modifier leur vote.'
+		1 => 'Lorsque vous rédigez un nouveau sujet ou éditez le premier message d’un sujet, cliquez sur l’onglet “Création d’un sondage”, situé en-dessous du formulaire principal de rédaction ; si cet onglet n’est pas disponible, il est probable que vous n’ayez pas les permissions appropriées afin de créer des sondages. Saisissez le titre du sondage en incluant au moins deux options dans les champs adéquats, chaque option devant être insérée sur une nouvelle ligne. Vous pouvez régler le nombre d’options que les utilisateurs peuvent insérer en sélectionnant, lors du vote, le réglage des “Options par utilisateur”. Vous pouvez également spécifier une limite de temps en jours, puis enfin autoriser ou non les utilisateurs à modifier leurs votes.'
 	),
 	array(
-		0 => 'Pourquoi ne puis-je pas ajouter plus d’options au sondage ?',
-		1 => 'La limite d’options d’un sondage est réglée par l’administrateur du forum. Si vous souhaitez ajouter plus d’options à votre sondage par rapport au nombre autorisé, contactez l’administrateur du forum.'
+		0 => 'Pourquoi ne puis-je pas ajouter plus d’options à un sondage ?',
+		1 => 'La limite d’options d’un sondage est réglée par l’administrateur du forum. Si le nombre d’options que vous pouvez ajouter à un sondage vous semble trop restreint, demandez à un administrateur du forum s’il est possible de l’augmenter.'
 	),
 	array(
 		0 => 'Comment puis-je éditer ou supprimer un sondage ?',
-		1 => 'Comme pour les messages, les sondages ne peuvent être édités que par leur auteur, un modérateur ou un administrateur. Pour éditer un sondage, cliquez sur “Éditer” dans le premier message du sujet ; il y aura toujours le sondage associé à celui-ci. Si personne n’a voté, les utilisateurs peuvent supprimer le sondage ou éditer chaque option du sondage. Cependant, si les membres ont déjà exprimés leurs votes, seuls les modérateurs ou les administrateurs peuvent éditer ou supprimer le sondage. Cela empêche la modification des options d’un sondage en cours.'
+		1 => 'Comme pour les messages, les sondages ne peuvent être édités que par leur auteur, un modérateur ou un administrateur. Pour éditer un sondage, éditez tout simplement le premier message du sujet car le sondage est obligatoirement associé à ce dernier. Si personne n’a encore voté, il est possible de supprimer le sondage ou d’éditer ses options. Cependant, si des votes ont été exprimés, seuls les modérateurs ou les administrateurs sont habilités à éditer ou supprimer le sondage. Cela empêche de modifier les options d’un sondage en cours.'
 	),
 	array(
-		0 => 'Pourquoi ne puis-je pas accéder au forum ?',
+		0 => 'Pourquoi ne puis-je pas accéder à un forum ?',
 		1 => 'Certains forums peuvent être limités à certains utilisateurs ou groupes d’utilisateurs. Pour consulter, lire, publier ou réaliser n’importe quelle autre action, vous avez besoin de permissions spéciales. Contactez un modérateur ou un administrateur du forum afin de demander votre accès.'
 	),
 	array(
-		0 => 'Pourquoi ne puis-je pas ajouter de pièces jointes ?',
-		1 => 'Les permissions afin d’ajouter des pièces jointes sont accordées par forum, par groupe ou par utilisateur. L’administrateur du forum n’a peut-être pas autorisé l’ajout de pièces jointes dans le forum auquel vous souhaitez les insérer, ou seuls certains groupes sont peut-être autorisés à insérer des pièces jointes. Contactez l’administrateur du forum si vous ne savez pas pourquoi vous ne pouvez pas insérer de pièces jointes.'
+		0 => 'Pourquoi ne puis-je pas insérer de pièces jointes ?',
+		1 => 'Les permissions permettant d’insérer des pièces jointes sont accordées par forum, par groupe ou par utilisateur. L’administrateur du forum n’a peut-être pas autorisé l’insertion de pièces jointes dans le forum concerné, ou seuls certains groupes détiennent cette autorisation. Pour plus d’informations, veuillez contacter un administrateur du forum.'
 	),
 	array(
 		0 => 'Pourquoi ai-je reçu un avertissement ?',
-		1 => 'Chaque administrateur du forum a son propre ensemble de règles pour son site. Si vous ne respectez pas une règle, vous recevrez un avertissement. Veuillez noter que c’est la décision de l’administrateur de ce forum, le phpBB Group n’a rien à voir avec l’avertissement distribué sur ce site. Contactez l’administrateur du forum si vous ne savez pas pourquoi vous avez reçu un avertissement.'
+		1 => 'Chaque forum a son propre ensemble de règles. Si vous ne respectez pas une de ces règles, vous recevrez un avertissement. Veuillez noter que cette décision n’appartient qu’à l’administrateur du forum concerné, le phpBB Group n’est en aucun cas responsable de ce qui est appliqué ou non. Pour plus d’informations, veuillez contacter un administrateur du forum.'
 	),
 	array(
 		0 => 'Comment puis-je rapporter des messages à un modérateur ?',
-		1 => 'Si l’administrateur du forum a activé cette fonctionnalité, vous devriez voir un bouton afin de rapporter des messages à côté du message que vous souhaitez rapporter. En cliquant sur celui-ci, vous trouverez toutes les étapes nécessaires afin de rapporter le message.'
+		1 => 'Si l’administrateur du forum a activé cette fonctionnalité, un bouton à cette fin devrait être affiché à côté du message que vous souhaitez rapporter. En cliquant sur celui-ci, vous trouverez toutes les étapes nécessaires afin de rapporter le message.'
 	),
 	array(
-		0 => 'Qu’est-ce le bouton “Sauvegarder” lors de la rédaction d’un sujet ?',
-		1 => 'Cela autorise à sauvegarder les messages qui doivent être complétés et envoyés à une date ultérieure. Rendez-vous sur le panneau de contrôle de l’utilisateur afin de recharger un message sauvegardé.'
+		0 => 'À quoi sert le bouton “Sauvegarder” affiché lors de la rédaction d’un sujet ?',
+		1 => 'Il vous permet de sauvegarder les messages qui doivent être complétés et envoyés ultérieurement. Rendez-vous sur votre panneau de contrôle de l’utilisateur afin de recharger un message sauvegardé.'
 	),
 	array(
 		0 => 'Pourquoi mon message a-t-il besoin d’être approuvé ?',
-		1 => 'L’administrateur du forum peut décider que les messages que vous publiez sur le forum doivent être vérifiés avant d’être publiés. Il est également possible que l’administrateur vous ait placé dans un groupe d’utilisateurs pour lequel il juge nécessaire que les messages doivent être vérifiés avant d’être publiés. Pour plus d’informations, veuillez contacter l’administrateur du forum.'
+		1 => 'L’administrateur du forum peut décider que les messages que vous publiez sur le forum doivent être vérifiés avant d’être publiés. Il est également possible que l’administrateur vous ait placé dans un groupe d’utilisateurs pour lequel il juge nécessaire cette action. Pour plus d’informations, veuillez contacter un administrateur du forum.'
 	),
 	array(
 		0 => 'Comment puis-je remonter mes sujets ?',
-		1 => 'En cliquant sur le lien “Remonter le sujet” lorsque vous êtes en train de consulter un sujet, vous pouvez “remonter” celui-ci en haut de la liste des sujets, à la première page du forum. Cependant, si vous ne voyez pas ce lien, cette fonctionnalité a peut-être été désactivée ou le temps d’attente nécessaire entre les remontages n’a peut-être pas encore été atteint. Il est également possible de remonter le sujet simplement en y répondant. Cependant, veuillez vous assurer de respecter les règles du forum.'
+		1 => 'En cliquant sur le lien “Remonter le sujet” lorsque vous êtes en train de consulter un sujet, vous pouvez remonter celui-ci en haut de la liste des sujets, à la première page du forum. Cependant, si vous ne voyez pas ce lien, cette fonctionnalité a peut-être été désactivée ou le temps d’attente nécessaire entre les remontées n’a peut-être pas encore été atteint. Il est également possible de remonter le sujet simplement en y répondant, mais assurez-vous de le faire tout en respectant les règles du forum.'
 	),
 	array(
 		0 => '--',
@@ -183,39 +185,39 @@ $help = array(
 	),
 	array(
 		0 => 'Qu’est-ce que le BBCode ?',
-		1 => 'Le BBCode est une implémentation spéciale de l’HTML, offrant un meilleur contrôle sur la mise en forme d’un message. L’utilisation du BBCode est déterminée par l’administrateur mais vous pouvez également le désactiver sur chacun des messages depuis le formulaire de rédaction. Le BBCode est similaire à l’architecture de l’HTML, les balises sont contenues entre des crochets <strong>[</strong> et <strong>]</strong> à la place de <strong>&lt;</strong> et <strong>&gt;</strong>. Veuillez consulter le guide qui est accessible depuis la page de rédaction pour plus d’informations à propos du BBCode.'
+		1 => 'Le BBCode est une implémentation spéciale de l’HTML, vous offrant un meilleur contrôle sur la mise en forme d’un message. L’utilisation du BBCode est déterminée par l’administrateur mais il vous est également possible de la désactiver sur chaque message depuis le formulaire de rédaction. Le BBCode est similaire à l’architecture de l’HTML, les balises sont contenues entre des crochets [ et ] à la place de &lt; et &gt;. Pour plus d’informations à propos du BBCode, veuillez consulter le guide qui est accessible depuis la page de rédaction.'
 	),
 	array(
 		0 => 'Puis-je utiliser de l’HTML ?',
-		1 => 'Désolé, il n’est pas possible d’utiliser de l’HTML sur ce forum. La majeure partie de la mise en forme qui peut être réalisée avec de l’HTML peut être réalisée grâce à l’utilisation du BBCode.'
+		1 => 'Non, il n’est pas possible d’utiliser de l’HTML sur ce forum. La majeure partie de la mise en forme qui peut être réalisée avec de l’HTML peut également être obtenue grâce à l’utilisation du BBCode.'
 	),
 	array(
 		0 => 'Que sont les émoticônes ?',
-		1 => 'Les émoticônes sont de petites images qui peuvent être utilisées afin d’exprimer des sentiments en utilisant un code court. Par exemple, “:)” exprime la joie alors que “:(” exprime la tristesse. La liste complète des émoticônes peut être affichée depuis le formulaire de rédaction. Essayez cependant de ne pas abuser des émoticônes, elles peuvent rapidement rendre un message illisible et un modérateur pourrait décider de l’éditer ou de le supprimer complètement. L’administrateur du forum peut également définir une limite du nombre d’émoticônes qui peuvent être utilisées dans un message.'
+		1 => 'Les émoticônes (ou smileys) sont de petites images qui peuvent être utilisées grâce à l’utilisation d’un code court et qui permettent d’exprimer des sentiments. Par exemple, “:)” exprime la joie alors qu’au contraire “:(” exprime la tristesse. Vous pouvez consulter la liste complète des émoticônes depuis le formulaire de rédaction. Essayez cependant de ne pas abuser des émoticônes, elles peuvent rapidement rendre un message illisible et un modérateur pourrait décider de l’éditer ou de le supprimer complètement. L’administrateur du forum peut également limiter le nombre d’émoticônes qui peuvent être insérées dans un message.'
 	),
 	array(
-		0 => 'Puis-je publier des images ?',
-		1 => 'Bien sûr, des images peuvent être insérées dans vos messages. Si l’administrateur du forum a autorisé les pièces jointes, vous pouvez transférer des images sur le forum. Dans le cas contraire, vous devez faire un lien vers une image stockée sur un serveur Internet accessible publiquement, comme par exemple http://www.exemple.com/mon-image.gif. Vous ne pouvez ni faire de lien vers des images stockées sur votre propre ordinateur (à moins que celui-ci soit un serveur Internet), ni faire de lien vers des images stockées derrière un quelconque système d’authentification, par exemple les boîtes e-mails “Hotmail” ou “Yahoo!”, les sites protégés par un mot de passe, etc. Pour insérer une image, utilisez la balise BBCode [img].'
+		0 => 'Puis-je insérer des images ?',
+		1 => 'Oui, vous pouvez insérer des images dans vos messages. Si l’administrateur du forum a autorisé l’insertion de pièces jointes, vous pourrez transférer des images sur le forum. Dans le cas contraire, vous devrez insérer un lien pointant vers une image stockée sur un serveur Internet public, comme http://www.exemple.com/mon-image.gif. Vous ne pourrez cependant ni insérer de lien pointant vers des images stockées sur votre propre ordinateur (à moins, bien évidemment, que celui-ci soit en lui-même un serveur Internet), ni insérer de lien pointant vers des images stockées derrière un quelconque système d’authentification, comme par exemple les services e-mails de Hotmail ou de Yahoo, les sites protégés par un mot de passe, etc. Pour insérer une image, utilisez la balise BBCode [img].'
 	),
 	array(
 		0 => 'Que sont les annonces globales ?',
-		1 => 'Les annonces globales contiennent des informations très importantes et vous devriez les consulter aussi vite que possible. Elles apparaissent en haut de chaque forum et dans votre panneau de contrôle de l’utilisateur. Les permissions des annonces globales sont définies par l’administrateur du forum.'
+		1 => 'Les annonces globales contiennent des informations très importantes et vous devriez les consulter le plus rapidement possible. Elles apparaissent en haut de chaque forum et dans votre panneau de contrôle de l’utilisateur. Les permissions concernant les annonces globales sont définies par l’administrateur du forum.'
 	),
 	array(
 		0 => 'Que sont les annonces ?',
-		1 => 'Les annonces contiennent souvent des informations importantes sur le forum dans lequel vous naviguez et vous devriez les consulter aussi vite que possible. Les annonces apparaissent en haut de chaque page du forum dans lequel elles ont été publiées. Tout comme les annonces globales, les permissions des annonces sont définies par l’administrateur du forum.'
+		1 => 'Les annonces contiennent souvent des informations importantes sur le forum dans lequel vous naviguez et vous devriez les consulter le plus rapidement possible. Les annonces apparaissent en haut de chaque page du forum dans lequel elles ont été publiées. Tout comme les annonces globales, les permissions concernant les annonces sont définies par l’administrateur du forum.'
 	),
 	array(
 		0 => 'Que sont les notes ?',
-		1 => 'Les notes apparaissent sous les annonces et seulement sur la première page du forum consulté. Elles sont souvent assez importantes et vous devriez les consulter dès que vous en avez l’occasion. Tout comme les annonces et les annonces globales, les permissions des notes sont définies par l’administrateur du forum.'
+		1 => 'Les notes apparaissent en dessous des annonces et seulement sur la première page du forum concerné. Elles sont souvent assez importantes et il est recommandé de les consulter dès que vous en avez la possibilité. Tout comme les annonces et les annonces globales, les permissions concernant les notes sont définies par l’administrateur du forum.'
 	),
 	array(
 		0 => 'Que sont les sujets verrouillés ?',
-		1 => 'Les sujets verrouillés sont les sujets dans lesquels les utilisateurs ne peuvent plus répondre et dans lesquels les sondages sont automatiquement expirés. Les sujets peuvent être verrouillés pour de nombreuses raisons et ont été mis de cette façon par un modérateur ou un administrateur du forum. Vous pouvez également verrouiller vos propres sujets si l’administrateur vous en a donné les permissions.'
+		1 => 'Les sujets verrouillés sont des sujets dans lesquels les utilisateurs ne peuvent plus répondre et dans lesquels les sondages sont automatiquement expirés. Les sujets peuvent être verrouillés pour de nombreuses raisons par un modérateur ou un administrateur du forum. Vous pouvez également verrouiller vos propres sujets si l’administrateur en a décidé ainsi.'
 	),
 	array(
 		0 => 'Que sont les icônes de sujet ?',
-		1 => 'Les icônes de sujet sont des images sélectionnées par l’auteur et sont associées à des messages afin d’indiquer leur contenu. La possibilité d’utiliser des icônes de sujet dépendent des permissions définies par l’administrateur du forum.'
+		1 => 'Les icônes de sujet sont de petites images que l’auteur peut insérer afin d’illustrer le contenu de son sujet. L’administrateur du forum peut ne pas avoir activé cette fonctionnalité.'
 	),
 	// This block will switch the FAQ-Questions to the second template column
 	array(
@@ -224,15 +226,15 @@ $help = array(
 	),
 	array(
 		0 => '--',
-		1 => 'Niveaux d’utilisateurs et groupes d’utilisateurs'
+		1 => 'Niveaux des utilisateurs et des groupes d’utilisateurs'
 	),
 	array(
 		0 => 'Que sont les administrateurs ?',
-		1 => 'Les administrateurs sont des membres possédant le plus haut niveau de contrôle sur le forum. Ces utilisateurs peuvent contrôler chaque facette des opérations du forum, incluant le réglage des permissions, le bannissement d’utilisateurs, la création de groupes d’utilisateurs ou de modérateurs, etc. Cela dépend des attributions du fondateur du forum et les permissions qu’il a attribué aux autres administrateurs. Ils peuvent également détenir les mêmes capacités que les modérateurs et cela dans tous les forums. Tout cela dépend des réglages effectués par le fondateur du forum.'
+		1 => 'Les administrateurs sont les membres possédant le plus haut niveau de contrôle sur le forum. Ces utilisateurs peuvent contrôler toutes les opérations du forum, telles que le réglage des permissions, le bannissement d’utilisateurs, la création de groupes d’utilisateurs ou de modérateurs, etc. Ils peuvent également être abilités à modérer l’ensemble des forums. Tout cela dépend des réglages effectués par le fondateur du forum.'
 	),
 	array(
 		0 => 'Que sont les modérateurs ?',
-		1 => 'Les modérateurs sont des utilisateurs individuels (ou groupes d’utilisateurs individuels) qui surveillent jour après jour les forums. Ils ont la possibilité d’éditer ou de supprimer les sujets, les verrouiller, les déverrouiller, les déplacer, les fusionner et les diviser dans le forum qu’ils modèrent. En règle générale, les modérateurs sont présents afin d’empêcher que des utilisateurs fassent du hors-sujet ou publient du contenu abusif ou offensant.'
+		1 => 'Les modérateurs sont des utilisateurs individuels (ou des groupes d’utilisateurs individuels) qui surveillent jour après jour les forums. Ils ont la possibilité d’éditer ou de supprimer les sujets, les verrouiller, les déverrouiller, les déplacer, les fusionner et les diviser dans le forum qu’ils modèrent. En règle générale, les modérateurs sont présents afin d’empêcher que des utilisateurs fassent du hors-sujet ou publient du contenu abusif ou offensant.'
 	),
 	array(
 		0 => 'Que sont les groupes d’utilisateurs ?',

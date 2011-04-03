@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* search [French (Formal Honorifics)]
+* search [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: search.php 10004 2009-08-17 13:25:04Z rxu $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -77,6 +79,7 @@ $lang = array_merge($lang, array(
 	'NO_SEARCH'				=> 'Désolé, mais vous n’êtes pas autorisé à utiliser le système de recherche.',
 	'NO_SEARCH_RESULTS'		=> 'Aucun résultat approprié n’a été trouvé.',
 	'NO_SEARCH_TIME'		=> 'Désolé, mais vous ne pouvez pas utiliser le système de recherche actuellement. Veuillez réessayer ultérieurement.',
+	'NO_SEARCH_UNREADS'		=> 'Désolé mais le système de recherche des messages non lus a été désactivé sur ce forum.',
 	'WORD_IN_NO_POST'		=> 'Aucun message n’a été trouvé car le mot <strong>%s</strong> n’est contenu dans aucun message.',
 	'WORDS_IN_NO_POST'		=> 'Aucun message n’a été trouvé car les mots <strong>%s</strong> ne sont contenus dans aucun message.',
 

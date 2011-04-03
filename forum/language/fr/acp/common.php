@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* acp_common [French (Formal Honorifics)]
+* acp_common [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: common.php 10458 2010-01-26 15:26:07Z jelly_doughnut $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -210,7 +212,7 @@ $lang = array_merge($lang, array(
 	'ACP_USER_SIG'					=> 'Signatures',
 	'ACP_USER_WARNINGS'				=> 'Avertissements',
 
-	'ACP_VC_SETTINGS'					=> 'Réglages du module CAPTCHA',
+	'ACP_VC_SETTINGS'					=> 'Mesures anti-robots indésirables',
 	'ACP_VC_CAPTCHA_DISPLAY'			=> 'Aperçu de l’image du CAPTCHA',
 	'ACP_VERSION_CHECK'					=> 'Vérifier les mises à jour',
 	'ACP_VIEW_ADMIN_PERMISSIONS'		=> 'Voir les permissions des administrateurs',
@@ -227,10 +229,10 @@ $lang = array_merge($lang, array(
 	'ADD'					=> 'Ajouter',
 	'ADMIN'					=> 'Administration',
 	'ADMIN_INDEX'			=> 'Index de l’administration',
-	'ADMIN_PANEL'			=> 'Panneau de contrôle de l’administrateur',
+	'ADMIN_PANEL'			=> 'Panneau de contrôle d’administration',
 
   'ADM_LOGOUT'			=> 'Déconnexion&nbsp;du&nbsp;PCA',
-	'ADM_LOGGED_OUT'		=> 'Vous avez été déconnecté du panneau de contrôle de l’administrateur avec succès',
+	'ADM_LOGGED_OUT'		=> 'Vous avez été déconnecté du panneau de contrôle d’administration avec succès',
 
 	'BACK'					=> 'Retour',
 
@@ -263,7 +265,7 @@ $lang = array_merge($lang, array(
 	'LOGGED_IN_AS'			=> 'Vous êtes connecté en tant que :',
 	'LOGIN_ADMIN'			=> 'Vous devez vous authentifier afin d’administrer le forum.',
 	'LOGIN_ADMIN_CONFIRM'	=> 'Vous devez vous authentifier à nouveau afin d’administrer le forum.',
-	'LOGIN_ADMIN_SUCCESS'	=> 'Vous vous êtes authentifié avec succès et allez à présent être redirigé vers le panneau de contrôle de l’administrateur.',
+	'LOGIN_ADMIN_SUCCESS'	=> 'Vous vous êtes authentifié avec succès et allez à présent être redirigé vers le panneau de contrôle d’administration.',
 	'LOOK_UP_FORUM'			=> 'Sélectionner un forum',
 	'LOOK_UP_FORUMS_EXPLAIN'=> 'Vous pouvez sélectionner plusieurs forums.',
 
@@ -277,7 +279,7 @@ $lang = array_merge($lang, array(
 	'NOTIFY'				=> 'Avertissement',
 	'NO_ADMIN'				=> 'Vous n’êtes pas autorisé à administrer ce forum.',
 	'NO_EMAILS_DEFINED'		=> 'Aucune adresse e-mail correcte n’a été trouvée.',
-	'NO_PASSWORD_SUPPLIED'	=> 'Vous devez saisir votre mot de passe afin d’accéder au panneau de contrôle de l’administrateur.',
+	'NO_PASSWORD_SUPPLIED'	=> 'Vous devez saisir votre mot de passe afin d’accéder au panneau de contrôle d’administration.',
 
 	'OFF'					=> 'Désactivé',
 	'ON'					=> 'Activé',
@@ -286,7 +288,7 @@ $lang = array_merge($lang, array(
 	'PARSE_SMILIES'						=> 'Autoriser les émoticônes',
 	'PARSE_URLS'						=> 'Autoriser les liens',
 	'PERMISSIONS_TRANSFERRED'			=> 'Les permissions ont été transférées',
-	'PERMISSIONS_TRANSFERRED_EXPLAIN'	=> 'Vous utilisez actuellement les permissions de %1$s. Vous pouvez parcourir le forum avec ses permissions mais vous ne pouvez plus accéder au panneau de contrôle de l’administrateur car les permissions des administrateurs n’ont pas été transférées. Vous pouvez <a href="%2$s"><strong>retourner aux réglages de vos permissions</strong></a> à tout moment.',
+	'PERMISSIONS_TRANSFERRED_EXPLAIN'	=> 'Vous utilisez actuellement les permissions de %1$s. Vous pouvez parcourir le forum avec ses permissions mais vous ne pouvez plus accéder au panneau de contrôle d’administration car les permissions des administrateurs n’ont pas été transférées. Vous pouvez <a href="%2$s"><strong>retourner aux réglages de vos permissions</strong></a> à tout moment.',
 	'PROCEED_TO_ACP'					=> '%sAller au PCA%s',
 
 	'REMIND'							=> 'Rappeler',
@@ -296,10 +298,10 @@ $lang = array_merge($lang, array(
 	'SELECT_ANONYMOUS'		=> 'Sélectionner un utilisateur anonyme',
 	'SELECT_OPTION'			=> 'Sélectionner une option',
 
-	'SETTING_TOO_LOW'		=> 'La valeur que vous avez fournie pour le réglage “%1$s” est trop faible. La valeur minimale acceptée est de %2$d.',
-	'SETTING_TOO_BIG'		=> 'La valeur que vous avez fournie pour le réglage “%1$s” est trop élevée. La valeur maximale acceptée est de %2$d.',	
-	'SETTING_TOO_LONG'		=> 'La valeur que vous avez fournie pour le réglage “%1$s” est trop longue. La longueur maximale acceptée est de %2$d.',
-	'SETTING_TOO_SHORT'		=> 'La valeur que vous avez fournie pour le réglage “%1$s” est trop courte. La longueur minimale acceptée est de %2$d.',
+	'SETTING_TOO_LOW'		=> 'La valeur que vous avez fourni pour le réglage “%1$s” est trop faible. La valeur minimale acceptée est de %2$d.',
+	'SETTING_TOO_BIG'		=> 'La valeur que vous avez fourni pour le réglage “%1$s” est trop élevée. La valeur maximale acceptée est de %2$d.',	
+	'SETTING_TOO_LONG'		=> 'La valeur que vous avez fourni pour le réglage “%1$s” est trop longue. La longueur maximale acceptée est de %2$d.',
+	'SETTING_TOO_SHORT'		=> 'La valeur que vous avez fourni pour le réglage “%1$s” est trop courte. La longueur minimale acceptée est de %2$d.',
 
 	'SHOW_ALL_OPERATIONS'	=> 'Afficher toutes les opérations',
 
@@ -523,7 +525,7 @@ $lang = array_merge($lang, array(
 	'LOG_CONFIG_SERVER'			=> '<strong>Modification des réglages du serveur</strong>',
 	'LOG_CONFIG_SETTINGS'		=> '<strong>Modification des réglages du forum</strong>',
 	'LOG_CONFIG_SIGNATURE'		=> '<strong>Modification des réglages des signatures</strong>',
-	'LOG_CONFIG_VISUAL'			=> '<strong>Modification des réglages anti-robots</strong>',
+	'LOG_CONFIG_VISUAL'			=> '<strong>Modification des mesures anti-robots indésirables</strong>',
 
 	'LOG_APPROVE_TOPIC'			=> '<strong>Approbation d’un sujet</strong><br />» %s',
 	'LOG_BUMP_TOPIC'			=> '<strong>Sujet remonté par un utilisateur</strong><br />» %s',

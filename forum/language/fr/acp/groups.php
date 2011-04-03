@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* acp_groups [French (Formal Honorifics)]
+* acp_groups [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: groups.php 9701 2009-06-28 12:13:11Z toonarmy $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -117,7 +119,7 @@ $lang = array_merge($lang, array(
 	'GROUP_UPDATED'					=> 'Les préférences du groupe ont été mises à jour avec succès.',
 	
 	'GROUP_USERS_ADDED'				=> 'Les nouveaux utilisateurs ont été ajoutés au groupe avec succès.',
-	'GROUP_USERS_EXIST'				=> 'Les utilisateurs que vous avez sélectionnés sont déjà membres de ce groupe.',
+	'GROUP_USERS_EXIST'				=> 'Les utilisateurs que vous avez sélectionné sont déjà membres de ce groupe.',
 	'GROUP_USERS_REMOVE'			=> 'Les utilisateurs ont été supprimés de ce groupe et transférés dans le groupe par défaut avec succès.',
 
 	'MAKE_DEFAULT_FOR_ALL'	=> 'Définir comme groupe par défaut pour tous les membres',

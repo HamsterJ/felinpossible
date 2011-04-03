@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* ucp [French (Formal Honorifics)]
+* ucp [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: ucp.php 10329 2009-12-13 14:03:45Z Kellanved $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -56,12 +58,12 @@ $lang = array_merge($lang, array(
 	<br />
 	Nos forums sont propulsés par phpBB (désignés ici par “ils”, “eux”, “leur”, “logiciel phpBB”, “www.phpbb.com”, “phpBB Group”, “Équipes de phpBB”), qui est une solution de création de forums, déclaré sous la licence “<a href="http://opensource.org/licenses/gpl-license.php">Licence Publique Générale</a>” (désignée ici par “GPL”) et qui peut être téléchargé depuis <a href="http://www.phpbb.fr/">www.phpbb.fr</a> ou <a href="http://www.phpbb.com/">www.phpbb.com</a>. Le logiciel phpBB a pour seul but de faciliter les discussions sur Internet, le phpBB Group n’est pas responsable de la conduite et/ou du contenu que nous acceptons et/ou que nous n’acceptons pas. Pour plus d’informations à propos de phpBB, veuillez consulter <a href="http://www.phpbb.fr/">http://www.phpbb.fr/</a> ou <a href="http://www.phpbb.com/">http://www.phpbb.com/</a>.<br />
 	<br />
-	Vous acceptez de ne publier aucun contenu à caractère abusif, obscène, vulgaire, diffamatoire, choquant, menaçant, pornographique ou autre qui pourrait transgresser les lois de votre pays, le pays où “%1$s” est hébergé ou la loi internationale. Ne pas respecter cela peut vous mener à un bannissement immédiat et permanent, en plus de l’envoi d’un avertissement à votre fournisseur d’accès à Internet si nous jugeons cela nécessaire. L’adresse IP de tous les messages est enregistrée afin d’aider au renforcement de ces conditions. Vous acceptez le fait que “%1$s” ait le droit de supprimer, d’éditer, de déplacer ou de verrouiller n’importe quel sujet lorsque nous estimons que cela est nécessaire. En tant qu’utilisateur, vous acceptez que toutes les informations que vous avez saisies soient stockées dans notre base de données. Bien que cette information ne sera pas diffusée à une tierce partie sans votre consentement, ni “%1$s” et ni phpBB ne pourront être tenus comme responsables en cas de tentative de piratage visant à compromettre les données.
+	Vous acceptez de ne publier aucun contenu à caractère abusif, obscène, vulgaire, diffamatoire, choquant, menaçant, pornographique ou autre qui pourrait transgresser les lois de votre pays, le pays où “%1$s” est hébergé ou la loi internationale. Ne pas respecter cela peut vous mener à un bannissement immédiat et permanent, en plus de l’envoi d’un avertissement à votre fournisseur d’accès à Internet si nous jugeons cela nécessaire. L’adresse IP de tous les messages est enregistrée afin d’aider au renforcement de ces conditions. Vous acceptez le fait que “%1$s” ait le droit de supprimer, d’éditer, de déplacer ou de verrouiller n’importe quel sujet lorsque nous estimons que cela est nécessaire. En tant qu’utilisateur, vous acceptez que toutes les informations que vous avez saisi soient stockées dans notre base de données. Bien que cette information ne sera pas diffusée à une tierce partie sans votre consentement, ni “%1$s” et ni phpBB ne pourront être tenus comme responsables en cas de tentative de piratage visant à compromettre les données.
 	',
 
 	'PRIVACY_POLICY'		=> 'Cette politique explique en détail comment “%1$s” et ses sociétés affiliées (désignés ici par “nous”, “notre”, “nos”, “%1$s”, “%2$s”) et phpBB (désigné ici par “ils”, “eux”, “leur”, “logiciel phpBB”, “www.phpbb.com”, “phpBB Group”, “Équipes de phpBB”) utilisent n’importe quelle information collectée pendant n’importe quelle session d’utilisation de votre part (désignée ici par “vos informations”).<br />
 	<br />
-	Vos informations sont collectées de deux manières différentes. Premièrement, en naviguant sur “%1$s”, le logiciel phpBB créera un certain nombre de cookies qui sont de petits fichiers texte téléchargés dans les fichiers temporaires du navigateur Internet de votre ordinateur. Les deux premiers cookies ne contiennent qu’un identifiant utilisateur (désigné ici par “identifiant de l’utilisateur”) et un identifiant de session anonyme (désigné ici par “identifiant de la session”), qui vous sont automatiquement assignés par le logiciel phpBB. Un troisième cookie sera créé une fois que vous naviguerez sur les sujets de “%1$s”. Il est utilisé afin de stocker les sujets que vous avez consultés, ce qui de ce fait améliore votre confort de navigation en tant qu’utilisateur.<br />
+	Vos informations sont collectées de deux manières différentes. Premièrement, en naviguant sur “%1$s”, le logiciel phpBB créera un certain nombre de cookies qui sont de petits fichiers texte téléchargés dans les fichiers temporaires du navigateur Internet de votre ordinateur. Les deux premiers cookies ne contiennent qu’un identifiant utilisateur (désigné ici par “identifiant de l’utilisateur”) et un identifiant de session anonyme (désigné ici par “identifiant de la session”), qui vous sont automatiquement assignés par le logiciel phpBB. Un troisième cookie sera créé une fois que vous naviguerez sur les sujets de “%1$s”. Il est utilisé afin de stocker les sujets que vous avez consulté, ce qui de ce fait améliore votre confort de navigation en tant qu’utilisateur.<br />
 	<br />
 	Nous pouvons également créer des cookies externes au logiciel phpBB tout en naviguant sur “%1$s”, bien que ceux-ci soient hors de portée du document qui est prévu pour couvrir uniquement les pages créées par le logiciel phpBB. La seconde manière est de récupérer l’information que vous nous envoyez et que nous collectons. Ceci peut être et n’est pas limité à : la publication en tant qu’utilisateur anonyme (désigné ici par “messages anonymes”), l’inscription sur “%1$s” (désigné ici par “votre compte”) et les messages que vous envoyez après l’inscription et lors d’une connexion (désigné ici par “vos messages”).<br />
 	<br />
@@ -78,9 +80,9 @@ $lang = array_merge($lang, array(
 	'ACCOUNT_ACTIVE_PROFILE'		=> 'Votre compte a été réactivé avec succès.',
 	'ACCOUNT_ADDED'					=> 'Nous vous remercions de votre inscription, votre compte est dorénavant créé. Vous pouvez à présent vous connecter avec votre nom d’utilisateur et votre mot de passe.',
 	'ACCOUNT_COPPA'					=> 'Votre compte a été créé mais il doit être approuvé. Veuillez vérifier vos e-mails pour plus d’informations.',
-	'ACCOUNT_EMAIL_CHANGED'			=> 'Votre compte a été mis à jour avec succès. Cependant, vous devez le réactiver car vous avez modifié votre adresse e-mail. Une clé d’activation a été envoyée sur la nouvelle adresse e-mail que vous avez fournie. Veuillez vérifier vos e-mails pour plus d’informations.',
+	'ACCOUNT_EMAIL_CHANGED'			=> 'Votre compte a été mis à jour avec succès. Cependant, vous devez le réactiver car vous avez modifié votre adresse e-mail. Une clé d’activation a été envoyée sur la nouvelle adresse e-mail que vous avez fourni. Veuillez vérifier vos e-mails pour plus d’informations.',
 	'ACCOUNT_EMAIL_CHANGED_ADMIN'	=> 'Votre compte a été mis à jour avec succès. Cependant, un des administrateurs doit le réactiver car vous avez modifié votre adresse e-mail. Un e-mail leur a été envoyé et vous serez informé lors de la réactivation de votre compte.',
-	'ACCOUNT_INACTIVE'				=> 'Votre compte a été créé avec succès. Cependant, vous devez activer votre compte. Une clé d’activation a été envoyée sur l’adresse e-mail que vous avez fournie. Veuillez vérifier vos e-mails pour plus d’informations.',
+	'ACCOUNT_INACTIVE'				=> 'Votre compte a été créé avec succès. Cependant, vous devez activer votre compte. Une clé d’activation a été envoyée sur l’adresse e-mail que vous avez fourni. Veuillez vérifier vos e-mails pour plus d’informations.',
 	'ACCOUNT_INACTIVE_ADMIN'		=> 'Votre compte a été créé avec succès. Cependant, un des administrateurs doit activer votre compte. Un e-mail leur a été envoyé et vous serez informé lors de la réactivation de votre compte.',
 	'ACTIVATION_EMAIL_SENT'			=> 'L’e-mail d’activation a été envoyé à votre adresse e-mail.',
 	'ACTIVATION_EMAIL_SENT_ADMIN'	=> 'L’e-mail d’activation a été envoyé aux adresses e-mails des administrateurs.',
@@ -100,7 +102,7 @@ $lang = array_merge($lang, array(
 	'ALLOW_PM'						=> 'Autoriser les utilisateurs à vous envoyer des messages privés',
 	'ALLOW_PM_EXPLAIN'				=> 'Notez que les administrateurs et les modérateurs pourront toujours vous envoyer des messages privés.',
 	'ALREADY_ACTIVATED'				=> 'Vous avez déjà activé votre compte.',
-	'ATTACHMENTS_EXPLAIN'			=> 'Ceci est la liste des pièces jointes que vous avez insérées dans les messages de ce forum.',
+	'ATTACHMENTS_EXPLAIN'			=> 'Ceci est la liste des pièces jointes que vous avez inséré dans les messages de ce forum.',
 	'ATTACHMENTS_DELETED'			=> 'Les pièces jointes ont été supprimées avec succès.',
 	'ATTACHMENT_DELETED'			=> 'La pièce jointe a été supprimée avec succès.',
 	'AVATAR_CATEGORY'				=> 'Catégorie',
@@ -187,10 +189,10 @@ $lang = array_merge($lang, array(
 	'DRAFT_UPDATED'				=> 'Le brouillon a été mis à jour avec succès.',
 
 	'EDIT_DRAFT_EXPLAIN'		=> 'Vous pouvez éditer ici votre brouillon. Les brouillons ne contiennent ni pièces jointes, ni sondages.',
-	'EMAIL_BANNED_EMAIL'		=> 'L’adresse e-mail que vous avez saisie n’est pas autorisée à être utilisée.',
-	'EMAIL_INVALID_EMAIL'		=> 'L’adresse e-mail que vous avez saisie est incorrecte.',
-	'EMAIL_REMIND'				=> 'Ceci doit être l’adresse e-mail qui est associée à votre compte. Si vous ne l’avez pas modifiée par l’intermédiaire de votre panneau de contrôle de l’utilisateur, il s’agit de l’adresse que vous avez saisie lors de l’inscription de votre compte.',
-	'EMAIL_TAKEN_EMAIL'			=> 'L’adresse e-mail que vous avez saisie est déjà utilisée.',
+	'EMAIL_BANNED_EMAIL'		=> 'L’adresse e-mail que vous avez saisi n’est pas autorisée à être utilisée.',
+	'EMAIL_INVALID_EMAIL'		=> 'L’adresse e-mail que vous avez saisi est incorrecte.',
+	'EMAIL_REMIND'				=> 'Ceci doit être l’adresse e-mail qui est associée à votre compte. Si vous ne l’avez pas modifié par l’intermédiaire de votre panneau de contrôle de l’utilisateur, il s’agit de l’adresse que vous avez saisi lors de l’inscription de votre compte.',
+	'EMAIL_TAKEN_EMAIL'			=> 'L’adresse e-mail que vous avez saisi est déjà utilisée.',
 	'EMPTY_DRAFT'				=> 'Vous devez saisir un message afin d’envoyer vos modifications.',
 	'EMPTY_DRAFT_TITLE'			=> 'Vous devez saisir le titre du brouillon.',
 	'EXPORT_AS_XML'				=> 'Exporter en XML',
@@ -245,7 +247,7 @@ $lang = array_merge($lang, array(
 
 	'IF_FOLDER_FULL'			=> 'Si le dossier est plein',
 	'IMPORTANT_NEWS'			=> 'Annonces importantes',
-	'INVALID_USER_BIRTHDAY'			=> 'La date d’anniversaire que vous avez spécifiée est incorrecte.',
+	'INVALID_USER_BIRTHDAY'			=> 'La date d’anniversaire que vous avez spécifié est incorrecte.',
 	'INVALID_CHARS_USERNAME'	=> 'Le nom d’utilisateur que vous avez spécifié contient des caractères non autorisés.',
 	'INVALID_CHARS_NEW_PASSWORD'=> 'Le mot de passe que vous avez spécifié ne contient pas les caractères requis.',
 	'ITEMS_REQUIRED'			=> 'Les champs marqués par * sont obligatoires.',
@@ -281,10 +283,10 @@ $lang = array_merge($lang, array(
 	'MOVE_TO_FOLDER'				=> 'Déplacer vers le dossier',
 	'MOVE_UP'						=> 'Monter',
 
-	'NEW_EMAIL_ERROR'				=> 'Les adresses e-mails que vous avez saisies ne concordent pas.',
+	'NEW_EMAIL_ERROR'				=> 'Les adresses e-mails que vous avez saisi ne concordent pas.',
 	'NEW_FOLDER_NAME'				=> 'Nom du nouveau dossier',
 	'NEW_PASSWORD'					=> 'Nouveau mot de passe',
-	'NEW_PASSWORD_ERROR'			=> 'Les mots de passe que vous avez saisis ne concordent pas.',
+	'NEW_PASSWORD_ERROR'			=> 'Les mots de passe que vous avez saisi ne concordent pas.',
 	'NOTIFY_METHOD'					=> 'Méthode d’avertissement',
 	'NOTIFY_METHOD_BOTH'			=> 'Tous les deux',
 	'NOTIFY_METHOD_EMAIL'			=> 'E-mail uniquement',
@@ -349,7 +351,7 @@ $lang = array_merge($lang, array(
 	'PASS_TYPE_SYMBOL_EXPLAIN'	=> 'Le mot de passe doit être compris entre %1$d et %2$d caractères de long, doit contenir des lettres en majuscules et en minuscules, doit contenir des nombres et doit contenir des symboles.',
 	'PASSWORD'					=> 'Mot de passe',
 	'PASSWORD_ACTIVATED'		=> 'Votre nouveau mot de passe a été activé.',
-	'PASSWORD_UPDATED'			=> 'Un nouveau mot de passe a été envoyé à l’adresse e-mail que vous avez enregistrée.',
+	'PASSWORD_UPDATED'			=> 'Un nouveau mot de passe a été envoyé à l’adresse e-mail que vous avez enregistré.',
 	'PERMISSIONS_RESTORED'		=> 'Les permissions originales ont été restaurées avec succès.',
 	'PERMISSIONS_TRANSFERRED'	=> 'Les permissions de <strong>%s</strong> ont été transférées avec succès, vous pouvez à présent parcourir le forum avec les permissions de l’utilisateur.<br />Veuillez noter que les permissions des administrateurs ne seront pas transférées. Vous pouvez retourner aux réglages de vos permissions à tout moment.',
 	'PM_DISABLED'				=> 'La messagerie privée a été désactivée sur ce forum.',
@@ -429,7 +431,7 @@ $lang = array_merge($lang, array(
 	'UCP_ATTACHMENTS'			=> 'Pièces jointes',
 	'UCP_COPPA_BEFORE'			=> 'Avant le %s',
 	'UCP_COPPA_ON_AFTER'		=> 'Le ou après le %s',
-	'UCP_EMAIL_ACTIVATE'		=> 'Veuillez noter que vous devez saisir une adresse e-mail correcte afin que votre compte soit activé. Vous recevrez un e-mail qui contiendra le lien d’activation à l’adresse que vous avez spécifiée.',
+	'UCP_EMAIL_ACTIVATE'		=> 'Veuillez noter que vous devez saisir une adresse e-mail correcte afin que votre compte soit activé. Vous recevrez un e-mail qui contiendra le lien d’activation à l’adresse que vous avez spécifié.',
 	'UCP_ICQ'					=> 'Numéro ICQ',
 	'UCP_JABBER'				=> 'Adresse Jabber',
 
@@ -489,7 +491,7 @@ $lang = array_merge($lang, array(
 	'USERNAME_CHARS_ANY_EXPLAIN'	=> 'La longueur doit être comprise entre %1$d et %2$d caractères.',
 	'USERNAME_TAKEN_USERNAME'		=> 'Le nom d’utilisateur que vous avez saisi est déjà utilisé, veuillez en choisir un autre.',
 	'USERNAME_DISALLOWED_USERNAME'	=> 'Le nom d’utilisateur que vous avez saisi a été interdit ou contient un mot interdit. Veuillez choisir un nom différent.',
-	'USER_NOT_FOUND_OR_INACTIVE'	=> 'Les noms d’utilisateurs que vous avez spécifiés sont introuvables ou les utilisateurs ne sont pas encore activés.',
+	'USER_NOT_FOUND_OR_INACTIVE'	=> 'Les noms d’utilisateurs que vous avez spécifié sont introuvables ou les utilisateurs ne sont pas encore activés.',
 
 	'VIEW_AVATARS'				=> 'Afficher les avatars',
 	'VIEW_EDIT'					=> 'Voir et/ou éditer',
@@ -515,7 +517,7 @@ $lang = array_merge($lang, array(
 	'WATCHED_EXPLAIN'			=> 'La liste ci-dessous vous informe des forums et des sujets dans lesquels vous êtes abonné. Vous serez averti lorsque de nouveaux messages seront publiés dans ces derniers. Pour vous désabonner, sélectionnez le forum ou le sujet souhaité puis cliquez sur le bouton <em>Ne plus surveiller la sélection</em>.',
 	'WATCHED_FORUMS'			=> 'Forums surveillés',
 	'WATCHED_TOPICS'			=> 'Sujets surveillés',
-	'WRONG_ACTIVATION'			=> 'La clé d’activation que vous avez spécifiée ne correspond à rien de connu dans la base de données.',
+	'WRONG_ACTIVATION'			=> 'La clé d’activation que vous avez spécifié ne correspond à rien de connu dans la base de données.',
 
 	'YOUR_DETAILS'				=> 'Votre activité',
 	'YOUR_FOES'					=> 'Vos ignorés',

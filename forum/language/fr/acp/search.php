@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* acp_search [French (Formal Honorifics)]
+* acp_search [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: search.php 9438 2009-04-11 11:09:45Z acydburn $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -74,6 +76,8 @@ $lang = array_merge($lang, array(
 	'FULLTEXT_MYSQL_PCRE'					=> 'Support des caractères UTF-8 non-latins utilisant PCRE :',
 	'FULLTEXT_MYSQL_MBSTRING_EXPLAIN'		=> 'Si PCRE n’a aucune propriété de caractère unicode, l’index de la recherche essaiera d’utiliser le moteur d’expressions régulières de mbstring.',
 	'FULLTEXT_MYSQL_PCRE_EXPLAIN'			=> 'Si vous souhaitez rechercher des caractères non-latins, vous allez avoir besoin des propriétés de caractère unicode de PCRE qui ne sont disponibles que dans PHP 4.4, 5.1 et plus.',
+	'FULLTEXT_MYSQL_MIN_SEARCH_CHARS_EXPLAIN'	=> 'Les mots ne contenant pas moins que ce nombre de caractères seront indexés lors de la recherche. Seul votre hébergeur et vous êtes en mesure de modifier ce réglage en modifiant la configuration de MySQL.',
+	'FULLTEXT_MYSQL_MAX_SEARCH_CHARS_EXPLAIN'	=> 'Les mots ne contenant pas plus que ce nombre de caractères seront indexés lors de la recherche. Seul votre hébergeur et vous êtes en mesure de modifier ce réglage en modifiant la configuration de MySQL.',
 
 	'GENERAL_SEARCH_SETTINGS'				=> 'Réglages généraux de la recherche',
 	'GO_TO_SEARCH_INDEX'					=> 'Aller sur la page d’index de la recherche',

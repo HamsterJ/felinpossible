@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* acp_forums [French (Formal Honorifics)]
+* acp_forums [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: forums.php 10514 2010-02-20 22:36:22Z Marshalrusty $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -169,7 +171,7 @@ $lang = array_merge($lang, array(
 	'TYPE_FORUM'		=> 'Forum',
 	'TYPE_LINK'			=> 'Lien',
 
-        'FORUM_NAME_COLOUR'	=> 'Couleur du nom du forum',
+    'FORUM_NAME_COLOUR'	=> 'Couleur du nom du forum',
 	'UNLOCKED'			=> 'Déverrouillé',
 ));
 
