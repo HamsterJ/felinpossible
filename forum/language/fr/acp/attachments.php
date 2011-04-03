@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* acp_attachments [French (Formal Honorifics)]
+* acp_attachments [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: attachments.php 8946 2008-09-26 18:32:05Z toonarmy $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -111,6 +113,16 @@ $lang = array_merge($lang, array(
 	'EXTENSION_GROUPS'				=> 'Groupes d’extensions',
 	'EXTENSION_GROUP_DELETED'		=> 'Le groupe d’extensions a été supprimé avec succès.',
 	'EXTENSION_GROUP_EXIST'			=> 'Le groupe d’extensions %s existe déjà.',
+
+	'EXT_GROUP_ARCHIVES'			=> 'Archives',
+	'EXT_GROUP_DOCUMENTS'			=> 'Documents',
+	'EXT_GROUP_DOWNLOADABLE_FILES'	=> 'Fichiers téléchargeables',
+	'EXT_GROUP_FLASH_FILES'			=> 'Fichiers Flash',
+	'EXT_GROUP_IMAGES'				=> 'Images',
+	'EXT_GROUP_PLAIN_TEXT'			=> 'Texte brut',
+	'EXT_GROUP_QUICKTIME_MEDIA'		=> 'QuickTime Media',
+	'EXT_GROUP_REAL_MEDIA'			=> 'Real Media',
+	'EXT_GROUP_WINDOWS_MEDIA'		=> 'Windows Media',
 
 	'GO_TO_EXTENSIONS'		=> 'Aller à l’écran de gestion des extensions',
 	'GROUP_NAME'			=> 'Nom du groupe',

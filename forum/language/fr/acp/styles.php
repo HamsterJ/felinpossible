@@ -1,7 +1,8 @@
 <?php
 /**
-* This file is part of French (Formal Honorifics) phpBB Translation.
-* Copyright (C) 2010 phpBB.fr
+*
+* This file is part of French phpBB translation.
+* Copyright (c) 2010 Maël Soucaze.
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -16,13 +17,14 @@
 * with this program; if not, write to the Free Software Foundation, Inc.,
 * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 *
-* acp_styles [French (Formal Honorifics)]
+* acp_styles [French]
 *
 * @package   language
-* @author    Maël Soucaze <maelsoucaze@phpbb.fr> (Maël Soucaze) http://www.phpbb.fr/
-* @copyright 2005 phpBB Group
-* @license   http://www.gnu.org/licenses/gpl-2.0.txt GNU General Public License
-* @version   $Id: styles.php 10074 2009-08-31 11:25:28Z acydburn $
+* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
+* @copyright (c) 2005 phpBB Group
+* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+* @version   $Id$
+*
 */
 
 /**
@@ -93,11 +95,11 @@ $lang = array_merge($lang, array(
 	'DELETE_IMAGESET'			=> 'Supprimer l’archive d’images',
 	'DELETE_IMAGESET_EXPLAIN'	=> 'Vous pouvez supprimer ici l’archive d’images que vous avez sélectionnée. Si vous en avez la permission, vous pourrez également choisir de supprimer l’archive du système de fichiers. Veuillez noter qu’il n’y a pas de retour en arrière possible, quand l’archive d’images est supprimée, elle le sera pour toujours. Il est recommandé d’exporter d’abord votre archive pour une possible utilisation future.',
 	'DELETE_STYLE'				=> 'Supprimer le style',
-	'DELETE_STYLE_EXPLAIN'		=> 'Vous pouvez supprimer ici le style que vous avez sélectionné. Cependant, vous ne pourrez pas supprimer ici tous les éléments du style, ils doivent être supprimés individuellement. Soyez prudent lors de la suppression de styles car il n’y a aucun moyen de revenir en arrière.',
+	'DELETE_STYLE_EXPLAIN'		=> 'Vous pouvez supprimer ici le style que vous avez sélectionné. Cependant, vous ne pourrez pas supprimer ici tous les éléments du style, ils doivent être supprimés individuellement. Soyez prudent lorsque vous supprimez des styles car cette opération est irréversible.',
 	'DELETE_TEMPLATE'			=> 'Supprimer l’archive de templates',
-	'DELETE_TEMPLATE_EXPLAIN'	=> 'Vous pouvez supprimer ici l’archive de templates que vous avez sélectionné de la base de données. Si vous en avez la permission, vous pourrez également choisir de supprimer l’archive du système de fichiers. Veuillez noter qu’il n’y a pas de retour en arrière possible, quand l’archive de templates est supprimée, elle le sera pour toujours. Il est recommandé d’exporter d’abord votre archive pour une possible utilisation future.',
+	'DELETE_TEMPLATE_EXPLAIN'	=> 'Vous pouvez supprimer ici l’archive de templates que vous avez sélectionné de la base de données. Veuillez noter que cette opération est irréversible. Il est donc recommandé d’effectuer une sauvegarde de votre archive pour une possible utilisation future.',
 	'DELETE_THEME'				=> 'Supprimer le thème',
-	'DELETE_THEME_EXPLAIN'		=> 'Vous pouvez supprimer ici le thème que vous avez sélectionné de la base de données. Si vous en avez la permission, vous pourrez également choisir de supprimer le thème du système de fichiers. Veuillez noter qu’il n’y a pas de retour en arrière possible, quand le thème est supprimé, il le sera pour toujours. Il est recommandé d’exporter d’abord votre thème pour une possible utilisation future.',
+	'DELETE_THEME_EXPLAIN'		=> 'Vous pouvez supprimer ici le thème que vous avez sélectionné de la base de données. Veuillez noter que cette opération est irréversible. Il est donc recommandé d’effectuer une sauvegarde de votre thème pour une possible utilisation future.',
 	'DETAILS'					=> 'Informations',
 	'DIMENSIONS_EXPLAIN'		=> 'Si vous sélectionnez “Oui” ici, cela inclura les paramètres de largeur et de hauteur.',
 
@@ -180,11 +182,11 @@ $lang = array_merge($lang, array(
 	'IMG_FORUM_READ'			=> 'Forum',
 	'IMG_FORUM_READ_LOCKED'		=> 'Forum verrouillé',
 	'IMG_FORUM_READ_SUBFORUM'	=> 'Sous-forum',
-	'IMG_FORUM_UNREAD'			=> 'Nouveaux messages dans un forum',
-	'IMG_FORUM_UNREAD_LOCKED'	=> 'Nouveaux messages verrouillés dans un forum',
-	'IMG_FORUM_UNREAD_SUBFORUM'	=> 'Nouveaux messages dans un sous-forum',
+	'IMG_FORUM_UNREAD'			=> 'Forum contenant des messages non lus',
+	'IMG_FORUM_UNREAD_LOCKED'	=> 'Forum contenant des messages non lus verrouillés',
+	'IMG_FORUM_UNREAD_SUBFORUM'	=> 'Sous-forum contenant des messages non lus',
 	'IMG_SUBFORUM_READ'			=> 'Légende du sous-forum',
-	'IMG_SUBFORUM_UNREAD'		=> 'Légende du sous-forum pour les nouveaux messages',
+	'IMG_SUBFORUM_UNREAD'		=> 'Légende du sous-forum contenant des messages non lus',
 	
 	'IMG_TOPIC_MOVED'			=> 'Sujet déplacé',
 
@@ -195,39 +197,39 @@ $lang = array_merge($lang, array(
 	'IMG_TOPIC_READ_LOCKED'			=> 'Sujet verrouillé',
 	'IMG_TOPIC_READ_LOCKED_MINE'	=> 'Sujet verrouillé et pointé',
 
-	'IMG_TOPIC_UNREAD'				=> 'Sujet avec nouveaux messages',
-	'IMG_TOPIC_UNREAD_MINE'			=> 'Sujet pointé avec nouveaux messages',
-	'IMG_TOPIC_UNREAD_HOT'			=> 'Sujet populaire avec nouveaux messages',
-	'IMG_TOPIC_UNREAD_HOT_MINE'		=> 'Sujet populaire et pointé avec nouveaux messages',
-	'IMG_TOPIC_UNREAD_LOCKED'		=> 'Sujet verrouillé avec nouveaux messages',
-	'IMG_TOPIC_UNREAD_LOCKED_MINE'	=> 'Sujet verrouillé et pointé avec nouveaux messages',
+	'IMG_TOPIC_UNREAD'				=> 'Sujet contenant des messages non lus',
+	'IMG_TOPIC_UNREAD_MINE'			=> 'Sujet pointé contenant des messages non lus',
+	'IMG_TOPIC_UNREAD_HOT'			=> 'Sujet populaire contenant des messages non lus',
+	'IMG_TOPIC_UNREAD_HOT_MINE'		=> 'Sujet populaire et pointé contenant des messages non lus',
+	'IMG_TOPIC_UNREAD_LOCKED'		=> 'Sujet verrouillé contenant des messages non lus',
+	'IMG_TOPIC_UNREAD_LOCKED_MINE'	=> 'Sujet verrouillé et pointé contenant des messages non lus',
 
 	'IMG_STICKY_READ'				=> 'Note',
 	'IMG_STICKY_READ_MINE'			=> 'Note pointée',
 	'IMG_STICKY_READ_LOCKED'		=> 'Note verrouillée',
 	'IMG_STICKY_READ_LOCKED_MINE'	=> 'Note verrouillée et pointée',
-	'IMG_STICKY_UNREAD'				=> 'Note avec nouveaux messages',
-	'IMG_STICKY_UNREAD_MINE'		=> 'Note pointée avec nouveaux messages',
-	'IMG_STICKY_UNREAD_LOCKED'		=> 'Note verrouillée avec nouveaux messages',
-	'IMG_STICKY_UNREAD_LOCKED_MINE'	=> 'Note verrouillée et pointée avec nouveaux messages',
+	'IMG_STICKY_UNREAD'				=> 'Note contenant des messages non lus',
+	'IMG_STICKY_UNREAD_MINE'		=> 'Note pointée contenant des messages non lus',
+	'IMG_STICKY_UNREAD_LOCKED'		=> 'Note verrouillée contenant des messages non lus',
+	'IMG_STICKY_UNREAD_LOCKED_MINE'	=> 'Note verrouillée et pointée contenant des messages non lus',
 
 	'IMG_ANNOUNCE_READ'					=> 'Annonce',
 	'IMG_ANNOUNCE_READ_MINE'			=> 'Annonce pointée',
 	'IMG_ANNOUNCE_READ_LOCKED'			=> 'Annonce verrouillée',
 	'IMG_ANNOUNCE_READ_LOCKED_MINE'		=> 'Annonce verrouillée et pointée',
-	'IMG_ANNOUNCE_UNREAD'				=> 'Annonce avec nouveaux messages',
-	'IMG_ANNOUNCE_UNREAD_MINE'			=> 'Annonce pointée avec nouveaux messages',
-	'IMG_ANNOUNCE_UNREAD_LOCKED'		=> 'Annonce verrouillée avec nouveaux messages',
-	'IMG_ANNOUNCE_UNREAD_LOCKED_MINE'	=> 'Annonce verrouillée et pointée avec nouveaux messages',
+	'IMG_ANNOUNCE_UNREAD'				=> 'Annonce contenant des messages non lus',
+	'IMG_ANNOUNCE_UNREAD_MINE'			=> 'Annonce pointée contenant des messages non lus',
+	'IMG_ANNOUNCE_UNREAD_LOCKED'		=> 'Annonce verrouillée contenant des messages non lus',
+	'IMG_ANNOUNCE_UNREAD_LOCKED_MINE'	=> 'Annonce verrouillée et pointée contenant des messages non lus',
 
 	'IMG_GLOBAL_READ'					=> 'Annonce globale',
 	'IMG_GLOBAL_READ_MINE'				=> 'Annonce globale pointée',
 	'IMG_GLOBAL_READ_LOCKED'			=> 'Annonce globale verrouillée',
 	'IMG_GLOBAL_READ_LOCKED_MINE'		=> 'Annonce globale verrouillée et pointée',
-	'IMG_GLOBAL_UNREAD'					=> 'Annonce globale avec nouveaux messages',
-	'IMG_GLOBAL_UNREAD_MINE'			=> 'Annonce globale pointée avec nouveaux messages',
-	'IMG_GLOBAL_UNREAD_LOCKED'			=> 'Annonce globale verrouillée avec nouveaux messages',
-	'IMG_GLOBAL_UNREAD_LOCKED_MINE'		=> 'Annonce globale verrouillée et pointée avec nouveaux messages',
+	'IMG_GLOBAL_UNREAD'					=> 'Annonce globale contenant des messages non lus',
+	'IMG_GLOBAL_UNREAD_MINE'			=> 'Annonce globale pointée contenant des messages non lus',
+	'IMG_GLOBAL_UNREAD_LOCKED'			=> 'Annonce globale verrouillée contenant des messages non lus',
+	'IMG_GLOBAL_UNREAD_LOCKED_MINE'		=> 'Annonce globale verrouillée et pointée contenant des messages non lus',
 
 	'IMG_PM_READ'		=> 'Message privé lu',
 	'IMG_PM_UNREAD'		=> 'Message privé non lu',
