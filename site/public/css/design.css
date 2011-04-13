@@ -170,6 +170,10 @@ html>body .menu-d ul li a:active {
 	background-image: url("image/menu-liens.png");
 }
 
+#m8 {
+	background-image: url("image/menu-forum.png");
+}
+
 .m1 a:hover {
 	background-image: url("image/menu-accueil-on.png");
 }
