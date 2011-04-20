@@ -53,7 +53,7 @@ class AdminController extends FP_Controller_CommonController
 		if ($request->isPost()) {
 			if ($form->isValid($request->getPost())) {
 				$authServices = FP_Service_AuthServices::getInstance();
-				$errors = $authServices->login($form->login->getValue(), $form->password->getValue());
+				$errors = $authServices->login(htmlentities($form->login->getValue()), $form->password->getValue());
 
 				if ($errors && $errors != '') {
 					$this->view->errors = $errors;
