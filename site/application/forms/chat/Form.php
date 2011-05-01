@@ -98,9 +98,10 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 		$tatouage->setLabel('Identification');
 		$tatouage->setFilters(array('StringTrim'));
 		
-		$caractere = new Zend_Form_Element_Text('caractere');
+		$caractere = new Zend_Form_Element_Textarea('caractere');
 		$caractere->setLabel('Caractère');
-		$caractere->setAttrib('size', 60);
+		$caractere->setAttrib('cols', '60');
+		$caractere->setAttrib('rows', '5');
 		$caractere->setFilters(array('StringTrim'));
 		
         $commentaires = new Zend_Form_Element_Textarea('commentaires');
