@@ -52,7 +52,8 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 	'sterilise' => 'sterilise',
 	'dateEnvoiRappelVac' => 'dateEnvoiRappelVac',
 	'dateEnvoiRappelSte' => 'dateEnvoiRappelSte',
-	'dateContratAdoption' => 'dateContratAdoption'
+	'dateContratAdoption' => 'dateContratAdoption',
+	'papierIdRecu' => 'papierIdRecu'
 	);
 
 	protected $excludeModelToDb = array('libelleCouleur' => 0,

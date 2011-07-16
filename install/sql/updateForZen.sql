@@ -144,3 +144,6 @@ PRIMARY KEY ( id )
 ALTER TABLE fp_cat_fiche ADD (dateApproximative int default 0);
 
 ALTER TABLE fp_cat_fiche ADD (renomme text NOT NULL default "");
+
+-- Ajout papierIdentificationRecu
+ALTER TABLE fp_cat_fiche ADD (papierIdRecu int default 0);
