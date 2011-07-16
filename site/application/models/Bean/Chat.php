@@ -22,6 +22,8 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	protected $dateNaissance;
 	/** @var boolean  */
 	protected $dateApproximative;
+	/** @var boolean  */
+	protected $papierIdRecu;
 	/** @var string  */
 	protected $race;
 	/** @var int  */
@@ -130,16 +132,16 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	 * @return the field value.
 	 */
 	public function getRenomme() {
-	  return $this->renomme;
+		return $this->renomme;
 	}
-	
+
 	/**
 	 * Sets the renomme field.
 	 */
 	public function setRenomme($renomme) {
-	  $this->renomme = $renomme;
+		$this->renomme = $renomme;
 	}
-	
+
 	/**
 	 * Retrieve idSexe
 	 *
@@ -787,26 +789,26 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	public function setDeclarationCession($declarationCession) {
 		$this->declarationCession = (int) $declarationCession;
 	}
-	
+
 	/**
-	  * Retrieve sterilise
-	  *
-	  * @param  sterilise
-	  * @return la valeur de sterilise
-	*/
+	 * Retrieve sterilise
+	 *
+	 * @param  sterilise
+	 * @return la valeur de sterilise
+	 */
 	public function getSterilise() {
-	    return (int) $this->sterilise;
+		return (int) $this->sterilise;
 	}
-	
+
 	/**
-	  * Set entry sterilise
-	  *
-	  * @param sterilise
-	*/
+	 * Set entry sterilise
+	 *
+	 * @param sterilise
+	 */
 	public function setSterilise($sterilise) {
-	    $this->sterilise = (int) $sterilise;
+		$this->sterilise = (int) $sterilise;
 	}
-	
+
 	/**
 	 * Retrieve dateEnvoiRappelSte
 	 *
@@ -828,7 +830,7 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	public function setDateEnvoiRappelSte($dateEnvoiRappelSte) {
 		$this->dateEnvoiRappelSte = $dateEnvoiRappelSte;
 	}
-	
+
 	/**
 	 * Retrieve dateEnvoiRappelVac
 	 *
@@ -872,20 +874,36 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	public function setDateContratAdoption($dateContratAdoption) {
 		$this->dateContratAdoption = $dateContratAdoption;
 	}
-	
+
 	/**
 	 * Gets the dateApproximative field.
 	 * @return the field value.
 	 */
 	public function getDateApproximative() {
-	  return $this->dateApproximative;
+		return $this->dateApproximative;
 	}
-	
+
 	/**
 	 * Sets the dateApproximative field.
 	 */
 	public function setDateApproximative($dateApproximative) {
-	  $this->dateApproximative = (int) $dateApproximative;
+		$this->dateApproximative = (int) $dateApproximative;
 	}
+
+	/**
+	 * Gets the papierIdRecu field.
+	 * @return the field value.
+	 */
+	public function getPapierIdRecu() {
+	  return $this->papierIdRecu;
+	}
+	
+	/**
+	 * Sets the papierIdRecu field.
+	 */
+	public function setPapierIdRecu($papierIdRecu) {
+	  $this->papierIdRecu = $papierIdRecu;
+	}
+	
 	
 }
