@@ -8,7 +8,7 @@ update fp_cat_fiche cf, phpbb_topics t set cf.adopte=1, cf.reserve=0, cf.parrain
 -- Update chats reserves
 update fp_cat_fiche cf, phpbb_topics t set cf.adopte=0, cf.reserve=1, cf.disparu=0 where cf.topic_id = t.topic_id and t.forum_id = 54;
 
--- Update chats dipsarus
+-- Update chats disparus
 update fp_cat_fiche cf, phpbb_topics t set cf.adopte=0, cf.reserve=0, cf.parrain=0, cf.disparu=1 where cf.topic_id = t.topic_id and t.forum_id = 12;
 
 -- Update chats a l'adoption
@@ -48,7 +48,7 @@ insert into fp_cat_fiche (nom, idSexe, date, race, idCouleur, yeux, tests, vacci
     FROM phpbb_posts post, phpbb_topics topic
     LEFT JOIN fp_cat_fiche fiche ON fiche.topic_id = topic.topic_id
     WHERE fiche.id IS NULL
-      AND (topic.forum_id = 10 or topic.forum_id = 54 or topic.forum_id = 108)
+      AND (topic.forum_id = 10 or topic.forum_id = 54 or topic.forum_id = 108 or topic.forum_id = 66)
       AND post.topic_id = topic.topic_id
       AND topic.topic_type = 0
     ORDER BY post.post_id
