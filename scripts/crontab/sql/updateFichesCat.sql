@@ -3,7 +3,7 @@ UPDATE fp_cat_fiche set topic_id = SUBSTRING(SUBSTRING_INDEX(SUBSTRING(topic FRO
   where topic_id is null;
 
 -- Update chats adoptes
-update fp_cat_fiche cf, phpbb_topics t set cf.adopte=1, cf.reserve=0, cf.parrain=0, cf.disparu=0 where cf.topic_id = t.topic_id and (t.forum_id = 11 or t.forum_id = 110 or t.forum_id = 111 or t.forum_id = 123 or t.forum_id = 140);
+update fp_cat_fiche cf, phpbb_topics t set cf.adopte=1, cf.reserve=0, cf.parrain=0, cf.disparu=0 where cf.topic_id = t.topic_id and (t.forum_id = 11 or t.forum_id = 110 or t.forum_id = 111 or t.forum_id = 123 or t.forum_id = 140 or t.forum_id = 143);
 
 -- Update chats reserves
 update fp_cat_fiche cf, phpbb_topics t set cf.adopte=0, cf.reserve=1, cf.disparu=0 where cf.topic_id = t.topic_id and t.forum_id = 54;
@@ -19,7 +19,7 @@ update fp_cat_fiche fiche set fiche.date_adoption =
  (select max(from_unixtime(log.log_time)) 
   from phpbb_log log 
   where fiche.topic_id = log.topic_id 
-        and (log.forum_id = 11 or log.forum_id = 110 or log.forum_id = 111 or log.forum_id = 123 or log.forum_id = 140)
+        and (log.forum_id = 11 or log.forum_id = 110 or log.forum_id = 111 or log.forum_id = 123 or log.forum_id = 140 or log.forum_id = 143)
         and log.log_operation = "LOG_MOVE" 
         group by log.topic_id)
   where fiche.date_adoption is null
