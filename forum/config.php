@@ -6,7 +6,7 @@ $dbhost = 'localhost';
 $dbport = '';
 $dbname = 'felinpossible';
 $dbuser = 'felinpossible';
-$dbpasswd = 'GY3vQUrXnfRte9eB';
+$dbpasswd = 'TAG_PASSWORD';
 
 $table_prefix = 'phpbb_';
 $acm_type = 'file';
