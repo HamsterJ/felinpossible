@@ -15,16 +15,16 @@
  * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Response.php 18950 2009-11-12 15:37:56Z alexander $
+ * @version    $Id: Response.php 24464 2011-09-24 14:06:34Z mcleod@spaceweb.nl $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Json
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Json_Server_Response
@@ -173,7 +173,6 @@ class Zend_Json_Server_Response
     {
         if ($this->isError()) {
             $response = array(
-                'result' => null,
                 'error'  => $this->getError()->toArray(),
                 'id'     => $this->getId(),
             );
@@ -181,7 +180,6 @@ class Zend_Json_Server_Response
             $response = array(
                 'result' => $this->getResult(),
                 'id'     => $this->getId(),
-                'error'  => null,
             );
         }
 

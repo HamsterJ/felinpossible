@@ -14,28 +14,38 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Entry.php 19789 2009-12-19 19:32:45Z padraic $
+ * @version    $Id: Entry.php 23775 2011-03-01 17:25:24Z ralph $
  */
- 
+
 /**
  * @see Zend_Feed_Writer_Extension_RendererAbstract
  */
 require_once 'Zend/Feed/Writer/Extension/RendererAbstract.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
     extends Zend_Feed_Writer_Extension_RendererAbstract
 {
+
+    /**
+     * Set to TRUE if a rendering method actually renders something. This
+     * is used to prevent premature appending of a XML namespace declaration
+     * until an element which requires it is actually appended.
+     *
+     * @var bool
+     */
+    protected $_called = false;
+
     /**
      * Render entry
-     * 
+     *
      * @return void
      */
     public function render()
@@ -43,26 +53,28 @@ class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
         if (strtolower($this->getType()) == 'atom') {
             return; // RSS 2.0 only
         }
-        $this->_appendNamespaces();
         $this->_setCommentFeedLinks($this->_dom, $this->_base);
+        if ($this->_called) {
+            $this->_appendNamespaces();
+        }
     }
-    
+
     /**
      * Append entry namespaces
-     * 
+     *
      * @return void
      */
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:wfw',
-            'http://wellformedweb.org/CommentAPI/');  
+            'http://wellformedweb.org/CommentAPI/');
     }
-    
+
     /**
      * Set entry comment feed links
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setCommentFeedLinks(DOMDocument $dom, DOMElement $root)
@@ -79,5 +91,6 @@ class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
                 $root->appendChild($flink);
             }
         }
+        $this->_called = true;
     }
 }

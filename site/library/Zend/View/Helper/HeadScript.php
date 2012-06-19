@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: HeadScript.php 19661 2009-12-15 18:03:07Z matthew $
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id: HeadScript.php 23775 2011-03-01 17:25:24Z ralph $
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -29,7 +29,7 @@ require_once 'Zend/View/Helper/Placeholder/Container/Standalone.php';
  * @uses       Zend_View_Helper_Placeholder_Container_Standalone
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container_Standalone
@@ -371,7 +371,6 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
             throw $e;
         }
 
-        $this->_isValid($value);
         return $this->getContainer()->offsetSet($index, $value);
     }
 
@@ -424,7 +423,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
         }
 
         $type = ($this->_autoEscape) ? $this->_escape($item->type) : $item->type;
-        $html  = $indent . '<script type="' . $type . '"' . $attrString . '>';
+        $html  = '<script type="' . $type . '"' . $attrString . '>';
         if (!empty($item->source)) {
               $html .= PHP_EOL . $indent . '    ' . $escapeStart . PHP_EOL . $item->source . $indent . '    ' . $escapeEnd . PHP_EOL . $indent;
         }
@@ -434,7 +433,9 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
             && !empty($item->attributes['conditional'])
             && is_string($item->attributes['conditional']))
         {
-            $html = '<!--[if ' . $item->attributes['conditional'] . ']> ' . $html . '<![endif]-->';
+            $html = $indent . '<!--[if ' . $item->attributes['conditional'] . ']> ' . $html . '<![endif]-->';
+        } else {
+            $html = $indent . $html;
         }
 
         return $html;

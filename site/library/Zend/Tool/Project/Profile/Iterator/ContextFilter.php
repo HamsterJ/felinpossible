@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Tool
  * @subpackage Framework
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: ContextFilter.php 19525 2009-12-08 14:22:08Z ralph $
+ * @version    $Id: ContextFilter.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -25,7 +25,7 @@
  *
  * @category   Zend
  * @package    Zend_Tool
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIterator
@@ -135,7 +135,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
         foreach ($acceptNames as $n => $v) {
             $acceptNames[$n] = strtolower($v);
         }
-        
+
         $this->_acceptNames = $acceptNames;
         return $this;
     }
@@ -155,7 +155,7 @@ class Zend_Tool_Project_Profile_Iterator_ContextFilter extends RecursiveFilterIt
         foreach ($denyNames as $n => $v) {
             $denyNames[$n] = strtolower($v);
         }
-        
+
         $this->_denyNames = $denyNames;
         return $this;
     }

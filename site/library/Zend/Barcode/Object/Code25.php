@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Object
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Code25.php 19579 2009-12-11 20:08:17Z matthew $
+ * @version    $Id: Code25.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -35,7 +35,7 @@ require_once 'Zend/Validate/Barcode.php';
  *
  * @category   Zend
  * @package    Zend_Barcode
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
@@ -60,29 +60,6 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
     );
 
     /**
-     * Check allowed characters
-     * @param string $value
-     * @return string
-     * @throw Zend_Barcode_Object_Exception
-     */
-    public function validateText($value)
-    {
-        $validator = new Zend_Validate_Barcode(array(
-            'adapter'  => 'code25',
-            'checksum' => false,
-        ));
-        if (!$validator->isValid($value)) {
-            $message = implode("\n", $validator->getMessages());
-
-            /**
-             * @see Zend_Barcode_Object_Exception
-             */
-            require_once 'Zend/Barcode/Object/Exception.php';
-            throw new Zend_Barcode_Object_Exception($message);
-        }
-    }
-
-    /**
      * Width of the barcode (in pixels)
      * @return integer
      */
@@ -90,7 +67,7 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
     {
         $quietZone       = $this->getQuietZone();
         $startCharacter  = (2 * $this->_barThickWidth + 4 * $this->_barThinWidth) * $this->_factor;
-        $characterLength = (3 * $this->_barThinWidth + 2 * $this->_barThickWidth + 5 * $this->_barThinWidth) 
+        $characterLength = (3 * $this->_barThinWidth + 2 * $this->_barThickWidth + 5 * $this->_barThinWidth)
                          * $this->_factor;
         $encodedData     = strlen($this->getText()) * $characterLength;
         $stopCharacter   = (2 * $this->_barThickWidth + 4 * $this->_barThinWidth) * $this->_factor;
@@ -120,7 +97,7 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
         $barcodeTable[] = array(1 , $this->_barThickWidth , 0 , 1);
         $barcodeTable[] = array(0 , $this->_barThinWidth , 0 , 1);
         $barcodeTable[] = array(1 , $this->_barThinWidth , 0 , 1);
-        $barcodeTable[] = array(0 , 1);
+        $barcodeTable[] = array(0 , $this->_barThinWidth);
 
         $text = str_split($this->getText());
         foreach ($text as $char) {
@@ -129,7 +106,7 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
                 /* visible, width, top, length */
                 $width = $c ? $this->_barThickWidth : $this->_barThinWidth;
                 $barcodeTable[] = array(1 , $width , 0 , 1);
-                $barcodeTable[] = array(0 , 1);
+                $barcodeTable[] = array(0 , $this->_barThinWidth);
             }
         }
 
@@ -144,8 +121,8 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
 
     /**
      * Get barcode checksum
-     * 
-     * @param  string $text 
+     *
+     * @param  string $text
      * @return int
      */
     public function getChecksum($text)
@@ -159,22 +136,8 @@ class Zend_Barcode_Object_Code25 extends Zend_Barcode_Object_ObjectAbstract
             $factor    = 4 - $factor;
         }
 
-        $checksum = 10 - ($checksum % 10);
-
-        if ($checksum == 10) {
-            $checksum = 0;
-        }
+        $checksum = (10 - ($checksum % 10)) % 10;
 
         return $checksum;
-    }
-
-    /**
-     * Retrieve text with checksum appended
-     * 
-     * @return string
-     */
-    protected function _getTextWithChecksum()
-    {
-        return $this->_text . $this->getChecksum($this->_text);
     }
 }

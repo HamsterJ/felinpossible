@@ -14,9 +14,9 @@
  *
  * @package    Zend_XmlRpc
  * @subpackage Server
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Fault.php 19661 2009-12-15 18:03:07Z matthew $
+ * @version    $Id: Fault.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -36,7 +36,7 @@ require_once 'Zend/XmlRpc/Value.php';
  *
  * @category   Zend
  * @package    Zend_XmlRpc
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_XmlRpc_Fault
@@ -286,11 +286,11 @@ class Zend_XmlRpc_Fault
         $value = Zend_XmlRpc_Value::getXmlRpcValue($faultStruct);
 
         $generator = Zend_XmlRpc_Value::getGenerator();
-        $generator->startElement('methodResponse')
-                  ->startElement('fault');
-        $value->saveXml();
-        $generator->endElement('fault')
-                  ->endElement('methodResponse');
+        $generator->openElement('methodResponse')
+                  ->openElement('fault');
+        $value->generateXml();
+        $generator->closeElement('fault')
+                  ->closeElement('methodResponse');
 
         return $generator->flush();
     }
