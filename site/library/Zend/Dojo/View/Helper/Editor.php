@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Editor.php 19143 2009-11-20 22:01:49Z matthew $
+ * @version    $Id: Editor.php 24191 2011-07-05 15:33:16Z matthew $
  */
 
 /** Zend_Dojo_View_Helper_Dijit */
@@ -32,7 +32,7 @@ require_once 'Zend/Json.php';
  * @uses       Zend_Dojo_View_Helper_Textarea
  * @package    Zend_Dojo
  * @subpackage View
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Dijit
@@ -57,14 +57,21 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Dijit
         'fontSize' => 'FontChoice',
         'formatBlock' => 'FontChoice',
         'foreColor' => 'TextColor',
-        'hiliteColor' => 'TextColor'
+        'hiliteColor' => 'TextColor',
+        'enterKeyHandling' => 'EnterKeyHandling',
+        'fullScreen' => 'FullScreen',
+        'newPage' => 'NewPage',
+        'print' => 'Print',
+        'tabIndent' => 'TabIndent',
+        'toggleDir' => 'ToggleDir',
+        'viewSource' => 'ViewSource'
     );
 
     /**
      * JSON-encoded parameters
      * @var array
      */
-    protected $_jsonParams = array('captureEvents', 'events', 'plugins');
+    protected $_jsonParams = array('captureEvents', 'events', 'plugins', 'extraPlugins');
 
     /**
      * dijit.Editor
@@ -83,12 +90,10 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Dijit
             }
         }
 
-        // Use a <div> by default, but allow degradation to <textarea> on request
-        $type = 'div';
+        // Previous versions allowed specifying "degrade" to allow using a
+        // textarea instead of a div -- but this is insecure. Removing the
+        // parameter if set to prevent its injection in the dijit.
         if (isset($params['degrade'])) {
-            $type = ($params['degrade'])
-                  ? 'textarea'
-                  : 'div';
             unset($params['degrade']);
         }
 
@@ -116,17 +121,18 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Dijit
 
         $attribs = $this->_prepareDijit($attribs, $params, 'textarea');
 
-        $html = '<input' . $this->_htmlAttribs($hiddenAttribs) . $this->getClosingBracket();
-        if ($type == 'textarea') {
-            $html .= '<textarea' . $this->_htmlAttribs($attribs) . '>'
-                   . $value
-                   . "</textarea>\n";
-        } else {
-            $html .= '<div' . $this->_htmlAttribs($attribs) . '>'
-                   . $value
-                   . "</div>\n";
-        }
+        $html  = '<div' . $this->_htmlAttribs($attribs) . '>'
+               . $value
+               . "</div>\n";
 
+        // Embed a textarea in a <noscript> tag to allow for graceful
+        // degradation
+        $html .= '<noscript>'
+               . $this->view->formTextarea($hiddenId, $value, $attribs)
+               . '</noscript>';
+
+        $html  .= '<input' . $this->_htmlAttribs($hiddenAttribs) . $this->getClosingBracket();
+        
         return $html;
     }
 
@@ -180,7 +186,11 @@ class Zend_Dojo_View_Helper_Editor extends Zend_Dojo_View_Helper_Dijit
 function() {
     var form = zend.findParentForm(dojo.byId('$hiddenId'));
     dojo.connect(form, 'submit', function(e) {
-        dojo.byId('$hiddenId').value = dijit.byId('$editorId').getValue(false);
+        var value = dijit.byId('$editorId').getValue(false);
+        if(dojo.isFF) {
+            value = value.replace(/<br _moz_editor_bogus_node="TRUE" \/>/, '');
+        }
+        dojo.byId('$hiddenId').value = value;
     });
 }
 EOJ;

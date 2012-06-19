@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Locked.php 17561 2009-08-11 22:20:28Z mikaelkael $
+ * @version    $Id: Locked.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /** Zend_Memory_Container */
@@ -29,7 +29,7 @@ require_once 'Zend/Memory/Container.php';
  *
  * @category   Zend
  * @package    Zend_Memory
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Memory_Container_Locked extends Zend_Memory_Container

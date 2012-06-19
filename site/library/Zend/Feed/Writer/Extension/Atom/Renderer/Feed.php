@@ -14,28 +14,38 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php 19730 2009-12-17 22:28:45Z padraic $
+ * @version    $Id: Feed.php 23775 2011-03-01 17:25:24Z ralph $
  */
- 
+
 /**
  * @see Zend_Feed_Writer_Extension_RendererAbstract
  */
 require_once 'Zend/Feed/Writer/Extension/RendererAbstract.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
     extends Zend_Feed_Writer_Extension_RendererAbstract
 {
+
+    /**
+     * Set to TRUE if a rendering method actually renders something. This
+     * is used to prevent premature appending of a XML namespace declaration
+     * until an element which requires it is actually appended.
+     *
+     * @var bool
+     */
+    protected $_called = false;
+
     /**
      * Render feed
-     * 
+     *
      * @return void
      */
     public function render()
@@ -47,27 +57,29 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
         if (strtolower($this->getType()) == 'atom') {
             return;
         }
-        $this->_appendNamespaces();
         $this->_setFeedLinks($this->_dom, $this->_base);
         $this->_setHubs($this->_dom, $this->_base);
+        if ($this->_called) {
+            $this->_appendNamespaces();
+        }
     }
-    
+
     /**
      * Append namespaces to root element of feed
-     * 
+     *
      * @return void
      */
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:atom',
-            'http://www.w3.org/2005/Atom');  
+            'http://www.w3.org/2005/Atom');
     }
 
     /**
      * Set feed link elements
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setFeedLinks(DOMDocument $dom, DOMElement $root)
@@ -84,13 +96,14 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
             $flink->setAttribute('type', $mime);
             $flink->setAttribute('href', $href);
         }
+        $this->_called = true;
     }
-    
+
     /**
      * Set PuSH hubs
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setHubs(DOMDocument $dom, DOMElement $root)
@@ -105,5 +118,6 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
             $hub->setAttribute('href', $hubUrl);
             $root->appendChild($hub);
         }
+        $this->_called = true;
     }
 }

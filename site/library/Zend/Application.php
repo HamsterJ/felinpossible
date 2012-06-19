@@ -14,15 +14,15 @@
  *
  * @category   Zend
  * @package    Zend_Application
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Application.php 19113 2009-11-20 17:38:30Z sidhighwind $
+ * @version    $Id: Application.php 24101 2011-06-01 02:21:15Z adamlundrigan $
  */
 
 /**
  * @category   Zend
  * @package    Zend_Application
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Application
@@ -376,15 +376,27 @@ class Zend_Application
     protected function _loadConfig($file)
     {
         $environment = $this->getEnvironment();
-        $suffix      = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        $suffix      = pathinfo($file, PATHINFO_EXTENSION);
+        $suffix      = ($suffix === 'dist')
+                     ? pathinfo(basename($file, ".$suffix"), PATHINFO_EXTENSION)
+                     : $suffix;
 
-        switch ($suffix) {
+        switch (strtolower($suffix)) {
             case 'ini':
                 $config = new Zend_Config_Ini($file, $environment);
                 break;
 
             case 'xml':
                 $config = new Zend_Config_Xml($file, $environment);
+                break;
+
+            case 'json':
+                $config = new Zend_Config_Json($file, $environment);
+                break;
+
+            case 'yaml':
+            case 'yml':
+                $config = new Zend_Config_Yaml($file, $environment);
                 break;
 
             case 'php':

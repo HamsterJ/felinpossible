@@ -15,8 +15,9 @@
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  * @subpackage Callback
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: CallbackAbstract.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -33,18 +34,18 @@ require_once 'Zend/Feed/Pubsubhubbub/HttpResponse.php';
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
  * @subpackage Callback
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     implements Zend_Feed_Pubsubhubbub_CallbackInterface
 {
     /**
-     * An instance of Zend_Feed_Pubsubhubbub_Model_ModelAbstract used 
+     * An instance of Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface used
      * to background save any verification tokens associated with a subscription
      * or other.
      *
-     * @var Zend_Feed_Pubsubhubbub_Model_ModelAbstract
+     * @var Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface
      */
     protected $_storage = null;
 
@@ -73,7 +74,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
      */
     public function __construct($config = null)
     {
-        if (!is_null($config)) {
+        if ($config !== null) {
             $this->setConfig($config);
         }
     }
@@ -113,32 +114,32 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     }
 
     /**
-     * Sets an instance of Zend_Feed_Pubsubhubbub_Storage_StorageInterface used
+     * Sets an instance of Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface used
      * to background save any verification tokens associated with a subscription
      * or other.
      *
-     * @param  Zend_Feed_Pubsubhubbub_Storage_StorageInterface $storage
+     * @param  Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface $storage
      * @return Zend_Feed_Pubsubhubbub_CallbackAbstract
      */
-    public function setStorage(Zend_Feed_Pubsubhubbub_Model_ModelAbstract $storage)
+    public function setStorage(Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface $storage)
     {
         $this->_storage = $storage;
         return $this;
     }
 
     /**
-     * Gets an instance of Zend_Feed_Pubsubhubbub_Storage_StorageInterface used
+     * Gets an instance of Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface used
      * to background save any verification tokens associated with a subscription
      * or other.
      *
-     * @return Zend_Feed_Pubsubhubbub_Model_ModelAbstract
+     * @return Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface
      */
     public function getStorage()
     {
         if ($this->_storage === null) {
             require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
             throw new Zend_Feed_Pubsubhubbub_Exception('No storage object has been'
-                . ' set that subclasses Zend_Feed_Pubsubhubbub_Model_ModelAbstract');
+                . ' set that subclasses Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface');
         }
         return $this->_storage;
     }

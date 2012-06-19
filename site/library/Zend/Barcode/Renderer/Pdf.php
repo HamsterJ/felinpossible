@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Barcode
  * @subpackage Renderer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Pdf.php 19579 2009-12-11 20:08:17Z matthew $
+ * @version    $Id: Pdf.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /** @see Zend_Barcode_Renderer_RendererAbstract */
@@ -37,7 +37,7 @@ require_once 'Zend/Pdf/Color/Rgb.php';
  *
  * @category   Zend
  * @package    Zend_Barcode
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
@@ -89,7 +89,7 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
 
     /**
      * Check renderer parameters
-     * 
+     *
      * @return void
      */
     protected function _checkParams()
@@ -148,10 +148,10 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
             }
         }
 
-        $color = new Zend_Pdf_Color_RGB(
-            ($color & 0xFF0000) >> 16,
-            ($color & 0x00FF00) >> 8,
-            $color & 0x0000FF
+        $color = new Zend_Pdf_Color_Rgb(
+            (($color & 0xFF0000) >> 16) / 255.0,
+            (($color & 0x00FF00) >> 8) / 255.0,
+            ($color & 0x0000FF) / 255.0
         );
 
         $page->setLineColor($color);
@@ -166,7 +166,7 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
     }
 
     /**
-     * Draw a polygon in the rendering resource
+     * Draw a text in the rendering resource
      * @param string $text
      * @param float $size
      * @param array $position
@@ -176,24 +176,24 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
      * @param float $orientation
      */
     protected function _drawText(
-        $text, 
-        $size, 
-        $position, 
-        $font, 
-        $color, 
-        $alignment = 'center', 
+        $text,
+        $size,
+        $position,
+        $font,
+        $color,
+        $alignment = 'center',
         $orientation = 0
     ) {
         $page  = $this->_resource->pages[$this->_page];
-        $color = new Zend_Pdf_Color_RGB(
-            ($color & 0xFF0000) >> 16,
-            ($color & 0x00FF00) >> 8,
-            $color & 0x0000FF
+        $color = new Zend_Pdf_Color_Rgb(
+            (($color & 0xFF0000) >> 16) / 255.0,
+            (($color & 0x00FF00) >> 8) / 255.0,
+            ($color & 0x0000FF) / 255.0
         );
 
         $page->setLineColor($color);
         $page->setFillColor($color);
-        $page->setFont(Zend_Pdf_Font::fontWithPath($font), $size * $this->_moduleSize);
+        $page->setFont(Zend_Pdf_Font::fontWithPath($font), $size * $this->_moduleSize * 1.2);
 
         $width = $this->widthForStringUsingFontSize(
             $text,
@@ -201,22 +201,22 @@ class Zend_Barcode_Renderer_Pdf extends Zend_Barcode_Renderer_RendererAbstract
             $size * $this->_moduleSize
         );
 
+        $angle = pi() * $orientation / 180;
         $left = $position[0] * $this->_moduleSize + $this->_leftOffset;
         $top  = $page->getHeight() - $position[1] * $this->_moduleSize - $this->_topOffset;
 
         switch ($alignment) {
             case 'center':
-                $left -= ($width / 2) * cos(pi() * $orientation / 180);
-                $top  -= ($width / 2) * sin(pi() * $orientation / 180);
+                $left -= ($width / 2) * cos($angle);
+                $top  -= ($width / 2) * sin($angle);
                 break;
             case 'right':
                 $left -= $width;
                 break;
         }
-
-        $page->rotate($left, $top, pi() * $orientation / 180);
+        $page->rotate($left, $top, $angle);
         $page->drawText($text, $left, $top);
-        $page->rotate($left, $top, - pi() * $orientation / 180);
+        $page->rotate($left, $top, - $angle);
     }
 
     /**

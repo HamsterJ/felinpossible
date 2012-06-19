@@ -45,21 +45,33 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	protected function _initAutoload()
 	{
 		$autoloader = new Zend_Application_Module_Autoloader(array(
-            'namespace' => 'FP_',
-            'basePath'  => APPLICATION_PATH,
+                'namespace' => 'FP_',
+                'basePath'  => APPLICATION_PATH,
 		));
 
 		$autoloader->addResourceTypes(array(
-            'util' => array(
+                'util' => array(
                 'namespace' => 'Util_',
                 'path'      => '/utils',
 		)));
 
 		$autoloader->addResourceTypes(array(
-            'controller' => array(
+                'controller' => array(
                 'namespace' => 'Controller_',
                 'path'      => '/controllers',
 		)));
+
+                $autoloader->addResourceTypes(array(
+                'model' => array(
+                'namespace' => 'Model_',
+                'path'      => '/models',
+                )));
+
+                $autoloader->addResourceTypes(array(
+                'mapper' => array(
+                'namespace' => 'Model_Mapper',
+                'path'      => '/models/Mapper',
+                )));
 
 		return $autoloader;
 	}

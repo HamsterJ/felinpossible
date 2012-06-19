@@ -14,28 +14,38 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Feed.php 19789 2009-12-19 19:32:45Z padraic $
+ * @version    $Id: Feed.php 23775 2011-03-01 17:25:24Z ralph $
  */
- 
+
 /**
  * @see Zend_Feed_Writer_Extension_RendererAbstract
  */
 require_once 'Zend/Feed/Writer/Extension/RendererAbstract.php';
- 
+
 /**
  * @category   Zend
  * @package    Zend_Feed_Writer
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Writer_Extension_DublinCore_Renderer_Feed
     extends Zend_Feed_Writer_Extension_RendererAbstract
 {
+
+    /**
+     * Set to TRUE if a rendering method actually renders something. This
+     * is used to prevent premature appending of a XML namespace declaration
+     * until an element which requires it is actually appended.
+     *
+     * @var bool
+     */
+    protected $_called = false;
+
     /**
      * Render feed
-     * 
+     *
      * @return void
      */
     public function render()
@@ -43,26 +53,28 @@ class Zend_Feed_Writer_Extension_DublinCore_Renderer_Feed
         if (strtolower($this->getType()) == 'atom') {
             return;
         }
-        $this->_appendNamespaces();
         $this->_setAuthors($this->_dom, $this->_base);
+        if ($this->_called) {
+            $this->_appendNamespaces();
+        }
     }
-    
+
     /**
      * Append namespaces to feed element
-     * 
+     *
      * @return void
      */
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:dc',
-            'http://purl.org/dc/elements/1.1/');  
+            'http://purl.org/dc/elements/1.1/');
     }
 
     /**
      * Set feed authors
-     * 
-     * @param  DOMDocument $dom 
-     * @param  DOMElement $root 
+     *
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setAuthors(DOMDocument $dom, DOMElement $root)
@@ -76,8 +88,9 @@ class Zend_Feed_Writer_Extension_DublinCore_Renderer_Feed
             if (array_key_exists('name', $data)) {
                 $text = $dom->createTextNode($data['name']);
                 $author->appendChild($text);
-                $root->appendChild($author);  
+                $root->appendChild($author);
             }
         }
+        $this->_called = true;
     }
 }

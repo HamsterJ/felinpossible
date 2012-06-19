@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Exception.php 19661 2009-12-15 18:03:07Z matthew $
+ * @version    $Id: Exception.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
@@ -31,7 +31,7 @@ require_once 'Zend/Db/Exception.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Statement
- * @copyright  Copyright (c) 2005-2009 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Statement_Exception extends Zend_Db_Exception
@@ -43,7 +43,7 @@ class Zend_Db_Statement_Exception extends Zend_Db_Exception
      */
     public function hasChainedException()
     {
-        return ($this->_previous !== null);
+        return ($this->getPrevious() !== null);
     }
 
     /**
@@ -51,6 +51,6 @@ class Zend_Db_Statement_Exception extends Zend_Db_Exception
      */
     public function getChainedException()
     {
-        return $this->_previous;
+        return $this->getPrevious();
     }
 }
