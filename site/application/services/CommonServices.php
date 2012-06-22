@@ -89,11 +89,9 @@ abstract class FP_Service_CommonServices {
 		$bean = $this->getEmptyBean();
 
 		foreach ($session as $info) {
-			foreach ($info as $form => $data) {
-				foreach ($data as $key => $value) {
-					$function = "set".ucfirst($key);
-					$bean->$function($value);
-				}
+			foreach ($info as $key => $value) {
+				$function = "set".ucfirst($key);
+				$bean->$function($value);
 			}
 		}
 
