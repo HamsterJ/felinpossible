@@ -39,18 +39,6 @@ class FP_Model_Bean_FicheSoins extends FP_Model_Bean_Common
 	/** @var string  */
 	protected $sexe;
 	/** @var string  */
-	protected $soinPuce;
-	/** @var string  */
-	protected $soinTatouage;
-	/** @var string  */
-	protected $soinTests;
-	/** @var string  */
-	protected $soinVaccins;
-	/** @var string  */
-	protected $soinSterilisation;
-	/** @var string  */
-	protected $soinAutre;
-	/** @var string  */
 	protected $idVeto;
 	
 	/**
@@ -262,97 +250,7 @@ class FP_Model_Bean_FicheSoins extends FP_Model_Bean_Common
 	public function setSexe($sexe) {
 	  $this->sexe = $sexe;
 	}
-	
-	/**
-	 * Gets the soinPuce field.
-	 * @return the field value.
-	 */
-	public function getSoinPuce() {
-	  return $this->soinPuce;
-	}
-	
-	/**
-	 * Sets the soinPuce field.
-	 */
-	public function setSoinPuce($soinPuce) {
-	  $this->soinPuce = $soinPuce;
-	}
-	
-	/**
-	 * Gets the soinTatouage field.
-	 * @return the field value.
-	 */
-	public function getSoinTatouage() {
-	  return $this->soinTatouage;
-	}
-	
-	/**
-	 * Sets the soinTatouage field.
-	 */
-	public function setSoinTatouage($soinTatouage) {
-	  $this->soinTatouage = $soinTatouage;
-	}
-	
-	/**
-	 * Gets the soinTests field.
-	 * @return the field value.
-	 */
-	public function getSoinTests() {
-	  return $this->soinTests;
-	}
-	
-	/**
-	 * Sets the soinTests field.
-	 */
-	public function setSoinTests($soinTests) {
-	  $this->soinTests = $soinTests;
-	}
-	
-	/**
-	 * Gets the soinVaccins field.
-	 * @return the field value.
-	 */
-	public function getSoinVaccins() {
-	  return $this->soinVaccins;
-	}
-	
-	/**
-	 * Sets the soinVaccins field.
-	 */
-	public function setSoinVaccins($soinVaccins) {
-	  $this->soinVaccins = $soinVaccins;
-	}
-	
-	/**
-	 * Gets the soinSterilisation field.
-	 * @return the field value.
-	 */
-	public function getSoinSterilisation() {
-	  return $this->soinSterilisation;
-	}
-	
-	/**
-	 * Sets the soinSterilisation field.
-	 */
-	public function setSoinSterilisation($soinSterilisation) {
-	  $this->soinSterilisation = $soinSterilisation;
-	}
-	
-	/**
-	 * Gets the soinAutre field.
-	 * @return the field value.
-	 */
-	public function getSoinAutre() {
-	  return $this->soinAutre;
-	}
-	
-	/**
-	 * Sets the soinAutre field.
-	 */
-	public function setSoinAutre($soinAutre) {
-	  $this->soinAutre = $soinAutre;
-	}
-	
+
 	/**
 	 * Gets the idVeto field.
 	 * @return the field value.

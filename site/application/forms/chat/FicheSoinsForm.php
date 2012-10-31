@@ -80,6 +80,12 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
 		$soinTests = new Zend_Form_Element_Checkbox('soinTests');
 		$soinTests->setLabel('Tests FIV/FELV à faire');
 		
+		$soinAntiParasites = new Zend_Form_Element_Checkbox('soinAntiParasites');
+		$soinAntiParasites->setLabel('Anti-parasitaire externe');
+
+		$soinVermifuge = new Zend_Form_Element_Checkbox('soinVermifuge');
+		$soinVermifuge->setLabel('Vermifuge');
+
 		$soinAutre = new Zend_Form_Element_Textarea('soinAutre');
 		$soinAutre->setLabel('Commentaires (précisions sur les soins, autre(s) soin(s) à faire etc)');
 		$soinAutre->setAttrib('cols', '60');
@@ -115,6 +121,8 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
         $this->addElement($soinTests);
         $this->addElement($soinVaccins);
         $this->addElement($soinSterilisation);
+        $this->addElement($soinVermifuge);
+        $this->addElement($soinAntiParasites);
         $this->addElement($soinAutre);
         $this->addElement($idChat);
                 

@@ -371,6 +371,15 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 				if ($ficheSoinForm->soinTests->checked) {
 					$phpLiveDocx->assign('soin_tests', 'Tests FIV/FELV');
 				}
+				if ($ficheSoinForm->soinAntiParasites->checked) {
+					$phpLiveDocx->assign('soin_anti_parasites', 'Anti-parasitaire externe');
+				}
+				if ($ficheSoinForm->soinVermifuge->checked) {
+					$phpLiveDocx->assign('soin_vermifuge', 'Vermifuge');
+				}
+				if ($ficheSoinForm->soinTests->checked) {
+					$phpLiveDocx->assign('soin_tests', 'Tests FIV/FELV');
+				}
 				if ($ficheSoinForm->soinSterilisation->getValue()) {
 					$phpLiveDocx->assign('soin_sterilisation', $ficheSoinForm->soinSterilisation->getMultiOption($ficheSoinForm->soinSterilisation->getValue()));
 				}
