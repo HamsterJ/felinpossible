@@ -1,7 +1,11 @@
-<div id="header" class="png">
-  <div class="menu-d">
-	  <!-- menu droit -->
-   	<?php echo $this->partial('menuDroit.phtml') ?>	
-	</div>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <!-- menu droit -->
+   	<ul class="nav pull-right">
+      <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'boutique')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" style="width: 65px;">Boutique</a></li>
+      <li><a href="/forum/index.php" style="width: 40px;">Forum</a></li>
+      <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'contact')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" style="width: 100px;">Nous contacter</a></li>
+    </ul>
+  </div>
 </div>
 <div id="b-gauche"></div>

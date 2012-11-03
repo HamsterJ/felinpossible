@@ -12,21 +12,25 @@
 
 </head>
 <body onload="init()" >
-  <div id="all">
-    <?php echo $this->partial('header.phtml') ?>
-    <div id="global">
-      <?php echo $this->partial('menuGauche.phtml') ?>
-      
-      <div id="chargementCorps" class="ajax" style="display:block"></div>
-      
+  <!-- Header -->
+  <div class="row-fluid">
+    <div class="span3 offset9"><?php echo $this->partial('header.phtml') ?></div>
+  </div>
+
+  <!-- Content -->
+  <div class="row-fluid">
+    <div class="span3"><?php echo $this->partial('menu.phtml') ?></div>
+    <div class="span9">
+      <div id="chargementCorps"/>
       <div id="corps" class="png">
         <?php echo $this->layout()->content ?>
       </div>
-      
-      <div class="astuce"></div>
     </div>
-    <?php echo $this->partial('footer.phtml') ?>
   </div>
+
+  <!-- Footer -->
+  <div class="row-fluid"><?php echo $this->partial('footer.phtml') ?></div>
+
   <!-- Google analytics -->
   <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

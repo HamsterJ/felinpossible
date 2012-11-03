@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
@@ -14,10 +14,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 		$view->headTitle('Association Felin Possible - Bienvenue - Adoption de chats sur Rennes et l\'Ille et Vilaine');
 
-		$view->headLink()->appendStylesheet('/site/public/css/design.css');
-		$view->headLink()->appendStylesheet('/site/public/css/fp_form.css');
-		$view->headLink()->appendStylesheet('/site/public/css/calendar-brown.css');
-		$view->headLink()->appendStylesheet('/site/public/css/info_bulle.css');
+		$view->headLink()->appendStylesheet('/site/public/css/bootstrap.min.css');
+		$view->headLink()->appendStylesheet('/site/public/css/bootstrap-responsive.min.css');
 
 		Zend_Dojo::enableView($view);
 		$view->dojo()->setLocalPath('/site/public/js/dojo/dojo/dojo.js')
@@ -25,10 +23,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		-> setDjConfigOption('parseOnLoad', true)
 		-> enable();
 
-		$view->headScript()->appendFile('/site/public/js/menu.js');
-		$view->headScript()->appendFile('/site/public/js/fp_form.js');
-		$view->headScript()->appendFile('/site/public/js/common.js');
+        $view->headScript()->appendFile('/site/public/js/common.js');
 		$view->headScript()->appendFile('/site/public/js/dojo/dojo/fpDojo.js');
+		$view->headScript()->appendFile('/site/public/js/bootstrap.min.js');
 
 		// Add it to the ViewRenderer
 		$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');

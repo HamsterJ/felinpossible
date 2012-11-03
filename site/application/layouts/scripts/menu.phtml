@@ -1,59 +1,63 @@
-<div class="png">
-  <ul id="menu" class="menu">
-		<li id="m1"><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'home')) ?>" title="Accueil" onclick="showPage('<?php echo $url ?>'); return false;">&nbsp;</a>
-        </li>
-        <li id="m2"><a href="#" title="L\'association">&nbsp;</a>
-          <ul>
-            <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'presentation')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Pr&eacute;sentation">Pr&eacute;sentation</a></li>
+<div>
+  <ul id="menu" class="nav nav-list">
+		    <li id="m1" class="nav-header"><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'home')) ?>" title="Accueil" onclick="showPage('<?php echo $url ?>'); return false;">&nbsp;</a></li>
+        <li class="divider"></li>
+        <li id="m2" class="nav-header"><a href="#" title="L\'association">L'association</a>
+          <ul class="nav nav-list">
+            <li><a class="ajax" data-method="post" href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'presentation')) ?>" title="Pr&eacute;sentation">Pr&eacute;sentation</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'statuts')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Statuts">Statuts</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'news', 'action' => 'index')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="News">News</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'charge')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Prise en charge">Prise en charge</a></li>
           </ul>
         </li>
-        <li id="m3"><a href="#" title="Nous aider">&nbsp;</a>
-          <ul>
+        <li class="divider"></li>
+        <li id="m3" class="nav-header"><a href="#" title="Nous aider">Nous aider</a>
+          <ul class="nav nav-list">
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'adherent')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Adh&eacute;rer">Adh&eacute;rer</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'parrainer')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Parrainer un chat">Parrainer un chat</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'benevole')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Devenir b&eacute;n&eacute;vole">Devenir b&eacute;n&eacute;vole</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'fa', 'action' => 'index')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Etre Famille d&rsquo;Accueil">Etre Famille d&rsquo;Accueil</a></li>
           </ul>
         </li>
-        <li id="m4"><a href="#" title="Les chats">&nbsp;</a>
-          <ul>
+        <li class="divider"></li>
+        <li id="m4" class="nav-header"><a href="#" title="Les chats">Les chats</a>
+          <ul class="nav nav-list">
             <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'adoption')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Chats &agrave; l&rsquo;adoption">Chats &agrave; l&rsquo;adoption</a></li>
-			<li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'adoptes')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Chats adopt&eacute;s">Chats adopt&eacute;s</a></li>
+			      <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'adoptes')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Chats adopt&eacute;s">Chats adopt&eacute;s</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'parrainer')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Chats &agrave; parrainer">Chats &agrave; parrainer</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'disparus')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Les disparus">Les disparus</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'perdus')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Perdus/Trouv&eacute;">Perdus/Trouv&eacute;s</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'charge')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Prise en charge">Prise en charge</a></li>
           </ul>
         </li>
-		  <li id="m5"><a href="#" title="Adopter">&nbsp;</a>
-          <ul> 
+        <li class="divider"></li>
+		    <li id="m5" class="nav-header"><a href="#" title="Adopter">Adopter</a>
+          <ul class="nav nav-list"> 
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'adoption')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="A lire avant toute adoption">A lire avant d'adopter</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'tarifs')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Tarifs">Tarifs</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'adoptant', 'action' => 'process')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Poster sa candidature">Poster sa candidature</a></li>
           </ul>
         </li>
-        <li id="m6"><a href="#" title="Conseils">&nbsp;</a>
-          <ul>
+        <li class="divider"></li>
+        <li id="m6" class="nav-header"><a href="#" title="Conseils">Conseils</a>
+          <ul class="nav nav-list">
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'arrivee')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="L&rsquo;arriv&eacute;e de votre chat">L&rsquo;arriv&eacute;e de votre chat</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'sante')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Sant&eacute; & Alimentation">Sant&eacute; &amp; Alimentation</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'sterilisation')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="La st&eacute;rilisation">La st&eacute;rilisation</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'dangers')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Les Dangers">Les dangers</a></li>
           </ul>
         </li>
-
-		<li id="m7"><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'liens')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Liens">&nbsp;</a>
-		</li>
-		<li id="m8"><a href="/forum/index.php" title="Forum">&nbsp;</a>
-		</li>
-		<li>
-		  <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-		  <fb:like-box href="http://www.facebook.com/profile.php?id=100000118602118#!/pages/F%C3%A9lin-Possible/44926746491" width="200" show_faces="false" stream="false" header="false"></fb:like-box>
-		</li>
-		<li>	
-		  <br/>
+        <li class="divider"></li>
+		    <li id="m7" class="nav-header"><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'liens')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Liens">Liens</a></li>
+		    <li class="divider"></li>
+        <li id="m8" class="nav-header"><a href="/forum/index.php" title="Forum">Forum</a></li>
+		    <li class="divider"></li>
+        <li>
+		      <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+		      <fb:like-box href="http://www.facebook.com/profile.php?id=100000118602118#!/pages/F%C3%A9lin-Possible/44926746491" width="200" show_faces="false" stream="false" header="false"></fb:like-box>
+		    </li>
+		    <li>	
+		      <br/>
           <div id="paypal">
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
             <input type="hidden" name="cmd" value="_s-xclick">
@@ -62,7 +66,7 @@
             <img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
             </form>
           </div>
-		  <br>
-		</li>
+		      <br>
+		    </li>
   </ul>
 </div>

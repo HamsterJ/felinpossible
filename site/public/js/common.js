@@ -169,7 +169,6 @@ window.onresize = resizeIframe;
  * Initialisation.
  */
 function init() {
-	startList();
 	initPage();
 }
 
