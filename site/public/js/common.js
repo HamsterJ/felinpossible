@@ -170,6 +170,7 @@ window.onresize = resizeIframe;
  */
 function init() {
 	initPage();
+	initLinks();
 }
 
 /**
@@ -220,6 +221,17 @@ function initPage() {
 		}
 		;
 	}, 200);
+}
+
+/**
+ * Init. la clas pour les liens du menu
+ */
+function initLinks() {
+  $('ul.nav > li').click(function (e) {
+            e.preventDefault();
+            $('ul.nav > li').removeClass('active');
+            $(this).addClass('active');                
+        });            
 }
 
 /**

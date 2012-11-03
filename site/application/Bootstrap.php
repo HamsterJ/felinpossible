@@ -16,13 +16,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 		$view->headLink()->appendStylesheet('/site/public/css/bootstrap.min.css');
 		$view->headLink()->appendStylesheet('/site/public/css/bootstrap-responsive.min.css');
+		$view->headLink()->appendStylesheet('/site/public/css/felinpossible.css');
 
 		Zend_Dojo::enableView($view);
 		$view->dojo()->setLocalPath('/site/public/js/dojo/dojo/dojo.js')
 		->addStyleSheetModule('dijit.themes.tundra')
 		-> setDjConfigOption('parseOnLoad', true)
 		-> enable();
-
+        
+		$view->headScript()->appendFile('/site/public/js/jquery-1.8.2.min.js');	
         $view->headScript()->appendFile('/site/public/js/common.js');
 		$view->headScript()->appendFile('/site/public/js/dojo/dojo/fpDojo.js');
 		$view->headScript()->appendFile('/site/public/js/bootstrap.min.js');
