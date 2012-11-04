@@ -29,7 +29,6 @@ class ChatController extends FP_Controller_CommonController
 	 */
 	public function adoptionAction() {
 		$this->view->entries = $this->getService()->getChatsAdoption();
-		$this->view->nbChatsParLigne = 4;
 	}
 
 	/**
@@ -38,7 +37,6 @@ class ChatController extends FP_Controller_CommonController
 	public function adoptesAction() {
 		$result = $this->getService()->getChatsAdoptes($this->getRequest()->getParams());
 
-		$this->view->nbChatsParLigne = 4;
 		$this->view->entries = $result[FP_Util_PaginationConstantes::DATA_KEY];
 		$this->view->paginator = $result[FP_Util_PaginationConstantes::PAGINATOR_KEY];
 	}
@@ -48,7 +46,6 @@ class ChatController extends FP_Controller_CommonController
 	 */
 	public function parrainerAction() {
 		$this->view->entries = $this->getService()->getChatsAParrainer();
-		$this->view->nbChatsParLigne = 4;
 	}
 
 	/**
@@ -56,7 +53,6 @@ class ChatController extends FP_Controller_CommonController
 	 */
 	public function disparusAction() {
 		$this->view->entries = $this->getService()->getChatsDisparus();
-		$this->view->nbChatsParLigne = 4;
 	}
 
 	/**

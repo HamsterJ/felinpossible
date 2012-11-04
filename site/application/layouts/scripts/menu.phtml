@@ -1,62 +1,121 @@
-<div>
-  <ul id="menu" class="nav nav-list">
-		    <li id="m2" class="nav-header">L'association</li>
-          <ul class="nav nav-list">
+<div class="accordion well" id="accordionMenu">
+  <!-- Association -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseAsso">
+        <i class="icone-home pull-left"></i>L'association
+      </a>
+    </div>
+    <div id="collapseAsso" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
             <li class="active"><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'home')) ?>" title="Accueil" onclick="showPage('<?php echo $url ?>'); return false;">Accueil</a></li>
-            <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'presentation')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Pr&eacute;sentation">Pr&eacute;sentation</a></li>
+            <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'presentation')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Pr&eacute;sentation">Présentation</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'statuts')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Statuts">Statuts</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'news', 'action' => 'index')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="News">News</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'charge')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Prise en charge">Prise en charge</a></li>
           </ul>
-        <li id="m3" class="nav-header">Nous aider</li>
-          <ul class="nav nav-list">
+      </div>
+    </div>
+  </div>
+
+  <!-- Nous aider -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseAider">
+        <i class="icone-aider pull-left"></i>Nous aider
+      </a>
+    </div>
+    <div id="collapseAider" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'adherent')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Adh&eacute;rer">Adh&eacute;rer</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'parrainer')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Parrainer un chat">Parrainer un chat</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'benevole')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Devenir b&eacute;n&eacute;vole">Devenir b&eacute;n&eacute;vole</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'fa', 'action' => 'index')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Etre Famille d&rsquo;Accueil">Etre Famille d&rsquo;Accueil</a></li>
           </ul>
-        <li id="m4" class="nav-header">Les chats</li>
-          <ul class="nav nav-list">
+      </div>
+    </div>
+  </div>
+
+  <!-- Les chats -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseChats">
+        <i class="icone-empreinte pull-left"></i>Les chats
+      </a>
+    </div>
+    <div id="collapseChats" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
             <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'adoption')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Chats &agrave; l&rsquo;adoption">Chats &agrave; l&rsquo;adoption</a></li>
-			      <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'adoptes')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Chats adopt&eacute;s">Chats adopt&eacute;s</a></li>
+            <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'adoptes')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Chats adopt&eacute;s">Chats adopt&eacute;s</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'parrainer')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Chats &agrave; parrainer">Chats &agrave; parrainer</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'chat', 'action' => 'disparus')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Les disparus">Les disparus</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'perdus')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Perdus/Trouv&eacute;">Perdus/Trouv&eacute;s</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'charge')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Prise en charge">Prise en charge</a></li>
           </ul>
-		    <li id="m5" class="nav-header">Adopter</li>
-          <ul class="nav nav-list"> 
+      </div>
+    </div>
+  </div>
+
+  <!-- Adopter -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseAdopter">
+        <i class="icone-poussette pull-left"></i>Adopter
+      </a>
+    </div>
+    <div id="collapseAdopter" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked"> 
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'adoption')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="A lire avant toute adoption">A lire avant d'adopter</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'tarifs')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Tarifs">Tarifs</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'adoptant', 'action' => 'process')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Poster sa candidature">Poster sa candidature</a></li>
           </ul>
-        <li id="m6" class="nav-header">Conseils</li>
-          <ul class="nav nav-list">
+      </div>
+    </div>
+  </div>
+
+  <!-- Conseils -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseConseils">
+        <i class="icone-info pull-left"></i>Conseils
+      </a>
+    </div>
+    <div id="collapseConseils" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'arrivee')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="L&rsquo;arriv&eacute;e de votre chat">L&rsquo;arriv&eacute;e de votre chat</a></li>
-            <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'sante')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Sant&eacute; & Alimentation">Sant&eacute; &amp; Alimentation</a></li>
+            <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'sante')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Sant&eacute; &amp; Alimentation">Sant&eacute; &amp; Alimentation</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'sterilisation')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="La st&eacute;rilisation">La st&eacute;rilisation</a></li>
             <li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'dangers')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Les Dangers">Les dangers</a></li>
           </ul>
-        <li class="divider"></li>
-		    <li id="m7" class="nav-header"><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'liens')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Liens">Liens</a></li>
-		    <li class="divider"></li>
-        <li id="m8" class="nav-header"><a href="/forum/index.php" title="Forum">Forum</a></li>
-		    <li class="divider"></li>
-        <li>
-		      <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-		      <fb:like-box href="http://www.facebook.com/profile.php?id=100000118602118#!/pages/F%C3%A9lin-Possible/44926746491" width="200" show_faces="false" stream="false" header="false"></fb:like-box>
-		    </li>
-		    <li>	
-		      <br/>
-          <div id="paypal">
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="1658266">
-            <input type="image" src="https://www.paypal.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="">
-            <img alt="" border="0" src="https://www.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
-            </form>
-          </div>
-		      <br>
-		    </li>
-  </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Liens -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-large btn-primary" href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'liens')) ?>" onclick="showPage('<?php echo $url ?>'); return false;" title="Liens">
+        <i class="icone-lien pull-left"></i>Liens
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Forum -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-large btn-primary" href="/forum/index.php" title="Forum">
+        <i class="icone-message pull-left"></i>Forum
+      </a>
+    </div>
+  </div>        
+</div>
+
+<div class="visible-desktop">
+  <?php echo $this->partial("index/reference.phtml"); ?>
 </div>

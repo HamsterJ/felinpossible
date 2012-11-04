@@ -130,6 +130,7 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
         $this->addElement('submit', 'submit', array(
             'ignore'   => true,
             'label'    => 'Générer la fiche',
+            'class'    => 'btn btn-primary'
         ));
     }
    

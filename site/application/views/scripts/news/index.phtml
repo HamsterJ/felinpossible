@@ -1,11 +1,11 @@
 <?php include_once("../../spongestats/stats.php"); ?>
 <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
 <?php foreach ($this->entries as $entry): ?>
-      <div class='news'>
-        <h3><?php echo $entry->titre ?>&nbsp;
+      <div class='news well'>
+        <h4><?php echo $entry->titre ?>&nbsp;
           <em>rédigée le <?php echo date('d/m/Y à H\hi', $entry->timestampCreation) ?>
           </em>
-        </h3>
+        </h4>
         <p>
           <?php echo $entry->contenu ?>
         </p>

@@ -19,5 +19,20 @@ abstract class FP_Form_common_SubForm extends Zend_Form_SubForm
         $this->setTranslator($translate);
     }
 
+    /**
+     * Override to add custom error style class.
+     */
+    public function addElement($element, $name = null, $options = null)
+    {
+        
+        if ($element instanceof Zend_Form_Element) {
+          if ($element->getDecorator('Errors')) {
+              $element->getDecorator('Errors')->setOption('class', 'alert alert-error');
+          }
+        }
+        parent::addElement($element, $name, $options);
+        
+        return $this;
+    }
 }
 

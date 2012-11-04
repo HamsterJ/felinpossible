@@ -39,7 +39,7 @@ abstract class FP_Form_common_Form extends Zend_Form
 			throw new Exception('Invalid argument passed to ' .
 			__FUNCTION__ . '()');
 		}
-		$this->setSubFormDecorators($subForm)
+		$this->addSubFormDecorators($subForm)
 		->addSubmitButton($subForm)
 		->addSubFormActions($subForm);
 		return $subForm;
@@ -51,12 +51,12 @@ abstract class FP_Form_common_Form extends Zend_Form
 	 * @param  Zend_Form_SubForm $subForm
 	 * @return My_Form_Registration
 	 */
-	public function setSubFormDecorators(Zend_Form_SubForm $subForm)
+	public function addSubFormDecorators(Zend_Form_SubForm $subForm)
 	{
 		$subForm->setDecorators(array(
             'FormElements',
 		array('HtmlTag', array('tag' => 'dl',
-                                   'class' => 'zend_form')),
+                               'class' => 'zend_form')),
             'Form',
 		));
 		return $this;
@@ -76,7 +76,8 @@ abstract class FP_Form_common_Form extends Zend_Form
                 'label'    => 'Sauver et continuer',
                 'required' => false,
                 'ignore'   => true,
-		        'order' => 100
+		        'order' => 100,
+		        'class' => 'btn btn-primary'
 		)
 		));
 		return $this;
@@ -94,6 +95,21 @@ abstract class FP_Form_common_Form extends Zend_Form
 		$subForm->setMethod('post');
 		return $this;
 	}
+
+    /**
+     * Override to add custom error style class.
+     */
+    public function addElement($element, $name = null, $options = null)
+    {
+        parent::addElement($element, $name, $options);
+        if ($element instanceof Zend_Form_Element) {
+          if ($element->getDecorator('Errors')) {
+              $element->getDecorator('Errors')->setOption('class', 'alert alert-error');
+          }
+        }
+
+        return $this;
+    }
 
 	/**
 	 * Return form in html format.

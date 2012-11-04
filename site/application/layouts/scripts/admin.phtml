@@ -4,34 +4,45 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
     <?php echo $this->headTitle() ?>
     <?php echo $this->headLink() ?>
-    <?php echo $this->dojo() ?>
     <?php echo $this->headStyle() ?>
-    <?php echo $this->headScript() ?>
 </head>
 <body onload="init()" class="tundra">
+  <!-- Header -->
+  <div class="row-fluid">
+    <div class="span12"><?php echo $this->partial('menuHaut.phtml') ?></div>
 
-  <div id="all">
-    <?php echo $this->partial('header.phtml'); ?>
-    
-    <div id="global">
-      <?php echo $this->render('logout.phtml') ?>
+  </div>
+
+  <header class="header"><?php echo $this->partial('header.phtml') ?></header>
+
+  <div class="container-fluid">
+  
+  <!-- Content -->
+  <div class="row-fluid">
+    <div id="main-menu" class="span2">
       <?php 
         if ($this->login) {
           echo $this->partial('menuGaucheAdmin.phtml'); 
         } else {
-          echo $this->partial('menuGauche.phtml');
+          echo $this->partial('menu.phtml');
         }
       ?>
-
-      <div id="chargementCorps" class="ajax" style="display:block"></div>
-      
-      <div id="corps" class="png" style="display:none">
+      <?php echo $this->render('logout.phtml') ?>
+    </div>
+    <div id="main-content" class="span10">
+      <div id="corps">
         <?php echo $this->layout()->content ?>
       </div>
-      
-      <div class="astuce"></div>
+      <div id="chargementCorps" class="ajax" style="display:block"></div>
     </div>
-    <?php echo $this->partial('footer.phtml') ?>
   </div>
+
+  <!-- Footer -->
+  <div class="row-fluid">
+    <div class="span12"><?php echo $this->partial('footer.phtml') ?></div>
+  </div>
+
+  <?php echo $this->dojo() ?>
+  <?php echo $this->headScript() ?>
 </body>
 </html>

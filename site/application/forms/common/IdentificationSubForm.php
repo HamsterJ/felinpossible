@@ -30,7 +30,6 @@ class FP_Form_common_IdentificationSubForm extends FP_Form_common_SubForm
 		$telPortable->setFilters(array('StringTrim'));
 		$telPortable->addValidator(FP_Util_ValidatorUtil::getTelephoneValidator());
 
-
 		$dateSubmit = new Zend_Form_Element_Hidden('dateSubmit');
 		$dateCourante = new Zend_Date();
 		$dateSubmit->setValue($dateCourante->toString(FP_Util_Constantes::DATE_FORMAT_MYSQL));

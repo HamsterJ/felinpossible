@@ -23,7 +23,7 @@ class FP_Util_PaginationConstantes {
 	 */
 	const NEWS_PAGE_RANGE = 5;
 
-		/**
+	/**
 	 * Page par défaut pour les chats.
 	 * @var int
 	 */
@@ -33,13 +33,13 @@ class FP_Util_PaginationConstantes {
 	 * Nombre d'éléments par page pour les chats.
 	 * @var int
 	 */
-	const CHATS_ITEM_COUNT = 20;
+	const CHATS_ITEM_COUNT = 30;
 	
 	/**
 	 * Nombre de pages visibles pour les chats.
 	 * @var int
 	 */
-	const CHATS_PAGE_RANGE = 10;
+	const CHATS_PAGE_RANGE = 5;
 	
 	/**
 	 * Clef pour accéder au paginateur.

@@ -7,6 +7,134 @@
 	margin: 0 auto;
 }
 
-body {
-	padding: 25px;
+dd>ul>li {
+	list-style-type:none;
+}
+
+.header {
+	width: 310px;
+	height: 170px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+	background-image: url("../img/logo.png");
+	background-repeat:no-repeat;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.footer {
+	background-color:whiteSmoke;
+	margin-top: 10px;
+	border-top: 1px gray;
+	padding: 10px 0;
+	padding-left: 0px;
+	padding-right: 0px;
+	border-radius: 0px;
+	width:100%;
+	opacity: 0.8;
+}
+
+body { 
+	background: url("../img/chat_joueur.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.img-chat {
+	height:120px;
+	margin:2px;
+}
+
+.thumbnail-chat {
+	text-align: center;
+}
+
+a.thumbnail-chat:hover{
+	text-decoration: none;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.centre_principal p {
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	text-align: justify;
+}
+
+.centre_principal li {
+	margin-top: 1px;
+	display: list-item;
+	list-style-image: url(image/common/menuChat.png);
+	text-align: justify;
+	margin-right: 0.5em;
+	margin-left: 2em;
+}
+
+.centre_principal h2 {
+	color: #97310E;
+	text-align: center;
+}
+
+.centre_principal h3 {
+	color: #DD4814;
+	text-align: center;
+}
+
+.centre_principal h4 {
+	color: #535353;
+	text-align: center;
+}
+
+
+.icone-empreinte{
+	background:url("../img/iconbeast-lite/animal-footprint.png") no-repeat;
+	height: 30px;
+	width: 30px;
+}
+
+.icone-home{
+	background:url("../img/iconbeast-lite/home.png") no-repeat;
+	height: 30px;
+	width: 30px;
+}
+
+.icone-info{
+	background:url("../img/iconbeast-lite/info.png") no-repeat;
+	height: 30px;
+	width: 30px;
+}
+
+.icone-poussette {
+	background:url("../img/iconbeast-lite/baby-stroller.png") no-repeat;
+	height: 30px;
+	width: 30px;
+}
+
+.icone-aider {
+	background:url("../img/iconbeast-lite/hand-shake.png") no-repeat;
+	height: 30px;
+	width: 30px;
+
+}
+
+.icone-lien {
+	background:url("../img/iconbeast-lite/link.png") no-repeat;
+	height: 30px;
+	width: 30px;
+}
+
+.icone-message {
+	background:url("../img/iconbeast-lite/message.png") no-repeat;
+	height: 30px;
+	width: 30px;
+
+}
+
+.btn-large {
+	height: 25px;
 }

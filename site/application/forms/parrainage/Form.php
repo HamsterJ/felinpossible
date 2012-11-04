@@ -16,83 +16,87 @@ class FP_Form_parrainage_Form extends FP_Form_common_Form {
         $this->setName('parrainage');
         $this->setAttrib('class', 'formOrange');
         
-        // Ajout lastname
-        $this->addElement('text', 'nom', array(
-            'label'      => 'Nom',
-            'required'   => true,
-            'filters'    => array('StringTrim')
-        ));
-        
-        // Ajout firstname
-        $this->addElement('text', 'prenom', array(
-            'label'      => 'Prénom',
-            'required'   => true,
-            'filters'    => array('StringTrim')
-        ));
-        
-        // Ajout adresse
-        $this->addElement('text', 'adresse', array(
-            'label'      => 'Adresse',
-            'filters'    => array('StringTrim')
-        ));
-        
-        // Ajout code postal
-        $this->addElement('text', 'codePostal', array(
-            'label'      => 'Code Postal',
-            'filters'    => array('StringTrim'),
-            'validators' => array('Int')
-        ));
-        
-        // Ajout ville
-        $this->addElement('text', 'ville', array(
-            'label'      => 'Ville',
-            'filters'    => array('StringTrim')
-        ));
-        
         // Ajout téléphone fixe
         $telFixe = new Zend_Form_Element_Text('telFixe');
         $telFixe->setLabel('Téléphone fixe');
         $telFixe->setFilters(array('StringTrim'));
         $telFixe->addValidator(FP_Util_ValidatorUtil::getTelephoneValidator());
-        $this->addElement($telFixe);
         
         // Ajout téléphone portable
         $telPortable = new Zend_Form_Element_Text('telPortable');
         $telPortable->setLabel('Téléphone portable');
         $telPortable->setFilters(array('StringTrim'));
         $telPortable->addValidator(FP_Util_ValidatorUtil::getTelephoneValidator());
-        $this->addElement($telPortable);
-        
-        // Add an email element
-        $this->addElement('text', 'email', array(
-            'label'      => 'Email',
-            'required'   => true,
-            'size' => 50,
-            'filters'    => array('StringTrim'),
-            'validators' => array('EmailAddress')
-        ));
         
         // Ajout chat à parrainer
         $listeChats = new Zend_Form_Element_Select('chatAParrainer');
 		$listeChats->setLabel('Chat à parrainer');
 		$listeChats->addMultiOptions(FP_Model_Mapper_MapperFactory::getInstance()->chatMapper->getListChatsAParrainerForForm());
-        $this->addElement($listeChats);
         
         // Ajout dons
         $listeDons = new Zend_Form_Element_Select('don');
 		$listeDons->setLabel('Don');
 		$listeDons->addMultiOptions(FP_Util_Constantes::$LISTE_DONS);
 		$listeDons->setAttrib('onchange', 'updateDon()');
-        $this->addElement($listeDons);
         
         $valeurDonElt = $this->createElementDonValeur();
         $valeurDonElt->setAttrib('disabled', 'true');
-        $this->addElement($valeurDonElt);
         
+        $this->addElements(array(
+        new Zend_Form_Element_Text('nom', array(
+                'required'   => true,
+                'label'      => 'Nom',
+                'filters'    => array('StringTrim'),
+        )),
+
+        new Zend_Form_Element_Text('prenom', array(
+                'required'   => true,
+                'label'      => 'Prénom',
+                'filters'    => array('StringTrim')
+        )),
+        
+        new Zend_Form_Element_Text('adresse', array(
+                'required'   => true,
+                'label'      => 'Adresse',
+                'filters'    => array('StringTrim')
+        )),
+
+        new Zend_Form_Element_Text('codePostal', array(
+                'required'   => true,
+                'label'      => 'Code Postal',
+                'filters'    => array('StringTrim'),
+                'validators' => array(
+                    'Int',
+        array('StringLength', false, array(5))
+        )
+        )),
+
+        new Zend_Form_Element_Text('ville', array(
+                'required'   => true,
+                'label'      => 'Ville',
+                'filters'    => array('StringTrim')
+        )),
+
+        $telFixe,
+        $telPortable,
+
+        new Zend_Form_Element_Text('email', array(
+            'label'      => 'Email',
+            'required'   => true,
+            'size' => 50,
+            'filters'    => array('StringTrim'),
+            'validators' => array('EmailAddress')
+        )),
+        $listeChats,
+        $listeDons,
+        $valeurDonElt,
+        ));
+
         // Add the submit button
         $this->addElement('submit', 'submit', array(
             'ignore'   => true,
             'label'    => 'Parrainer',
+            'class'    => 'btn btn-primary'
         ));
     }
     /**

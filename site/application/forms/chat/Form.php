@@ -204,6 +204,7 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 		$this->addElement('submit', 'submit', array(
             'ignore'   => true,
             'label'    => 'Valider',
+            'class'    => 'btn btn-primary'
 		));
 	}
 	 

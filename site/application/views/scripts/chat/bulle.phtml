@@ -1,91 +1,83 @@
 <?php include_once("../../spongestats/stats.php"); ?>
-<div class="centre_principal">
-<br>
-<div class="formOrange">
-	<?php if ($this->chat->nom) { ?>
-	<p>
-		<label class="colorFiche">Nom : </label>
-		<label class="colorLabel"><?php echo $this->chat->nom ?></label>
-	</p>
-	<?php }?>
-	
+<div class="thumbnail">
+  <img class="img-rounded img-chat" src="<?php echo $this->chat->miniature ?>" title="<?php echo $this->chat->nom ?>"/>
+
+<table class="table table-bordered table-striped table-condensed">
     <?php if ($this->chat->idSexe) { ?>
-	<p>
-		<label class="colorFiche">Sexe : </label>
-		<label class="colorLabel"><?php echo $this->chat->libelleSexe ?></label>		
-	</p>
+	<tr>
+		<td class="bold">Sexe</td>
+		<td class="colortd"><?php echo $this->chat->libelleSexe ?></td>		
+	</tr>
 	<?php }?>
 	
 	<?php if ($this->chat->dateNaissance) { ?>	
-	<p>
-		<label class="colorFiche">Date de naissance : </label>
-		<label class="colorLabel"><?php echo FP_Util_DateUtil::getDateFormatted($this->chat->dateNaissance)?></label>
-	</p>
+	<tr>
+		<td class="colorFiche">Date de naissance</td>
+		<td class="colortd"><?php echo FP_Util_DateUtil::getDateFormatted($this->chat->dateNaissance)?></td>
+	</tr>
 	<?php }?>
 	
 	<?php if ($this->chat->dateAdoption) { ?>
-	<p>
-		<label class="colorFiche">Date d'adoption : </label>
-		<label class="colorLabel"><?php echo FP_Util_DateUtil::getDateFormatted($this->chat->dateAdoption) ?></label>
-	</p>
+	<tr>
+		<td class="colorFiche">Date d'adoption</td>
+		<td class="colortd"><?php echo FP_Util_DateUtil::getDateFormatted($this->chat->dateAdoption) ?></td>
+	</tr>
 	<?php }?>
 	
     <?php if ($this->chat->race) { ?>
-	<p>
-		<label class="colorFiche">Race : </label>
-		<label class="colorLabel"><?php echo $this->chat->race ?></label>
-	</p>
+	<tr>
+		<td class="colorFiche">Race</td>
+		<td class="colortd"><?php echo $this->chat->race ?></td>
+	</tr>
 	<?php }?>
 	
     <?php if ($this->chat->idCouleur) { ?>
-	<p>
-		<label class="colorFiche">Couleur : </label>
-		<label class="colorLabel"><?php echo $this->chat->libelleCouleur ?></label>
-	</p>
+	<tr>
+		<td class="colorFiche">Couleur</td>
+		<td class="colortd"><?php echo $this->chat->libelleCouleur ?></td>
+	</tr>
 	<?php }?>
 	
     <?php if ($this->chat->yeux) { ?>
-	<p>
-		<label class="colorFiche">Yeux : </label>
-		<label class="colorLabel"><?php echo $this->chat->yeux ?></label>
-	</p>
+	<tr>
+		<td class="colorFiche">Yeux</td>
+		<td class="colortd"><?php echo $this->chat->yeux ?></td>
+	</tr>
 	<?php }?>
 	
     <?php if ($this->chat->tests) { ?>
-	<p>
-		<label class="colorFiche">Tests : </label>
-		<label class="colorLabel"><?php echo $this->chat->tests ?></label>
-	</p>
+	<tr>
+		<td class="colorFiche">Tests</td>
+		<td class="colortd"><?php echo $this->chat->tests ?></td>
+	</tr>
 	<?php }?>
 	
     <?php if ($this->chat->vaccins) { ?>
-	<p>
-		<label class="colorFiche">Vaccins : </label>
-		<label class="colorLabel"><?php echo $this->chat->vaccins ?></label>
-	</p>
+	<tr>
+		<td class="colorFiche">Vaccins</td>
+		<td class="colortd"><?php echo $this->chat->vaccins ?></td>
+	</tr>
 	<?php }?>
 	
     <?php if ($this->chat->tatouage) { ?>
-	<p>
-		<label class="colorFiche">Tatouage : </label>
-		<label class="colorLabel"><?php echo $this->chat->tatouage ?></label>
-	</p>
+	<tr>
+		<td class="colorFiche">Tatouage</td>
+		<td class="colortd"><?php echo $this->chat->tatouage ?></td>
+	</tr>
 	<?php }?>
 	
     <?php if ($this->chat->caractere) { ?>	
-	<p>
-		<label class="colorFiche">Caract&egrave;re : </label>
-		<label class="colorLabel"><?php echo $this->chat->caractere ?></label>
-	</p>
+	<tr>
+		<td class="colorFiche">Caract&egrave;re</td>
+		<td class="colortd"><?php echo $this->chat->caractere ?></td>
+	</tr>
 	<?php }?>
 	
     <?php if ($this->chat->commentaires) { ?>
-	<p>
-		<label class="colorFiche">Commentaires : </label>
-		<label class="colorLabel"><?php echo $this->chat->commentaires ?></label>
-	</p>
+	<tr>
+		<td class="colorFiche">Commentaires</td>
+		<td class="colortd"><?php echo $this->chat->commentaires ?></td>
+	</tr>
 	<?php }?>
-</div>
-<br>
-<div class="spacer"><br></div>
+</table>
 </div>

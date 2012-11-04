@@ -7,39 +7,48 @@
     <meta name="google-site-verification" content="ZKotv7s0RXm7p6gBZm0QmIGYGE5l5keRZGcwu859Ets" />
     <?php echo $this->headLink() ?>
     <?php echo $this->headStyle() ?>
-    <?php echo $this->dojo(); ?>
-    <?php echo $this->headScript() ?>
 
 </head>
 <body onload="init()" >
+
   <!-- Header -->
   <div class="row-fluid">
-    <div class="span3 offset9"><?php echo $this->partial('header.phtml') ?></div>
+    <div class="span12"><?php echo $this->partial('menuHaut.phtml') ?></div>
   </div>
 
+  <header class="header"><?php echo $this->partial('header.phtml') ?></header>
+
+  <div class="container-fluid">
+  
   <!-- Content -->
   <div class="row-fluid">
-    <div class="span3"><?php echo $this->partial('menu.phtml') ?></div>
-    <div class="span9">
-      <div id="chargementCorps" class="ajax" style="display:block"></div>
-      <div id="corps" class="well">
+    <div id="main-menu" class="span2"><?php echo $this->partial('menu.phtml') ?></div>
+    <div id="main-content" class="span10">
+      <div id="corps">
         <?php echo $this->layout()->content ?>
       </div>
+      <div id="chargementCorps" class="ajax" style="display:block"></div>
     </div>
   </div>
 
   <!-- Footer -->
-  <div class="row-fluid"><?php echo $this->partial('footer.phtml') ?></div>
-
+  <div class="row-fluid">
+    <div class="span12"><?php echo $this->partial('footer.phtml') ?></div>
+  </div>
+  
+  </div>
   <!-- Google analytics -->
   <script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-12513665-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker("UA-12513665-1");
+    pageTracker._trackPageview();
+    } catch(err) {}</script>
+
+  <?php echo $this->dojo(); ?>
+  <?php echo $this->headScript() ?>
 </body>
 </html>
