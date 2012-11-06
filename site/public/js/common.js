@@ -120,10 +120,13 @@ function ajaxHandleLoad(response, ioArgs) {
 	$(eltToUpdate).fadeIn('medium');
 	resizeIframe();
 
-    $('html, body').animate({  
-         scrollTop:$(eltToUpdate).offset().top  
-    }, 'medium');
+    var offset = $(eltToUpdate).offset().top - $(window).scrollTop();
 
+    if(offset > window.innerHeight){
+      $('html, body').animate({  
+         scrollTop:$(eltToUpdate).offset().top  
+      }, 'medium');
+    }
 	return response;
 }
 
