@@ -108,9 +108,11 @@ function deleteWidgets(input) {
 function ajaxHandleLoad(response, ioArgs) {
 	var eltToUpdate = document.getElementById(ioArgs.args.eltToUpdateId);
 
-	deleteWidgets(ioArgs.args.eltToUpdateId);
-
+    deleteWidgets(ioArgs.args.eltToUpdateId);
+    
 	$('#' + ioArgs.args.eltWaitId).fadeOut('medium');
+
+	eltToUpdate.style.display="none";
 	eltToUpdate.innerHTML = response;
 
 	if (dojo.parser) {
