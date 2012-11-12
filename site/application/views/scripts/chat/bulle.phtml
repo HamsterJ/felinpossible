@@ -1,83 +1,83 @@
 <?php include_once("../../spongestats/stats.php"); ?>
 <div class="thumbnail">
-  <img class="img-rounded img-chat" src="<?php echo $this->chat->miniature ?>" title="<?php echo $this->chat->nom ?>"/>
+	<img class="img-rounded img-chat" src="<?php echo $this->chat->miniature ?>" title="<?php echo $this->chat->nom ?>"/>
 
-<table class="table table-bordered table-striped table-condensed">
-    <?php if ($this->chat->idSexe) { ?>
-	<tr>
-		<td class="bold">Sexe</td>
-		<td class="colortd"><?php echo $this->chat->libelleSexe ?></td>		
-	</tr>
-	<?php }?>
-	
-	<?php if ($this->chat->dateNaissance) { ?>	
-	<tr>
-		<td class="colorFiche">Date de naissance</td>
-		<td class="colortd"><?php echo FP_Util_DateUtil::getDateFormatted($this->chat->dateNaissance)?></td>
-	</tr>
-	<?php }?>
-	
-	<?php if ($this->chat->dateAdoption) { ?>
-	<tr>
-		<td class="colorFiche">Date d'adoption</td>
-		<td class="colortd"><?php echo FP_Util_DateUtil::getDateFormatted($this->chat->dateAdoption) ?></td>
-	</tr>
-	<?php }?>
-	
-    <?php if ($this->chat->race) { ?>
-	<tr>
-		<td class="colorFiche">Race</td>
-		<td class="colortd"><?php echo $this->chat->race ?></td>
-	</tr>
-	<?php }?>
-	
-    <?php if ($this->chat->idCouleur) { ?>
-	<tr>
-		<td class="colorFiche">Couleur</td>
-		<td class="colortd"><?php echo $this->chat->libelleCouleur ?></td>
-	</tr>
-	<?php }?>
-	
-    <?php if ($this->chat->yeux) { ?>
-	<tr>
-		<td class="colorFiche">Yeux</td>
-		<td class="colortd"><?php echo $this->chat->yeux ?></td>
-	</tr>
-	<?php }?>
-	
-    <?php if ($this->chat->tests) { ?>
-	<tr>
-		<td class="colorFiche">Tests</td>
-		<td class="colortd"><?php echo $this->chat->tests ?></td>
-	</tr>
-	<?php }?>
-	
-    <?php if ($this->chat->vaccins) { ?>
-	<tr>
-		<td class="colorFiche">Vaccins</td>
-		<td class="colortd"><?php echo $this->chat->vaccins ?></td>
-	</tr>
-	<?php }?>
-	
-    <?php if ($this->chat->tatouage) { ?>
-	<tr>
-		<td class="colorFiche">Identification</td>
-		<td class="colortd"><?php echo $this->chat->tatouage ?></td>
-	</tr>
-	<?php }?>
-	
-    <?php if ($this->chat->caractere) { ?>	
-	<tr>
-		<td class="colorFiche">Caract&egrave;re</td>
-		<td class="colortd"><?php echo $this->chat->caractere ?></td>
-	</tr>
-	<?php }?>
-	
-    <?php if ($this->chat->commentaires) { ?>
-	<tr>
-		<td class="colorFiche">Commentaires</td>
-		<td class="colortd"><?php echo $this->chat->commentaires ?></td>
-	</tr>
-	<?php }?>
-</table>
+	<table class="table table-bordered table-striped table-condensed">
+		<?php if ($this->chat->idSexe) { ?>
+		<tr>
+			<td class="bold">Sexe</td>
+			<td class="colortd"><?php echo $this->chat->libelleSexe ?></td>		
+		</tr>
+		<?php }?>
+		
+		<?php if ($this->chat->dateNaissance) { ?>	
+		<tr>
+			<td class="colorFiche">Date de naissance</td>
+			<td class="colortd"><?php echo FP_Util_DateUtil::getDateFormatted($this->chat->dateNaissance)?></td>
+		</tr>
+		<?php }?>
+		
+		<?php if ($this->chat->dateAdoption) { ?>
+		<tr>
+			<td class="colorFiche">Date d'adoption</td>
+			<td class="colortd"><?php echo FP_Util_DateUtil::getDateFormatted($this->chat->dateAdoption) ?></td>
+		</tr>
+		<?php }?>
+		
+		<?php if ($this->chat->race) { ?>
+		<tr>
+			<td class="colorFiche">Race</td>
+			<td class="colortd"><?php echo $this->chat->race ?></td>
+		</tr>
+		<?php }?>
+		
+		<?php if ($this->chat->idCouleur) { ?>
+		<tr>
+			<td class="colorFiche">Couleur</td>
+			<td class="colortd"><?php echo $this->chat->libelleCouleur ?></td>
+		</tr>
+		<?php }?>
+		
+		<?php if ($this->chat->yeux) { ?>
+		<tr>
+			<td class="colorFiche">Yeux</td>
+			<td class="colortd"><?php echo $this->chat->yeux ?></td>
+		</tr>
+		<?php }?>
+		
+		<?php if ($this->chat->tests) { ?>
+		<tr>
+			<td class="colorFiche">Tests</td>
+			<td class="colortd"><?php echo $this->chat->tests ?></td>
+		</tr>
+		<?php }?>
+		
+		<?php if ($this->chat->vaccins) { ?>
+		<tr>
+			<td class="colorFiche">Vaccins</td>
+			<td class="colortd"><?php echo $this->chat->vaccins ?></td>
+		</tr>
+		<?php }?>
+		
+		<?php if ($this->chat->tatouage) { ?>
+		<tr>
+			<td class="colorFiche">Identification</td>
+			<td class="colortd"><?php echo $this->chat->tatouage ?></td>
+		</tr>
+		<?php }?>
+		
+		<?php if ($this->chat->caractere) { ?>	
+		<tr>
+			<td class="colorFiche">Caract&egrave;re</td>
+			<td class="colortd"><?php echo $this->chat->caractere ?></td>
+		</tr>
+		<?php }?>
+		
+		<?php if ($this->chat->commentaires) { ?>
+		<tr>
+			<td class="colorFiche">Commentaires</td>
+			<td class="colortd"><?php echo $this->chat->commentaires ?></td>
+		</tr>
+		<?php }?>
+	</table>
 </div>
