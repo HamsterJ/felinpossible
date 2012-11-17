@@ -15,8 +15,8 @@
 // -------------------------
 @orange:                #e56300;
 
-@sansFontFamily:        "Verdana", sans-serif;
-@baseFontSize:          13px;
+@sansFontFamily:        "Verdana", Helvetica, Arial, sans-serif;
+@baseFontSize:          14px;
 
 // Links
 // -------------------------
@@ -100,14 +100,20 @@ body {
 }
 
 .centre_principal {
+	.well;
 	p {
-		margin-left: 0.5em;
-		margin-right: 0.5em;
 		text-align: justify;
 	}
 
 	ul>li {
 		list-style-type:none;	
+	}
+
+	h2 {
+		color: @red;
+	}
+	h3 {
+		color: @orange;
 	}
 }
 

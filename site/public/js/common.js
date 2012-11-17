@@ -252,16 +252,16 @@ window.onresize = resizeIframe;
  * (pour garder un menu toujours lisible)
  */
  function handleResize() {
- 	if ($(window).width() < 1390) {
- 		$('#main-menu').removeClass('span2');
+ 	if ($(window).width() < 1500) {
+ 		$('#main-menu').removeClass('span3');
  		$('#main-menu').addClass('span4');
- 		$('#main-content').removeClass('span10');
+ 		$('#main-content').removeClass('span9');
  		$('#main-content').addClass('span8');
  	} else {
  		$('#main-menu').removeClass('span4');
- 		$('#main-menu').addClass('span2');
+ 		$('#main-menu').addClass('span3');
  		$('#main-content').removeClass('span8');
- 		$('#main-content').addClass('span10');
+ 		$('#main-content').addClass('span9');
  	}
  }
 
