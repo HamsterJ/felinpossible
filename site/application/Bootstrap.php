@@ -1,43 +1,7 @@
 	<?php
 
-class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
-{
-	/**
-	 * Initialisation de la vue.
-	 * @return Zend_View la vue
-	 */
-	protected function _initView()
+	class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	{
-		// Initialize view
-		$view = new Zend_View();
-		$view->doctype('XHTML1_STRICT');
-
-		$view->headTitle('Association Felin Possible - Bienvenue - Adoption de chats sur Rennes et l\'Ille et Vilaine');
-
-		$view->headLink()->appendStylesheet('/site/public/css/felinpossible.css');
-        $view->headLink()->appendStylesheet('/site/public/css/design.css');
-
-		Zend_Dojo::enableView($view);
-		$view->dojo()->setLocalPath('/site/public/js/dojo/dojo/dojo.js')
-		->addStyleSheetModule('dijit.themes.tundra')
-		-> setDjConfigOption('parseOnLoad', true)
-		-> enable();
-        
-		$view->headScript()->appendFile('/site/public/js/jquery-1.8.2.min.js');	
-        $view->headScript()->appendFile('/site/public/js/common.js');
-        $view->headScript()->appendFile('/site/public/js/adminCommon.js');    
-        $view->headScript()->appendFile('/site/public/js/fp_form.js');  
-		$view->headScript()->appendFile('/site/public/js/dojo/dojo/fpDojo.js');
-		$view->headScript()->appendFile('/site/public/js/bootstrap.min.js');
-
-		// Add it to the ViewRenderer
-		$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
-		$viewRenderer->setView($view);
-
-		// Return it, so that it can be stored by the bootstrap
-		return $view;
-	}
-
 	/**
 	 * Chargement des classes.
 	 * @return l'autoloader.
@@ -45,33 +9,33 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	protected function _initAutoload()
 	{
 		$autoloader = new Zend_Application_Module_Autoloader(array(
-                'namespace' => 'FP_',
-                'basePath'  => APPLICATION_PATH,
-		));
+			'namespace' => 'FP_',
+			'basePath'  => APPLICATION_PATH,
+			));
 
 		$autoloader->addResourceTypes(array(
-                'util' => array(
-                'namespace' => 'Util_',
-                'path'      => '/utils',
-		)));
+			'util' => array(
+				'namespace' => 'Util_',
+				'path'      => '/utils',
+				)));
 
 		$autoloader->addResourceTypes(array(
-                'controller' => array(
-                'namespace' => 'Controller_',
-                'path'      => '/controllers',
-		)));
+				'controller' => array(
+				'namespace' => 'Controller_',
+				'path'      => '/controllers',
+				)));
 
-                $autoloader->addResourceTypes(array(
-                'model' => array(
-                'namespace' => 'Model_',
-                'path'      => '/models',
-                )));
+		$autoloader->addResourceTypes(array(
+				'model' => array(
+				'namespace' => 'Model_',
+				'path'      => '/models',
+				)));
 
-                $autoloader->addResourceTypes(array(
-                'mapper' => array(
-                'namespace' => 'Model_Mapper',
-                'path'      => '/models/Mapper',
-                )));
+		$autoloader->addResourceTypes(array(
+				'mapper' => array(
+				'namespace' => 'Model_Mapper',
+				'path'      => '/models/Mapper',
+				)));
 
 		return $autoloader;
 	}
@@ -84,6 +48,44 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$config = $this->getConfig();
 		$frontController->setBaseUrl($config->site->prefix->url);
 	}
+
+/**
+	 * Initialisation de la vue.
+	 * @return Zend_View la vue
+	 */
+protected function _initView()
+{
+	$config = $this->getConfig();
+
+		// Initialize view
+	$view = new Zend_View();
+	$view->doctype('XHTML1_STRICT');
+
+	$view->headTitle('Association Felin Possible - Bienvenue - Adoption de chats sur Rennes et l\'Ille et Vilaine');
+
+	$view->headLink()->appendStylesheet($config->site->ressources->url . '/css/felinpossible.css');
+	$view->headLink()->appendStylesheet($config->site->ressources->url . '/css/design.css');
+
+	Zend_Dojo::enableView($view);
+	$view->dojo()->setLocalPath($config->site->ressources->url . '/js/dojo/dojo/dojo.js')
+	->addStyleSheetModule('dijit.themes.tundra')
+	-> setDjConfigOption('parseOnLoad', true)
+	-> enable();
+
+	$view->headScript()->appendFile($config->site->ressources->url . '/js/jquery-1.8.2.min.js');	
+	$view->headScript()->appendFile($config->site->ressources->url . '/js/common.js');
+	$view->headScript()->appendFile($config->site->ressources->url . '/js/adminCommon.js');    
+	$view->headScript()->appendFile($config->site->ressources->url . '/js/fp_form.js');  
+	$view->headScript()->appendFile($config->site->ressources->url . '/js/dojo/dojo/fpDojo.js');
+	$view->headScript()->appendFile($config->site->ressources->url . '/js/bootstrap.min.js');
+
+		// Add it to the ViewRenderer
+	$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
+	$viewRenderer->setView($view);
+
+		// Return it, so that it can be stored by the bootstrap
+	return $view;
+}
 
 	/**
 	 * Initialisation de la connexion à la base.
@@ -103,7 +105,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		} catch ( Exception $e ) {
 			exit( $e -> getMessage() );
 		}
-			
+
 		Zend_Db_Table::setDefaultAdapter($db);
 		return $db;
 	}
