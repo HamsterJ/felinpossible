@@ -77,5 +77,8 @@
 	</tr>
 	<?php }?>
 </table>
-<a class="btn btn-primary" role="button" href="<?php echo $this->chat->lienTopic ?>">Topic sur le forum</a>
-<a class="btn pull-right" onClick="javascript:popoverClose(<?php echo $this->chat->id ?>)">Fermer</a>
+<a class="btn btn-info" role="button" href="<?php echo $this->chat->lienTopic ?>">Topic sur le forum</a>
+<?php if (!$this->chat->adopte && !$this->chat->disparu) { ?>
+<a class="btn btn-primary" role="button" href="<?php echo $url = $this->url(array('controller' => 'adoptant', 'action' => 'process', 'id'=> null)) ?>" onclick="showPage('<?php echo $url ?>'); return false;" >Adopter</a>
+<?php }?>
+<a class="btn btn-inverse pull-right" onClick="javascript:popoverClose(<?php echo $this->chat->id ?>)">Fermer</a>
