@@ -1,40 +1,30 @@
 <?php include_once("../../spongestats/stats.php"); ?>
-<div class="well">
-  <ul class="thumbnails">
-    <?php
-    foreach ($this->entries as $entry):?>
-    <li class="span3" style="margin-left:10px">
-      <a class="thumbnail thumbnail-chat" href="#myModal<?php echo $entry->id ?>" data-toggle="modal" onClick="callAjax('<?php echo $this->url(array('action' => 'bulle', 'id' => $entry->id)) ?>', 'bulle<?php echo $entry->id ?>content', 'bulle<?php echo $entry->id ?>'); return false;">
-        <img class="img-rounded img-chat" src="<?php echo $entry->miniature ?>" title="Cliquer ici pour plus d'infos sur <?php echo $entry->nom ?>"/>
-        <h4><?php 
-        echo $entry->nom; 
-        if ($entry->getReserve()) {
-          if ($entry->getIdSexe() == FP_Util_Constantes::ID_SEXE_MALE){
-            ?><span class="label label-success pull-right">Réservé</span></i><?php
-          } else {
-            ?><span class="label label-success pull-right">Réservée</span></i><?php
-          }
+<ul class="thumbnails">
+  <?php
+  foreach ($this->entries as $entry):?>
+  <li class="span3" style="margin-left:10px">
+    <a id="<?php echo $entry->id ?>" 
+      class="thumbnail thumbnail-chat" 
+      href="javascript:popoverAction('<?php echo $entry->id ?>', '<?php echo $this->url(array('action' => 'bulle', 'id' => $entry->id)) ?>')" 
+      rel="popover"
+      data-animate="true"
+      data-trigger="manual"
+      data-placement="bottom"
+      data-html="true">
+      <img class="img-rounded img-chat" src="<?php echo $entry->miniature ?>" title="Cliquer ici pour plus d'infos sur <?php echo $entry->nom ?>"/>
+      <h4><?php 
+      echo $entry->nom; 
+      if ($entry->getReserve()) {
+        if ($entry->getIdSexe() == FP_Util_Constantes::ID_SEXE_MALE){
+          ?><span class="label label-success pull-right">Réservé</span></i><?php
+        } else {
+          ?><span class="label label-success pull-right">Réservée</span></i><?php
         }
-        ?>
-      </h4>
-    </a>
-    <!-- Modal -->
-    <div id="myModal<?php echo $entry->id ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel<?php echo $entry->id ?>" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel<?php echo $entry->id ?>" class="thumbnail-chat"><?php echo $entry->nom; ?></h3>
-      </div>
-      <div class="modal-body">
-        <div id="bulle<?php echo $entry->id ?>content"style="display:none"></div> 
-        <div id="bulle<?php echo $entry->id ?>" class="ajax" style="display:block"></div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Fermer</button>
-        <a class="btn btn-primary" role="button" href="<?php echo $entry->lienTopic ?>">Voir la fiche détaillée sur le forum</a>
-      </div>
-    </div>
-  </li> 
-  <?php 
-  endforeach;?>
+      }
+      ?>
+    </h4>
+  </a>
+</li> 
+<?php 
+endforeach;?>
 </ul>
-</div>

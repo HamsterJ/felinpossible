@@ -317,15 +317,6 @@
 	float: right;
 }
 
-.ajax {
-	background-image: url(image/ajax-loader.gif);
-	background-repeat: no-repeat;
-	height: 200px;
-	width: 32px;
-	display: none;
-	margin: 0 auto;
-}
-
 /**
 RSS
 */

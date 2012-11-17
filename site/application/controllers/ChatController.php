@@ -60,7 +60,7 @@ class ChatController extends FP_Controller_CommonController
 	 */
 	public function bulleAction() {
 		$chatId = $this->_getParam('id');
-			
+		
 		if ($chatId) {
 			$this->view->chat = $this->getService()->getElement($chatId);
 		}

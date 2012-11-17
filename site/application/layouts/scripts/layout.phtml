@@ -1,12 +1,13 @@
 <?php echo $this->doctype() ?>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
-    <?php echo $this->headTitle() ?>
-    <meta name="description" content="Adoptions de chats sur Rennes, Saint-Malo et l'Ille et Vilaine. Vous pouvez également devenir famille d'accueil ou bénévole pour nous aider. Vous trouverez aussi de nombreux conseils et informations sur nos amis les chats." />
-    <meta name="google-site-verification" content="ZKotv7s0RXm7p6gBZm0QmIGYGE5l5keRZGcwu859Ets" />
-    <?php echo $this->headLink() ?>
-    <?php echo $this->headStyle() ?>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+  <?php echo $this->headTitle() ?>
+  <meta name="description" content="Adoptions de chats sur Rennes, Saint-Malo et l'Ille et Vilaine. Vous pouvez également devenir famille d'accueil ou bénévole pour nous aider. Vous trouverez aussi de nombreux conseils et informations sur nos amis les chats." />
+  <meta name="google-site-verification" content="ZKotv7s0RXm7p6gBZm0QmIGYGE5l5keRZGcwu859Ets" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <?php echo $this->headLink() ?>
+  <?php echo $this->headStyle() ?>
 
 </head>
 <body onload="init()" >
@@ -19,17 +20,17 @@
   <header class="header"><?php echo $this->partial('header.phtml') ?></header>
 
   <div class="container-fluid">
-  
-  <!-- Content -->
-  <div class="row-fluid">
-    <div id="main-menu" class="span2"><?php echo $this->partial('menu.phtml') ?></div>
-    <div id="main-content" class="span10">
-      <div id="corps">
-        <?php echo $this->layout()->content ?>
+    
+    <!-- Content -->
+    <div class="row-fluid">
+      <div id="main-menu" class="span2"><?php echo $this->partial('menu.phtml') ?></div>
+      <div id="main-content" class="span10">
+        <div id="corps">
+          <?php echo $this->layout()->content ?>
+        </div>
+        <div id="chargementCorps" class="ajax" style="display:block"></div>
       </div>
-      <div id="chargementCorps" class="ajax" style="display:block"></div>
     </div>
-  </div>
 
   </div>
 
@@ -40,14 +41,14 @@
   
   <!-- Google analytics -->
   <script type="text/javascript">
-    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
   </script>
   <script type="text/javascript">
-    try {
+  try {
     var pageTracker = _gat._getTracker("UA-12513665-1");
     pageTracker._trackPageview();
-    } catch(err) {}</script>
+  } catch(err) {}</script>
 
   <?php echo $this->dojo(); ?>
   <?php echo $this->headScript() ?>
