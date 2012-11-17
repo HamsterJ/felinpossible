@@ -1,30 +1,32 @@
 <?php include_once("../../spongestats/stats.php"); ?>
-<ul class="thumbnails">
-  <?php
-  foreach ($this->entries as $entry):?>
-  <li class="span3" style="margin-left:10px">
-    <a id="<?php echo $entry->id ?>" 
-      class="thumbnail thumbnail-chat" 
-      href="javascript:popoverAction('<?php echo $entry->id ?>', '<?php echo $this->url(array('action' => 'bulle', 'id' => $entry->id)) ?>')" 
-      rel="popover"
-      data-animate="true"
-      data-trigger="manual"
-      data-placement="bottom"
-      data-html="true">
-      <img class="img-rounded img-chat" src="<?php echo $entry->miniature ?>" title="Cliquer ici pour plus d'infos sur <?php echo $entry->nom ?>"/>
-      <h4><?php 
-      echo $entry->nom; 
-      if ($entry->getReserve()) {
-        if ($entry->getIdSexe() == FP_Util_Constantes::ID_SEXE_MALE){
-          ?><span class="label label-success pull-right">Réservé</span></i><?php
-        } else {
-          ?><span class="label label-success pull-right">Réservée</span></i><?php
+<div class="centre_principal">
+  <ul class="thumbnails">
+    <?php
+    foreach ($this->entries as $entry):?>
+    <li class="span3" style="margin-left:10px">
+      <a id="<?php echo $entry->id ?>" 
+        class="thumbnail thumbnail-chat" 
+        href="javascript:popoverAction('<?php echo $entry->id ?>', '<?php echo $this->url(array('action' => 'bulle', 'id' => $entry->id)) ?>')" 
+        rel="popover"
+        data-animate="true"
+        data-trigger="manual"
+        data-placement="bottom"
+        data-html="true">
+        <img class="img-rounded img-chat" src="<?php echo $entry->miniature ?>" title="Cliquer ici pour plus d'infos sur <?php echo $entry->nom ?>"/>
+        <h4><?php 
+        echo $entry->nom; 
+        if ($entry->getReserve()) {
+          if ($entry->getIdSexe() == FP_Util_Constantes::ID_SEXE_MALE){
+            ?><span class="label label-success pull-right">Réservé</span></i><?php
+          } else {
+            ?><span class="label label-success pull-right">Réservée</span></i><?php
+          }
         }
-      }
-      ?>
-    </h4>
-  </a>
-</li> 
-<?php 
-endforeach;?>
+        ?>
+      </h4>
+    </a>
+  </li> 
+  <?php 
+  endforeach;?>
 </ul>
+</div>
