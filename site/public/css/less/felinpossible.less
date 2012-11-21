@@ -13,10 +13,20 @@
  */
 // Colors
 // -------------------------
-@orange:                #e56300;
+@orange:                #E56300;
+@orangeLight:			#FF7D19;
+@blue: 					#3C767F;
+@red:					#BF001B;
+@redDark:				#400009;
+@marron:				#984200;
+
 
 @sansFontFamily:        "Verdana", Helvetica, Arial, sans-serif;
 @baseFontSize:          14px;
+
+@baseBorderRadius:      2px;
+@borderRadiusLarge:     2px;
+@borderRadiusSmall:     1px;
 
 // Links
 // -------------------------
@@ -26,6 +36,12 @@
 // Buttons
 // -------------------------
 @btnPrimaryBackgroundHighlight:     spin(@btnPrimaryBackground, 5%);
+
+@btnInfoBackground:                 spin(@blue, 5%);
+@btnInfoBackgroundHighlight:        @blue;
+
+@btnInverseBackground:              spin(@marron, 5%);
+@btnInverseBackgroundHighlight:     @marron;
 
 .btn-large {
 	height: 25px;
@@ -102,6 +118,7 @@
 // Content
 body {
 	background: url("../img/background_light.png") repeat;
+	background-attachment: fixed;
 }
 
 .home {
@@ -119,9 +136,8 @@ body {
 	ul>li {
 		list-style-type:none;	
 	}
-
 	h2 {
-		color: @red;
+		color: @marron;
 	}
 	h3 {
 		color: @orange;
