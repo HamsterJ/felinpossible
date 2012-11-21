@@ -164,11 +164,10 @@ a.thumbnail-chat:hover{
 }
 
 //Icônes.
-
 .icone-size (@height:30px, @width: 30px) {
 	height: @height;
 	width: @width;
-	line-height: @height
+	line-height: @height;
 }
 
 .icone-img (@img) {
@@ -181,10 +180,9 @@ a.thumbnail-chat:hover{
 
 .icone-menu (@name) {
 	.icone-size(32px, 32px);
-	.icone-img("../img/social-icons/32-x-32px/@{name}_dark.png");
-	background-position: center;
+	background:url("../img/social-icons/32-x-32px/@{name}_dark.png") no-repeat center;
 	&:hover {
-		.icone-img("../img/social-icons/32-x-32px/@{name}_active.png");
+		background:url("../img/social-icons/32-x-32px/@{name}_active.png") no-repeat center;
 	}
 }
 
