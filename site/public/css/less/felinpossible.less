@@ -50,6 +50,11 @@
 	src: url("../fonts/angelina.ttf");
 }
 
+
+.font-fp {
+	font-family: "angelina";
+}
+
 /**
  * Style principal.
  */
@@ -62,7 +67,7 @@
 
 #title-container {
 	margin-top: 40px;
-	font-family: "angelina";
+	.font-fp;
 	font-size: 130pt;
 	font-style: bold;
 	padding: 10px;
@@ -99,10 +104,16 @@ body {
 	background: url("../img/background_light.png") repeat;
 }
 
+.home {
+	text-align: center;
+	font-size: 15px;
+}
+
 .centre_principal {
 	.well;
 	p {
 		text-align: justify;
+		text-indent: 0.8em;
 	}
 
 	ul>li {
@@ -114,6 +125,9 @@ body {
 	}
 	h3 {
 		color: @orange;
+	}
+	h4 {
+		color: darken(@orange, 20%);
 	}
 }
 
@@ -154,11 +168,15 @@ a.thumbnail-chat:hover{
 .icone-size (@height:30px, @width: 30px) {
 	height: @height;
 	width: @width;
+	line-height: @height
 }
 
 .icone-img (@img) {
 	background:url(@img) no-repeat;
-	background-position: center;
+	display: inline-block;
+	.ie7-restore-right-whitespace();
+	vertical-align: text-top;
+	margin-top: 1px;
 }
 
 .icone-menu (@name) {
@@ -220,5 +238,19 @@ a.thumbnail-chat:hover{
 .icone-message {
 	.icone-img("../img/iconbeast-lite/message.png");
 	.icone-size;
+}
 
+.icone-document {
+	.icone-img("../img/iconbeast-lite/document.png");
+	.icone-size;
+}
+
+.icone-fp-small {
+	.icone-img("../img/logo_black_small.png");
+	.icone-size(20px,30px);
+}
+
+.icone-fp-medium {
+	.icone-img("../img/logo_black_medium.png");
+	.icone-size(30px,50px);
 }

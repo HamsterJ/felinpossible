@@ -1,14 +1,16 @@
 <?php include_once("../../spongestats/stats.php"); ?>
 <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>
-<?php foreach ($this->entries as $entry): ?>
-      <div class='centre_principal'>
-        <h4><?php echo $entry->titre ?>&nbsp;
-          <em>rédigée le <?php echo date('d/m/Y à H\hi', $entry->timestampCreation) ?>
-          </em>
-        </h4>
-        <p>
-          <?php echo $entry->contenu ?>
-        </p>
-      </div>
+<?php date_default_timezone_set('Europe/Paris'); 
+foreach ($this->entries as $entry): ?>
+<div class='centre_principal'>
+	<h3><i class="icone-fp-medium"></i> <?php echo $entry->titre ?></h3>
+	<p class="muted">
+		<em>rédigée le <?php echo date('d/m/Y à H\hi', $entry->timestampCreation) ?>
+		</em>
+	</p>
+	<p>
+		<?php echo $entry->contenu ?>
+	</p>
+</div>
 <?php endforeach ?>
 <?php echo $this->paginationControl($this->paginator, 'Sliding', 'pagination.phtml'); ?>

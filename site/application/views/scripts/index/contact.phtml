@@ -1,50 +1,50 @@
 <?php include_once("../../spongestats/stats.php"); ?>
 <div class="centre_principal">
-  <div class="adresse">
-  <b>Comment nous Contacter?</b><br><br>
-  <ul>
-    <li><b style="color:red">En priorité</b><b> par email</b> à l'adresse suivante : <a href="mailto:asso@felinpossible.fr">asso@felinpossible.fr</a><br></li>
-    <li>Par téléphone : 06 28 19 73 84 (répondeur, merci de laisser un message, nous vous rappellerons dès que nous le pourrons)</li>
-    <li>Par courrier :
-      <ul>
-        <li>Association FELIN POSSIBLE<br>
-            Chez Mlle Caroline CANTIN<br>
-            La Ville es Ray<br>
-            35190 QUEBRIAC<br></li>
-      </ul>
-    </li>
-    <li>Site internet :<a href="http://www.felinpossible.fr">www.felinpossible.fr</a></li>
-    <li>Forum de discussion : <a href="http://www.felinpossible.fr/forum">www.felinpossible.fr/forum</a><br></li>
-  </ul>
-  </div>
-  <h2>FAQ</h2>
-  <div>
-    <h3>Pourquoi notre téléphone est toujours sur répondeur ?</h3>
-    <p>Tout simplement car nous ne sommes pas une entreprise avec des horaires d'ouverture, l'association est pour nous une activité purement bénévole.
-Par conséquent nous avons des activités professionnelles en dehors de l'association pour nous permettre de payer nos factures à la fin du mois. 
-Nous ne nous occupons donc de l'association que <b>sur notre temps libre</b>, en dehors de notre temps de travail. 
-Nous avons aussi des vies de familles que nous essayons de préserver. 
-Vous tomberez donc systématiquement sur notre répondeur téléphonique en nous contactant par téléphone. 
-Celui-ci est fait pour <b>laisser des messages.</b></p>
-    <p>Il est inutile d'essayer d'appeler 15 fois toutes les 5 minutes, vous tomberez toujours sur le répondeur (vous arrivez juste à nous mettre de mauvais poil  )
-Mais il vous suffit de laisser un message, avec <u>vos coordonnées</u> et <u>l'objet de votre appel</u>, et nous vous rappellerons systématiquement. 
-N'attendez pas pour autant que nous vous rappelions dans la minute, nous le faisons en fonction de nos disponibilités, mais toujours au mieux.</p>
-  </div>
-  <div>
-    <h3>Pourquoi préférons-nous être joints par mail plutôt que par téléphone ? </h3>
-    <p>Tout simplement car, comme indiqué ci-dessus, nous sommes très souvent occupés ailleurs, par nos activités professionnelles ou nos vies de famille, que ce soit en journée ou en soirée.</p>
-    <p>Par conséquent nous nous occupons de l'association souvent très tard le soir (voire la nuit pendant que vous dormez paisiblement  ), à des heures où il n'est plus correct d'appeler les gens au téléphone. 
-Il est donc plus aisé pour nous de traiter les demandes par mail dans un premier temps.</p>
-    <p>La réponse est d'ailleurs souvent <b>plus rapide</b> par ce biais, car nous sommes plusieurs personnes à avoir accès à la boîte mail. Ainsi si l'une est absente, une autre peut répondre. 
-Alors qu'une seule personne a accès au téléphone. Etre contactés par email nous permet de dispatcher les demandes en fonction de leur objet, aux différents bénévoles, et de vous répondre plus rapidement et plus efficacement.</p>
-  </div>
-  <div>
-    <h3>Peut-on nous rencontrer ?</h3>
-    <p>L'adresse indiquée pour le courrier est uniquement le siège de l'association, pour le courrier. 
-Ce n'est pas un refuge: aucun chat n'est à adopter à cette adresse, et aucun chat n'est pris en charge à cette adresse. 
-Il n'est donc pas utile d'arriver avec votre chat dans sa cage de transport, en espérant le déposer: il ne sera pas pris. 
-Cette adresse étant aussi et surtout une adresse personnelle, et privée, nous ne recevons pas à l'improviste, <b>uniquement sur rendez-vous.</b> 
-Vous pouvez par contre nous rencontrer sur toutes les <b>manifestations</b> auxquelles nous participons tout au long de l'année (assemblée générale, braderies, etc). </p>
-  </div>
+  <h2>Nous contacter</h2>
+  <h3>Comment nous Contacter?</h3>
+  <p>
+    <ul>
+      <li><i class="icon-envelope"></i> <strong class="text-error">En priorité par email</strong> à l'adresse suivante : <a href="mailto:asso@felinpossible.fr">asso@felinpossible.fr</a></li>
+      <li><i class="icon-user"></i> Par téléphone : 06 28 19 73 84 (répondeur, merci de laisser un message, nous vous rappellerons dès que nous le pourrons)</li>
+      <li><i class="icon-envelope"></i> Par courrier :
+        <ul>
+          <?php echo $this->render('index/adress.phtml'); ?>
+        </ul>
+      </li>
+      <li><i class="icon-globe"></i> Site internet :<a href="http://www.felinpossible.fr">www.felinpossible.fr</a></li>
+      <li><i class="icon-comment"></i> Forum de discussion : <a href="http://www.felinpossible.fr/forum">www.felinpossible.fr/forum</a><br></li>
+    </ul>
+  </p>
+
+  <h3>FAQ</h3>
+  <h4>Pourquoi notre téléphone est toujours sur répondeur ?</h4>
+  <p>Tout simplement car nous ne sommes pas une entreprise avec des horaires d'ouverture, l'association est pour nous une activité purement bénévole.
+    Par conséquent nous avons des activités professionnelles en dehors de l'association pour nous permettre de payer nos factures à la fin du mois. 
+    Nous ne nous occupons donc de l'association que <b>sur notre temps libre</b>, en dehors de notre temps de travail. 
+    Nous avons aussi des vies de familles que nous essayons de préserver. 
+    Vous tomberez donc systématiquement sur notre répondeur téléphonique en nous contactant par téléphone. 
+    Celui-ci est fait pour <b>laisser des messages.</b>
+  </p>
+  <p>Il est inutile d'essayer d'appeler 15 fois toutes les 5 minutes, vous tomberez toujours sur le répondeur (vous arrivez juste à nous mettre de mauvais poil  )
+    Mais il vous suffit de laisser un message, avec <u>vos coordonnées</u> et <u>l'objet de votre appel</u>, et nous vous rappellerons systématiquement. 
+    N'attendez pas pour autant que nous vous rappelions dans la minute, nous le faisons en fonction de nos disponibilités, mais toujours au mieux.
+  </p>
+
+  <h4>Pourquoi préférons-nous être joints par mail plutôt que par téléphone ? </h4>
+  <p>Tout simplement car, comme indiqué ci-dessus, nous sommes très souvent occupés ailleurs, par nos activités professionnelles ou nos vies de famille, que ce soit en journée ou en soirée.
+  </p>
+  <p>Par conséquent nous nous occupons de l'association souvent très tard le soir (voire la nuit pendant que vous dormez paisiblement  ), à des heures où il n'est plus correct d'appeler les gens au téléphone. 
+    Il est donc plus aisé pour nous de traiter les demandes par mail dans un premier temps.
+  </p>
+  <p>La réponse est d'ailleurs souvent <b>plus rapide</b> par ce biais, car nous sommes plusieurs personnes à avoir accès à la boîte mail. Ainsi si l'une est absente, une autre peut répondre. 
+    Alors qu'une seule personne a accès au téléphone. Etre contactés par email nous permet de dispatcher les demandes en fonction de leur objet, aux différents bénévoles, et de vous répondre plus rapidement et plus efficacement.
+  </p>
+
+  <h4>Peut-on nous rencontrer ?</h4>
+  <p>L'adresse indiquée pour le courrier est uniquement le siège de l'association, pour le courrier. 
+    Ce n'est pas un refuge: aucun chat n'est à adopter à cette adresse, et aucun chat n'est pris en charge à cette adresse. 
+    Il n'est donc pas utile d'arriver avec votre chat dans sa cage de transport, en espérant le déposer: il ne sera pas pris. 
+    Cette adresse étant aussi et surtout une adresse personnelle, et privée, nous ne recevons pas à l'improviste, <b>uniquement sur rendez-vous.</b> 
+    Vous pouvez par contre nous rencontrer sur toutes les <b>manifestations</b> auxquelles nous participons tout au long de l'année (assemblée générale, braderies, etc). 
+  </p>
   <p>Merci de votre compréhension.</p>
-</div>

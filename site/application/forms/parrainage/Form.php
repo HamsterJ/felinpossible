@@ -131,7 +131,7 @@ class FP_Form_parrainage_Form extends FP_Form_common_Form {
      * @return Zend_Form_Element_Text
      */
     private function createElementDonValeur() {
-    	$valeurDonElt = new Zend_Form_Element_Text('donValeur');
+    	$valeurDonElt = new Zend_Form_Element_Hidden('donValeur');
         $valeurDonElt->setValue(15);
         $valeurDonElt->setValidators(array('Int'));
         return $valeurDonElt;

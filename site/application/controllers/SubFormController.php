@@ -67,9 +67,11 @@ abstract class FP_Controller_SubFormController extends FP_Controller_CommonContr
 		$ficheId = $request->getParam('id', null);
 		// On est en édition
 		if ($ficheId) {
-			$this->view->id = $ficheId;
-			$data = $this->getService()->getData($ficheId);
-			$this->getForm()->populate($data);
+			if ($this->checkIsLogged()){
+				$this->view->id = $ficheId;
+				$data = $this->getService()->getData($ficheId);
+				$this->getForm()->populate($data);
+			}
 		}
 
 		if (!$form = $this->getCurrentSubForm()) {
@@ -171,26 +173,26 @@ abstract class FP_Controller_SubFormController extends FP_Controller_CommonContr
 		}
 
 		if (!$this->subFormIsValid($form,
-		$this->getRequest()->getPost()) || ($form = $this->getNextSubForm())) {
+			$this->getRequest()->getPost()) || ($form = $this->getNextSubForm())) {
 			$form->setAction($this->getFormAction($form->getId()));
-			$this->view->form = $this->getForm()->prepareSubForm($form);
-			return $this->render('postuler');
-		}
+		$this->view->form = $this->getForm()->prepareSubForm($form);
+		return $this->render('postuler');
+	}
 
-		if (!$this->formIsValid()) {
-			$form = $this->getNextSubForm();
-			$form->setAction($this->getFormAction($form->getId()));
-			$this->view->form = $this->getForm()->prepareSubForm($form);
-			return $this->render('postuler');
-		}
+	if (!$this->formIsValid()) {
+		$form = $this->getNextSubForm();
+		$form->setAction($this->getFormAction($form->getId()));
+		$this->view->form = $this->getForm()->prepareSubForm($form);
+		return $this->render('postuler');
+	}
 
 		// All subForms have been processed.
-		if ($this->view->admin) {
-			$this->handleAdminFormCompleted();
-		} else {
-			$this->handleFormCompleted();
-		}
+	if ($this->view->admin) {
+		$this->handleAdminFormCompleted();
+	} else {
+		$this->handleFormCompleted();
 	}
+}
 
 	/**
 	 * Getter pour le formulaire courant.

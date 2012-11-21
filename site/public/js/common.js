@@ -252,7 +252,7 @@ window.onresize = resizeIframe;
  * (pour garder un menu toujours lisible)
  */
  function handleResize() {
- 	if ($(window).width() < 1500) {
+ 	if ($(window).width() < 1300) {
  		$('#main-menu').removeClass('span3');
  		$('#main-menu').addClass('span4');
  		$('#main-content').removeClass('span9');
