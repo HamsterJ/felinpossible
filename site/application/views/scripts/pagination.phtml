@@ -4,21 +4,18 @@
 
 <!-- First page link --> 
 <?php if (isset($this->previous)): ?> 
-  <li><a href="<?php echo $this->url(array('page' => $this->first)); ?>" 
-     onclick="showPage('<?php echo $this->url(array('page' => $this->first)); ?>'); return false;">«</a></li> 
+  <li><a href="#<?php echo $this->url(array('page' => $this->first)); ?>" rel="ajax">«</a></li> 
 <?php endif; ?> 
 
 <!-- Previous page link --> 
 <?php if (isset($this->previous)): ?> 
-  <li><a href="<?php echo $this->url(array('page' => $this->previous)); ?>" 
-     onclick="showPage('<?php echo $this->url(array('page' => $this->previous)); ?>'); return false;">Préc.</a></li> 
+  <li><a href="#<?php echo $this->url(array('page' => $this->previous)); ?>" rel="ajax">Préc.</a></li> 
 <?php endif; ?> 
 
 <!-- Numbered page links -->
 <?php foreach ($this->pagesInRange as $page): ?> 
   <?php if ($page != $this->current): ?>
-    <li><a href="<?php echo $this->url(array('page' => $page)); ?>"
-       onclick="showPage('<?php echo $this->url(array('page' => $page)); ?>'); return false;">
+    <li><a href="#<?php echo $this->url(array('page' => $page)); ?>" rel="ajax">
      <?php echo $page; ?>
     </a></li>
   <?php else: ?>
@@ -28,14 +25,12 @@
 
 <!-- Next page link --> 
 <?php if (isset($this->next)): ?> 
-  <li><a href="<?php echo $this->url(array('page' => $this->next)); ?>"
-     onclick="showPage('<?php echo $this->url(array('page' => $this->next)); ?>'); return false;">Suiv.</a></li>
+  <li><a href="#<?php echo $this->url(array('page' => $this->next)); ?>" rel="ajax">Suiv.</a></li>
 <?php endif; ?> 
 
 <!-- Last page link --> 
 <?php if (isset($this->next)): ?> 
-  <li><a href="<?php echo $this->url(array('page' => $this->last)); ?>"
-     onclick="showPage('<?php echo $this->url(array('page' => $this->last)); ?>'); return false;">»</a></li>
+  <li><a href="#<?php echo $this->url(array('page' => $this->last)); ?>" rel="ajax">»</a></li>
 <?php endif; ?> 
 </ul>
 </div> 

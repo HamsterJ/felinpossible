@@ -62,13 +62,12 @@
 
 // Font(s)
 @font-face {
-	font-family: 'angelina';
-	src: url("../fonts/angelina.ttf");
+	font-family: 'felinpossible';
+	src: url("../fonts/eurof55.ttf");
 }
 
-
 .font-fp {
-	font-family: "angelina";
+	font-family: "felinpossible";
 }
 
 /**
@@ -78,29 +77,30 @@
 // Header
 .header {
 	width: 100%;
-	margin-top:60px;
+	margin-top: 70px;
+	height:160px;
 }
 
 #title-container {
-	margin-top: 40px;
 	.font-fp;
-	font-size: 130pt;
-	font-style: bold;
-	padding: 10px;
+	font-size: 90pt;
+	color: @grayLight;
+}
+.title-main {
+	padding-top: 50px;
 }
 
-#title-start {
-	color: @orange;
+.logo{
+	.icone-img("../img/logo_img_black.png");
+	//background:url("../img/logo_img_black.png") no-repeat;
+	.icone-size(130px, 280px);
 }
 
-#title-end {
-	color: @red;
-}
-
-.logo {
-	height: 210px;
-	background: url("../img/logo_black.png") no-repeat left top;
-}
+// .logo {
+// 	height: 140px;
+// 	margin-left: 50px;
+// 	background: url("../img/logo_img_black.png") no-repeat left top;
+// }
 
 // Footer
 .footer {

@@ -1,131 +1,129 @@
 /**
- * Montre la page passée en paramètre.
- */
- function showPage(page, formId, eltToUpdateId, eltWaitId, modifyHash) {
- 	if (!eltToUpdateId) {
- 		eltToUpdateId = 'corps';
- 	}
+* Variables globales.
+*/
+hash = "";
+ancreExpr = new RegExp("^#ancre.*", "g"); 
 
- 	if (!eltWaitId) {
- 		eltWaitId = 'chargementCorps';
- 	}
-
- 	$(eltWaitId).fadeIn('medium');
- 	$(eltToUpdateId).fadeOut('medium');
-
- 	if (formId || page == getHash() || modifyHash == false) {
- 		callAjax(page, eltToUpdateId, eltWaitId, formId);
- 	} else {
- 		setHash(page);
- 	}
- }
 
 /**
- * Fait l'appel la page passée en paramètre.
- */
- function callAjax(page, eltToUpdateId, eltWaitId, formId) {
- 	if (!eltToUpdateId) {
- 		eltToUpdateId = 'corps';
- 	}
-
- 	if (!eltWaitId) {
- 		eltWaitId = 'chargementCorps';
- 	}
-
- 	if (formId) {
- 		dojo.xhrPost( {
- 			url : page,
- 			load : ajaxHandleLoad,
- 			error : ajaxHandleError,
- 			content : dojo.formToObject(formId),
- 			eltWaitId : eltWaitId,
- 			eltToUpdateId : eltToUpdateId
- 		});
- 	} else {
- 		dojo.xhrGet( {
- 			url : page,
- 			handleAs : "text",
- 			load : ajaxHandleLoad,
- 			error : ajaxHandleError,
- 			eltWaitId : eltWaitId,
- 			eltToUpdateId : eltToUpdateId
- 		});
- 	}
-
- }
+* Initialisation.
+*/
+function init() {
+	initPage();
+	initLinks();
+	window.onresize = resizeIframe;
+}
 
 /**
- * Delete widgets under input.
- * 
- * @param input
- */
- function deleteWidgets(input) {
- 	try {
- 		var childDijit = document.getElementById(input).getElementsByTagName('*');
- 		var i = 0;
- 		var idElt = "";
- 		var elt = null;
- 		var eltToDestroy = new Array();
+* Initialise la page en cas d'appel Ajax.
+*/
+function initPage() {
+	interval = setInterval(function() {
+		var newHash = window.location.hash;
+		if (newHash != hash) {
+			hash = newHash;
+			if (hash != "") {
+				callAjax(hash);
+			}
+		}
+		;
+	}, 200);
 
- 		while (i < childDijit.length) {
- 			idElt = childDijit[i].id;
- 			elt = dijit.byId(idElt);
- 			if (elt) {
- 				eltToDestroy.push(elt);
- 			}
- 			i++;
- 		}
- 		elt = eltToDestroy.pop();
- 		while (elt) {
- 			if (elt.destroy) {
- 				try {
- 					elt.destroyRecursive();
- 				} catch (e) {
- 				}
- 			}
- 			elt = eltToDestroy.pop();
- 		}
+	$('a[rel=ajax]').click(function(e){
+		setHash(this.hash);
+		callAjax(this.hash);
+	});
 
- 		var cell = document.getElementById(input);
- 		if (cell.hasChildNodes()) {
- 			while (cell.childNodes.length >= 1) {
- 				cell.removeChild(cell.firstChild);
- 			}
- 		}
- 	} catch (e) {
- 	}
- }
+	$(window).resize(handleResize);
+	handleResize();
+}
+
 
 /**
- * Traitement lors du chargement avec succès de la page via ajax.
- * 
- * @param response
- *            la réponse
- * @param ioArgs
- *            les arguments de la requête
- * @return la réponse
- */
- function ajaxHandleLoad(response, ioArgs) {
- 	var eltToUpdate = document.getElementById(ioArgs.args.eltToUpdateId);
+* Récupération du hash.
+* 
+* @return le hash
+*/
+function removeHash(h) {
+	if (h.charAt(0) == "#") {
+		h = h.substring(1);
+	}
+	return h;
+}
 
- 	deleteWidgets(ioArgs.args.eltToUpdateId);
+/**
+* Mise à jour du hash.
+*/
+function setHash(h) {
+	hash = h;
+	window.location.hash = h;
+}
 
- 	$('#' + ioArgs.args.eltWaitId).fadeOut('medium');
+/**
+* Gestion des span pour le menu suivant la taille d'affichage
+* (pour garder un menu toujours lisible)
+*/
+function handleResize() {
+	if ($(window).width() < 1300) {
+		$('#main-menu').removeClass('span3');
+		$('#main-menu').addClass('span4');
+		$('#main-content').removeClass('span9');
+		$('#main-content').addClass('span8');
+	} else {
+		$('#main-menu').removeClass('span4');
+		$('#main-menu').addClass('span3');
+		$('#main-content').removeClass('span8');
+		$('#main-content').addClass('span9');
+	}
+}
 
- 	eltToUpdate.style.display="none";
- 	eltToUpdate.innerHTML = response;
+/**
+* Init. la class pour les liens du menu
+*/
+function initLinks() {
+	$('div.accordion-inner > ul.nav > li').click(function (e) {
+		e.preventDefault();
+		$('ul.nav > li').removeClass('active');
+		$(this).addClass('active');                
+	});           
+}
 
- 	if (dojo.parser) {
- 		dojo.parser.parse(eltToUpdate);
- 	}
+/**
+* Fait l'appel la page passée en paramètre.
+*/
+function callAjax(page, eltToUpdateId, eltWaitId, formId) {
+	if (!ancreExpr.test(page)) {
+		eltToUpdateId = eltToUpdateId || 'corps';
+		eltWaitId = eltWaitId || 'chargementCorps';
+		
+		var eltWaitIdElt = $('#' + eltWaitId);
+		var eltToUpdateElt = $('#' + eltToUpdateId);
+		var typeAjax = formId ? 'POST' : 'GET';
 
- 	$(eltToUpdate).fadeIn('medium');
-
- 	resizeIframe();
- 	scrollToContent();
-
- 	return response;
- }
+		$.ajax({
+			type: typeAjax,
+			data: $('#'+formId).serialize(),
+			url: removeHash(page),
+			beforeSend: function() {
+				eltToUpdateElt.hide();
+				eltWaitIdElt.fadeIn('medium');
+			},
+			success: function (data) {
+				eltToUpdateElt.html(data);
+			},
+			error: function(jqXHR, error, exception) {
+				console.error("HTTP status code: ", jqXHR.status, "Message: ", exception);
+				eltToUpdateElt.html(jqXHR.responseText);
+			},
+			complete: function () {
+				scrollToContent();
+				resizeIframe();
+				eltWaitIdElt.hide();
+				eltToUpdateElt.fadeIn('medium');
+			}
+		});
+	}
+}
 
 /**
 * Scroll sur le contenu.
@@ -142,36 +140,13 @@ function scrollToContent(element){
 }
 
 /**
- * Traitement lors du chargement avec erreur de la page via ajax.
- * 
- * @param response
- *            la réponse
- * @param ioArgs
- *            les arguments de la requête
- * @return la réponse
- */
- function ajaxHandleError(response, ioArgs) {
- 	var eltToUpdate = document.getElementById(ioArgs.args.eltToUpdateId);
- 	deleteWidgets(ioArgs.args.eltToUpdateId);
- 	console.error("HTTP status code: ", ioArgs.xhr.status);
- 	$('#'+ioArgs.args.eltWaitId).fadeOut('medium');
- 	if (response.responseText) {
- 		eltToUpdate.innerHTML = response.responseText;
- 	} else {
- 		eltToUpdate.innerHTML = response;
- 	}
- 	$(eltToUpdate).fadeIn('medium');
- 	return response;
- }
-
-/**
- * Iframe "perdus/Trouvés"
- */
- function resizeIframe() {
- 	var elt = document.getElementById('framePerdusTrouves');
- 	if (elt) {
- 		var height = document.documentElement.clientHeight;
- 		height -= elt.offsetTop;
+* Iframe "perdus/Trouvés"
+*/
+function resizeIframe() {
+	var elt = document.getElementById('framePerdusTrouves');
+	if (elt) {
+		var height = document.documentElement.clientHeight;
+		height -= elt.offsetTop;
 
 		// not sure how to get this dynamically
 		height -= 20; 
@@ -183,136 +158,33 @@ function scrollToContent(element){
 		elt.style.height = height + "px";
 	}
 }
-window.onresize = resizeIframe;
 
 /**
- * Initialisation.
- */
- function init() {
- 	initPage();
- 	initLinks();
- }
+* Toggle le popover sélectionner.
+* Détruit les autres.
+*/
+function popoverAction(eltId, url) {
+	var el =  $('#' + eltId);
+
+	var pop = el.parent().find('.popover:first').hasClass('in');
+	$('[rel=popover]').popover('destroy');
+	if (!pop) {
+		$.ajax({
+			type: 'GET',
+			url: url,
+			cache: true,
+			dataType: 'html',
+			success: function(data) {
+				el.attr('data-content', data);
+				el.popover('show');
+			}
+		});
+	}
+}
 
 /**
- * Récupération du hash.
- * 
- * @return le hash
- */
- function getHash() {
- 	var h = window.location.hash;
- 	if (h.charAt(0) == "#") {
- 		h = h.substring(1);
- 	}
- 	return h;
- }
-
-/**
- * Mise à jour du hash.
- */
- function setHash(h) {
- 	window.location.hash = h;
- }
-
-/**
- * Initialise la page en cas d'appel Ajax.
- */
- function initPage() {
- 	hash = "";
- 	ancreExpr = new RegExp("^ancre.*", "g");
- 	pageHome = "/index/home";
-
- 	if (getHash() == "") {
- 		$('#chargementCorps').fadeOut('medium');
- 		$('#corps').fadeIn('medium');
-
- 	}
-
- 	interval = setInterval(function() {
- 		var newHash = getHash();
- 		if (newHash != hash) {
- 			hash = newHash;
- 			if (hash != "" && !ancreExpr.test(newHash)) {
- 				$('#chargementCorps').fadeIn();
- 				$('#corps').fadeOut('medium');
- 				setHash(hash);
- 				callAjax(hash, null, null, null);
- 			} else if (hash == "") {
- 				callAjax(pageHome, null, null, null);
- 			}
- 		}
- 		;
- 	}, 200);
-
- 	$(window).resize(handleResize);
- 	handleResize();
- }
-
-/**
- * Gestion des span pour le menu suivant la taille d'affichage
- * (pour garder un menu toujours lisible)
- */
- function handleResize() {
- 	if ($(window).width() < 1300) {
- 		$('#main-menu').removeClass('span3');
- 		$('#main-menu').addClass('span4');
- 		$('#main-content').removeClass('span9');
- 		$('#main-content').addClass('span8');
- 	} else {
- 		$('#main-menu').removeClass('span4');
- 		$('#main-menu').addClass('span3');
- 		$('#main-content').removeClass('span8');
- 		$('#main-content').addClass('span9');
- 	}
- }
-
-/**
- * Init. la class pour les liens du menu
- */
- function initLinks() {
- 	$('div.accordion-inner > ul.nav > li').click(function (e) {
- 		e.preventDefault();
- 		$('ul.nav > li').removeClass('active');
- 		$(this).addClass('active');                
- 	});           
- }
-
-/**
- * Toggle le popover sélectionner.
- * Détruit les autres.
- **/
- function popoverAction(eltId, url) {
- 	var el =  $('#' + eltId);
-
- 	var pop = el.parent().find('.popover:first').hasClass('in');
- 	$('[rel=popover]').popover('destroy');
- 	if (!pop) {
- 		$.ajax({
- 			type: 'GET',
- 			url: url,
- 			cache: true,
- 			dataType: 'html',
- 			success: function(data) {
- 				el.attr('data-content', data);
- 				el.popover('show');
- 			}
- 		});
- 	}
- }
-
-/**
- * Détruit le popover sélectionné.
- */
- function popoverClose(eltId) {
- 	$('#' + eltId).popover('destroy');
- }
-
-/**
- * Cache l'élément passé en paramètre
- */
- function hideElement(eltId) {
- 	var elt = document.getElementById(eltId);
- 	if (elt) {
- 		$(elt).fadeOut('medium');
- 	}
- }
-
+* Détruit le popover sélectionné.
+*/
+function popoverClose(eltId) {
+	$('#' + eltId).popover('destroy');
+}

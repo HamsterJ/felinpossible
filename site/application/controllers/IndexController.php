@@ -21,6 +21,11 @@ class IndexController extends FP_Controller_CommonController
 	 */
 	public function indexAction()
 	{
+		$this->getResponse()->setHeader('Expires', '', true);
+		$this->getResponse()->setHeader('Cache-Control', 'public', true);
+		$this->getResponse()->setHeader('Cache-Control', 'max-age=3800');
+		$this->getResponse()->setHeader('Pragma', '', true);
+
 		$this->_helper->layout->enableLayout();
 		$this->render('home');
 	}

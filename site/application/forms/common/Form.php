@@ -91,7 +91,6 @@ abstract class FP_Form_common_Form extends Zend_Form
 	 */
 	public function addSubFormActions(Zend_Form_SubForm $subForm)
 	{
-		$subForm->setAttrib('class', 'formOrange');
 		$subForm->setMethod('post');
 		return $this;
 	}

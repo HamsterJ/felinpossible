@@ -20,19 +20,19 @@
 				)));
 
 		$autoloader->addResourceTypes(array(
-				'controller' => array(
+			'controller' => array(
 				'namespace' => 'Controller_',
 				'path'      => '/controllers',
 				)));
 
 		$autoloader->addResourceTypes(array(
-				'model' => array(
+			'model' => array(
 				'namespace' => 'Model_',
 				'path'      => '/models',
 				)));
 
 		$autoloader->addResourceTypes(array(
-				'mapper' => array(
+			'mapper' => array(
 				'namespace' => 'Model_Mapper',
 				'path'      => '/models/Mapper',
 				)));
@@ -56,34 +56,24 @@
 protected function _initView()
 {
 	$config = $this->getConfig();
-
-		// Initialize view
+	
+	// Initialize view
 	$view = new Zend_View();
 	$view->doctype('XHTML1_STRICT');
 
 	$view->headTitle('Association Felin Possible - Bienvenue - Adoption de chats sur Rennes et l\'Ille et Vilaine');
 
 	$view->headLink()->appendStylesheet($config->site->ressources->url . '/css/felinpossible.css');
-	$view->headLink()->appendStylesheet($config->site->ressources->url . '/css/design.css');
-
-	Zend_Dojo::enableView($view);
-	$view->dojo()->setLocalPath($config->site->ressources->url . '/js/dojo/dojo/dojo.js')
-	->addStyleSheetModule('dijit.themes.tundra')
-	-> setDjConfigOption('parseOnLoad', true)
-	-> enable();
 
 	$view->headScript()->appendFile($config->site->ressources->url . '/js/jquery-1.8.2.min.js');	
 	$view->headScript()->appendFile($config->site->ressources->url . '/js/common.js');
-	$view->headScript()->appendFile($config->site->ressources->url . '/js/adminCommon.js');    
-	$view->headScript()->appendFile($config->site->ressources->url . '/js/fp_form.js');  
-	$view->headScript()->appendFile($config->site->ressources->url . '/js/dojo/dojo/fpDojo.js');
 	$view->headScript()->appendFile($config->site->ressources->url . '/js/bootstrap.min.js');
 
-		// Add it to the ViewRenderer
+	// Add it to the ViewRenderer
 	$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
 	$viewRenderer->setView($view);
 
-		// Return it, so that it can be stored by the bootstrap
+	// Return it, so that it can be stored by the bootstrap
 	return $view;
 }
 

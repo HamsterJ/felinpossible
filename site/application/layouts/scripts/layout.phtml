@@ -20,7 +20,7 @@
   <header class="header"><?php echo $this->partial('header.phtml') ?></header>
 
   <div class="container-fluid">
-    
+
     <!-- Content -->
     <div class="row-fluid">
       <div id="main-menu" class="span3"><?php echo $this->partial('menu.phtml') ?></div>
@@ -28,7 +28,7 @@
         <div id="corps">
           <?php echo $this->layout()->content ?>
         </div>
-        <div id="chargementCorps" class="ajax" style="display:block"></div>
+        <div id="chargementCorps" class="ajax" style="display:none"></div>
       </div>
     </div>
 
@@ -43,14 +43,12 @@
   <script type="text/javascript">
   var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
   document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-  </script>
-  <script type="text/javascript">
+
   try {
     var pageTracker = _gat._getTracker("UA-12513665-1");
     pageTracker._trackPageview();
   } catch(err) {}</script>
 
-  <?php echo $this->dojo(); ?>
   <?php echo $this->headScript() ?>
 </body>
 </html>
