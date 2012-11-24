@@ -3,12 +3,14 @@
 		<a class="brand" href="#"> <i class="icone-fp-medium"></i> Association Félin Possible</a>
 		<!-- menu haut -->
 		<ul class="nav pull-right">
-			<li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'boutique')) ?>" onclick="showPage('<?php echo $url ?>'); return false;">Boutique</a></li>
-			<li><a href="/forum/index.php">Forum</a></li>
-			<li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'contact')) ?>" onclick="showPage('<?php echo $url ?>'); return false;">Nous contacter</a></li>
 			<li><a class="icone-twitter icone-nav" href="http://twitter.com/FelinPossible"></a></li>
 			<li><a class="icone-facebook icone-nav" href="http://fr-fr.facebook.com/felinpossible"></a></li>
 			<li><a class="icone-rss icone-nav" href="<?php echo $this->url(array('controller' => 'news', 'action' => 'flux')) ?>"></a></li>
+		</ul>
+		<ul class="nav pull-right">
+			<li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'boutique')) ?>" onclick="showPage('<?php echo $url ?>'); return false;">Boutique</a></li>
+			<li><a href="/forum/index.php">Forum</a></li>
+			<li><a href="<?php echo $url = $this->url(array('controller' => 'index', 'action' => 'contact')) ?>" onclick="showPage('<?php echo $url ?>'); return false;">Nous contacter</a></li>
 		</ul>
 	</div>
 </div>
