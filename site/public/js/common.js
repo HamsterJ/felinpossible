@@ -95,7 +95,7 @@ function callAjax(page, eltToUpdateId, eltWaitId, formId) {
 	if (!ancreExpr.test(page)) {
 		eltToUpdateId = eltToUpdateId || 'corps';
 		eltWaitId = eltWaitId || 'chargementCorps';
-		
+
 		var eltWaitIdElt = $('#' + eltWaitId);
 		var eltToUpdateElt = $('#' + eltToUpdateId);
 		var typeAjax = formId ? 'POST' : 'GET';
@@ -105,6 +105,7 @@ function callAjax(page, eltToUpdateId, eltWaitId, formId) {
 			data: $('#'+formId).serialize(),
 			url: removeHash(page),
 			beforeSend: function() {
+				scrollToContent();
 				eltToUpdateElt.hide();
 				eltWaitIdElt.fadeIn('medium');
 			},
@@ -116,7 +117,6 @@ function callAjax(page, eltToUpdateId, eltWaitId, formId) {
 				eltToUpdateElt.html(jqXHR.responseText);
 			},
 			complete: function () {
-				scrollToContent();
 				resizeIframe();
 				eltWaitIdElt.hide();
 				eltToUpdateElt.fadeIn('medium');
