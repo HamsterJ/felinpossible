@@ -136,7 +136,7 @@ class ChatController extends FP_Controller_CommonController
 			}
 
 			$this->view->urlMaj = $this->view->url(array('action' => 'maj', 'id' => $form->id->getValue()));
-			$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'add')).'","'.$form->getId().'")');
+			$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'add')).'", null, null,"'.$form->getId().'")');
 			$this->view->form = $form;
 		}
 	}
@@ -164,7 +164,7 @@ class ChatController extends FP_Controller_CommonController
 			if ($chatId) {
 				$data = $this->getService()->getData($chatId);
 				$form->populate($data);
-				$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'add')).'","'.$form->getId().'")');
+				$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'add')).'", null, null,"'.$form->getId().'")');
 				$this->view->form = $form;
 				$this->view->urlMaj = $this->view->url(array('action' => 'maj', 'id' => $chatId));
 				$this->render("add");
@@ -186,7 +186,7 @@ class ChatController extends FP_Controller_CommonController
 			if ($chatId) {
 				$data = $this->getService()->getInfosFromPostId($chatId);
 				$form->populate($data);
-				$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'add')).'","'.$form->getId().'")');
+				$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'add')).'", null, null, "'.$form->getId().'")');
 				$this->view->form = $form;
 				$this->view->urlMaj = $this->view->url(array('action' => 'maj', 'id' => $chatId));
 				$this->render("add");
@@ -254,7 +254,7 @@ class ChatController extends FP_Controller_CommonController
 				$form->populate($this->getService()->getDataForMailVaccins($idChat));
 			}
 		}
-		$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'mailvaccins')).'","'.$form->getId().'")');
+		$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'mailvaccins')).'", null, null, "'.$form->getId().'")');
 		$this->view->form = $form;
 	}
 
@@ -277,7 +277,7 @@ class ChatController extends FP_Controller_CommonController
 				$form->populate($this->getService()->getDataForMailSterilisation($idChat));
 			}
 		}
-		$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'mailsterilisation')).'","'.$form->getId().'")');
+		$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'mailsterilisation')).'", null, null, "'.$form->getId().'")');
 		$this->view->form = $form;
 	}
 

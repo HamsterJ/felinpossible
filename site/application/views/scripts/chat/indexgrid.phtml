@@ -2,15 +2,13 @@
   <div id="chargementChats" class="ajax" style="display:none"></div>
     <div id="chats">
       <?php echo $this->render("admin/indexgrid.phtml"); ?>
-      <button id="addButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlAddItem ?>')"><div class="ficheAjouter"></div><div class="boutonFiche">Ajouter</div></button>
-      <button id="editButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid')"><div class="ficheEditer"></div><div class="boutonFiche">Editer</div></button>
-      <button id="genererFicheSoinsButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlGenererFicheSoins ?>', 'commonGrid')"><div class="ficheEditer"></div><div class="boutonFiche">Fiche soins</div></button>
-      <button id="deleteButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid')"><div class="ficheSupprimer"></div><div class="boutonFiche">Supprimer</div></button>
-      <br>
-      <button id="selectFaButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlSelectFaItem ?>', 'commonGrid', 'corps', 'chargementCorps', false, 'idChat')"><div class="boutonFa"></div><div class="boutonFiche">Choisir FA</div></button>
-      <button id="deleteFaButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlDeleteFa ?>', 'commonGrid', 'idChat')"><div class="boutonNoFa"></div><div class="boutonFiche">Aucune FA</div></button>
-      <button id="selectAdButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlSelectAdItem ?>', 'commonGrid', 'corps', 'chargementCorps', false, 'idChat')"><div class="menuAdoptant"></div><div class="boutonFiche">Choisir Adoptant</div></button>
-      <button id="deleteAdButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlDeleteAd ?>', 'commonGrid', 'idChat')"><div class="boutonNoFa"></div><div class="boutonFiche">Aucun adoptant</div></button>
-    <br>
+      <button class="btn btn-action" onclick="addItem('<?php echo $this->urlAddItem ?>')"><i class="icon-plus"></i> Ajouter</button>
+      <button class="btn btn-action" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid')"><i class="icon-pencil"></i> Editer</button>
+      <button class="btn btn-action" onclick="editItem('<?php echo $this->urlGenererFicheSoins ?>', 'commonGrid')"><i class="icon-file"></i> Fiche soins</button>
+      <button class="btn btn-action" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid')"><i class="icon-trash"></i> Supprimer</button>
+      <button class="btn btn-action" onclick="editItem('<?php echo $this->urlSelectFaItem ?>', 'commonGrid', 'corps', 'chargementCorps', false, 'idChat')"><i class="icon-home"></i> Choisir FA</button>
+      <button class="btn btn-action" onclick="deleteItem('<?php echo $this->urlDeleteFa ?>', 'commonGrid', 'idChat')"><i class="icon-remove"></i> Aucune FA</button>
+      <button class="btn btn-action" onclick="editItem('<?php echo $this->urlSelectAdItem ?>', 'commonGrid', 'corps', 'chargementCorps', false, 'idChat')"><i class="icon-user"></i> Choisir Adoptant</button>
+      <button class="btn btn-action" onclick="deleteItem('<?php echo $this->urlDeleteAd ?>', 'commonGrid', 'idChat')"><i class="icon-remove"></i> Aucun adoptant</button>
   </div>
 </div>

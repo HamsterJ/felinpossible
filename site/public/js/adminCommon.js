@@ -267,14 +267,14 @@ function callAjaxWithCallback(url, callBackFunction, param) {
  * Affiche le formulaire d'ajout d'un élément (utilisé dans les grid).
  */
 function addChat(url, eltToUpdateId, eltWaitId, modifyHash) {
-	showPage(url, null, eltToUpdateId, eltWaitId, modifyHash);
+	callAjax(url, eltToUpdateId, eltWaitId);
 }
 
 /**
  * Affiche le formulaire d'ajout d'un élément (utilisé dans les grid).
  */
 function addItem(url, eltToUpdateId, eltWaitId, modifyHash) {
-	showPage(url, null, eltToUpdateId, eltWaitId, modifyHash);
+	callAjax(url, eltToUpdateId, eltWaitId);
 }
 
 /**
@@ -297,7 +297,7 @@ function editItem(url, gridId, eltToUpdateId, eltWaitId, modifyHash, paramName) 
 		for ( var i = 0; i < nbSelectedElements; i++) {
 			var selected = grid.selection.getSelected()[i];
 			var itemId = gridStore.getValue(selected, 'id');
-			showPage(url + "?" + paramName + "=" + itemId, null, eltToUpdateId, eltWaitId, modifyHash);
+			callAjax(url + "?" + paramName + "=" + itemId, eltToUpdateId, eltWaitId);
 			break;
 		}
 	} else {

@@ -70,12 +70,19 @@ class FP_Form_fa_GestionForm extends FP_Form_common_Form {
 		$this->addElement($listeStatut);
 		$this->addElement($notes);
 		$this->addElement($idFa);
-                
+         
+        $submit = new Zend_Form_Element_Submit(
+			'submit',
+			array(
+				'label'    => 'Valider',
+				'required' => false,
+				'ignore'   => true,
+				'order' => 100,
+				'class' => 'btn btn-primary'
+				)
+			);       
 		// Add the submit button
-        $this->addElement('submit', 'submit', array(
-            'ignore'   => true,
-            'label'    => 'Valider',
-        ));
+        $this->addElement($submit);
     }
    
 }

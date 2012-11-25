@@ -43,10 +43,10 @@
   </div>
 </div>
 <?php if ($this->displayDiv) {?>
-  <button id="selectionButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'corps', 'chargementCorps', false, 'idNewFa')"><div class="ficheAjouter"></div><div class="boutonFiche">Sélectionner</div></button>
-  <button id="retourButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlRetourListeChat ?>', 'corps', 'chargementCorps', false)"><div class="boutonRetour"></div><div class="boutonFiche">Retour</div></button>
+  <button class="btn btn-action" onclick="editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'corps', 'chargementCorps', false, 'idNewFa')"><i class="icon-hand-up"></i> Sélectionner</button>
+  <button class="btn btn-action" onclick="addItem('<?php echo $this->urlRetourListeChat ?>', 'corps', 'chargementCorps', false)"><i class="icon-arrow-left"></i> Retour</button>
 </div>
 <?php } else {?>  
-  <button id="selectionButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'chats', 'chargementChats', false, 'idNewFa')"><div class="ficheAjouter"></div><div class="boutonFiche">Sélectionner</div></button>
-  <button id="retourButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlRetourListeChat ?>', 'chats', 'chargementChats', false)"><div class="boutonRetour"></div><div class="boutonFiche">Retour</div></button>
+  <button class="btn btn-action" onclick="editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'chats', 'chargementChats', false, 'idNewFa')"><i class="icon-hand-up"></i> Sélectionner</button>
+  <button class="btn btn-action" onclick="addItem('<?php echo $this->urlRetourListeChat ?>', 'chats', 'chargementChats', false)"><i class="icon-arrow-left"></i> Retour</button>
 <?php }?>

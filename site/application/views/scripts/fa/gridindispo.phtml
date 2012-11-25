@@ -27,6 +27,6 @@
 </div>
 </div>
   
-  <button id="addIndispoButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlIndispoAdd ?>', 'indispo', 'chargementIndispo', false)"><div class="ficheAjouter"></div><div class="boutonFiche">Ajouter</div></button>
-  <button id="editIndispoButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlIndispoEdit ?>', 'gridIndispo', 'indispo', 'chargementIndispo', false, 'idIndispo')"><div class="ficheEditer"></div><div class="boutonFiche">Editer</div></button>
-  <button id="deleteIndispoButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlIndispoDelete ?>', 'gridIndispo', 'idIndispo')"><div class="ficheSupprimer"></div><div class="boutonFiche">Supprimer</div></button>
+  <button class="btn btn-action" onclick="addItem('<?php echo $this->urlIndispoAdd ?>', 'indispo', 'chargementIndispo', false)"><i class="icon-plus"></i> Ajouter</button>
+  <button class="btn btn-action" onclick="editItem('<?php echo $this->urlIndispoEdit ?>', 'gridIndispo', 'indispo', 'chargementIndispo', false, 'idIndispo')"><i class="icon-pencil"></i> Editer</button>
+  <button class="btn btn-action" onclick="deleteItem('<?php echo $this->urlIndispoDelete ?>', 'gridIndispo', 'idIndispo')"><i class="icon-trash"></i> Supprimer</button>

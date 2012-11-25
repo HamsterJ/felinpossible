@@ -5,7 +5,7 @@
  *
  */
 class FP_Form_admin_login_Form extends FP_Form_common_Form {
-   
+
 	/**
 	 * (non-PHPdoc)
 	 * @see site/library/Zend/Zend_Form#init()
@@ -15,24 +15,26 @@ class FP_Form_admin_login_Form extends FP_Form_common_Form {
         $this->setName("login");
         
         // Ajout lastname
-        $this->addElement('text', 'login', array(
-            'label'      => 'Login',
+        $this->addElement(new Zend_Form_Element_Text('login', array(
             'required'   => true,
-            'filters'    => array('StringTrim')
-        ));
+            'label'      => 'Login',
+            'filters'    => array('StringTrim'),
+            )));
+        
         
         // Ajout firstname
-        $this->addElement('password', 'password', array(
-            'label'      => 'Mot de passe',
+        $this->addElement(new Zend_Form_Element_Password('password', array(
             'required'   => true,
-            'filters'    => array('StringTrim')
-        ));
+            'label'      => 'Mot de passe',
+            'filters'    => array('StringTrim'),
+            )));
 
         // Add the submit button
         $this->addElement('submit', 'submit', array(
             'ignore'   => true,
             'label'    => 'Connexion',
-        ));
+            'class' => 'btn btn-info'
+            ));
     }
     
 }

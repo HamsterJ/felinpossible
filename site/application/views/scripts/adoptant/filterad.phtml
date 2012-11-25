@@ -1,12 +1,20 @@
-Nom :
-<span>
-  <input dojoType="dijit.form.TextBox" style="width:120px" id="filterAdNom" type="text" onkeyup="filterAdoptant('<?php echo $this->gridName ?>')" />
-</span>
-Prénom :
-<span>
-  <input dojoType="dijit.form.TextBox" style="width:120px" id="filterAdPrenom" type="text" onkeyup="filterAdoptant('<?php echo $this->gridName ?>')" />
-</span>
-Login :
-<span>
-  <input dojoType="dijit.form.TextBox" style="width:120px" id="filterAdLogin" type="text" onkeyup="filterAdoptant('<?php echo $this->gridName ?>')" />
-</span>
+<form class="form-horizontal">
+	<div class="control-group">
+		<label class="control-label" for="filterAdNom">Nom</label>
+		<div class="controls">
+			<input dojoType="dijit.form.TextBox" class="search-query" id="filterAdNom" type="text" onkeyup="filterAdoptant('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="filterAdPrenom">Prénom</label>
+		<div class="controls">
+			<input dojoType="dijit.form.TextBox" class="search-query" id="filterAdPrenom" type="text" onkeyup="filterAdoptant('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="filterAdLogin">Login</label>
+		<div class="controls">
+			<input dojoType="dijit.form.TextBox" class="search-query" id="filterAdLogin" type="text" onkeyup="filterAdoptant('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+</form>

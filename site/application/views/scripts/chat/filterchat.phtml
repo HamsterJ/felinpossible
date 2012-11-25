@@ -1,26 +1,45 @@
-Nom :
-<span>
-  <input dojoType="dijit.form.TextBox" style="width:160px" id="filterChatNom" type="text" onkeyup="filterChat('<?php echo $this->gridName ?>')" />
-</span>
-<br>
-<br>
-<span class="selectionFiltre">
-  <input dojoType="dijit.form.CheckBox" id="filterChatValider" onchange="filterChat('<?php echo $this->gridName ?>')" />A valider
-</span> 
-<span class="selectionFiltre">
-  <input dojoType="dijit.form.CheckBox" id="filterChatAdoption" onchange="filterChat('<?php echo $this->gridName ?>')" />A l'adoption
-</span> 
-<span class="selectionFiltre">
-  <input dojoType="dijit.form.CheckBox" id="filterChatReserve" onchange="filterChat('<?php echo $this->gridName ?>')" />Réservé
-</span> 
-<span class="selectionFiltre">
-  <input dojoType="dijit.form.CheckBox" id="filterChatParrainer" onchange="filterChat('<?php echo $this->gridName ?>')" />A parrainer
-</span>
-<span class="selectionFiltre">
-  <input dojoType="dijit.form.CheckBox" id="filterChatDisparu" onchange="filterChat('<?php echo $this->gridName ?>')" />Disparu
-</span>
-<br>
-<br>
-<span class="selectionFiltre">
-  <input dojoType="dijit.form.CheckBox" id="filterChatSansContrat" onchange="filterChat('<?php echo $this->gridName ?>')" />Sans contrat d'adoption
-</span>
+<form class="form-horizontal">
+	<div class="control-group">
+		<label class="control-label" for="filterChatNom">Nom</label>
+		<div class="controls">
+			<input class="search-query" dojoType="dijit.form.TextBox" id="filterChatNom" type="text" onkeyup="filterChat('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="filterChatValider">A valider</label>
+		<div class="controls">
+			<input class="search-query" dojoType="dijit.form.CheckBox" id="filterChatValider" onchange="filterChat('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="filterChatAdoption">A l'adoption</label>
+		<div class="controls">
+			<input class="search-query" dojoType="dijit.form.CheckBox" id="filterChatAdoption" onchange="filterChat('<?php echo $this->gridName ?>')" />
+
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="filterChatReserve">Réservé</label>
+		<div class="controls">
+			<input class="search-query" dojoType="dijit.form.CheckBox" id="filterChatReserve" onchange="filterChat('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="filterChatParrainer">A parrainer</label>
+		<div class="controls">
+			<input class="search-query" dojoType="dijit.form.CheckBox" id="filterChatParrainer" onchange="filterChat('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="filterChatDisparu">Disparu</label>
+		<div class="controls">
+			<input class="search-query" dojoType="dijit.form.CheckBox" id="filterChatDisparu" onchange="filterChat('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="">Sans contrat</label>
+		<div class="controls">
+			<input class="search-query" dojoType="dijit.form.CheckBox" id="filterChatSansContrat" onchange="filterChat('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+</form>

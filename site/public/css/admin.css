@@ -1,0 +1,33 @@
+@import "../js/dojo/dojox/grid/resources/Grid.css";
+@import "../js/dojo/dojox/grid/resources/tundraGrid.css";
+.logout{height:35px;}
+.dojoxGrid table{margin:0;}
+.dojoxGridSortNode{cursor:default;}
+.grid{width:100%;height:400px;margin-left:auto;margin-right:auto;}
+.chatFaGrid{width:100%;height:200px;margin-left:auto;margin-right:auto;}
+.chatFaAjoutGrid{width:100%;height:300px;margin-left:auto;margin-right:auto;}
+.indispoFaGrid{width:100%;height:200px;margin-left:auto;margin-right:auto;}
+.faActive{background-image:url("image/fa/active.png");height:16px;width:16px;}
+.faInactive{background-image:url("image/fa/inactive.png");height:16px;width:16px;}
+.faDisponible{background-image:url("image/fa/disponible.png");height:16px;width:16px;}
+.faStandBy{background-image:url("image/fa/standBy.png");height:16px;width:16px;}
+.faVacances{background-image:url("image/fa/enVacances.png");height:16px;width:16px;}
+.faIndesirable{background-image:url("image/fa/indesirable.png");height:16px;width:16px;}
+.faCandidature{background-image:url("image/fa/candidature.png");height:16px;width:16px;}
+.booleanVrai{background-image:url("image/common/booleanVrai.png");height:16px;width:16px;}
+.booleanFaux{background-image:url("image/common/booleanFaux.png");height:16px;width:16px;}
+.sexeMale{background-image:url("image/common/sexeMale.png");height:16px;width:16px;}
+.sexeFemelle{background-image:url("image/common/sexeFemelle.png");height:16px;width:16px;}
+.indispoAvenir{background-image:url("image/indispo/avenir.png");height:16px;width:16px;}
+.indispoEnCours{background-image:url("image/indispo/encours.png");height:16px;width:16px;}
+.indispoTerminee{background-image:url("image/indispo/terminee.png");height:16px;width:16px;}
+.ficheAjouter{background-image:url("image/common/ficheAjouter.png");height:16px;width:16px;float:left;margin-right:2px;}
+.ficheEditer{background-image:url("image/common/ficheEditer.png");height:16px;width:16px;float:left;margin-right:2px;}
+.ficheSupprimer{background-image:url("image/common/ficheSupprimer.png");height:16px;width:16px;float:left;margin-right:2px;}
+.boutonFa{background-image:url("image/common/boutonFa.png");height:16px;width:16px;float:left;margin-right:2px;}
+.boutonRetour{background-image:url("image/common/boutonRetour.png");height:16px;width:16px;float:left;margin-right:2px;}
+.boutonNoFa{background-image:url("image/common/boutonNoFa.png");height:16px;width:16px;float:left;margin-right:2px;}
+.boutonMail{background-image:url("image/common/mail.png");height:16px;width:16px;float:left;margin-right:2px;}
+.boutonExport{background-image:url("image/common/export.png");height:16px;width:16px;float:left;margin-right:2px;}
+.exportExcel{padding:0 0 20px 0;}
+.exportExcelButton{display:inline;float:right;}

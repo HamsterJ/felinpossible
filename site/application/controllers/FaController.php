@@ -130,7 +130,7 @@ class FaController extends FP_Controller_SubFormController
 		}
 
 		$this->view->fiche = $fiche;
-		$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'validerinfos')).'","'.$form->getId().'","infos", "chargementInfos")');
+		$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'validerinfos')).'", "infos", "chargementInfos", "'.$form->getId().'")');
 		$this->view->form = $form;
 	}
 
@@ -258,7 +258,7 @@ class FaController extends FP_Controller_SubFormController
 
 			$this->view->urlRetourListeIndispo = $this->view->url(array('action' => 'gridindispo', 'id' => $ficheId));
 			$form->idFa->setValue($ficheId);
-			$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'ajoutindispo')).'","'.$form->getId().'","indispo", "chargementIndispo")');
+			$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'ajoutindispo')).'", "indispo", "chargementIndispo", "'.$form->getId().'")');
 			$this->view->formIndispo = $form;
 		}
 	}
@@ -320,9 +320,9 @@ class FaController extends FP_Controller_SubFormController
 			}
 
 			if ($fromIndex) {
-				$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'editindispo')).'","'.$form->getId().'","corps", "chargementCorps")');
+				$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'editindispo')).'", "corps", "chargementCorps", "'.$form->getId().'")');
 			} else {
-				$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'editindispo')).'","'.$form->getId().'","indispo", "chargementIndispo")');
+				$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'editindispo')).'", "indispo", "chargementIndispo", "'.$form->getId().'")');
 			}
 
 			$this->view->formIndispo = $form;

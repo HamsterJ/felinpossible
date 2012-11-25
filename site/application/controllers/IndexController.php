@@ -64,7 +64,7 @@ class IndexController extends FP_Controller_CommonController
 				return $this->_helper->redirector('remerciements');
 			}
 		}
-		$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'parrainer')).'","'.$form->getId().'")');
+		$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'parrainer')).'", null, null, "'.$form->getId().'")');
 		// Assign the form to the view
 		$this->view->form = $form;
 	}

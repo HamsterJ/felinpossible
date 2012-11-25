@@ -136,9 +136,7 @@ abstract class FP_Controller_SubFormController extends FP_Controller_CommonContr
 	 */
 	public function indexadmAction() {
 		if ($this->checkIsLogged()) {
-
 			$this->initGridParam();
-
 			$this->render("indexgrid");
 		}
 	}

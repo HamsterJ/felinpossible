@@ -1,8 +1,13 @@
-.deconnexion {
-	padding: 2px 0.5em;
-	margin-right: 20px;
-	float: right;
+// Import dojo styles
+@import "../js/dojo/dojox/grid/resources/Grid.css";
+@import "../js/dojo/dojox/grid/resources/tundraGrid.css";
+
+// Logout
+.logout {
+	height: 35px;
 }
+
+// Grids
 .dojoxGrid table {
 	margin: 0;
 }
@@ -39,6 +44,7 @@
 	margin-right: auto;
 }
 
+// Icones
 /*
  Classes pour les statuts des FA.
 */
@@ -138,45 +144,6 @@
 /*
  Icone pour les fiches
 */
-.ficheChat {
-	background-image: url("image/common/ficheChat.png");
-	height: 48px;
-	width: 48px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.ficheNews {
-	background-image: url("image/common/ficheNews.png");
-	height: 48px;
-	width: 48px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.ficheFa {
-	background-image: url("image/common/ficheFa.png");
-	height: 48px;
-	width: 48px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.ficheAdoptant {
-	background-image: url("image/common/ficheAdoptant.png");
-	height: 48px;
-	width: 48px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.ficheVeto {
-	background-image: url("image/common/ficheVeto.png");
-	height: 48px;
-	width: 48px;
-	margin-left: auto;
-	margin-right: auto;
-}
 
 .ficheAjouter {
 	background-image: url("image/common/ficheAjouter.png");
@@ -196,72 +163,6 @@
 
 .ficheSupprimer {
 	background-image: url("image/common/ficheSupprimer.png");
-	height: 16px;
-	width: 16px;
-	float: left;
-	margin-right: 2px;
-}
-
-/*
- Icone pour les menus
-*/
-.menuAgenda {
-	background-image: url("image/common/menuAgenda.png");
-	height: 16px;
-	width: 16px;
-	float: left;
-	margin-right: 2px;
-}
-
-.menuChat {
-	background-image: url("image/common/menuChat.png");
-	height: 16px;
-	width: 16px;
-	float: left;
-	margin-right: 2px;
-}
-
-.menuFa {
-	background-image: url("image/common/menuFa.png");
-	height: 16px;
-	width: 16px;
-	float: left;
-	margin-right: 2px;
-}
-
-.menuAdoptant {
-	background-image: url("image/common/menuAdoptant.png");
-	height: 16px;
-	width: 16px;
-	float: left;
-	margin-right: 2px;
-}
-
-.menuVeto {
-	background-image: url("image/common/menuVeto.png");
-	height: 16px;
-	width: 16px;
-	float: left;
-	margin-right: 2px;
-}
-
-.menuNews {
-	background-image: url("image/common/menuNews.png");
-	height: 16px;
-	width: 16px;
-	float: left;
-	margin-right: 2px;
-}
-
-/**
- Classe pour les boutons
-*/
-.boutonFiche {
-	float: right;
-}
-
-.boutonLogout {
-	background-image: url("image/common/deconnexion.png");
 	height: 16px;
 	width: 16px;
 	float: left;
@@ -315,38 +216,4 @@
 .exportExcelButton {
 	display: inline;
 	float: right;
-}
-
-/**
-RSS
-*/
-.rss {
-	background-image: url("image/common/rss.png");
-	float: right;
-	height: 16px;
-	width: 16px;
-	height: 16px;
-}
-
-/** 
- Filtres
-*/
-.filtre {
-	width: 95%;
-	margin: 0 auto;
-	margin-top: 2px;
-	margin-bottom : 10px;
-	border: 1px solid #276fa3;
-	text-align: left;
-	padding: 5px;
-}
-
-.filtreTitle {
-	color: #535353;
-	text-align: center;
-	font-weight: bold;
-}
-
-.selectionFiltre {
-	margin-right: 10px;
 }

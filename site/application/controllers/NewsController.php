@@ -92,7 +92,7 @@ class NewsController extends FP_Controller_CommonController {
 					return $this->_helper->redirector('indexadm');
 				}
 			}
-			$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'add')).'","'.$form->getId().'")');
+			$form->setAction('javascript:CallAjax("'.$this->view->url(array('action' => 'add')).'", null, null, "'.$form->getId().'")');
 			// Assign the form to the view
 			$this->view->form = $form;
 		}
@@ -111,7 +111,7 @@ class NewsController extends FP_Controller_CommonController {
 				$data = $this->getService()->getData($newsId);
 				if ($data) {
 					$form->populate($data);
-					$form->setAction('javascript:showPage("'.$this->view->url(array('action' => 'add')).'","'.$form->getId().'")');
+					$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'add')).'", null, null, "'.$form->getId().'")');
 					$this->view->form = $form;
 					$this->render("add");
 				}

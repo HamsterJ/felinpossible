@@ -2,8 +2,7 @@
 * Variables globales.
 */
 hash = "";
-ancreExpr = new RegExp("^#ancre.*", "g"); 
-
+ancreExpr = new RegExp("^#ancre.*", "g");
 
 /**
 * Initialisation.
@@ -110,7 +109,11 @@ function callAjax(page, eltToUpdateId, eltWaitId, formId) {
 				eltWaitIdElt.fadeIn('medium');
 			},
 			success: function (data) {
+				deleteWidgets(eltToUpdateId);
 				eltToUpdateElt.html(data);
+				try {
+					dojo.parser.parse(eltToUpdateId);
+				} catch(e) {}
 			},
 			error: function(jqXHR, error, exception) {
 				console.error("HTTP status code: ", jqXHR.status, "Message: ", exception);
@@ -138,6 +141,48 @@ function scrollToContent(element){
 		}, 'medium');
 	}
 }
+
+/**
+ * Delete widgets under input.
+ * 
+ * @param input
+ */
+ function deleteWidgets(input) {
+ 	try {
+ 		var childDijit = document.getElementById(input).getElementsByTagName('*');
+ 		var i = 0;
+ 		var idElt = "";
+ 		var elt = null;
+ 		var eltToDestroy = new Array();
+
+ 		while (i < childDijit.length) {
+ 			idElt = childDijit[i].id;
+ 			elt = dijit.byId(idElt);
+ 			if (elt) {
+ 				eltToDestroy.push(elt);
+ 			}
+ 			i++;
+ 		}
+ 		elt = eltToDestroy.pop();
+ 		while (elt) {
+ 			if (elt.destroy) {
+ 				try {
+ 					elt.destroyRecursive();
+ 				} catch (e) {
+ 				}
+ 			}
+ 			elt = eltToDestroy.pop();
+ 		}
+
+ 		var cell = document.getElementById(input);
+ 		if (cell.hasChildNodes()) {
+ 			while (cell.childNodes.length >= 1) {
+ 				cell.removeChild(cell.firstChild);
+ 			}
+ 		}
+ 	} catch (e) {
+ 	}
+ }
 
 /**
 * Iframe "perdus/Trouvés"

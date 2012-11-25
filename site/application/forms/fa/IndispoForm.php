@@ -5,7 +5,7 @@
  *
  */
 class FP_Form_fa_IndispoForm extends FP_Form_common_Form {
-	 
+	
 	/**
 	 * (non-PHPdoc)
 	 * @see site/library/Zend/Zend_Form#init()
@@ -41,11 +41,18 @@ class FP_Form_fa_IndispoForm extends FP_Form_common_Form {
 		$this->addElement($idFa);
 		$this->addElement($id);
 
+		$submit = new Zend_Form_Element_Submit(
+			'submit',
+			array(
+				'label'    => 'Valider',
+				'required' => false,
+				'ignore'   => true,
+				'order' => 100,
+				'class' => 'btn btn-primary'
+				)
+			);       
 		// Add the submit button
-		$this->addElement('submit', 'submit', array(
-            'ignore'   => true,
-            'label'    => 'Valider',
-		));
+		$this->addElement($submit);
 	}
 
 	/**
@@ -54,7 +61,7 @@ class FP_Form_fa_IndispoForm extends FP_Form_common_Form {
 	 */
 	public function isValid($data) {
 		$result = parent::isValid($data);
-		 
+		
 		if ($result) {
 			if ($data['dateDebut'] < $data['dateFin']) {
 				return true;

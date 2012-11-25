@@ -1,6 +1,6 @@
 <div class="centre_principal">
   <?php echo $this->render("admin/indexgrid.phtml"); ?>
-  <button id="selectionButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid',  'corps', 'chargementCorps', false, 'idIndispo')"><div class="ficheEditer"></div><div class="boutonFiche">Editer</div></button>
-  <button id="retourButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid', 'idIndispo')"><div class="ficheSupprimer"></div><div class="boutonFiche">Supprimer</div></button>
+  <button class="btn btn-action" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid',  'corps', 'chargementCorps', false, 'idIndispo')"><i class="icon-pencil"></i> Editer</button>
+  <button class="btn btn-action" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid', 'idIndispo')"><i class="icon-trash"></i> Supprimer</button>
   <br>
 </div>

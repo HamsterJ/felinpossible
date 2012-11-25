@@ -1,0 +1,103 @@
+<div class="accordion well" id="accordionMenu">
+  <!-- Admin -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-custom btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseAdmin">
+        <i class="icone-key pull-left"></i>Admin
+      </a>
+    </div>
+    <div id="collapseAdmin" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="#<?php echo $this->url(array('controller' => 'admin', 'action' => 'indexajax')) ?>" rel="ajax" title="Accueil">Accueil</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- News -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-custom btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseNews">
+        <i class="icone-news pull-left"></i>News
+      </a>
+    </div>
+    <div id="collapseNews" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="#<?php echo $this->url(array('controller' => 'news', 'action' => 'indexadm')) ?>" rel="ajax" title="Liste des News">Liste News</a></li>
+          <li><a href="#<?php echo $this->url(array('controller' => 'news', 'action' => 'index')) ?>" rel="ajax" title="News">News</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FA -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-custom btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseFa">
+        <i class="icone-home pull-left"></i>FA
+      </a>
+    </div>
+    <div id="collapseFa" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="#<?php echo $this->url(array('controller' => 'fa', 'action' => 'indexadm')) ?>" rel="ajax" title="Fiches des FA">FA</a></li>
+          <li><a href="#<?php echo $this->url(array('controller' => 'fa', 'action' => 'indexgestion')) ?>" rel="ajax" title="Gestion des FA">Gérer</a></li>
+          <li><a href="#<?php echo $this->url(array('controller' => 'fa', 'action' => 'indexindispo')) ?>" rel="ajax" title="Indisponibilités des FA">Indisponibilités</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Adoptants -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-custom btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseAdoptants">
+        <i class="icone-poussette pull-left"></i>Adoptants
+      </a>
+    </div>
+    <div id="collapseAdoptants" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="#<?php echo $this->url(array('controller' => 'adoptant', 'action' => 'indexadm')) ?>" rel="ajax" title="Fiches des adoptants">Fiches</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vétérinaires -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-custom btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseVeto">
+        <i class="icone-medical pull-left"></i>Vétérinaires
+      </a>
+    </div>
+    <div id="collapseVeto" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="#<?php echo $this->url(array('controller' => 'veto', 'action' => 'indexadm')) ?>" rel="ajax" title="Fiches des vétérinaires">Fiches</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chats -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-custom btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseChats">
+        <i class="icone-empreinte pull-left"></i>Chats
+      </a>
+    </div>
+    <div id="collapseChats" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="#<?php echo $this->url(array('controller' => 'chat', 'action' => 'indexadm')) ?>"rel="ajax" title="Fiches">Fiches</a></li>
+          <li><a href="#<?php echo $this->url(array('controller' => 'chat', 'action' => 'vaccins')) ?>" rel="ajax" title="Rappels de vaccins">Rappels de vaccins</a></li>
+          <li><a href="#<?php echo $this->url(array('controller' => 'chat', 'action' => 'sterilisations')) ?>" rel="ajax" title="Rappels stérilisation">Rappels stérilisations</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

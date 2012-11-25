@@ -1,7 +1,7 @@
-	<?php
+<?php
 
-	class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
-	{
+class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
+{
 	/**
 	 * Chargement des classes.
 	 * @return l'autoloader.
@@ -49,33 +49,33 @@
 		$frontController->setBaseUrl($config->site->prefix->url);
 	}
 
-/**
+	/**
 	 * Initialisation de la vue.
 	 * @return Zend_View la vue
 	 */
-protected function _initView()
-{
-	$config = $this->getConfig();
-	
-	// Initialize view
-	$view = new Zend_View();
-	$view->doctype('XHTML1_STRICT');
+	protected function _initView()
+	{
+		$config = $this->getConfig();
 
-	$view->headTitle('Association Felin Possible - Bienvenue - Adoption de chats sur Rennes et l\'Ille et Vilaine');
+		// Initialize view
+		$view = new Zend_View();
+		$view->doctype('XHTML1_STRICT');
 
-	$view->headLink()->appendStylesheet($config->site->ressources->url . '/css/felinpossible.css');
+		$view->headTitle('Association Felin Possible - Bienvenue - Adoption de chats sur Rennes et l\'Ille et Vilaine');
 
-	$view->headScript()->appendFile($config->site->ressources->url . '/js/jquery-1.8.2.min.js');	
-	$view->headScript()->appendFile($config->site->ressources->url . '/js/common.js');
-	$view->headScript()->appendFile($config->site->ressources->url . '/js/bootstrap.min.js');
+		$view->headLink()->appendStylesheet($config->site->ressources->url . '/css/felinpossible.css');
 
-	// Add it to the ViewRenderer
-	$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
-	$viewRenderer->setView($view);
+		$view->headScript()->appendFile($config->site->ressources->url . '/js/jquery-1.8.2.min.js');	
+		$view->headScript()->appendFile($config->site->ressources->url . '/js/common.js');
+		$view->headScript()->appendFile($config->site->ressources->url . '/js/bootstrap.min.js');
 
-	// Return it, so that it can be stored by the bootstrap
-	return $view;
-}
+		// Add it to the ViewRenderer
+		$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
+		$viewRenderer->setView($view);
+
+		// Return it, so that it can be stored by the bootstrap
+		return $view;
+	}
 
 	/**
 	 * Initialisation de la connexion à la base.

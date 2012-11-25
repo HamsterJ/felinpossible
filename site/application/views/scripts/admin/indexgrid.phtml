@@ -1,51 +1,54 @@
-  <div class="<?php echo $this->class ?>"></div>
+<div class="align-center">
   <h3><?php echo $this->titre ?></h3>
- 
+
   <h4><span id="nbElements"><?php echo $this->nbElements?></span> élément(s)</h4>
-  <br>
-  
-  <div id="commonGridStore" dojoType="dojox.data.QueryReadStore" clientSort="true" jsId="commonGridStore" url="<?php echo $this->urlListeJson ?>" requestMethod="post"></div>
-  
+</div>
+<div class="centre principal">
+  <div id="commonGridStore" dojoType="dojox.data.QueryReadStore" clientSort="true" jsId="commonGridStore" url="<?php echo $this->urlListeJson ?>" requestMethod="post">
+  </div>
+
   <?php echo $this->render('admin/filter.phtml'); ?>
-  
+
   <div dojoType="dijit.Menu" jsid="gridMenu" style="display: none;">
-        <div dojoType="dojox.widget.PlaceholderMenuItem" label="GridColumns"></div>
+    <div dojoType="dojox.widget.PlaceholderMenuItem" label="GridColumns"></div>
   </div>
   <div style="text-align:left">
     <div class="grid">
       <table id="commonGrid" 
-           rowsPerPage="15" 
-           columnReordering="true"
-           sortInfo="<?php echo $this->defaultSort ?>" 
-           jsId="commonGrid" 
-           dojoType="dojox.grid.DataGrid" 
-           store="commonGridStore" 
-           selectable="true" 
-           noDataMessage="Pas de données."
-           headerMenu="gridMenu"
-           <?php if ($this->initFilter) {?>
-            query="<?php echo $this->initFilter ?>"
-           <?php }?>
-           >
-  
+      rowsPerPage="15" 
+      columnReordering="true"
+      sortInfo="<?php echo $this->defaultSort ?>" 
+      jsId="commonGrid" 
+      dojoType="dojox.grid.DataGrid" 
+      store="commonGridStore" 
+      selectable="true" 
+      noDataMessage="Pas de données."
+      headerMenu="gridMenu"
+      <?php if ($this->initFilter) {?>
+      query="<?php echo $this->initFilter ?>"
+      <?php }?>
+      >
+
       <script type="dojo/connect" event="_onFetchBegin" args="event">initGrid(this.id);</script> 
       <script type="dojo/connect" event="_onFetchComplete" args="event">endGrid(this.id);</script>
-      
+
       <?php echo $this->partial($this->headerPath) ?>
-        <?php if ( !$this->redefineButtons) {
-      	  echo $this->render('admin/gridactions.phtml');
-        } else {
-          echo $this->render($this->redefineButtons);
-        }?>
-      </table>
-    </div>
-  </div>
-  
+      <?php if ( !$this->redefineButtons) {
+       echo $this->render('admin/gridactions.phtml');
+     } else {
+      echo $this->render($this->redefineButtons);
+    }?>
+  </table>
+</div>
+</div>
+<div>
   <?php if ($this->urlExportUrl) {?>
-      <button class="exportExcelButton" id="exportButton" dojoType="dijit.form.Button" onclick="exportData('<?php echo $this->urlExportUrl ?>', 'commonGrid')"><div class="boutonExport"></div><div class="boutonFiche">Export excel</div></button>
+  <button class="btn btn-action pull-right" onclick="exportData('<?php echo $this->urlExportUrl ?>', 'commonGrid')"><i class="icon-download-alt"></i> Export excel</button>
   <?php }?>
   <?php if ( !$this->redefineButtons) {?>
-    <button id="addButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlAddItem ?>')"><div class="ficheAjouter"></div><div class="boutonFiche">Ajouter</div></button>
-    <button id="editButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid')"><div class="ficheEditer"></div><div class="boutonFiche">Editer</div></button>
-    <button id="deleteButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid')"><div class="ficheSupprimer"></div><div class="boutonFiche">Supprimer</div></button>
+  <button class="btn btn-action" onclick="addItem('<?php echo $this->urlAddItem ?>')"><i class="icon-plus"></i> Ajouter</button>
+  <button class="btn btn-action" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid')"><i class="icon-pencil"></i> Editer</button>
+  <button class="btn btn-action" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid')"><i class="icon-trash"></i> Supprimer</button>
   <?php }?>
+</div>
+</div>

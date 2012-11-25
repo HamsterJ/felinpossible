@@ -1,8 +1,6 @@
 <?php 
-      if ($this->login) { ?>
-      <span class="deconnexion">
-        <form method ="post" action="<?php echo $this->url(array('controller' => 'admin', 'action' => 'logout')) ?>">
-         <button type="submit" dojoType="dijit.form.Button"><div class="boutonLogout"></div><div class="boutonFiche">Deconnexion [<?php echo $this->login ?>]</div></button>
-        </form>
-      </span>
+if ($this->login) { ?>
+<form method ="post" action="<?php echo $this->url(array('controller' => 'admin', 'action' => 'logout')) ?>">
+	<button type="submit" class="btn btn-large btn-block btn-link logout"><i class="icon-off"></i> Deconnexion [<?php echo $this->login ?>]</button>
+</form>
 <?php }?>

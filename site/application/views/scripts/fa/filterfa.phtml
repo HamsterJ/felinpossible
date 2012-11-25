@@ -1,31 +1,41 @@
-Nom :
-<span>
-  <input dojoType="dijit.form.TextBox" style="width:120px" id="filterFaNom" type="text" onkeyup="filterFa('<?php echo $this->gridName ?>')" />
-</span>
-Prénom :
-<span>
-  <input dojoType="dijit.form.TextBox" style="width:120px" id="filterFaPrenom" type="text" onkeyup="filterFa('<?php echo $this->gridName ?>')" />
-</span>
-Login :
-<span>
-  <input dojoType="dijit.form.TextBox" style="width:120px" id="filterFaLogin" type="text" onkeyup="filterFa('<?php echo $this->gridName ?>')" />
-</span>
-<br>
-<br> 
 <div id="statutStore" style="display:none" dojoType="dojo.data.ItemFileReadStore" jsId="statutStore" url="<?php echo $this->url(array('action' => 'listestatuts')) ?>"></div>
-Statut : 
-<span>
-  <input id="filterFaStatut" 
-               dojoType="dijit.form.FilteringSelect"
-               store="statutStore"
-               searchAttr="nom"
-               autocomplete="true"
-               ignoreCase="true"
-               required="false"
-               onchange="filterFa('<?php echo $this->gridName ?>')"/>
-</span>
-<br>
-<br>
-<span class="selectionFiltre">
-  <input dojoType="dijit.form.CheckBox" id="filterFaSansContrat" onchange="filterFa('<?php echo $this->gridName ?>')" />Sans contrat FA
-</span>
+<form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label" for="filterFaNom">Nom</label>
+    <div class="controls">
+      <input class="search-query" dojoType="dijit.form.TextBox" id="filterFaNom" type="text" onkeyup="filterFa('<?php echo $this->gridName ?>')" />
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="filterFaPrenom">Prénom</label>
+    <div class="controls">
+      <input class="search-query" dojoType="dijit.form.TextBox" class="search-query" id="filterFaPrenom" type="text" onkeyup="filterFa('<?php echo $this->gridName ?>')" />
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="filterFaLogin">Login</label>
+    <div class="controls">
+      <input dojoType="dijit.form.TextBox" class="search-query" id="filterFaLogin" type="text" onkeyup="filterFa('<?php echo $this->gridName ?>')" />
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="filterFaStatut">Statut</label>
+    <div class="controls">
+      <input id="filterFaStatut" 
+      dojoType="dijit.form.FilteringSelect"
+      store="statutStore"
+      searchAttr="nom"
+      autocomplete="true"
+      ignoreCase="true"
+      required="false"
+      onchange="filterFa('<?php echo $this->gridName ?>')"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="filterFaSansContrat">Sans contrat ?</label>
+    <div class="controls">
+      <input dojoType="dijit.form.CheckBox" type="checkbox" id="filterFaSansContrat" onchange="filterFa('<?php echo $this->gridName ?>')" />
+    </div>
+  </div>
+</div>
+</form>

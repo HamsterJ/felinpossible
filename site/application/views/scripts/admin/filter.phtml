@@ -1,6 +1,16 @@
 <?php if ($this->filterPath) { ?>
-  	  <div class="filtre">
-        <div class="filtreTitle">Filtres</div>
-          <div id="filters"><?php echo $this->render($this->filterPath) ?></div>
-      </div>
+<div class="accordion" id="filters">
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a class="accordion-toggle btn" data-toggle="collapse" data-parent="#filters" href="#collapseOne">
+				<i class="icon-filter"></i> Filtre(s)
+			</a>
+		</div>
+		<div id="collapseOne" class="accordion-body collapse">
+			<div class="accordion-inner">
+				<?php echo $this->render($this->filterPath) ?>
+			</div>
+		</div>
+	</div>
+</div>
 <?php }?>

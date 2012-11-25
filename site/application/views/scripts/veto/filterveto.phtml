@@ -1,12 +1,20 @@
-Raison sociale :
-<span>
-  <input dojoType="dijit.form.TextBox" style="width:120px" id="filterVetoRaison" type="text" onkeyup="filterVeto('<?php echo $this->gridName ?>')" />
-</span>
-Code postal :
-<span>
-  <input dojoType="dijit.form.TextBox" style="width:50px" id="filterVetoCp" type="text" onkeyup="filterVeto('<?php echo $this->gridName ?>')" />
-</span>
-Ville :
-<span>
-  <input dojoType="dijit.form.TextBox" style="width:100px" id="filterVetoVille" type="text" onkeyup="filterVeto('<?php echo $this->gridName ?>')" />
-</span>
+<form class="form-horizontal">
+	<div class="control-group">
+		<label class="control-label" for="filterVetoRaison">Raison sociale</label>
+		<div class="controls">
+			<input class="search-query" dojoType="dijit.form.TextBox" id="filterVetoRaison" type="text" onkeyup="filterVeto('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="filterVetoCp">Code postal</label>
+		<div class="controls">
+			<input class="search-query" dojoType="dijit.form.TextBox" id="filterVetoCp" type="text" onkeyup="filterVeto('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label class="control-label" for="filterVetoVille">Ville</label>
+		<div class="controls">
+			<input class="search-query" dojoType="dijit.form.TextBox" id="filterVetoVille" type="text" onkeyup="filterVeto('<?php echo $this->gridName ?>')" />
+		</div>
+	</div>
+</form>

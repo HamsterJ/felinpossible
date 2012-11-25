@@ -40,11 +40,15 @@
 @btnInfoBackground:                 spin(@blue, 5%);
 @btnInfoBackgroundHighlight:        @blue;
 
-@btnInverseBackground:              spin(@marron, 5%);
-@btnInverseBackgroundHighlight:     @marron;
+@btnInverseBackground:              spin(@grayLight, 5%);
+@btnInverseBackgroundHighlight:     @grayLight;
 
 .btn-large {
 	height: 25px;
+}
+
+.btn-action {
+	margin: 3px;
 }
 
 // Navbar
@@ -62,8 +66,8 @@
 
 // Font(s)
 @font-face {
- font-family: 'felinpossible';
- src: url("../fonts/kabel.eot") /* Pour vieux IE */
+	font-family: 'felinpossible';
+	src: url("../fonts/kabel.eot") /* Pour vieux IE */
 }
 
 @font-face {
@@ -176,6 +180,12 @@ a.thumbnail-chat:hover{
 	margin: 0 auto;
 }
 
+// Forms
+textarea
+{
+	width:100%;
+}
+
 //Icônes.
 .icone-size (@height:30px, @width: 30px) {
 	height: @height;
@@ -215,17 +225,17 @@ a.thumbnail-chat:hover{
 	padding: 5px;
 }
 
-.icone-empreinte{
+.icone-empreinte {
 	.icone-img("../img/iconbeast-lite/animal-footprint.png");
 	.icone-size;
 }
 
-.icone-home{
+.icone-home {
 	.icone-img("../img/iconbeast-lite/home.png");
 	.icone-size;
 }
 
-.icone-info{
+.icone-info {
 	.icone-img("../img/iconbeast-lite/info.png");
 	.icone-size;
 }
@@ -264,4 +274,25 @@ a.thumbnail-chat:hover{
 .icone-fp-medium {
 	.icone-img("../img/logo_black_medium.png");
 	.icone-size(30px,50px);
+}
+
+.icone-key {
+	.icone-img("../img/iconbeast-lite/key.png");
+	.icone-size;
+}
+
+.icone-news {
+	.icone-img("../img/iconbeast-lite/newspaper.png");
+	.icone-size;
+}
+
+.icone-medical {
+	.icone-img("../img/iconbeast-lite/medical-sign.png");
+	.icone-size;
+}
+
+.icone-power {
+	.icone-img("../img/iconbeast-lite/power-button.png");
+	.icone-size;
+	margin-top: 15px;
 }

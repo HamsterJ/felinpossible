@@ -12,10 +12,18 @@ class AdminController extends FP_Controller_CommonController
 	 */
 	public function init()
 	{
+		$config = Zend_Registry::get(FP_Util_Constantes::CONFIG_ID);
 		$view = $this->view;
-		$view->headLink()->appendStylesheet('/site/public/js/dojo/dojox/grid/resources/Grid.css');
-		$view->headLink()->appendStylesheet('/site/public/js/dojo/dojox/grid/resources/tundraGrid.css');
-		$view->headScript()->appendFile('/site/public/js/adminCommon.js');
+		
+		Zend_Dojo::enableView($view);
+		$view->dojo()->setLocalPath($config->site->ressources->url . '/js/dojo/dojo/dojo.js')
+		->addStyleSheetModule('dijit.themes.tundra')
+		-> setDjConfigOption('parseOnLoad', true)
+		-> enable();
+
+		$view->headScript()->appendFile($config->site->ressources->url . '/js/dojo/dojo/fpDojo.js');
+		$view->headScript()->appendFile($config->site->ressources->url . '/js/adminCommon.js');
+		$view->headLink()->appendStylesheet($config->site->ressources->url . '/css/admin.css');
 
 		$auth = Zend_Auth::getInstance();
 		$view->login = $auth->getIdentity();
@@ -77,29 +85,19 @@ class AdminController extends FP_Controller_CommonController
 	}
 
 	/**
-	 * Affichage de l'agenda GoogleAgenda.
-	 */
-	public function agendaAction() {
-		$this->_helper->layout->disableLayout();
-		if ($this->checkIsLogged()) {
-			
-		}
-	}
-
-	/**
 	 * Affichage de la page d'accueil.
 	 */
 	public function indexajaxAction() {
 		$this->_helper->layout->disableLayout();
 		if ($this->checkIsLogged()) {
-				
+
 			$serviceChat = FP_Service_ChatServices::getInstance();
 			$serviceFa = FP_Service_FaServices::getInstance();
-				
+
 			$this->view->indicNbChatsAdoption = $serviceChat->getNbFiches(FP_Util_Constantes::CHAT_FICHES_A_ADOPTION);
 			$this->view->indicNbChatsRes = $serviceChat->getNbFiches(FP_Util_Constantes::CHAT_FICHES_RESERVES);
 			$this->view->indicNbFichesAValider = $serviceChat->getNbFiches(FP_Util_Constantes::CHAT_FICHES_A_VALIDER);
-				
+
 			$this->view->indicNbFaActive = $serviceFa->getNbFaWithStatus(FP_Util_Constantes::FA_ACTIVE_STATUT);
 			$this->view->indicNbFaDispo = $serviceFa->getNbFaWithStatus(FP_Util_Constantes::FA_DISPONIBLE_STATUT);
 			

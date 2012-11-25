@@ -25,6 +25,6 @@
     </table>
   </div>
   </div>
-  <button id="addButton" dojoType="dijit.form.Button" onclick="addItem('<?php echo $this->urlChatAddItem ?>', 'chats', 'chargementChats', false)"><div class="ficheAjouter"></div><div class="boutonFiche">Ajouter</div></button>
-  <button id="changeButton" dojoType="dijit.form.Button" onclick="editItem('<?php echo $this->urlChangerFa ?>', 'gridChat', 'chats', 'chargementChats', false, 'idChat')"><div class="boutonFa"></div><div class="boutonFiche">Changer de FA</div></button>
-  <button id="deleteButton" dojoType="dijit.form.Button" onclick="deleteItem('<?php echo $this->urlChatDeleteItem ?>', 'gridChat', 'idChat')"><div class="ficheSupprimer"></div><div class="boutonFiche">Supprimer de la FA</div></button>
+  <button class="btn btn-action" onclick="addItem('<?php echo $this->urlChatAddItem ?>', 'chats', 'chargementChats', false)"><i class="icon-plus"></i> Ajouter</button>
+  <button class="btn btn-action" onclick="editItem('<?php echo $this->urlChangerFa ?>', 'gridChat', 'chats', 'chargementChats', false, 'idChat')"><i class="icon-home"></i> Changer de FA</button>
+  <button class="btn btn-action" onclick="deleteItem('<?php echo $this->urlChatDeleteItem ?>', 'gridChat', 'idChat')"><i class="icon-remove"></i> Supprimer de la FA</button>
