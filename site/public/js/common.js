@@ -210,6 +210,7 @@ function resizeIframe() {
 */
 function popoverAction(eltId, url) {
 	var el =  $('#' + eltId);
+	var elLoad = $('#load' + eltId);
 
 	var pop = el.parent().find('.popover:first').hasClass('in');
 	$('[rel=popover]').popover('destroy');
@@ -219,8 +220,12 @@ function popoverAction(eltId, url) {
 			url: url,
 			cache: true,
 			dataType: 'html',
+			beforeSend: function() {
+				elLoad.show();
+			},
 			success: function(data) {
 				el.attr('data-content', data);
+				elLoad.hide();
 				el.popover('show');
 			}
 		});
