@@ -1,6 +1,6 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
-		<a class="brand" href="#"> <i class="icone-fp-medium"></i> Association Félin Possible</a>
+		<a class="brand" href="<?php echo $this->url(array('controller' => null, 'action' => null)) ?>"> <i class="icone-fp-medium"></i> Association Félin Possible</a>
 		<?php if ($this->login) { ?>
 		<a class="icone-power icone-nav" href="<?php echo $this->url(array('controller' => 'admin', 'action' => 'logout')) ?>" title="Deconnexion [<?php echo $this->login ?>]"></a>
 		<?php } ?>
