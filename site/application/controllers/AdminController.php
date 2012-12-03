@@ -22,7 +22,7 @@ class AdminController extends FP_Controller_CommonController
 		-> enable();
 
 		$view->headScript()->appendFile($config->site->ressources->url . '/js/dojo/dojo/fpDojo.js');
-		$view->headScript()->appendFile($config->site->ressources->url . '/js/adminCommon.js');
+		$view->headScript()->appendFile($config->site->ressources->url . '/js/admin-common.min.js');
 		$view->headLink()->appendStylesheet($config->site->ressources->url . '/css/admin.css');
 
 		$auth = Zend_Auth::getInstance();

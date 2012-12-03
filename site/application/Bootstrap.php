@@ -66,7 +66,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view->headLink()->appendStylesheet($config->site->ressources->url . '/css/felinpossible.css');
 
 		$view->headScript()->appendFile($config->site->ressources->url . '/js/jquery-1.8.2.min.js');	
-		$view->headScript()->appendFile($config->site->ressources->url . '/js/common.js');
+		$view->headScript()->appendFile($config->site->ressources->url . '/js/common.min.js');
 		$view->headScript()->appendFile($config->site->ressources->url . '/js/bootstrap.min.js');
 
 		// Add it to the ViewRenderer
