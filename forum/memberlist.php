@@ -1,4 +1,3 @@
-<?php include_once("../spongestats/stats.php"); ?>
 <?php
 /**
 *

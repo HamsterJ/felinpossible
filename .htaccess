@@ -2,7 +2,6 @@
 RewriteEngine On
 
 RewriteCond %{REQUEST_URI} !^/phpMyAdmin.*
-RewriteCond %{REQUEST_URI} !^/spongestats.*
 RewriteCond %{REQUEST_URI} !^/mysqlDumper.*
 RewriteCond %{REQUEST_URI} !^/roundcube.*
 RewriteCond %{REQUEST_URI} !^/forum.*
