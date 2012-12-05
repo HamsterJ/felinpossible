@@ -20,7 +20,7 @@
 	<?php echo $this->partial($this->headerIndispoPath) ?>
 	<script type="dojo/connect" event="_onFetchBegin" args="event">initGrid(this.id);</script>
 	<script type="dojo/connect" event="_onFetchComplete" args="event">endGrid(this.id);</script>
-	<script type="dojo/method" event="onDblClick" args="event">editItem('<?php echo $this->urlIndispoEdit ?>', 'gridIndispo', 'indispo', 'chargementIndispo', false, 'idIndispo')</script>
+	<script type="dojo/method" event="onDblClick" args="event">hideTooltip(event);editItem('<?php echo $this->urlIndispoEdit ?>', 'gridIndispo', 'indispo', 'chargementIndispo', false, 'idIndispo')</script>
 	<script type="dojo/method" event="onCellMouseOver" args="event">showTooltip(event)</script>
     <script type="dojo/method" event="onCellMouseOut" args="event">hideTooltip(event)</script>
 </table>
