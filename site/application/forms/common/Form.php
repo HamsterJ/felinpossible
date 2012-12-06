@@ -105,6 +105,9 @@ abstract class FP_Form_common_Form extends Zend_Form
           if ($element->getDecorator('Errors')) {
               $element->getDecorator('Errors')->setOption('class', 'alert alert-error');
           }
+          if ($element->isRequired()) {
+            $element->setLabel($element->getLabel().' *');
+          }
         }
 
         return $this;
