@@ -152,14 +152,10 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 		$notesPrivees->setAttrib('cols', '60');
 		$notesPrivees->setAttrib('rows', '5');
 
-		$postId = new Zend_Form_Element_Text('postId');
-		$postId->setLabel('Post id (calcul auto)');
-		$postId->setFilters(array('Int'));
-
-		$topicId = new Zend_Form_Element_Text('topicId');
-		$topicId->setLabel('Topic id (calcul auto)');
-		$topicId->setFilters(array('Int'));
-
+		$postId = new Zend_Form_Element_Hidden('postId');
+		
+		$topicId = new Zend_Form_Element_Hidden('topicId');
+		
 		$idChat = new Zend_Form_Element_Hidden('id');
 
 		$this->addElement($nom);

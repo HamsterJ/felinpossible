@@ -1,9 +1,12 @@
 <?php if ($this->urlMaj) {?>
 <div class="centre_principal">
-	<?php if ($this->form->miniature->getValue() != "") {
-		echo "<img class='img-rounded' src='".$this->form->miniature->getValue()."'/><br>";
-	}?>
-	<button class="btn" id="majButton" dojoType="dijit.form.Button" onclick="callAjax('<?php echo $this->urlMaj ?>'); return false;">Mettre à jour à partir des données du forum</button>
+	<div class="header-chat">
+		<?php if ($this->form->miniature->getValue() != "") {
+			echo "<img class='img-rounded' src='".$this->form->miniature->getValue()."'/><br>";
+		}?>
+		<br>
+		<button class="btn btn-primary" id="majButton" onclick="callAjax('<?php echo $this->urlMaj ?>'); return false;">Mettre à jour à partir des données du forum</button>
+	</div>
 </div>
 <?php }?>
 
