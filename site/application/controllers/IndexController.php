@@ -16,6 +16,16 @@ class IndexController extends FP_Controller_CommonController
 	}
 
 	/**
+	 * Ajout header pour cache.
+	 */
+	public function postDispatch() {
+		$this->getResponse()->setHeader('Expires', '', true);
+		$this->getResponse()->setHeader('Cache-Control', 'public', true);
+		$this->getResponse()->setHeader('Cache-Control', 'max-age=1800');
+		$this->getResponse()->setHeader('Pragma', '', true);
+	}
+	
+	/**
 	 * Page d'index.
 	 * @return unknown_type
 	 */

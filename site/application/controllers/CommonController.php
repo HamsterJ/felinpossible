@@ -22,15 +22,5 @@ abstract class FP_Controller_CommonController extends Zend_Controller_Action {
 		}
 		return true;
 	}
-
-	/**
-	 * Ajout header pour cache.
-	 */
-	public function postDispatch() {
-		$this->getResponse()->setHeader('Expires', '', true);
-		$this->getResponse()->setHeader('Cache-Control', 'public', true);
-		$this->getResponse()->setHeader('Cache-Control', 'max-age=1800');
-		$this->getResponse()->setHeader('Pragma', '', true);
-	}
 	
 }
