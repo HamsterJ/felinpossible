@@ -111,12 +111,12 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 
 		$lienTopic = new Zend_Form_Element_Text('lienTopic');
 		$lienTopic->setLabel('Topic');
-		$lienTopic->setAttrib('size', 60);
+		$lienTopic->setOptions(array('class' => 'input-xxlarge'));
 		$lienTopic->setFilters(array('StringTrim'));
 
 		$miniature = new Zend_Form_Element_Text('miniature');
 		$miniature->setLabel('Miniature');
-		$miniature->setAttrib('size', 60);
+		$miniature->setOptions(array('class' => 'input-xxlarge'));
 		$miniature->setFilters(array('StringTrim'));
 
 		$adopte = new Zend_Form_Element_Checkbox('adopte');
