@@ -66,13 +66,14 @@
 
 // Font(s)
 @font-face {
-	font-family: 'felinpossible';
-	src: url("../fonts/kabel.eot") /* Pour vieux IE */
-}
-
-@font-face {
-	font-family: 'felinpossible';
-	src: url("../fonts/kabel.ttf");
+    font-family: 'felinpossible';
+    src: url('../fonts/kabel-webfont.eot');
+    src: url('../fonts/kabel-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/kabel-webfont.woff') format('woff'),
+         url('../fonts/kabel-webfont.ttf') format('truetype'),
+         url('../fonts/kabel-webfont.svg#kabel_lightlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .font-fp {
