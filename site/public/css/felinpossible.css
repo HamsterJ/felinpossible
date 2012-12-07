@@ -1010,9 +1010,8 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 .btn-action{margin:3px;}
 .navbar{filter:alpha(opacity=80);opacity:0.8;}
 @font-face{font-family:'felinpossible';src:url('../fonts/kabel-webfont.eot');src:url('../fonts/kabel-webfont.eot?#iefix') format('embedded-opentype'),url('../fonts/kabel-webfont.woff') format('woff'),url('../fonts/kabel-webfont.ttf') format('truetype'),url('../fonts/kabel-webfont.svg#kabel_lightlight') format('svg');font-weight:normal;font-style:normal;}.font-fp{font-family:"felinpossible";}
-.header{width:100%;margin-top:70px;height:160px;}
-#title-container{font-family:"felinpossible";font-size:70pt;color:#999999;}
-.title-main{padding-top:50px;text-align:center;margin-left:10%;}
+#title-container{font-family:"felinpossible";font-size:70pt;color:#999999;margin-top:70px;height:160px;width:100%;}
+.title-main{padding-top:50px;text-align:center;margin-left:10%;line-height:60px;}
 .logo{background:url("../img/logo_img_black.png") no-repeat;display:inline-block;*margin-right:.3em;vertical-align:text-top;margin-top:1px;height:130px;width:280px;line-height:130px;}
 .footer{background-color:whiteSmoke;margin-top:10px;width:100%;filter:alpha(opacity=80);opacity:0.8;}
 #paypal{margin-left:20%;}
