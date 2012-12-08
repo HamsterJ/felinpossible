@@ -84,7 +84,7 @@ function initLinks() {
 		e.preventDefault();
 		$('ul.nav > li').removeClass('active');
 		$(this).addClass('active');                
-	});           
+	});      
 }
 
 /**
@@ -114,6 +114,13 @@ function callAjax(page, eltToUpdateId, eltWaitId, formId) {
 				try {
 					dojo.parser.parse(eltToUpdateId);
 				} catch(e) {}
+
+				eltToUpdateElt.find("a[rel=ancre]").click(function (e) {
+					e.preventDefault();
+					$('html, body').animate({
+						scrollTop: $($(this).attr("href")).offset().top - 60
+					}, 'fast');
+				});
 			},
 			error: function(jqXHR, error, exception) {
 				console.error("HTTP status code: ", jqXHR.status, "Message: ", exception);
