@@ -90,5 +90,13 @@ class VetoController extends FP_Controller_SubFormController {
 			$this->initGridParam();
 		}
 	}
+
+	/**
+	 * Initialisation du tableau des vétérinaires.
+	 */
+	protected function initGridParam() {
+		parent::initGridParam();
+		$this->view->defaultSort = 3;
+	}
 }
 
