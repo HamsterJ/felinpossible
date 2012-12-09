@@ -3,7 +3,7 @@
 
   <h4><span id="nbElements"><?php echo $this->nbElements?></span> élément(s)</h4>
 </div>
-<div class="centre principal">
+<div>
   <div id="commonGridStore" dojoType="dojox.data.QueryReadStore" clientSort="true" jsId="commonGridStore" url="<?php echo $this->urlListeJson ?>" requestMethod="post">
   </div>
 
@@ -14,6 +14,7 @@
   </div>
   <div style="text-align:left">
     <div class="grid">
+      <div id="loadGrid" class="ajax" style="display:block"></div>
       <table id="commonGrid" 
       rowsPerPage="15" 
       columnReordering="true"

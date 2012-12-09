@@ -417,6 +417,11 @@ function initGrid(gridName){
 	if (grid.rowCount == 0) { 
 		grid.updateRowCount(0);
 	}
+
+	var loadAjax = document.getElementById('loadGrid');
+	if (loadAjax) {
+		loadAjax.style.display = 'none';
+	}
 }
 
 /**
