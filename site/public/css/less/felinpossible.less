@@ -51,6 +51,18 @@
 	margin: 3px;
 }
 
+.btn-paypal {
+	height:40px;
+	.btn;
+	.btn-block;
+	.well;
+	.well-small;
+	color: @grayLight;
+	&:hover {
+		color:@orange;
+	}	
+}
+
 // Navbar
 // -------------------------
 @navbarHeight: 50px;
@@ -66,14 +78,14 @@
 
 // Font(s)
 @font-face {
-    font-family: 'felinpossible';
-    src: url('../fonts/kabel-webfont.eot');
-    src: url('../fonts/kabel-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../fonts/kabel-webfont.woff') format('woff'),
-         url('../fonts/kabel-webfont.ttf') format('truetype'),
-         url('../fonts/kabel-webfont.svg#kabel_lightlight') format('svg');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'felinpossible';
+	src: url('../fonts/kabel-webfont.eot');
+	src: url('../fonts/kabel-webfont.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/kabel-webfont.woff') format('woff'),
+	url('../fonts/kabel-webfont.ttf') format('truetype'),
+	url('../fonts/kabel-webfont.svg#kabel_lightlight') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
 .font-fp {
@@ -113,11 +125,6 @@
 	width:100%;
 	filter : alpha(opacity=80);
 	opacity: 0.8;
-}
-
-// Menu
-#paypal {
-	margin-left: 20%;
 }
 
 // Content
@@ -304,4 +311,9 @@ textarea
 	.icone-img("../img/iconbeast-lite/power-button.png");
 	.icone-size;
 	margin-top: 15px;
+}
+
+.icone-paypal {
+	.icone-img("../img/paypal.png");
+	.icone-size(20px,60px);
 }
