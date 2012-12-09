@@ -69,7 +69,7 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 	'dateContratAdoption' => 'cat.dateContratAdoption');
 
 	protected $clausesWhere = array(
-	FP_Util_Constantes::CHAT_FICHES_A_VALIDER => 'to_check = 1',
+	FP_Util_Constantes::CHAT_FICHES_A_VALIDER => 'to_check = 1 and disparu = 0',
 	FP_Util_Constantes::CHAT_FICHES_A_ADOPTION => 'adopte = 0 and disparu = 0 and to_check = 0',
 	FP_Util_Constantes::CHAT_FICHES_ADOPTES => 'adopte = 1 and disparu = 0 and to_check = 0',
 	FP_Util_Constantes::CHAT_FICHES_DISPARUS => 'disparu = 1 and to_check = 0',
