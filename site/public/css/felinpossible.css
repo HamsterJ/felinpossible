@@ -1036,7 +1036,7 @@ body{background:url("../img/background_light.png") repeat;background-attachment:
 .centre_principal h2{color:#984200;}
 .centre_principal h3{color:#e56300;}
 .centre_principal h4{color:#7f3700;}
-.img-chat{height:120px;margin:2px;}
+.img-chat{height:120px;margin:2px;background-image:url('../img/logo_black_medium.png');background-repeat:no-repeat;background-position:center;}
 .header-chat{margin:0px auto 0px auto;text-align:center;}
 .popover{min-width:300px;width:28%;}
 .thumbnail-chat{text-align:center;}
