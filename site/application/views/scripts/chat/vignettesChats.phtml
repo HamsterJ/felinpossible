@@ -11,6 +11,7 @@
         data-trigger="manual"
         data-placement="bottom"
         data-html="true">
+        <span id="load<?php echo $entry->id ?>" class="ajax pull-right" style="display:none"></span>
         <img class="img-rounded img-chat" src="<?php echo $entry->miniature ?>" title="Cliquer ici pour plus d'infos sur <?php echo $entry->nom ?>"/>
         <h4> 
           <?php echo $entry->nom; 
@@ -23,7 +24,7 @@
           }
           ?>
         </h4>
-        <div id="load<?php echo $entry->id ?>" class="ajax" style="display:none"></div>
+        
       </a>
     </li> 
     <?php 
