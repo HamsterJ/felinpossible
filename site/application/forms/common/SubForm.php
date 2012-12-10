@@ -29,9 +29,6 @@ abstract class FP_Form_common_SubForm extends Zend_Form_SubForm
           if ($element->getDecorator('Errors')) {
               $element->getDecorator('Errors')->setOption('class', 'alert alert-error');
           }
-          if ($element->isRequired()) {
-            $element->setLabel($element->getLabel().' *');
-          }
         }
         parent::addElement($element, $name, $options);
         
