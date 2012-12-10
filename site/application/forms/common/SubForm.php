@@ -29,6 +29,10 @@ abstract class FP_Form_common_SubForm extends Zend_Form_SubForm
           if ($element->getDecorator('Errors')) {
               $element->getDecorator('Errors')->setOption('class', 'alert alert-error');
           }
+
+          if ($element instanceof Zend_Form_Element_Radio){
+            $element->setSeparator('');
+          }
         }
         parent::addElement($element, $name, $options);
         
