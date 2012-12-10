@@ -42,19 +42,17 @@ class FP_Form_common_FoyerSubForm extends FP_Form_common_SubForm
 		// Autres animaux foyers
 		$animauxFoyer = new Zend_Form_Element_Textarea('animauxAutres');
 		$animauxFoyer->setLabel('Les autres animaux de votre foyer (cliquez dans la zone blanche ci-dessous)');
-		//$animauxFoyer->setAttrib('readonly', '');
 		$animauxFoyer->setAttrib('cols', '70');
 		$animauxFoyer->setAttrib('rows', '4');
-		$animauxFoyer->setAttrib('onClick', 'javascript:popup(\''.$baseUrl.'/index/saisiranimal\',\'Saisir un animal\',\'width=450,height=440\')');
+		$animauxFoyer->setAttrib('onClick', 'javascript:popup(\''.$baseUrl.'/index/saisiranimal\',\'Saisir un animal\',null)');
 		$animauxFoyer->setOrder(40);
 		
 		// Parmi ces animaux s'il y a des chats
 		$animauxChats = new Zend_Form_Element_Textarea('chats');
 		$animauxChats->setLabel('Parmi ces animaux s\'il y a des chats (cliquez dans la zone blanche ci-dessous)');
-		//$animauxFoyer->setAttrib('readonly', '');
 		$animauxChats->setAttrib('cols', '70');
 		$animauxChats->setAttrib('rows', '4');
-		$animauxChats->setAttrib('onClick', 'javascript:popup(\''.$baseUrl.'/index/saisirchat\',\'Saisir un animal\',\'width=450,height=500\')');
+		$animauxChats->setAttrib('onClick', 'javascript:popup(\''.$baseUrl.'/index/saisirchat\',\'Saisir un animal\',null)');
 		$animauxChats->setOrder(50);
 		
 		$this->addElement($nbPersonne);

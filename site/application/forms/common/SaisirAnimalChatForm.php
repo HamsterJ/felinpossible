@@ -53,6 +53,7 @@ class FP_Form_common_SaisirAnimalChatForm extends FP_Form_common_Form {
         $this->addElement('submit', 'submit', array(
             'ignore'   => true,
             'label'    => 'Ajouter',
+            'class'    => 'btn btn-primary'
         ));
         
         $this->setAction("javascript:submit_chatFA();window.close()");

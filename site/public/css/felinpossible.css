@@ -1023,9 +1023,9 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 .btn-paypal:hover{color:#e56300;}
 .navbar{filter:alpha(opacity=80);opacity:0.8;}
 .form-horizontal>.control-group{margin-bottom:15px;}
-.zend_form{overflow:auto;}.zend_form dt{clear:both;width:30%;float:left;text-align:right;padding:0;margin:5px 5px 5px 0;}
+.zend_form{overflow:auto;}.zend_form dt{clear:both;width:30%;min-width:200px;float:left;text-align:left;padding:0;margin:5px 5px 5px 0;}
 .zend_form dd{float:left;width:68%;padding:0;margin:5px 5px 5px 0;}
-textarea{width:68%;}
+textarea{width:98%;}
 .submit{float:right;}
 .required{font-weight:bold;}
 @font-face{font-family:'felinpossible';src:url('../fonts/kabel-webfont.eot');src:url('../fonts/kabel-webfont.eot?#iefix') format('embedded-opentype'),url('../fonts/kabel-webfont.woff') format('woff'),url('../fonts/kabel-webfont.ttf') format('truetype'),url('../fonts/kabel-webfont.svg#kabel_lightlight') format('svg');font-weight:normal;font-style:normal;}.font-fp{font-family:"felinpossible";}
