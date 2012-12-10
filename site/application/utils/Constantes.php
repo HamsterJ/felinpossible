@@ -85,8 +85,8 @@ class FP_Util_Constantes {
 	        'notGreaterThan' => "'%value%' n'est pas strictement supérieur à '%min%'.",
 	        'notInt'=> "'%value%' n'est pas un nombre entier.",
 	        'notLessThan' => "'%value%' n'est pas strictement inférieur à '%max%'.",
-	        'isEmpty' => "Ce champ est vide : vous devez le compléter.",
-	        'stringEmpty' => "Ce champ est vide : vous devez le compléter.",
+	        'isEmpty' => "Ce champ est vide, vous devez le compléter.",
+	        'stringEmpty' => "Ce champ est vide, vous devez le compléter.",
 	        'regexNotMatch' => "'%value%' ne respecte pas le format '%pattern%'.",
 	        'stringLengthTooShort' => "'%value%' fait moins de %min% caractères.",
 	        'stringLengthTooLong' => "'%value%' fait plus de %max% caractères."
