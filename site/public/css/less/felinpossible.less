@@ -78,9 +78,36 @@
 	margin-bottom: 15px;
 }
 
-label.required {
-	font-weight:bold;
+.zend_form {  
+	overflow:auto;
+	dt {
+		clear:both;  
+		width:30%;  
+		float:left;  
+		text-align:right;  
+		padding:0;
+		margin:5px 5px 5px 0;
+	}
+	dd { 
+		float:left;  
+		width:68%; 
+		padding:0;
+		margin:5px 5px 5px 0;
+	}
+}  
+
+textarea {
+	width:68%;
 }
+
+
+.submit{  
+	float:right;  
+}  
+
+.required{
+	font-weight:bold;
+}  
 
 /** 
  * Partie spécifique.
@@ -207,12 +234,6 @@ a.thumbnail-chat:hover{
 	width: 32px;
 	display: none;
 	margin: 0 auto;
-}
-
-// Forms
-textarea
-{
-	width:100%;
 }
 
 //Icônes.

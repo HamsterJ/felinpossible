@@ -18,6 +18,7 @@ class FP_Form_news_Form extends FP_Form_common_Form {
 		$titre = new Zend_Form_Element_Text('titre');
 		$titre->setLabel('Titre');
 		$titre->setRequired(true);
+		$titre->setOptions(array('class' => 'input-xxlarge'));
 		$titre->setFilters(array('StringTrim'));
 
 		$contenu = new Zend_Form_Element_Textarea('contenu');
