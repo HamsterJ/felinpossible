@@ -33,9 +33,9 @@
       <script type="dojo/connect" event="_onFetchBegin" args="event">initGrid(this.id);</script>
       <script type="dojo/connect" event="_onFetchComplete" args="event">endGrid(this.id);</script>
       <?php if ($this->displayDiv) {?>
-        <script type="dojo/method" event="onDblClick" args="event">editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'corps', 'chargementCorps', false, 'idNewFa')</script>
+        <script type="dojo/method" event="onDblClick" args="event">hideTooltip(event);editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'corps', 'chargementCorps', false, 'idNewFa')</script>
       <?php } else {?>  
-        <script type="dojo/method" event="onDblClick" args="event">editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'chats', 'chargementChats', false, 'idNewFa')</script>
+        <script type="dojo/method" event="onDblClick" args="event">hideTooltip(event);editItem('<?php echo $this->urlSelectFa ?>', 'gridFaSelection',  'chats', 'chargementChats', false, 'idNewFa')</script>
       <?php }?>
         <script type="dojo/method" event="onCellMouseOver" args="event">showTooltipAjout(event)</script>
         <script type="dojo/method" event="onCellMouseOut" args="event">hideTooltip(event)</script>

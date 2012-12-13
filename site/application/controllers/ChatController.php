@@ -164,7 +164,7 @@ class ChatController extends FP_Controller_CommonController
 			if ($chatId) {
 				$data = $this->getService()->getData($chatId);
 				$form->populate($data);
-				$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'add')).'", null, null,"'.$form->getId().'")');
+				$form->setAction('javascript:callAjax("'.$this->view->url(array('controller' => 'chat', 'action' => 'add')).'", null, null,"'.$form->getId().'")');
 				$this->view->form = $form;
 				$this->view->urlMaj = $this->view->url(array('action' => 'maj', 'id' => $chatId));
 				$this->render("add");

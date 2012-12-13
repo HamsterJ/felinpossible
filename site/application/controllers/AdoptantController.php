@@ -105,6 +105,7 @@ class AdoptantController extends FP_Controller_SubFormController
 		$this->view->urlChatListeJson = $this->view->url(array('action' => 'listechat', 'id' => $ficheId, 'idChat' => null));
 		$this->view->urlChatAddItem = $this->view->url(array('action' => 'ajoutchat', 'id' => $ficheId, 'idChat' => null));
 		$this->view->urlChatDeleteItem = $this->view->url(array('action' => 'deletechat', 'id' => $ficheId, 'idChat' => null));
+		$this->view->urlChatEditItem = $this->view->url(array('action' => 'editchat', 'id' => $ficheId, 'idChat' => null));
 
 		$this->view->headerChatPath = "chat/headeradm.phtml";
 
@@ -162,6 +163,16 @@ class AdoptantController extends FP_Controller_SubFormController
 
 				$this->view->titre = "Sélectionner un chat";
 			}
+		}
+	}
+
+	/**
+	 * Action pour accéder à l'écran d'ajout d'un chat.
+	 */
+	public function editchatAction() {
+		if ($this->checkIsLogged()) {
+			$idChatSelected = $this->getRequest()->getParam('idChat', null);
+			$this->_forward('edit','chat', null, array('id' => $idChatSelected));
 		}
 	}
 

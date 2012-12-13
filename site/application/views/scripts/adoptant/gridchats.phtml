@@ -1,4 +1,4 @@
-<div class="centre_principal">
+<div class="centre_principal" id="replace">
   <h3><?php echo $this->titreChat ?></h3>
   <h4><span id="nbElements"><?php echo $this->nbChats?></span> chat(s)</h4>
   <br>
@@ -26,6 +26,7 @@
     </table>
   </div>
   </div>
-  <button class="btn" onclick="addItem('<?php echo $this->urlChatAddItem ?>', 'chats', 'chargementChats', false)"><i class="icon-plus"></i> Ajouter</button>
-  <button class="btn" onclick="deleteItem('<?php echo $this->urlChatDeleteItem ?>', 'gridChat', 'idChat')"><i class="icon-trash"></i> Supprimer</button>
+  <button class="btn btn-action" onclick="addItem('<?php echo $this->urlChatAddItem ?>', 'chats', 'chargementChats', false)"><i class="icon-plus"></i> Ajouter</button>
+  <button class="btn btn-action" onclick="deleteItem('<?php echo $this->urlChatDeleteItem ?>', 'gridChat', 'idChat')"><i class="icon-trash"></i> Supprimer</button>
+  <button class="btn btn-action" onclick="editItem('<?php echo $this->urlChatEditItem ?>', 'gridChat', 'corps', 'chargementCorps')"><i class="icon-pencil"></i> Editer</button>
 </div>
