@@ -27,10 +27,9 @@ update fp_cat_fiche fiche set fiche.date_adoption =
       and fiche.adopte = 1;
       
 -- Création des nouvelles fiches
-insert into fp_cat_fiche (nom, idSexe, date, race, idCouleur, yeux, tests, vaccins, tatouage, caractere, commentaires, miniature, topic, topic_id, post_id, to_check )
+insert into fp_cat_fiche (nom, idSexe, race, idCouleur, yeux, tests, vaccins, tatouage, caractere, commentaires, miniature, topic, topic_id, post_id, to_check )
   select TRIM(substring_index( result.subject, '-', 1 )) AS NOM,
           CAST( result.text REGEXP '^(.)*[S|s]exe(.)*[F|f]emelle' AS CHAR ) +1 AS SEXE,
-          NOW(),
           'Type européen',
           1,
           '',

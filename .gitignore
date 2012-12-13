@@ -1,3 +1,4 @@
 mysqlDumper
 forum/cache
 site/sftp-config.json
+scripts/crontab/sql/sftp-config.json

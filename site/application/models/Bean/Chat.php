@@ -168,6 +168,9 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	 * @return la valeur de dateNaissance
 	 */
 	public function getDateNaissance() {
+		if ($this->dateNaissance == '') {
+			return null;
+		}
 		return $this->dateNaissance;
 	}
 

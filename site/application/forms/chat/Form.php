@@ -32,7 +32,6 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 
 		$dateNaissance = new Zend_Form_Element_Text('dateNaissance');
 		$dateNaissance->setLabel('Date de naissance');
-		$dateNaissance->setRequired(true);
 		$dateNaissance->setAttrib('dojoType', "dijit.form.DateTextBox");
 
 		$dateNaissanceApprox = new Zend_Form_Element_Checkbox('dateApproximative');

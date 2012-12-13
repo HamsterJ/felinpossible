@@ -147,3 +147,6 @@ ALTER TABLE fp_cat_fiche ADD (renomme text NOT NULL default "");
 
 -- Ajout papierIdentificationRecu
 ALTER TABLE fp_cat_fiche ADD (papierIdRecu int default 0);
+
+-- Date de naissance plus obligatoire
+ALTER TABLE fp_cat_fiche CHANGE date date date NULL;
