@@ -1,28 +1,22 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/encoding/compression/lzw", [
+	"dojo/_base/lang",	// dojo.extend
+	"../bits"
+], function(lang, bits) {
 
+	var lzw = lang.getObject("dojox.encoding.compression.lzw", true);
 
-if(!dojo._hasResource["dojox.encoding.compression.lzw"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.encoding.compression.lzw"] = true;
-dojo.provide("dojox.encoding.compression.lzw");
-dojo.require("dojox.encoding.bits");
-
-(function(){
 	var _bits = function(x){
 		var w = 1;
 		for(var v = 2; x >= v; v <<= 1, ++w);
 		return w;
 	};
 
-	dojox.encoding.compression.lzw.Encoder = function(n){
+	lzw.Encoder = function(n){
 		this.size = n;
 		this.init();
 	};
 
-	dojo.extend(dojox.encoding.compression.lzw.Encoder, {
+	lang.extend(lzw.Encoder, {
 		init: function(){
 			this.dict = {};
 			for(var i = 0; i < this.size; ++i){
@@ -58,12 +52,12 @@ dojo.require("dojox.encoding.bits");
 		}
 	});
 
-	dojox.encoding.compression.lzw.Decoder = function(n){
+	lzw.Decoder = function(n){
 		this.size = n;
 		this.init();
 	};
 
-	dojo.extend(dojox.encoding.compression.lzw.Decoder, {
+	lang.extend(lzw.Decoder, {
 		init: function(){
 			this.codes = new Array(this.size);
 			for(var i = 0; i < this.size; ++i){
@@ -93,6 +87,6 @@ dojo.require("dojox.encoding.bits");
 			return v;
 		}
 	});
-})();
 
-}
+	return lzw;
+});

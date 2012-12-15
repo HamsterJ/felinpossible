@@ -1,17 +1,5 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/highlight/languages/xml", ["../_base"], function(dh){
 
-
-if(!dojo._hasResource["dojox.highlight.languages.xml"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.highlight.languages.xml"] = true;
-dojo.provide("dojox.highlight.languages.xml");
-
-dojo.require("dojox.highlight._base");
-
-(function(){
 	var XML_COMMENT = {
 		className: 'comment',
 		begin: '<!--', end: '-->'
@@ -19,7 +7,7 @@ dojo.require("dojox.highlight._base");
 	
 	var XML_ATTR = {
 		className: 'attribute',
-		begin: ' [a-zA-Z-]+=', end: '^',
+		begin: ' [a-zA-Z-]+\\s*=\\s*', end: '^',
 		contains: ['value']
 	};
 	
@@ -28,7 +16,7 @@ dojo.require("dojox.highlight._base");
 		begin: '"', end: '"'
 	};
 	
-	var dh = dojox.highlight, dhc = dh.constants;
+	var dhc = dh.constants;
 	dh.languages.xml = {
 		defaultMode: {
 			contains: ['pi', 'comment', 'cdata', 'tag']
@@ -71,6 +59,7 @@ dojo.require("dojox.highlight._base");
 		XML_ATTR: XML_ATTR,
 		XML_VALUE: XML_VALUE
 	};
-})();
 
-}
+	return dh.languages.xml;
+
+});

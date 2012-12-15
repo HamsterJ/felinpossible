@@ -1,18 +1,14 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+// AMD-ID "dojox/gfx3d"
+define("dojox/gfx3d", ["dojo/_base/kernel","dojox","./gfx3d/matrix","./gfx3d/_base","./gfx3d/object"], function(dojo,dojox) {
+	dojo.getObject("gfx3d", true, dojox);
 
+	/*=====
+	 return {
+	 // summary:
+	 //		Deprecated.  Should require dojox/gfx3d modules directly rather than trying to access them through
+	 //		this module.
+	 };
+	 =====*/
 
-if(!dojo._hasResource["dojox.gfx3d"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.gfx3d"] = true;
-dojo.provide("dojox.gfx3d");
-
-dojo.require("dojox.gfx3d.matrix");
-dojo.require("dojox.gfx3d._base");
-dojo.require("dojox.gfx3d.object");
-
-
-
-}
+	return dojox.gfx3d;
+});

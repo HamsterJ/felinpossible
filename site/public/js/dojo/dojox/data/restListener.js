@@ -1,22 +1,14 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.data.restListener"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.data.restListener"] = true;
+// wrapped by build app
+define("dojox/data/restListener", ["dojo","dijit","dojox"], function(dojo,dijit,dojox){
 dojo.provide("dojox.data.restListener");
 
 dojox.data.restListener = function(message){
 	// summary:
-	// 		this function can be used to receive REST notifications, from Comet or from another frame
-	// description:
-	//		Example:
-	// |	dojo.connect(window,"onMessage",null,function(event) {
+	//		this function can be used to receive REST notifications, from Comet or from another frame
+	// example:
+	//	|	dojo.connect(window,"onMessage",null,function(event) {
 	//	|		var data = dojo.fromJson(event.data);
-	// 	|		dojox.restListener(data);
+	//	|		dojox.restListener(data);
 	//	|	});
 	var channel = message.channel;
 	var jr = dojox.rpc.JsonRest;
@@ -24,7 +16,7 @@ dojox.data.restListener = function(message){
 	var result = dojox.json.ref.resolveJson(message.result, {
 					defaultId: message.event == 'put' && channel,
 					index: dojox.rpc.Rest._index,
-					idPrefix: service.servicePath,
+					idPrefix: service.servicePath.replace(/[^\/]*$/,''),
 					idAttribute: jr.getIdAttribute(service),
 					schemas: jr.schemas,
 					loader: jr._loader,
@@ -46,14 +38,14 @@ dojox.data.restListener = function(message){
 				store.onNew(result); // call onNew for the store;
 				break;
 			case 'ondelete':
-		 		store.onDelete(target);
-		 		break;
-				 	// put is handled by JsonReferencing
-				 	//TODO: we may want to bring the JsonReferencing capability into here...
-				 	// that is really tricky though because JsonReferencing handles sub object,
-				 	// it would be expensive to do full object graph searches from here
+				store.onDelete(target);
+				break;
+					// put is handled by JsonReferencing
+					//TODO: we may want to bring the JsonReferencing capability into here...
+					// that is really tricky though because JsonReferencing handles sub object,
+					// it would be expensive to do full object graph searches from here
 		}
 	}
 };
 
-}
+});

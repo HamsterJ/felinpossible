@@ -2,14 +2,14 @@
 
   <h3><?php echo $this->titre ?></h3>
   <br>
-  <div dojoType="dojox.data.QueryReadStore" clientSort="true" jsId="gridAdStore" url="<?php echo $this->urlAdListeJson ?>"></div>
+  <div data-dojo-type="dojox/data/QueryReadStore" clientSort="true" jsId="gridAdStore" url="<?php echo $this->urlAdListeJson ?>"></div>
   <?php echo $this->render('admin/filter.phtml'); ?>
   
   <div style="text-align:left">
     <div class="grid">
     
-    <div dojoType="dijit.Menu" jsid="gridMenuAd" style="display: none;">
-        <div dojoType="dojox.widget.PlaceholderMenuItem" label="GridColumns"></div>
+    <div data-dojo-type="dijit/Menu" jsid="gridMenuAd" style="display: none;">
+        <div data-dojo-type="dojox/widget/PlaceholderMenuItem" label="GridColumns"></div>
     </div>
     
     <table id='gridAdSelection' 
@@ -18,7 +18,7 @@
            columnReordering="true" 
            sortInfo="3" 
            jsId="gridAdSelection" 
-           dojoType="dojox.grid.DataGrid" 
+           data-dojo-type="dojox/grid/DataGrid" 
            store="gridAdStore" 
            selectable="true" 
            selectionMode="single" 

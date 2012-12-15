@@ -1,19 +1,4 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.rpc.JsonRest"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.rpc.JsonRest"] = true;
-dojo.provide("dojox.rpc.JsonRest");
-
-dojo.require("dojox.json.ref"); // this provides json indexing
-dojo.require("dojox.rpc.Rest");
-// summary:
-// 		Provides JSON/REST utility functions
-(function(){
+define("dojox/rpc/JsonRest", ["dojo", "dojox", "dojox/json/ref", "dojox/rpc/Rest"], function(dojo, dojox) {
 	var dirtyObjects = [];
 	var Rest = dojox.rpc.Rest;
 	var jr;
@@ -22,20 +7,27 @@ dojo.require("dojox.rpc.Rest");
 		if(timeStamp && Rest._timeStamps){
 			Rest._timeStamps[defaultId] = timeStamp;
 		}
-		return value && dojox.json.ref.resolveJson(value, {
-			defaultId: defaultId, 
+		var hrefProperty = service._schema && service._schema.hrefProperty;
+		if(hrefProperty){
+			dojox.json.ref.refAttribute = hrefProperty;
+		}
+		value = value && dojox.json.ref.resolveJson(value, {
+			defaultId: defaultId,
 			index: Rest._index,
 			timeStamps: timeStamp && Rest._timeStamps,
 			time: timeStamp,
-			idPrefix: service.servicePath,
+			idPrefix: service.servicePath.replace(/[^\/]*$/,''),
 			idAttribute: jr.getIdAttribute(service),
 			schemas: jr.schemas,
 			loader:	jr._loader,
+			idAsRef: service.idAsRef,
 			assignAbsoluteIds: true
 		});
-		
+		dojox.json.ref.refAttribute  = "$ref";
+		return value;
 	}
 	jr = dojox.rpc.JsonRest={
+		serviceClass: dojox.rpc.Rest,
 		conflictDateHeader: "If-Unmodified-Since",
 		commit: function(kwArgs){
 			// summary:
@@ -50,7 +42,7 @@ dojo.require("dojox.rpc.Rest");
 				var object = dirty.object;
 				var old = dirty.old;
 				var append = false;
-				if(!(kwArgs.service && (object || old) && 
+				if(!(kwArgs.service && (object || old) &&
 						(object || old).__id.indexOf(kwArgs.service.servicePath)) && dirty.save){
 					delete object.__isDirty;
 					if(object){
@@ -64,13 +56,44 @@ dojo.require("dojox.rpc.Rest");
 							if(!(object.__id in alreadyRecorded)){// if it has already been saved, we don't want to repeat it
 								// record that we are saving
 								alreadyRecorded[object.__id] = object;
-								actions.push({method:"put",target:object,content:object});
+								if(kwArgs.incrementalUpdates
+									&& !pathParts){ // I haven't figured out how we would do incremental updates on sub-objects yet
+									// make an incremental update using a POST
+									var incremental = (typeof kwArgs.incrementalUpdates == 'function' ?
+										kwArgs.incrementalUpdates : function(){
+											incremental = {};
+											for(var j in object){
+												if(object.hasOwnProperty(j)){
+													if(object[j] !== old[j]){
+														incremental[j] = object[j];
+													}
+												}else if(old.hasOwnProperty(j)){
+													// we can't use incremental updates to remove properties
+													return null;
+												}
+											}
+											return incremental;
+										})(object, old);
+								}
+								
+								if(incremental){
+									actions.push({method:"post",target:object, content: incremental});
+								}
+								else{
+									actions.push({method:"put",target:object,content:object});
+								}
 							}
 						}else{
 							// new object
-							
-							actions.push({method:"post",target:{__id:jr.getServiceAndId(object.__id).service.servicePath},
-													content:object});
+							var service = jr.getServiceAndId(object.__id).service;
+							var idAttribute = jr.getIdAttribute(service);
+							if((idAttribute in object) && !kwArgs.alwaysPostNewItems){
+								// if the id attribute is specified, then we should know the location
+								actions.push({method:"put",target:object, content:object});
+							}else{
+								actions.push({method:"post",target:{__id:service.servicePath},
+														content:object});
+							}
 						}
 					}else if(old){
 						// deleted object
@@ -81,11 +104,18 @@ dojo.require("dojox.rpc.Rest");
 				}
 			}
 			dojo.connect(kwArgs,"onError",function(){
-				var postCommitDirtyObjects = dirtyObjects;
-				dirtyObjects = savingObjects;
-				var numDirty = 0; // make sure this does't do anything if it is called again
-				jr.revert(); // revert if there was an error
-				dirtyObjects = postCommitDirtyObjects;
+				if(kwArgs.revertOnError !== false){
+					var postCommitDirtyObjects = dirtyObjects;
+					dirtyObjects = savingObjects;
+					var numDirty = 0; // make sure this does't do anything if it is called again
+					jr.revert(); // revert if there was an error
+					dirtyObjects = postCommitDirtyObjects;
+				}
+				else{
+					dojo.forEach(savingObjects, function(obj) {
+						jr.changing(obj.object, !obj.object);
+				    });
+				}
 			});
 			jr.sendToServer(actions, kwArgs);
 			return actions;
@@ -104,13 +134,13 @@ dojo.require("dojox.rpc.Rest");
 				// the last one should commit the transaction
 				args.headers['Transaction'] = actions.length - 1 == i ? "commit" : "open";
 				if(conflictDateHeader && timeStamp){
-					args.headers[conflictDateHeader] = timeStamp; 
+					args.headers[conflictDateHeader] = timeStamp;
 				}
 				if(contentLocation){
 					args.headers['Content-ID'] = '<' + contentLocation + '>';
 				}
 				return plainXhr.apply(dojo,arguments);
-			};			
+			};
 			for(i =0; i < actions.length;i++){ // iterate through the actions to execute
 				var action = actions[i];
 				dojox.rpc.JsonRest._contentId = action.content && action.content.__id; // this is used by OfflineRest
@@ -123,7 +153,7 @@ dojo.require("dojox.rpc.Rest");
 				// send the content location to the server
 				contentLocation = isPost && dojox.rpc.JsonRest._contentId;
 				var serviceAndId = jr.getServiceAndId(action.target.__id);
-				var service = serviceAndId.service; 
+				var service = serviceAndId.service;
 				var dfd = action.deferred = service[action.method](
 									serviceAndId.id.replace(/#/,''), // if we are using references, we need eliminate #
 									dojox.json.ref.toJson(action.content, false, service.servicePath, true)
@@ -135,10 +165,10 @@ dojo.require("dojox.rpc.Rest");
 							var newId = dfd.ioArgs.xhr && dfd.ioArgs.xhr.getResponseHeader("Location");
 							//TODO: match URLs if the servicePath is relative...
 							if(newId){
-								// if the path starts in the middle of an absolute URL for Location, we will use the just the path part 
+								// if the path starts in the middle of an absolute URL for Location, we will use the just the path part
 								var startIndex = newId.match(/(^\w+:\/\/)/) && newId.indexOf(service.servicePath);
 								newId = startIndex > 0 ? newId.substring(startIndex) : (service.servicePath + newId).
-										// now do simple relative URL resolution in case of a relative URL. 
+										// now do simple relative URL resolution in case of a relative URL.
 										replace(/^(.*\/)?(\w+:\/\/)|[^\/\.]+\/\.\.\/|^.*\/(\/)/,'$2$3');
 								object.__id = newId;
 								Rest._index[newId] = object;
@@ -147,7 +177,7 @@ dojo.require("dojox.rpc.Rest");
 						}catch(e){}
 						if(!(--left)){
 							if(kwArgs.onComplete){
-								kwArgs.onComplete.call(kwArgs.scope);
+								kwArgs.onComplete.call(kwArgs.scope, actions);
 							}
 						}
 						return value;
@@ -176,22 +206,41 @@ dojo.require("dojox.rpc.Rest");
 				var dirty = dirtyObjects[i];
 				var object = dirty.object;
 				var old = dirty.old;
-				if(!(service && (object || old) && 
+				var store = dojox.data._getStoreForItem(object || old);
+				
+				if(!(service && (object || old) &&
 					(object || old).__id.indexOf(service.servicePath))){
 					// if we are in the specified store or if this is a global revert
 					if(object && old){
 						// changed
 						for(var j in old){
-							if(old.hasOwnProperty(j)){
+							if(old.hasOwnProperty(j) && object[j] !== old[j]){
+								if(store){
+									store.onSet(object, j, object[j], old[j]);
+								}
 								object[j] = old[j];
 							}
 						}
 						for(j in object){
 							if(!old.hasOwnProperty(j)){
+								if(store){
+									store.onSet(object, j, object[j]);
+								}
 								delete object[j];
 							}
 						}
+					}else if(!old){
+						// was an addition, remove it
+						if(store){
+							store.onDelete(object);
+						}
+					}else{
+						// was a deletion, we will add it back
+						if(store){
+							store.onNew(old);
+						}
 					}
+					delete (object || old).__isDirty;
 					dirtyObjects.splice(i, 1);
 				}
 			}
@@ -231,14 +280,14 @@ dojo.require("dojox.rpc.Rest");
 		},
 		deleteObject: function(object){
 			// summary:
-			//		deletes an object 
-			//	object:
-			//  	object to delete
+			//		deletes an object
+			// object:
+			//		object to delete
 			this.changing(object,true);
 		},
 		getConstructor: function(/*Function|String*/service, schema){
 			// summary:
-			// 		Creates or gets a constructor for objects from this service
+			//		Creates or gets a constructor for objects from this service
 			if(typeof service == 'string'){
 				var servicePath = service;
 				service = new dojox.rpc.Rest(service,true);
@@ -250,38 +299,39 @@ dojo.require("dojox.rpc.Rest");
 			service._constructor = function(data){
 				// summary:
 				//		creates a new object for this table
-				//
-				//	data:
+				// data:
 				//		object to mixed in
 				var self = this;
 				var args = arguments;
 				var properties;
+				var initializeCalled;
 				function addDefaults(schema){
 					if(schema){
 						addDefaults(schema['extends']);
 						properties = schema.properties;
 						for(var i in properties){
-							var propDef = properties[i]; 
+							var propDef = properties[i];
 							if(propDef && (typeof propDef == 'object') && ("default" in propDef)){
 								self[i] = propDef["default"];
 							}
 						}
 					}
-					if(data){
-						dojo.mixin(self,data);
-					}
 					if(schema && schema.prototype && schema.prototype.initialize){
+						initializeCalled = true;
 						schema.prototype.initialize.apply(self, args);
 					}
 				}
 				addDefaults(service._schema);
+				if(!initializeCalled && data && typeof data == 'object'){
+					dojo.mixin(self,data);
+				}
 				var idAttribute = jr.getIdAttribute(service);
-				Rest._index[this.__id = this.__clientId = 
-						service.servicePath + (this[idAttribute] || 
+				Rest._index[this.__id = this.__clientId =
+						service.servicePath + (this[idAttribute] ||
 							Math.random().toString(16).substring(2,14) + '@' + ((dojox.rpc.Client && dojox.rpc.Client.clientId) || "client"))] = this;
 				if(dojox.json.schema && properties){
 					dojox.json.schema.mustBeValid(dojox.json.schema.validate(this, service._schema));
-				} 
+				}
 				dirtyObjects.push({object:this, save: true});
 			};
 			return dojo.mixin(service._constructor, service._schema, {load:service});
@@ -301,7 +351,7 @@ dojo.require("dojox.rpc.Rest");
 			if(schema){
 				if(!(idAttr = schema._idAttr)){
 					for(var i in schema.properties){
-						if(schema.properties[i].identity){
+						if(schema.properties[i].identity || (schema.properties[i].link == "self")){
 							schema._idAttr = idAttr = i;
 						}
 					}
@@ -311,27 +361,35 @@ dojo.require("dojox.rpc.Rest");
 		},
 		getServiceAndId: function(/*String*/absoluteId){
 			// summary:
-			//		Returns the REST service and the local id for the given absolute id. The result 
-			// 		is returned as an object with a service property and an id property
-			//	absoluteId:
+			//		Returns the REST service and the local id for the given absolute id. The result
+			//		is returned as an object with a service property and an id property
+			// absoluteId:
 			//		This is the absolute id of the object
+			var serviceName = '';
+			
+			for(var service in jr.services){
+				if((absoluteId.substring(0, service.length) == service) && (service.length >= serviceName.length)){
+					serviceName = service;
+				}
+			}
+			if (serviceName){
+				return {service: jr.services[serviceName], id:absoluteId.substring(serviceName.length)};
+			}
 			var parts = absoluteId.match(/^(.*\/)([^\/]*)$/);
-			var svc = jr.services[parts[1]] || new dojox.rpc.Rest(parts[1], true); // use an existing or create one
-			return { service: svc, id:parts[2] };
+			return {service: new jr.serviceClass(parts[1], true), id:parts[2]};
 		},
 		services:{},
 		schemas:{},
 		registerService: function(/*Function*/ service, /*String*/ servicePath, /*Object?*/ schema){
-			//	summary:
+			// summary:
 			//		Registers a service for as a JsonRest service, mapping it to a path and schema
-			//	service:
+			// service:
 			//		This is the service to register
-			//	servicePath:
+			// servicePath:
 			//		This is the path that is used for all the ids for the objects returned by service
-			//	schema:
+			// schema:
 			//		This is a JSON Schema object to associate with objects returned by this service
-			servicePath = servicePath || service.servicePath;
-			servicePath = service.servicePath = servicePath.match(/\/$/) ? servicePath : (servicePath + '/'); // add a trailing / if needed
+			servicePath = service.servicePath = servicePath || service.servicePath;
 			service._schema = jr.schemas[servicePath] = schema || service._schema || {};
 			jr.services[servicePath] = service;
 		},
@@ -347,6 +405,7 @@ dojo.require("dojox.rpc.Rest");
 		},
 		query: function(service, id, args){
 			var deferred = service(id, args);
+			
 			deferred.addCallback(function(result){
 				if(result.nodeType && result.cloneNode){
 					// return immediately if it is an XML document
@@ -354,14 +413,14 @@ dojo.require("dojox.rpc.Rest");
 				}
 				return resolveJson(service, deferred, result, typeof id != 'string' || (args && (args.start || args.count)) ? undefined: id);
 			});
-			return deferred;			
+			return deferred;
 		},
 		_loader: function(callback){
 			// load a lazy object
 			var serviceAndId = jr.getServiceAndId(this.__id);
 			var self = this;
 			jr.query(serviceAndId.service, serviceAndId.id).addBoth(function(result){
-				// if they are the same this means an object was loaded, otherwise it 
+				// if they are the same this means an object was loaded, otherwise it
 				// might be a primitive that was loaded or maybe an error
 				if(result == self){
 					// we can clear the flag, so it is a loaded object
@@ -378,18 +437,22 @@ dojo.require("dojox.rpc.Rest");
 				callback(result);
 			});
 		},
-		isDirty: function(item){
-			// summary
+		isDirty: function(item, store){
+			// summary:
 			//		returns true if the item is marked as dirty or true if there are any dirty items
 			if(!item){
+				if(store){
+					return dojo.some(dirtyObjects, function(dirty){
+						return dojox.data._getStoreForItem(dirty.object || dirty.old) == store;
+					});
+				}
 				return !!dirtyObjects.length;
 			}
 			return item.__isDirty;
 		}
 		
 	};
-})();
 
+	return dojox.rpc.JsonRest;
+});
 
-
-}

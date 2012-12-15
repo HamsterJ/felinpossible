@@ -1,49 +1,43 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dijit/Toolbar", [
+	"require",
+	"dojo/_base/declare", // declare
+	"dojo/has",
+	"dojo/keys", // keys.LEFT_ARROW keys.RIGHT_ARROW
+	"dojo/ready",
+	"./_Widget",
+	"./_KeyNavContainer",
+	"./_TemplatedMixin"
+], function(require, declare, has, keys, ready, _Widget, _KeyNavContainer, _TemplatedMixin){
+
+	// module:
+	//		dijit/Toolbar
 
 
-if(!dojo._hasResource["dijit.Toolbar"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dijit.Toolbar"] = true;
-dojo.provide("dijit.Toolbar");
-
-dojo.require("dijit._Widget");
-dojo.require("dijit._KeyNavContainer");
-dojo.require("dijit._Templated");
-
-dojo.declare("dijit.Toolbar",
-	[dijit._Widget, dijit._Templated, dijit._KeyNavContainer],
-	{
-	// summary:
-	//		A Toolbar widget, used to hold things like `dijit.Editor` buttons
-
-	templateString:
-		'<div class="dijit dijitToolbar" waiRole="toolbar" tabIndex="${tabIndex}" dojoAttachPoint="containerNode">' +
-		//	'<table style="table-layout: fixed" class="dijitReset dijitToolbarTable">' + // factor out style
-		//		'<tr class="dijitReset" dojoAttachPoint="containerNode"></tr>'+
-		//	'</table>' +
-		'</div>',
-
-	postCreate: function(){
-		this.connectKeyNavHandlers(
-			this.isLeftToRight() ? [dojo.keys.LEFT_ARROW] : [dojo.keys.RIGHT_ARROW],
-			this.isLeftToRight() ? [dojo.keys.RIGHT_ARROW] : [dojo.keys.LEFT_ARROW]
-		);
-	},
-
-	startup: function(){
-		if(this._started){ return; }
-
-		this.startupKeyNavChildren();
-
-		this.inherited(arguments);
+	// Back compat w/1.6, remove for 2.0
+	if(has("dijit-legacy-requires")){
+		ready(0, function(){
+			var requires = ["dijit/ToolbarSeparator"];
+			require(requires);	// use indirection so modules not rolled into a build
+		});
 	}
-}
-);
 
-// For back-compat, remove for 2.0
-dojo.require("dijit.ToolbarSeparator");
+	return declare("dijit.Toolbar", [_Widget, _TemplatedMixin, _KeyNavContainer], {
+		// summary:
+		//		A Toolbar widget, used to hold things like `dijit.Editor` buttons
 
-}
+		templateString:
+			'<div class="dijit" role="toolbar" tabIndex="${tabIndex}" data-dojo-attach-point="containerNode">' +
+			'</div>',
+
+		baseClass: "dijitToolbar",
+
+		postCreate: function(){
+			this.inherited(arguments);
+
+			this.connectKeyNavHandlers(
+				this.isLeftToRight() ? [keys.LEFT_ARROW] : [keys.RIGHT_ARROW],
+				this.isLeftToRight() ? [keys.RIGHT_ARROW] : [keys.LEFT_ARROW]
+			);
+		}
+	});
+});

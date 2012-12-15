@@ -1,25 +1,14 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.data.CouchDBRestStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.data.CouchDBRestStore"] = true;
-dojo.provide("dojox.data.CouchDBRestStore");
-dojo.require("dojox.data.JsonRestStore");
-
-// A CouchDBRestStore is an extension of JsonRestStore to handle CouchDB's idiosyncrasies, special features,
-// and deviations from standard HTTP Rest.
-// NOTE: CouchDB is not designed to be run on a public facing network. There is no access control
-// on database documents, and you should NOT rely on client side control to implement security.
-
-
+define("dojox/data/CouchDBRestStore", ["dojo", "dojox", "dojox/data/JsonRestStore"], function(dojo, dojox) {
 dojo.declare("dojox.data.CouchDBRestStore",
 	dojox.data.JsonRestStore,
 	{
-		save: function(kwArgs) {
+	// summary:
+	//		A CouchDBRestStore is an extension of JsonRestStore to handle CouchDB's idiosyncrasies, special features,
+	//		and deviations from standard HTTP Rest.
+	//		NOTE: CouchDB is not designed to be run on a public facing network. There is no access control
+	//	 	on database documents, and you should NOT rely on client side control to implement security.
+
+		save: function(kwArgs){
 			var actions = this.inherited(arguments); // do the default save and then update for version numbers
 			var prefix = this.service.servicePath;
 			for(var i = 0; i < actions.length; i++){
@@ -37,14 +26,14 @@ dojo.declare("dojox.data.CouchDBRestStore",
 		},
 		fetch: function(args){
 			// summary:
-			// 		This only differs from JsonRestStore in that it, will put the query string the query part of the URL and it handles start and count
+			//		This only differs from JsonRestStore in that it, will put the query string the query part of the URL and it handles start and count
 			args.query = args.query || '_all_docs?';
 			if(args.start){
-				args.query = (args.query ? (args.query + '&') : '') + 'startkey=' + args.start;
+				args.query = (args.query ? (args.query + '&') : '') + 'skip=' + args.start;
 				delete args.start;
 			}
 			if(args.count){
-				args.query = (args.query ? (args.query + '&') : '') + 'count=' + args.count;
+				args.query = (args.query ? (args.query + '&') : '') + 'limit=' + args.count;
 				delete args.count;
 			}
 			return this.inherited(arguments);
@@ -55,23 +44,17 @@ dojo.declare("dojox.data.CouchDBRestStore",
 				var prefix = this.service.servicePath;
 				var self = this;
 				for(var i = 0; i < rows.length;i++){
-					rows[i] = {
-						__id: prefix + rows[i].id, 
-						_id: rows[i].id,
-						_loadObject: function(callback){
-							self.fetchItemByIdentity({
-								identity: this._id,
-								onItem: callback
-							});
-							delete this._loadObject;
-						}
-					};
+					var realItem = rows[i].value;
+					realItem.__id= prefix + rows[i].id;
+					realItem._id= rows[i].id;
+					realItem._loadObject= dojox.rpc.JsonRest._loader;
+					rows[i] = realItem;
 				}
 				return {totalCount:results.total_rows, items:results.rows};
 			}else{
 				return {items:results};
 			}
-						
+
 		}
 	}
 );
@@ -93,4 +76,6 @@ dojox.data.CouchDBRestStore.getStores = function(couchServerUrl){
 	return stores;
 };
 
-}
+return dojox.data.CouchDBRestStore;
+
+});

@@ -1,1 +1,15 @@
-({"EUR_displayName":"אירו","CHF_displayName":"פרנק שוויצרי","HKD_displayName":"דולר הונג קונגי","CAD_displayName":"דולר קנדי","GBP_displayName":"לירה שטרלינג","JPY_displayName":"ין יפני","AUD_displayName":"דולר אוסטרלי","USD_displayName":"דולר אמריקאי","USD_symbol":"US$","GBP_symbol":"UK£","JPY_symbol":"JP¥","EUR_symbol":"€"})
+define(
+"dojo/cldr/nls/he/currency", //begin v1.x content
+{
+	"HKD_displayName": "דולר הונג קונגי",
+	"CHF_displayName": "פרנק שוויצרי",
+	"CAD_displayName": "דולר קנדי",
+	"CNY_displayName": "יואן רנמינבי סיני",
+	"AUD_displayName": "דולר אוסטרלי",
+	"JPY_displayName": "ין יפני",
+	"USD_displayName": "דולר אמריקאי",
+	"GBP_displayName": "לירה שטרלינג",
+	"EUR_displayName": "אירו"
+}
+//end v1.x content
+);

@@ -1,21 +1,16 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dijit/form/HorizontalRule", [
+	"dojo/_base/declare",	// declare
+	"../_Widget",
+	"../_TemplatedMixin"
+], function(declare, _Widget, _TemplatedMixin){
+
+// module:
+//		dijit/form/HorizontalRule
 
 
-if(!dojo._hasResource["dijit.form.HorizontalRule"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dijit.form.HorizontalRule"] = true;
-dojo.provide("dijit.form.HorizontalRule");
-
-dojo.require("dijit._Widget");
-dojo.require("dijit._Templated");
-
-dojo.declare("dijit.form.HorizontalRule", [dijit._Widget, dijit._Templated],
-{
+return declare("dijit.form.HorizontalRule", [_Widget, _TemplatedMixin], {
 	// summary:
-	//		Hash marks for `dijit.form.HorizontalSlider`
+	//		Hash marks for `dijit/form/HorizontalSlider`
 
 	templateString: '<div class="dijitRuleContainer dijitRuleContainerH"></div>',
 
@@ -36,7 +31,7 @@ dojo.declare("dijit.form.HorizontalRule", [dijit._Widget, dijit._Templated],
 	_positionSuffix: '%;',
 	_suffix: '"></div>',
 
-	_genHTML: function(pos, ndx){
+	_genHTML: function(pos){
 		return this._positionPrefix + pos + this._positionSuffix + this.ruleStyle + this._suffix;
 	},
 
@@ -44,9 +39,11 @@ dojo.declare("dijit.form.HorizontalRule", [dijit._Widget, dijit._Templated],
 	//		VerticalRule will override this...
 	_isHorizontal: true,
 
-	postCreate: function(){
+	buildRendering: function(){
+		this.inherited(arguments);
+
 		var innerHTML;
-		if(this.count==1){
+		if(this.count == 1){
 			innerHTML = this._genHTML(50, 0);
 		}else{
 			var i;
@@ -69,4 +66,4 @@ dojo.declare("dijit.form.HorizontalRule", [dijit._Widget, dijit._Templated],
 	}
 });
 
-}
+});

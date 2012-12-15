@@ -1,15 +1,6 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.fx._arg"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.fx._arg"] = true;
-dojo.provide("dojox.fx._arg");
-
-dojox.fx._arg.StyleArgs = function(/*Object*/ args){
+define("dojox/fx/_arg", ["dojo/_base/lang"],function(lang){
+var fxArg = lang.getObject("dojox.fx._arg",true);
+fxArg.StyleArgs = function(/*Object*/ args){
 	// summary:
 	//		The node and CSS class to use for style manipulations.
 	// node: DOMNode
@@ -20,15 +11,15 @@ dojox.fx._arg.StyleArgs = function(/*Object*/ args){
 	this.cssClass = args.cssClass;
 }
 
-dojox.fx._arg.ShadowResizeArgs = function(/*Object*/ args){
-	// summary: 
+fxArg.ShadowResizeArgs = function(/*Object*/ args){
+	// summary:
 	//	The odd way to document object parameters.
 	// x: Integer
 	//	the width to set
 	// y: Integer
-	//	the height to set	
+	//	the height to set
 	this.x = args.x;
 	this.y = args.y;
 }
-
-}
+return fxArg;
+});

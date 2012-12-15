@@ -1,49 +1,38 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.data.PersevereStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.data.PersevereStore"] = true;
-dojo.provide("dojox.data.PersevereStore");
-dojo.require("dojox.data.JsonQueryRestStore");
-dojo.require("dojox.rpc.Client"); // Persevere supports this and it improves reliability
+define("dojox/data/PersevereStore", ["dojo", "dojox", "require", "dojox/data/JsonQueryRestStore", "dojox/rpc/Client", "dojo/_base/url"], function(dojo, dojox, require) {
 
 // PersevereStore is an extension of JsonRestStore to handle Persevere's special features
 
 dojox.json.ref.serializeFunctions = true; // Persevere supports persisted functions
 
-dojo.declare("dojox.data.PersevereStore",dojox.data.JsonQueryRestStore,{
+dojo.declare("dojox.data.PersevereStore", dojox.data.JsonQueryRestStore,{
 	useFullIdInQueries: true, // in JSONQuerys use the full id
-	jsonQueryPagination: false // use the Range headers instead	
+	jsonQueryPagination: false // use the Range headers instead
 });
-	
-dojox.data.PersevereStore.getStores = function(/*String?*/path,/*Boolean?*/sync){
+
+dojox.data.PersevereStore.getStores = function(/*String?*/ path,/*Boolean?*/ sync){
 	// summary:
 	//		Creates Dojo data stores for all the table/classes on a Persevere server
 	// path:
-	// 		URL of the Persevere server's root, this normally just "/"
-	// 		which is the default value if the target is not provided
+	//		URL of the Persevere server's root, this normally just "/"
+	//		which is the default value if the target is not provided
 	// sync:
-	// 		Indicates that the operation should happen synchronously.
-	// return:
-	// 		A map/object of datastores will be returned if it is performed asynchronously,
-	// 		otherwise it will return a Deferred object that will provide the map/object.
-	// 		The name of each property is a the name of a store,
-	// 		and the value is the actual data store object.
+	//		Indicates that the operation should happen synchronously.
+	// returns:
+	//		A map/object of datastores will be returned if it is performed asynchronously,
+	//		otherwise it will return a Deferred object that will provide the map/object.
+	//		The name of each property is a the name of a store,
+	//		and the value is the actual data store object.
 	path = (path && (path.match(/\/$/) ? path : (path + '/'))) || '/';
 	if(path.match(/^\w*:\/\//)){
 		// if it is cross-domain, we will use window.name for communication
-		dojo.require("dojox.io.xhrScriptPlugin");
+		require("dojox/io/xhrScriptPlugin");
 		dojox.io.xhrScriptPlugin(path, "callback", dojox.io.xhrPlugins.fullHttpAdapter);
 	}
 	var plainXhr = dojo.xhr;
 	dojo.xhr = function(method,args){
-		(args.headers = args.headers || {})['Server-Methods'] = false;
+		(args.headers = args.headers || {})['Server-Methods'] = "false";
 		return plainXhr.apply(dojo,arguments);
-	}
+	};
 	var rootService= dojox.rpc.Rest(path,true);
 	dojox.rpc._sync = sync;
 	var dfd = rootService("Class/");//dojo.xhrGet({url: target, sync:!callback, handleAs:'json'});
@@ -68,16 +57,16 @@ dojox.data.PersevereStore.getStores = function(/*String?*/path,/*Boolean?*/sync)
 			if(methodsDefinitions && methodsTarget){
 				for(var j in methodsDefinitions){
 					var methodDef = methodsDefinitions[j];
-					// if any method definitions indicate that the method should run on the server, than add 
+					// if any method definitions indicate that the method should run on the server, than add
 					// it to the prototype as a JSON-RPC method
-					if(methodDef.runAt == "server" && !methodsTarget[j]){
+					if(methodDef.runAt != "client" && !methodsTarget[j]){
 						methodsTarget[j] = (function(methodName){
 							return function(){
 								// execute a JSON-RPC call
 								var deferred = dojo.rawXhrPost({
 									url: this.__id,
 									// the JSON-RPC call
-									postData: dojo.toJson({
+									postData: dojox.json.ref.toJson({
 										method: methodName,
 										id: callId++,
 										params: dojo._toArray(arguments)
@@ -92,7 +81,7 @@ dojox.data.PersevereStore.getStores = function(/*String?*/path,/*Boolean?*/sync)
 								});
 								return deferred;
 							}
-						})(j);	
+						})(j);
 					}
 				}
 			}
@@ -103,7 +92,7 @@ dojox.data.PersevereStore.getStores = function(/*String?*/path,/*Boolean?*/sync)
 				setupHierarchy(schema);
 				setupMethods(schema.methods, schema.prototype = schema.prototype || {});
 				setupMethods(schema.staticMethods, schema);
-				stores[schemas[i].id] = new dojox.data.PersevereStore({target:new dojo._Url(path,schemas[i].id) + '',schema:schema});
+				stores[schemas[i].id] = new dojox.data.PersevereStore({target:new dojo._Url(path,schemas[i].id) + '/',schema:schema});
 			}
 		}
 		return (results = stores);
@@ -114,8 +103,10 @@ dojox.data.PersevereStore.getStores = function(/*String?*/path,/*Boolean?*/sync)
 dojox.data.PersevereStore.addProxy = function(){
 	// summary:
 	//		Invokes the XHR proxy plugin. Call this if you will be using x-site data.
-	dojo.require("dojox.io.xhrPlugins"); // also not necessary, but we can register that Persevere supports proxying
+	require("dojox/io/xhrPlugins"); // also not necessary, but we can register that Persevere supports proxying
 	dojox.io.xhrPlugins.addProxy("/proxy/");
 };
 
-}
+return dojox.data.PersevereStore;
+
+});

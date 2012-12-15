@@ -19,12 +19,12 @@ class FP_Form_fa_IndispoForm extends FP_Form_common_Form {
 		$dateDebut = new Zend_Form_Element_Text('dateDebut');
 		$dateDebut->setLabel('Date de début');
 		$dateDebut->setRequired(true);
-		$dateDebut->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateDebut->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$dateFin = new Zend_Form_Element_Text('dateFin');
 		$dateFin->setLabel('Date de fin');
 		$dateFin->setRequired(true);
-		$dateFin->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateFin->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$comment = new Zend_Form_Element_Textarea('commentaires');
 		$comment->setLabel('Commentaires');

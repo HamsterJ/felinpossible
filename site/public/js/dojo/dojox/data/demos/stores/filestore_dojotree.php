@@ -52,7 +52,7 @@
 	//See if a specific file was requested, or if it is just a query for files.
 	$path = false;
 	if (array_key_exists("path", $_GET)) {
-		$path = json_decode($_GET['path']);
+		$path = $_GET['path'];
 	}
 
 	if (!is_string($path)) {
@@ -113,7 +113,7 @@
 			$files = array_slice($files, 0, $count);
 		}
 
-		$result;
+		$result = new stdClass();
 		$result->total = $total;
 		$result->items = $files;
 		header("Content-Type", "text/json");
@@ -138,7 +138,7 @@
 				}
 
 				if (file_exists($fullPath)) {
-					$arr = split("/", $path);
+					$arr = explode("/", $path);
 					$size = count($arr);
 
 					if ($size > 0) {
@@ -158,22 +158,22 @@
 					} else {
 						header("HTTP/1.0 404 Not Found");
 						header("Status: 404 Not Found");
-						print("<b>Cannot access file: [".$path."]<b>");
+						print("<b>Cannot access file: [".htmlentities($path)."]<b>");
 					}
 				} else {
 						header("HTTP/1.0 404 Not Found");
 						header("Status: 404 Not Found");
-						print("<b>Cannot access file: [".$path."]<b>");
+						print("<b>Cannot access file: [".htmlentities($path)."]<b>");
 				}
 			} else {
 				header("HTTP/1.0 403 Forbidden");
 				header("Status: 403 Forbidden");
-				print("<b>Cannot access file: [".$path."].  It is outside of the root of the file service.<b>");
+				print("<b>Cannot access file: [".htmlentities($path)."].  It is outside of the root of the file service.<b>");
 			}
 		} else {
 				header("HTTP/1.0 404 Not Found");
 				header("Status: 404 Not Found");
-				print("<b>Cannot access file: [".$path."]<b>");
+				print("<b>Cannot access file: [".htmlentities($path)."]<b>");
 		}
 	}
 ?>

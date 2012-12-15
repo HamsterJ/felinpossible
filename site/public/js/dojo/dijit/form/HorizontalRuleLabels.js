@@ -1,20 +1,16 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dijit/form/HorizontalRuleLabels", [
+	"dojo/_base/declare",	// declare
+	"dojo/number", // number.format
+	"dojo/query", // query
+	"./HorizontalRule"
+], function(declare, number, query, HorizontalRule){
 
+// module:
+//		dijit/form/HorizontalRuleLabels
 
-if(!dojo._hasResource["dijit.form.HorizontalRuleLabels"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dijit.form.HorizontalRuleLabels"] = true;
-dojo.provide("dijit.form.HorizontalRuleLabels");
-
-dojo.require("dijit.form.HorizontalRule");
-
-dojo.declare("dijit.form.HorizontalRuleLabels", dijit.form.HorizontalRule,
-{
+return declare("dijit.form.HorizontalRuleLabels", HorizontalRule, {
 	// summary:
-	//		Labels for `dijit.form.HorizontalSlider`
+	//		Labels for `dijit/form/HorizontalSlider`
 
 	templateString: '<div class="dijitRuleContainer dijitRuleContainerH dijitRuleLabelsContainer dijitRuleLabelsContainerH"></div>',
 
@@ -44,8 +40,8 @@ dojo.declare("dijit.form.HorizontalRuleLabels", dijit.form.HorizontalRule,
 	constraints: {pattern:"#%"},
 
 	_positionPrefix: '<div class="dijitRuleLabelContainer dijitRuleLabelContainerH" style="left:',
-	_labelPrefix: '"><span class="dijitRuleLabel dijitRuleLabelH">',
-	_suffix: '</span></div>',
+	_labelPrefix: '"><div class="dijitRuleLabel dijitRuleLabelH">',
+	_suffix: '</div></div>',
 
 	_calcPosition: function(pos){
 		// summary:
@@ -68,19 +64,18 @@ dojo.declare("dijit.form.HorizontalRuleLabels", dijit.form.HorizontalRule,
 
 		// if the labels array was not specified directly, then see if <li> children were
 		var labels = this.labels;
-		if(!labels.length){
+		if(!labels.length && this.srcNodeRef){
 			// for markup creation, labels are specified as child elements
-			labels = dojo.query("> li", this.srcNodeRef).map(function(node){
+			labels = query("> li", this.srcNodeRef).map(function(node){
 				return String(node.innerHTML);
 			});
 		}
-		this.srcNodeRef.innerHTML = '';
 		// if the labels were not specified directly and not as <li> children, then calculate numeric labels
 		if(!labels.length && this.count > 1){
 			var start = this.minimum;
 			var inc = (this.maximum - start) / (this.count-1);
-			for (var i=0; i < this.count; i++){
-				labels.push((i<this.numericMargin||i>=(this.count-this.numericMargin))? '' : dojo.number.format(start, this.constraints));
+			for(var i=0; i < this.count; i++){
+				labels.push((i < this.numericMargin || i >= (this.count-this.numericMargin)) ? '' : number.format(start, this.constraints));
 				start += inc;
 			}
 		}
@@ -94,6 +89,4 @@ dojo.declare("dijit.form.HorizontalRuleLabels", dijit.form.HorizontalRule,
 	}
 });
 
-
-
-}
+});

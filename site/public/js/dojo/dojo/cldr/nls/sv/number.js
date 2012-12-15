@@ -1,1 +1,24 @@
-({"group":" ","percentSign":"%","exponential":"×10^","percentFormat":"#,##0 %","scientificFormat":"#E0","list":";","infinity":"∞","patternDigit":"#","minusSign":"−","decimal":",","nativeZeroDigit":"0","perMille":"‰","decimalFormat":"#,##0.###","currencyFormat":"#,##0.00 ¤","plusSign":"+","currencySpacing-afterCurrency-currencyMatch":"[:letter:]","currencySpacing-beforeCurrency-surroundingMatch":"[:digit:]","currencySpacing-afterCurrency-insertBetween":" ","nan":"NaN","currencySpacing-afterCurrency-surroundingMatch":"[:digit:]","currencySpacing-beforeCurrency-currencyMatch":"[:letter:]","currencySpacing-beforeCurrency-insertBetween":" "})
+define(
+"dojo/cldr/nls/sv/number", //begin v1.x content
+{
+	"scientificFormat": "#E0",
+	"currencyDecimal": ":",
+	"infinity": "∞",
+	"list": ";",
+	"percentSign": "%",
+	"minusSign": "−",
+	"decimalFormat-short": "000 bn",
+	"nan": "¤¤¤",
+	"plusSign": "+",
+	"currencyFormat": "#,##0.00 ¤",
+	"perMille": "‰",
+	"group": " ",
+	"percentFormat": "#,##0 %",
+	"decimalFormat-long": "000 biljoner",
+	"decimalFormat": "#,##0.###",
+	"currencyGroup": ".",
+	"decimal": ",",
+	"exponential": "×10^"
+}
+//end v1.x content
+);

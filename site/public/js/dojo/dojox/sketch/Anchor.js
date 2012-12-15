@@ -1,18 +1,11 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/sketch/Anchor", [
+	"dojo/_base/kernel",
+	"dojo/_base/lang",
+	"../gfx"
+], function(dojo){
+	dojo.getObject("sketch", true, dojox);
 
-
-if(!dojo._hasResource["dojox.sketch.Anchor"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.sketch.Anchor"] = true;
-dojo.provide("dojox.sketch.Anchor");
-dojo.require("dojox.gfx");
-
-(function(){
-	var ta=dojox.sketch;
-	ta.Anchor=function(an, id, isControl){
+	dojox.sketch.Anchor=function(an, id, isControl){
 		var self=this;
 		var size=4;	//	.5 * size of anchor.
 		var rect=null;
@@ -21,12 +14,12 @@ dojo.require("dojox.gfx");
 		this.annotation=an;
 
 		this.id=id;
-		this._key="anchor-" + ta.Anchor.count++;
+		this._key="anchor-" + dojox.sketch.Anchor.count++;
 		this.shape=null;
 		this.isControl=(isControl!=null)?isControl:true;
 
 		this.beginEdit=function(){
-			this.annotation.beginEdit(ta.CommandTypes.Modify);
+			this.annotation.beginEdit(dojox.sketch.CommandTypes.Modify);
 		};
 		this.endEdit=function(){
 			this.annotation.endEdit();
@@ -71,7 +64,6 @@ dojo.require("dojox.gfx");
 			rect=null;
 		};
 	};
-	ta.Anchor.count=0;
-})();
-
-}
+	dojox.sketch.Anchor.count=0;
+	return dojox.sketch.Anchor;
+});

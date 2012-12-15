@@ -1,65 +1,36 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/charting/action2d/Base", ["dojo/_base/lang", "dojo/_base/declare"], 
+	function(lang, declare){
 
-
-if(!dojo._hasResource["dojox.charting.action2d.Base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.charting.action2d.Base"] = true;
-dojo.provide("dojox.charting.action2d.Base");
-
-dojo.require("dojo.fx.easing");
-dojo.require("dojox.lang.functional.object");
-dojo.require("dojox.gfx.fx");
-
-(function(){
-	var DEFAULT_DURATION = 400,	// ms
-		DEFAULT_EASING   = dojo.fx.easing.backOut,
-		df = dojox.lang.functional;
-
-	dojo.declare("dojox.charting.action2d.Base", null, {
-
-		overOutEvents: {onmouseover: 1, onmouseout: 1},
-
-		constructor: function(chart, plot, kwargs){
+	return declare("dojox.charting.action2d.Base", null, {
+		// summary:
+		//		Base action class for plot and chart actions.
+	
+		constructor: function(chart, plot){
+			// summary:
+			//		Create a new base action.  This can either be a plot or a chart action.
+			// chart: dojox/charting/Chart
+			//		The chart this action applies to.
+			// plot: String|dojox/charting/plot2d/Base?
+			//		Optional target plot for this action.  Default is "default".
 			this.chart = chart;
-			this.plot = plot ? plot : "default";
-			this.anim = {};
-
-			// process common optional named parameters
-			if(!kwargs){ kwargs = {}; }
-			this.duration = kwargs.duration ? kwargs.duration : DEFAULT_DURATION;
-			this.easing   = kwargs.easing   ? kwargs.easing   : DEFAULT_EASING;
+			this.plot = plot ? (lang.isString(plot) ? this.chart.getPlot(plot) : plot) : this.chart.getPlot("default");
 		},
-
+	
 		connect: function(){
-			this.handle = this.chart.connectToPlot(this.plot, this, "process");
+			// summary:
+			//		Connect this action to the plot or the chart.
 		},
-
+	
 		disconnect: function(){
-			if(this.handle){
-				dojo.disconnect(this.handle);
-				this.handle = null;
-			}
+			// summary:
+			//		Disconnect this action from the plot or the chart.
 		},
-
-		reset: function(){
-			// nothing by default
-		},
-
+		
 		destroy: function(){
-			if(this.handle){
-				this.disconnect();
-			}
-			df.forIn(this.anim, function(o){
-				df.forIn(o, function(anim){
-					anim.action.stop(true);
-				});
-			});
-			this.anim = {};
+			// summary:
+			//		Do any cleanup needed when destroying parent elements.
+			this.disconnect();
 		}
 	});
-})();
 
-}
+});

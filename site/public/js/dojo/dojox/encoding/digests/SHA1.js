@@ -1,14 +1,4 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.encoding.digests.SHA1"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.encoding.digests.SHA1"] = true;
-dojo.provide("dojox.encoding.digests.SHA1");
-dojo.require("dojox.encoding.digests._base");
+define("dojox/encoding/digests/SHA1", ["./_base"], function(dxd){
 
 /*
  * A port of Paul Johnstone's SHA1 implementation
@@ -20,11 +10,10 @@ dojo.require("dojox.encoding.digests._base");
  *
  * Dojo port by Tom Trenka
  */
-(function(){
-	var dxd=dojox.encoding.digests;
+
 	var chrsz=8,	//	change to 16 for unicode.
 		mask=(1<<chrsz)-1;
-	
+
 	function R(n,c){ return (n<<c)|(n>>>(32-c)); }
 	function FT(t,b,c,d){
 		if(t<20){ return (b&c)|((~b)&d); }
@@ -96,7 +85,7 @@ dojo.require("dojox.encoding.digests._base");
 	}
 
 	function toBase64(/* word[] */wa){
-		//	summary:
+		// summary:
 		//		convert an array of words to base64 encoding, should be more efficient
 		//		than using dojox.encoding.base64
 		var p="=", tab="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/", s=[];
@@ -115,7 +104,7 @@ dojo.require("dojox.encoding.digests._base");
 
 	//	public function
 	dxd.SHA1=function(/* String */data, /* dojox.encoding.digests.outputTypes? */outputType){
-		//	summary:
+		// summary:
 		//		Computes the SHA1 digest of the data, and returns the result according to output type.
 		var out=outputType||dxd.outputTypes.Base64;
 		var wa=core(toWord(data), data.length*chrsz);
@@ -137,7 +126,7 @@ dojo.require("dojox.encoding.digests._base");
 
 	//	make this private, for later use with a generic HMAC calculator.
 	dxd.SHA1._hmac=function(/* string */data, /* string */key, /* dojox.encoding.digests.outputTypes? */outputType){
-		//	summary:
+		// summary:
 		//		computes the digest of data, and returns the result according to type outputType
 		var out=outputType || dxd.outputTypes.Base64;
 		var wa=hmac(data, key);
@@ -156,6 +145,6 @@ dojo.require("dojox.encoding.digests._base");
 			}
 		}
 	};
-})();
 
-}
+	return dxd.SHA1;
+});

@@ -53,11 +53,11 @@ class FP_Form_fa_GestionForm extends FP_Form_common_Form {
 		
 		$dateSoumission = new Zend_Form_Element_Text('dateSubmit');
 		$dateSoumission->setLabel('Date de soumission du formulaire');
-		$dateSoumission->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateSoumission->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 		
 		$dateContratFa = new Zend_Form_Element_Text('dateContratFa');
 		$dateContratFa->setLabel('Date réception contrat FA');
-		$dateContratFa->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateContratFa->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 		
         $idFa = new Zend_Form_Element_Hidden('id');
         

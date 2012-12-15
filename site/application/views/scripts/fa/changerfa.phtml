@@ -4,7 +4,7 @@
 
   <h3><?php echo $this->titre ?></h3>
   <br>
-  <div dojoType="dojox.data.QueryReadStore" clientSort="true" jsId="gridFaStore" url="<?php echo $this->urlFaListeJson ?>"></div>
+  <div data-dojo-type="dojox/data/QueryReadStore" clientSort="true" jsId="gridFaStore" url="<?php echo $this->urlFaListeJson ?>"></div>
   <?php echo $this->render('admin/filter.phtml'); ?>
   
   <div style="text-align:left">
@@ -14,8 +14,8 @@
     <div class="chatFaAjoutGrid">
     <?php }?>
     
-    <div dojoType="dijit.Menu" jsid="gridMenuFa" style="display: none;">
-        <div dojoType="dojox.widget.PlaceholderMenuItem" label="GridColumns"></div>
+    <div data-dojo-type="dijit/Menu" jsid="gridMenuFa" style="display: none;">
+        <div data-dojo-type="dojox/widget/PlaceholderMenuItem" label="GridColumns"></div>
     </div>
     
     <table id='gridFaSelection' 
@@ -24,7 +24,7 @@
            columnReordering="true" 
            sortInfo="3" 
            jsId="gridChatSelection" 
-           dojoType="dojox.grid.DataGrid" 
+           data-dojo-type="dojox/grid/DataGrid" 
            store="gridFaStore" 
            selectable="true" 
            selectionMode="single" 

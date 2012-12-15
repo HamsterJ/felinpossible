@@ -1,15 +1,9 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.form.manager._DisplayMixin"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.form.manager._DisplayMixin"] = true;
-dojo.provide("dojox.form.manager._DisplayMixin");
-
-dojo.declare("dojox.form.manager._DisplayMixin", null, {
+define("dojox/form/manager/_DisplayMixin", [
+	"dojo/_base/kernel",
+	"dojo/dom-style",
+	"dojo/_base/declare"
+], function(dojo, domStyle, declare){
+return declare("dojox.form.manager._DisplayMixin", null, {
 	// summary:
 	//		Form manager's mixin for controlling show/hide state of
 	//		controlled elements (defined by dojoAttachPoint attributes).
@@ -23,13 +17,13 @@ dojo.declare("dojox.form.manager._DisplayMixin", null, {
 	gatherDisplayState: function(names){
 		// summary:
 		//		Gather display state of all attached elements and return as a dictionary.
-		// names: Object?:
+		// names: Object?
 		//		If it is an array, it is a list of names to be processed.
 		//		If it is an object, dictionary keys are names to be processed.
 		//		If it is omitted, all known attach point nodes are to be processed.
 
 		var result = this.inspectAttachedPoints(function(name, node){
-			return dojo.style(node, "display") != "none";
+			return domStyle.get(node, "display") != "none";
 		}, names);
 
 		return result;	// Object
@@ -38,12 +32,12 @@ dojo.declare("dojox.form.manager._DisplayMixin", null, {
 	show: function(state, defaultState){
 		// summary:
 		//		Show attached nodes according to the supplied state object.
-		// state: Object?:
+		// state: Object?
 		//		Optional. If a name-value dictionary, the value is true
 		//		to show and false to hide. If an array, all names in the
 		//		array will be set to defaultState. If omitted, all form
 		//		elements will be set to defaultState.
-		// defaultState: Boolean?:
+		// defaultState: Boolean?
 		//		The default state (true, if omitted).
 
 		if(arguments.length < 2){
@@ -51,7 +45,7 @@ dojo.declare("dojox.form.manager._DisplayMixin", null, {
 		}
 
 		this.inspectAttachedPoints(function(name, node, value){
-			dojo.style(node, "display", value ? "" : "none");
+			domStyle.set(node, "display", value ? "" : "none");
 		}, state, defaultState);
 
 		return this;	// self
@@ -60,7 +54,7 @@ dojo.declare("dojox.form.manager._DisplayMixin", null, {
 	hide: function(state){
 		// summary:
 		//		Hide attached nodes according to the supplied state object.
-		// state: Object?:
+		// state: Object?
 		//		Optional. If a name-value dictionary, the value is true
 		//		to show and false to hide. If an array, all names in the
 		//		array will be hidden. If omitted, all form elements
@@ -68,5 +62,4 @@ dojo.declare("dojox.form.manager._DisplayMixin", null, {
 		return this.show(state, false);	// self
 	}
 });
-
-}
+});

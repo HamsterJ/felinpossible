@@ -4,13 +4,13 @@
   <h4><span id="nbElements"><?php echo $this->nbElements?></span> élément(s)</h4>
 </div>
 <div>
-  <div id="commonGridStore" dojoType="dojox.data.QueryReadStore" clientSort="true" jsId="commonGridStore" url="<?php echo $this->urlListeJson ?>" requestMethod="post">
+  <div id="commonGridStore" data-dojo-type="dojox/data/QueryReadStore" clientSort="true" jsId="commonGridStore" url="<?php echo $this->urlListeJson ?>" requestMethod="post">
   </div>
 
   <?php echo $this->render('admin/filter.phtml'); ?>
 
-  <div dojoType="dijit.Menu" jsid="gridMenu" style="display: none;">
-    <div dojoType="dojox.widget.PlaceholderMenuItem" label="GridColumns"></div>
+  <div data-dojo-type="dijit/Menu" jsid="gridMenu" style="display: none;">
+    <div data-dojo-type="dojox/widget/PlaceholderMenuItem" label="GridColumns"></div>
   </div>
   <div style="text-align:left">
     <div class="grid">
@@ -20,7 +20,7 @@
       columnReordering="true"
       sortInfo="<?php echo $this->defaultSort ?>" 
       jsId="commonGrid" 
-      dojoType="dojox.grid.DataGrid" 
+      data-dojo-type="dojox/grid/DataGrid" 
       store="commonGridStore" 
       selectable="true" 
       noDataMessage="Pas de données."

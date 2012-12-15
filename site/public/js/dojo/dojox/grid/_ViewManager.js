@@ -1,15 +1,10 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/grid/_ViewManager", [
+	"dojo/_base/declare",
+	"dojo/_base/sniff",
+	"dojo/dom-class"
+], function(declare, has, domClass){
 
-
-if(!dojo._hasResource["dojox.grid._ViewManager"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.grid._ViewManager"] = true;
-dojo.provide("dojox.grid._ViewManager");
-
-dojo.declare('dojox.grid._ViewManager', null, {
+return declare('dojox.grid._ViewManager', null, {
 	// summary:
 	//		A collection of grid views. Owned by grid and used internally for managing grid views.
 	// description:
@@ -80,22 +75,35 @@ dojo.declare('dojox.grid._ViewManager', null, {
 	},
 
 	normalizeRowNodeHeights: function(inRowNodes){
-		var h = 0; 
-		for(var i=0, n, o; (n=inRowNodes[i]); i++){
-			h = Math.max(h, dojo.marginBox(n.firstChild).h);
+		var h = 0;
+		var currHeights = [];
+		if(this.grid.rowHeight){
+			h = this.grid.rowHeight;
+		}else{
+			if(inRowNodes.length <= 1){
+				// no need to normalize if we are the only one...
+				return;
+			}
+			for(var i=0, n; (n=inRowNodes[i]); i++){
+				// We only care about the height - so don't use marginBox.  This
+				// depends on the container not having any margin (which it shouldn't)
+				// Also - we only look up the height if the cell doesn't have the
+				// dojoxGridNonNormalizedCell class (like for row selectors)
+				if(!domClass.contains(n, "dojoxGridNonNormalizedCell")){
+					currHeights[i] = n.firstChild.offsetHeight;
+					h =  Math.max(h, currHeights[i]);
+				}
+			}
+			h = (h >= 0 ? h : 0);
+	
+			//Work around odd FF3 rendering bug: #8864.
+			//A one px increase fixes FireFox 3's rounding bug for fractional font sizes.
+			if((has('mozilla') || has('ie') > 8 ) && h){h++;}
 		}
-		h = (h >= 0 ? h : 0);
-		//
-		//
-		for(var i=0, n; (n=inRowNodes[i]); i++){
-			dojo.marginBox(n.firstChild, {h:h});
-		}
-		//
-		//console.log('normalizeRowNodeHeights ', h);
-		//
-		// querying the height here seems to help scroller measure the page on IE
-		if(inRowNodes&&inRowNodes[0]&&inRowNodes[0].parentNode){
-			inRowNodes[0].parentNode.offsetHeight;
+		for(i=0; (n=inRowNodes[i]); i++){
+			if(currHeights[i] != h){
+				n.firstChild.style.height = h + "px";
+			}
 		}
 	},
 	
@@ -170,7 +178,7 @@ dojo.declare('dojox.grid._ViewManager', null, {
 	},
 
 	arrange: function(l, w){
-		var i, v, vw, len = this.views.length;
+		var i, v, vw, len = this.views.length, self = this;
 		// find the client
 		var c = (w <= 0 ? len : this.findClient());
 		// layout views
@@ -178,18 +186,26 @@ dojo.declare('dojox.grid._ViewManager', null, {
 			var ds = v.domNode.style;
 			var hs = v.headerNode.style;
 
-			if(!dojo._isBodyLtr()){
+			if(!self.grid.isLeftToRight()){
 				ds.right = l + 'px';
-				hs.right = l + 'px';
+				// fixed rtl, the scrollbar is on the right side in FF < 4
+				if(has('ff') < 4){
+					hs.right = l + v.getScrollbarWidth() + 'px';
+				}else{
+					hs.right = l + 'px';
+				}
+				if(!has('webkit')){
+					hs.width = parseInt(hs.width, 10) - v.getScrollbarWidth() + 'px';					
+				}
 			}else{
 				ds.left = l + 'px';
 				hs.left = l + 'px';
 			}
 			ds.top = 0 + 'px';
 			hs.top = 0;
-		}
+		};
 		// for views left of the client
-		//BiDi TODO: The left and right should not appear in BIDI environment. Should be replaced with 
+		//BiDi TODO: The left and right should not appear in BIDI environment. Should be replaced with
 		//leading and tailing concept.
 		for(i=0; (v=this.views[i])&&(i<c); i++){
 			// get width
@@ -205,7 +221,7 @@ dojo.declare('dojox.grid._ViewManager', null, {
 			// update position
 			l += vw;
 		}
-		// next view (is the client, i++ == c) 
+		// next view (is the client, i++ == c)
 		i++;
 		// start from the right edge
 		var r = w;
@@ -224,7 +240,7 @@ dojo.declare('dojox.grid._ViewManager', null, {
 		}
 		if(c<len){
 			v = this.views[c];
-			// position the client box between left and right boxes	
+			// position the client box between left and right boxes
 			vw = Math.max(1, r-l);
 			// set size
 			v.setSize(vw + 'px', 0);
@@ -234,14 +250,16 @@ dojo.declare('dojox.grid._ViewManager', null, {
 	},
 
 	// rendering
-	renderRow: function(inRowIndex, inNodes){
+	renderRow: function(inRowIndex, inNodes, skipRenorm){
 		var rowNodes = [];
 		for(var i=0, v, n, rowNode; (v=this.views[i])&&(n=inNodes[i]); i++){
 			rowNode = v.renderRow(inRowIndex);
 			n.appendChild(rowNode);
 			rowNodes.push(rowNode);
 		}
-		this.normalizeRowNodeHeights(rowNodes);
+		if(!skipRenorm){
+			this.normalizeRowNodeHeights(rowNodes);
+		}
 	},
 	
 	rowRemoved: function(inRowIndex){
@@ -249,11 +267,13 @@ dojo.declare('dojox.grid._ViewManager', null, {
 	},
 	
 	// updating
-	updateRow: function(inRowIndex){
+	updateRow: function(inRowIndex, skipRenorm){
 		for(var i=0, v; v=this.views[i]; i++){
 			v.updateRow(inRowIndex);
 		}
-		this.renormalizeRow(inRowIndex);
+		if(!skipRenorm){
+			this.renormalizeRow(inRowIndex);
+		}
 	},
 	
 	updateRowStyles: function(inRowIndex){
@@ -267,7 +287,7 @@ dojo.declare('dojox.grid._ViewManager', null, {
 			top = v.setScrollTop(inTop);
 			// Work around IE not firing scroll events that cause header offset
 			// issues to occur.
-			if(dojo.isIE && v.headerNode && v.scrollboxNode){
+			if(has('ie') && v.headerNode && v.scrollboxNode){
 				v.headerNode.scrollLeft = v.scrollboxNode.scrollLeft;
 			}
 		}
@@ -276,14 +296,14 @@ dojo.declare('dojox.grid._ViewManager', null, {
 	},
 	
 	getFirstScrollingView: function(){
-		// summary: Returns the first grid view with a scroll bar 
+		// summary:
+		//		Returns the first grid view with a scroll bar
 		for(var i=0, v; (v=this.views[i]); i++){
 			if(v.hasHScrollbar() || v.hasVScrollbar()){
 				return v;
 			}
 		}
+		return null;
 	}
-	
 });
-
-}
+});

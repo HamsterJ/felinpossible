@@ -1,23 +1,15 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.rpc.Service"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.rpc.Service"] = true;
-dojo.provide("dojox.rpc.Service");
-
-dojo.require("dojo.AdapterRegistry");
+define("dojox/rpc/Service", ["dojo", "dojox", "dojo/AdapterRegistry", "dojo/_base/url"], function(dojo, dojox) {
 
 dojo.declare("dojox.rpc.Service", null, {
 	constructor: function(smd, options){
 		// summary:
 		//		Take a string as a url to retrieve an smd or an object that is an smd or partial smd to use
 		//		as a definition for the service
-		//
-		//	smd: object
+		// description:
+		//		dojox.rpc.Service must be loaded prior to any plugin services like dojox.rpc.Rest
+		//		dojox.rpc.JsonRpc in order for them to register themselves, otherwise you get
+		//		a "No match found" error.
+		// smd: object
 		//		Takes a number of properties as kwArgs for defining the service.  It also
 		//		accepts a string.  When passed a string, it is treated as a url from
 		//		which it should synchronously retrieve an smd file.  Otherwise it is a kwArgs
@@ -27,15 +19,11 @@ dojo.declare("dojox.rpc.Service", null, {
 		//		matches those defined in the smd.  smdString allows a developer to pass
 		//		a jsonString directly, which will be converted into an object or alternatively
 		//		smdObject is accepts an smdObject directly.
-		//
-		//	description:
-		//		dojox.rpc.Service must be loaded prior to any plugin services like dojox.rpc.Rest
-		// 		dojox.rpc.JsonRpc in order for them to register themselves, otherwise you get
-		// 		a "No match found" error.  
+
 		var url;
 		var self = this;
 		function processSmd(smd){
-			smd._baseUrl = new dojo._Url(location.href,url || '.') + '';
+			smd._baseUrl = new dojo._Url((dojo.isBrowser ? location.href : dojo.config.baseUrl) ,url || '.') + '';
 			self._smd = smd;
 
 			//generate the methods
@@ -95,6 +83,7 @@ dojo.declare("dojox.rpc.Service", null, {
 	_getRequest: function(method,args){
 		var smd = this._smd;
 		var envDef = dojox.rpc.envelopeRegistry.match(method.envelope || smd.envelope || "NONE");
+		var parameters = (method.parameters || []).concat(smd.parameters || []);
 		if(envDef.namedParams){
 			// the serializer is expecting named params
 			if((args.length==1) && dojo.isObject(args[0])){
@@ -110,7 +99,6 @@ dojo.declare("dojox.rpc.Service", null, {
 				}
 				args = data;
 			}
-			var parameters = (method.parameters || []).concat(smd.parameters || []);
 			if(method.strictParameters||smd.strictParameters){
 				//remove any properties that were not defined
 				for(i in args){
@@ -122,7 +110,7 @@ dojo.declare("dojox.rpc.Service", null, {
 						delete args[i];
 					}
 				}
-				
+
 			}
 			// setting default values
 			for(i=0; i< parameters.length; i++){
@@ -135,21 +123,21 @@ dojo.declare("dojox.rpc.Service", null, {
 					}
 				}
 			}
-		}else if(method.parameters && method.parameters[0] && method.parameters[0].name && (args.length==1) && dojo.isObject(args[0])){
+		}else if(parameters && parameters[0] && parameters[0].name && (args.length==1) && dojo.isObject(args[0])){
 			// looks like named params, we will convert
 			if(envDef.namedParams === false){
 				// the serializer is expecting ordered params, must be ordered
-				args = dojox.rpc.toOrdered(method, args);
+				args = dojox.rpc.toOrdered(parameters, args);
 			}else{
 				// named is ok
 				args = args[0];
 			}
 		}
-		
+
 		if(dojo.isObject(this._options)){
 			args = dojo.mixin(args, this._options);
 		}
-		
+
 		var schema = method._schema || method.returns; // serialize with the right schema for the context;
 		var request = envDef.serialize.apply(this, [smd, method, args]);
 		request._envDef = envDef;// save this for executeMethod
@@ -159,12 +147,13 @@ dojo.declare("dojox.rpc.Service", null, {
 		return dojo.mixin(request, {
 			sync: dojox.rpc._sync,
 			contentType: contentType,
-			headers: {},
+			headers: method.headers || smd.headers || request.headers || {},
 			target: request.target || dojox.rpc.getTarget(smd, method),
 			transport: method.transport || smd.transport || request.transport,
 			envelope: method.envelope || smd.envelope || request.envelope,
 			timeout: method.timeout || smd.timeout,
 			callbackParamName: method.callbackParamName || smd.callbackParamName,
+			rpcObjectParamName: method.rpcObjectParamName || smd.rpcObjectParamName,
 			schema: schema,
 			handleAs: request.handleAs || "auto",
 			preventCache: method.preventCache || smd.preventCache,
@@ -179,7 +168,7 @@ dojo.declare("dojox.rpc.Service", null, {
 		}
 		var request = this._getRequest(method,args);
 		var deferred = dojox.rpc.transportRegistry.match(request.transport).fire(request);
-		
+
 		deferred.addBoth(function(results){
 			return request._envDef.deserialize.call(this,results);
 		});
@@ -198,11 +187,11 @@ dojox.rpc.getTarget = function(smd, method){
 	return dest;
 };
 
-dojox.rpc.toOrdered=function(method, args){
+dojox.rpc.toOrdered=function(parameters, args){
 	if(dojo.isArray(args)){ return args; }
 	var data=[];
-	for(var i=0;i<method.parameters.length;i++){
-		data.push(args[method.parameters[i].name]);
+	for(var i=0;i<parameters.length;i++){
+		data.push(args[parameters[i].name]);
 	}
 	return data;
 };
@@ -295,7 +284,7 @@ dojox.rpc.transportRegistry.register(
 	function(str){ return str == "GET"; },
 	{
 		fire: function(r){
-			r.url=  r.target + (r.data ? '?'+  r.data : '');
+			r.url=  r.target + (r.data ? '?' + ((r.rpcObjectParamName) ? r.rpcObjectParamName + '=' : '') + r.data : '');
 			return dojo.xhrGet(r);
 		}
 	}
@@ -308,7 +297,7 @@ dojox.rpc.transportRegistry.register(
 	function(str){ return str == "JSONP"; },
 	{
 		fire: function(r){
-			r.url = r.target + ((r.target.indexOf("?") == -1) ? '?' : '&') + r.data;
+			r.url = r.target + ((r.target.indexOf("?") == -1) ? '?' : '&') + ((r.rpcObjectParamName) ? r.rpcObjectParamName + '=' : '') + r.data;
 			r.callbackParamName = r.callbackParamName || "callback";
 			return dojo.io.script.get(r);
 		}
@@ -327,4 +316,6 @@ dojo._contentHandlers.auto = function(xhr){
 	return results;
 };
 
-}
+return dojox.rpc.Service;
+
+});

@@ -1,25 +1,23 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.form.manager._NodeMixin"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.form.manager._NodeMixin"] = true;
-dojo.provide("dojox.form.manager._NodeMixin");
-
-dojo.require("dojox.form.manager._Mixin");
-
-(function(){
-	var fm = dojox.form.manager,
+define("dojox/form/manager/_NodeMixin", [
+	"dojo/_base/lang",
+	"dojo/_base/array",
+	"dojo/_base/connect",
+	"dojo/dom",
+	"dojo/dom-attr",
+	"dojo/query",
+	"./_Mixin",
+	"dijit/form/_FormWidget",
+	"dijit/_base/manager",
+	"dojo/_base/declare"
+], function(lang, array, connect, dom, domAttr, query, _Mixin, _FormWidget, manager, declare){
+	var fm = lang.getObject("dojox.form.manager", true),
 		aa = fm.actionAdapter,
 		keys = fm._keys,
 
 		ce = fm.changeEvent = function(node){
 			// summary:
 			//		Function that returns a valid "onchange" event for a given form node.
-			// node: Node:
+			// node: Node
 			//		Form node.
 
 			var eventName = "onclick";
@@ -46,12 +44,12 @@ dojo.require("dojox.form.manager._Mixin");
 		},
 
 		registerNode = function(node, groupNode){
-			var name = dojo.attr(node, "name");
+			var name = domAttr.get(node, "name");
 			groupNode = groupNode || this.domNode;
 			if(name && !(name in this.formWidgets)){
 				// verify that it is not part of any widget
 				for(var n = node; n && n !== groupNode; n = n.parentNode){
-					if(dojo.attr(n, "widgetId") && dijit.byNode(n) instanceof dijit.form._FormWidget){
+					if(domAttr.get(n, "widgetId") && manager.byNode(n).isInstanceOf(_FormWidget)){
 						// this is a child of some widget --- bail out
 						return null;
 					}
@@ -60,7 +58,7 @@ dojo.require("dojox.form.manager._Mixin");
 				if(node.tagName.toLowerCase() == "input" && node.type.toLowerCase() == "radio"){
 					var a = this.formNodes[name];
 					a = a && a.node;
-					if(a && dojo.isArray(a)){
+					if(a && lang.isArray(a)){
 						a.push(node);
 					}else{
 						this.formNodes[name] = {node: [node], connections: []};
@@ -77,11 +75,11 @@ dojo.require("dojox.form.manager._Mixin");
 		getObserversFromNode = function(name){
 			var observers = {};
 			aa(function(_, n){
-				var o = dojo.attr(n, "observer");
+				var o = domAttr.get(n, "observer");
 				if(o && typeof o == "string"){
-					dojo.forEach(o.split(","), function(o){
-						o = dojo.trim(o);
-						if(o && dojo.isFunction(this[o])){
+					array.forEach(o.split(","), function(o){
+						o = lang.trim(o);
+						if(o && lang.isFunction(this[o])){
 							observers[o] = 1;
 						}
 					}, this);
@@ -93,26 +91,27 @@ dojo.require("dojox.form.manager._Mixin");
 		connectNode = function(name, observers){
 			var t = this.formNodes[name], c = t.connections;
 			if(c.length){
-				dojo.forEach(c, dojo.disconnect);
+				array.forEach(c, connect.disconnect);
 				c = t.connections = [];
 			}
 			aa(function(_, n){
-				// the next line is a crude workaround for dijit.form.Button that fires onClick instead of onChange
+				// the next line is a crude workaround for Button that fires onClick instead of onChange
 				var eventName = ce(n);
-				dojo.forEach(observers, function(o){
-					c.push(dojo.connect(n, eventName, this, function(evt){
-						if(this.watch){
+				array.forEach(observers, function(o){
+					c.push(connect.connect(n, eventName, this, function(evt){
+						if(this.watching){
 							this[o](this.formNodeValue(name), name, n, evt);
 						}
 					}));
 				}, this);
 			}).call(this, null, t.node);
 		};
-	dojo.declare("dojox.form.manager._NodeMixin", null, {
+
+	return declare("dojox.form.manager._NodeMixin", null, {
 		// summary:
 		//		Mixin to orchestrate dynamic forms (works with DOM nodes).
 		// description:
-		//		This mixin provideas a foundation for an enhanced form
+		//		This mixin provides a foundation for an enhanced form
 		//		functionality: unified access to individual form elements,
 		//		unified "onchange" event processing, and general event
 		//		processing. It complements dojox.form.manager._Mixin
@@ -123,7 +122,7 @@ dojo.require("dojox.form.manager._Mixin");
 			//		Called when the widget is being destroyed
 
 			for(var name in this.formNodes){
-				dojo.forEach(this.formNodes[name].connections, dojo.disconnect);
+				array.forEach(this.formNodes[name].connections, connect.disconnect);
 			}
 			this.formNodes = {};
 
@@ -135,12 +134,12 @@ dojo.require("dojox.form.manager._Mixin");
 		registerNode: function(node){
 			// summary:
 			//		Register a node with the form manager
-			// node: String|Node:
+			// node: String|Node
 			//		A node, or its id
-			// returns: Object:
+			// returns: Object
 			//		Returns self
 			if(typeof node == "string"){
-				node = dojo.byId(node);
+				node = dom.byId(node);
 			}
 			var name = registerNode.call(this, node);
 			if(name){
@@ -153,12 +152,12 @@ dojo.require("dojox.form.manager._Mixin");
 			// summary:
 			//		Removes the node by name from internal tables unregistering
 			//		connected observers
-			// name: String:
+			// name: String
 			//		Name of the to unregister
-			// returns: Object:
+			// returns: Object
 			//		Returns self
 			if(name in this.formNodes){
-				dojo.forEach(this.formNodes[name].connections, this.disconnect, this);
+				array.forEach(this.formNodes[name].connections, this.disconnect, this);
 				delete this.formNodes[name];
 			}
 			return this;
@@ -167,16 +166,16 @@ dojo.require("dojox.form.manager._Mixin");
 		registerNodeDescendants: function(node){
 			// summary:
 			//		Register node's descendants (form nodes) with the form manager
-			// node: String|Node:
+			// node: String|Node
 			//		A widget, or its widgetId, or its DOM node
-			// returns: Object:
+			// returns: Object
 			//		Returns self
 
 			if(typeof node == "string"){
-				node = dojo.byId(node);
+				node = dom.byId(node);
 			}
 
-			dojo.query("input, select, textarea, button", node).
+			query("input, select, textarea, button", node).
 				map(function(n){
 					return registerNode.call(this, n, node);
 				}, this).
@@ -192,17 +191,17 @@ dojo.require("dojox.form.manager._Mixin");
 		unregisterNodeDescendants: function(node){
 			// summary:
 			//		Unregister node's descendants (form nodes) with the form manager
-			// node: String|Node:
+			// node: String|Node
 			//		A widget, or its widgetId, or its DOM node
-			// returns: Object:
+			// returns: Object
 			//		Returns self
 
 			if(typeof node == "string"){
-				node = dojo.byId(node);
+				node = dom.byId(node);
 			}
 
-			dojo.query("input, select, textarea, button", node).
-				map(function(n){ return dojo.attr(node, "name") || null; }).
+			query("input, select, textarea, button", node).
+				map(function(n){ return domAttr.get(node, "name") || null; }).
 				forEach(function(name){
 					if(name){
 						this.unregisterNode(name);
@@ -217,11 +216,11 @@ dojo.require("dojox.form.manager._Mixin");
 		formNodeValue: function(elem, value){
 			// summary:
 			//		Set or get a form element by name.
-			// elem: String|Node|Array:
+			// elem: String|Node|Array
 			//		Form element's name, DOM node, or array or radio nodes.
-			// value: Object?:
+			// value: Object?
 			//		Optional. The value to set.
-			// returns: Object:
+			// returns: Object
 			//		For a getter it returns the value, for a setter it returns
 			//		self. If the elem is not valid, null will be returned.
 
@@ -238,19 +237,19 @@ dojo.require("dojox.form.manager._Mixin");
 				return null;	// Object
 			}
 
-			if(dojo.isArray(elem)){
+			if(lang.isArray(elem)){
 				// input/radio array
 				if(isSetter){
-					dojo.forEach(elem, function(node){
+					array.forEach(elem, function(node){
 						node.checked = "";
 					});
-					dojo.forEach(elem, function(node){
+					array.forEach(elem, function(node){
 						node.checked = node.value === value ? "checked" : "";
 					});
 					return this;	// self
 				}
 				// getter
-				dojo.some(elem, function(node){
+				array.some(elem, function(node){
 					if(node.checked){
 						result = node;
 						return true;
@@ -265,24 +264,24 @@ dojo.require("dojox.form.manager._Mixin");
 					if(elem.multiple){
 						// multiple is allowed
 						if(isSetter){
-							if(dojo.isArray(value)){
+							if(lang.isArray(value)){
 								var dict = {};
-								dojo.forEach(value, function(v){
+								array.forEach(value, function(v){
 									dict[v] = 1;
 								});
-								dojo.query("> option", elem).forEach(function(opt){
+								query("> option", elem).forEach(function(opt){
 									opt.selected = opt.value in dict;
 								});
 								return this;	// self
 							}
 							// singular property
-							dojo.query("> option", elem).forEach(function(opt){
+							query("> option", elem).forEach(function(opt){
 								opt.selected = opt.value === value;
 							});
 							return this;	// self
 						}
 						// getter
-						var result = dojo.query("> option", elem).filter(function(opt){
+						var result = query("> option", elem).filter(function(opt){
 							return opt.selected;
 						}).map(function(opt){
 							return opt.value;
@@ -291,7 +290,7 @@ dojo.require("dojox.form.manager._Mixin");
 					}
 					// singular
 					if(isSetter){
-						dojo.query("> option", elem).forEach(function(opt){
+						query("> option", elem).forEach(function(opt){
 							opt.selected = opt.value === value;
 						});
 						return this;	// self
@@ -330,22 +329,22 @@ dojo.require("dojox.form.manager._Mixin");
 		inspectFormNodes: function(inspector, state, defaultValue){
 			// summary:
 			//		Run an inspector function on controlled form elements returning a result object.
-			// inspector: Function:
+			// inspector: Function
 			//		A function to be called on a form element. Takes three arguments: a name, a node or
 			//		an array of nodes, and a supplied value. Runs in the context of the form manager.
 			//		Returns a value that will be collected and returned as a state.
-			// state: Object?:
+			// state: Object?
 			//		Optional. If a name-value dictionary --- only listed names will be processed.
 			//		If an array, all names in the array will be processed with defaultValue.
 			//		If omitted or null, all form elements will be processed with defaultValue.
-			// defaultValue: Object?:
+			// defaultValue: Object?
 			//		Optional. The default state (true, if omitted).
 
 			var name, result = {};
 
 			if(state){
-				if(dojo.isArray(state)){
-					dojo.forEach(state, function(name){
+				if(lang.isArray(state)){
+					array.forEach(state, function(name){
 						if(name in this.formNodes){
 							result[name] = inspector.call(this, name, this.formNodes[name].node, defaultValue);
 						}
@@ -366,6 +365,4 @@ dojo.require("dojox.form.manager._Mixin");
 			return result;	// Object
 		}
 	});
-})();
-
-}
+});

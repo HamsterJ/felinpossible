@@ -1,12 +1,5 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.widget.DocTester"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.widget.DocTester"] = true;
+// wrapped by build app
+define("dojox/widget/DocTester", ["dojo","dijit","dojox","dojo/require!dojo/string,dijit/_Widget,dijit/_Templated,dojox/form/BusyButton,dojox/testing/DocTest"], function(dojo,dijit,dojox){
 dojo.provide("dojox.widget.DocTester");
 
 dojo.require("dojo.string");
@@ -15,16 +8,18 @@ dojo.require("dijit._Templated");
 dojo.require("dojox.form.BusyButton");
 dojo.require("dojox.testing.DocTest");
 
-dojo.declare('dojox.widget.DocTester', 
+dojo.declare('dojox.widget.DocTester',
 	[dijit._Widget, dijit._Templated],
 	{
-		// summary: A widget to run DocTests inside an HTML page.
-		// 
-		templateString:"<div dojoAttachPoint=\"domNode\" class=\"dojoxDocTester\">\r\n\t<div dojoAttachPoint=\"containerNode\"></div>\r\n\t<button dojoType=\"dojox.form.BusyButton\" busyLabel=\"Testing...\" dojoAttachPoint=\"runButtonNode\">Run tests</button>\r\n\t<button dojoType=\"dijit.form.Button\" dojoAttachPoint=\"resetButtonNode\" style=\"display:none;\">Reset</button>\r\n\t<span>\r\n\t\t<span dojoAttachPoint=\"numTestsNode\">0</span> tests,\r\n\t\t<span dojoAttachPoint=\"numTestsOkNode\">0</span> passed,\r\n\t\t<span dojoAttachPoint=\"numTestsNokNode\">0</span> failed\r\n\t</span>\r\n</div>\r\n",
+		// summary:
+		//		A widget to run DocTests inside an HTML page.
+
+		templateString: dojo.cache("dojox.widget", "DocTester/DocTester.html", "<div dojoAttachPoint=\"domNode\" class=\"dojoxDocTester\">\n\t<div dojoAttachPoint=\"containerNode\"></div>\n\t<button dojoType=\"dojox.form.BusyButton\" busyLabel=\"Testing...\" dojoAttachPoint=\"runButtonNode\">Run tests</button>\n\t<button dojoType=\"dijit.form.Button\" dojoAttachPoint=\"resetButtonNode\" style=\"display:none;\">Reset</button>\n\t<span>\n\t\t<span dojoAttachPoint=\"numTestsNode\">0</span> tests,\n\t\t<span dojoAttachPoint=\"numTestsOkNode\">0</span> passed,\n\t\t<span dojoAttachPoint=\"numTestsNokNode\">0</span> failed\n\t</span>\n</div>"),
 		widgetsInTemplate: true,
 	
 		_fillContent:function(/*DomNode*/source){
-			// summary: Overridden from _Templates.js, which actually just takes care of filling the containerNode.
+			// summary:
+			//		Overridden from _Templates.js, which actually just takes care of filling the containerNode.
 			var src = source.innerHTML;
 			this.doctests = new dojox.testing.DocTest();
 			this.tests = this.doctests.getTestsFromString(this._unescapeHtml(src));
@@ -74,7 +69,8 @@ dojo.declare('dojox.widget.DocTester',
 		},
 		
 		reset:function(){
-			// summary: Reset the DocTester visuals and enable the "Run tests" button again.
+			// summary:
+			//		Reset the DocTester visuals and enable the "Run tests" button again.
 			dojo.style(this.runButtonNode.domNode, "display", "");
 			dojo.style(this.resetButtonNode.domNode, "display", "none");
 			this.numTestsOkNode.innerHTML = "0";
@@ -83,15 +79,14 @@ dojo.declare('dojox.widget.DocTester',
 			dojo.query(".testCase", this.domNode).removeClass("resultOk").removeClass("resultNok");
 		},
 		
-		_unescapeHtml:function(/*string*/str){
-			// TODO Should become dojo.html.unentities() or so, when exists use instead
+		_unescapeHtml:function(/* String */ str){
 			// summary:
 			//		Adds escape sequences for special characters in XML: &<>"'
 			str = String(str).replace(/&amp;/gm, "&").replace(/&lt;/gm, "<")
 				.replace(/&gt;/gm, ">").replace(/&quot;/gm, '"');
-			return str; // string
+			// TODO Should become dojo.html.unentities() or so, when exists use instead
+			return str; // String
 		}
 	}
 );
-
-}
+});

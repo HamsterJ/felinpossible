@@ -1,29 +1,25 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dijit/layout/AccordionPane", [
+	"dojo/_base/declare", // declare
+	"dojo/_base/kernel", // kernel.deprecated
+	"./ContentPane"
+], function(declare, kernel, ContentPane){
 
+	// module:
+	//		dijit/layout/AccordionPane
 
-if(!dojo._hasResource["dijit.layout.AccordionPane"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dijit.layout.AccordionPane"] = true;
-dojo.provide("dijit.layout.AccordionPane");
+	return declare("dijit.layout.AccordionPane", ContentPane, {
+		// summary:
+		//		Deprecated widget.   Use `dijit/layout/ContentPane` instead.
+		// tags:
+		//		deprecated
 
-dojo.require("dijit.layout.ContentPane");
+		constructor: function(){
+			kernel.deprecated("dijit.layout.AccordionPane deprecated, use ContentPane instead", "", "2.0");
+		},
 
-dojo.declare("dijit.layout.AccordionPane", dijit.layout.ContentPane, {
-	// summary:
-	//		Deprecated widget.   Use `dijit.layout.ContentPane` instead.
-	// tags:
-	//		deprecated
-
-	constructor: function(){
-		dojo.deprecated("dijit.layout.AccordionPane deprecated, use ContentPane instead", "", "2.0");
-	},
-
-	onSelected: function(){
-		// summary: called when this pane is selected
-	}
+		onSelected: function(){
+			// summary:
+			//		called when this pane is selected
+		}
+	});
 });
-
-}

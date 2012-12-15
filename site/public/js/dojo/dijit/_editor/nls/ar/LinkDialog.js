@@ -1,1 +1,14 @@
-({"set":"تحديد","text":"الوصف:","insertImageTitle":"خصائص الصورة","url":"عنوان URL:","createLinkTitle":"خصائص الوصلة"})
+define(
+"dijit/_editor/nls/ar/LinkDialog", ({
+	createLinkTitle: "خصائص الوصلة",
+	insertImageTitle: "خصائص الصورة",
+	url: "‏عنوان URL:‏",
+	text: "الوصف:",
+	target: "الهدف:",
+	set: "تحديد",
+	currentWindow: "النافذة الحالية",
+	parentWindow: "النافذة الرئيسية",
+	topWindow: "النافذة العلوية",
+	newWindow: "‏نافذة جديدة‏"
+})
+);

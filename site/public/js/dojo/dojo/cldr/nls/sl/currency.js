@@ -1,1 +1,17 @@
-({"EUR_displayName":"Evro","GBP_displayName":"Britanski Funt Sterling","JPY_displayName":"Japonski Jen","CNY_displayName":"Kitajski Yuan Renminbi","USD_displayName":"Ameriški Dolar","USD_symbol":"US$","GBP_symbol":"UK£","JPY_symbol":"JP¥","EUR_symbol":"€"})
+define(
+"dojo/cldr/nls/sl/currency", //begin v1.x content
+{
+	"HKD_displayName": "hongkonški dolar",
+	"CHF_displayName": "švicarski frank",
+	"JPY_symbol": "¥",
+	"CAD_displayName": "kanadski dolar",
+	"CNY_displayName": "kitajski juan renminbi",
+	"USD_symbol": "$",
+	"AUD_displayName": "avstralski dolar",
+	"JPY_displayName": "japonski jen",
+	"USD_displayName": "ameriški dolar",
+	"GBP_displayName": "britanski funt",
+	"EUR_displayName": "evro"
+}
+//end v1.x content
+);

@@ -1,17 +1,6 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/sketch/SingleArrowAnnotation", ["dojo/_base/kernel", "dojo/_base/lang", "./Annotation", "./Anchor"], function(dojo){
+	dojo.getObject("sketch", true, dojox);
 
-
-if(!dojo._hasResource["dojox.sketch.SingleArrowAnnotation"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.sketch.SingleArrowAnnotation"] = true;
-dojo.provide("dojox.sketch.SingleArrowAnnotation");
-dojo.require("dojox.sketch.Annotation");
-dojo.require("dojox.sketch.Anchor");
-
-(function(){
 	var ta=dojox.sketch;
 	ta.SingleArrowAnnotation=function(figure, id){
 		ta.Annotation.call(this, figure, id);
@@ -21,7 +10,7 @@ dojo.require("dojox.sketch.Anchor");
 		this.end={x:200, y:0};
 		this.textPosition={ x:0, y:0 };
 		this.textOffset=4;
-		this.textAlign="middle";
+		//this.textAlign="middle";
 		this.textYOffset=10;
 		this.rotation=0;
 
@@ -55,6 +44,7 @@ dojo.require("dojox.sketch.Anchor");
 		//	text position
 		var offset=this.textOffset, x=0, y=0;
 		var slope=this.calculate.slope(this.control, this.end);
+		this.textAlign="middle";
 		if(Math.abs(slope)>=1){
 			x=this.end.x+this.calculate.dx(this.control, this.end, offset);
 			if(this.control.y>this.end.y){ y=this.end.y-offset; }
@@ -72,7 +62,7 @@ dojo.require("dojox.sketch.Anchor");
 			}
 			if(this.start.y<this.end.y){
 				y=this.end.y+this.calculate.dy(this.control, this.end, offset)+this.textYOffset;
-			} else { 
+			} else {
 				y=this.end.y+this.calculate.dy(this.control, this.end, -offset);
 			}
 		}
@@ -86,7 +76,7 @@ dojo.require("dojox.sketch.Anchor");
 		
 		for(var i=0; i<obj.childNodes.length; i++){
 			var c=obj.childNodes[i];
-			if(c.localName=="text"){ 
+			if(c.localName=="text"){
 				this.property('label',c.childNodes.length?c.childNodes[0].nodeValue:'');
 			}
 			else if(c.localName=="path"){
@@ -141,9 +131,9 @@ dojo.require("dojox.sketch.Anchor");
 		this.arrowhead=this.arrowheadGroup.createPath();//"M0,0 l50,-10 -6,10 6,10 Z").setFill(this.property('fill'));
 
 		this.labelShape=this.shape.createText({
-				x:this.textPosition.x, 
-				y:this.textPosition.y, 
-				text:this.property('label'), 
+				x:this.textPosition.x,
+				y:this.textPosition.y,
+				text:this.property('label'),
 				align:this.textAlign
 			})
 			//.setFont(font)
@@ -179,9 +169,9 @@ dojo.require("dojox.sketch.Anchor");
 		this.arrowhead.setFill(this.property('fill'));
 
 		this.labelShape.setShape({
-				x:this.textPosition.x, 
-				y:this.textPosition.y, 
-				text:this.property('label'), 
+				x:this.textPosition.x,
+				y:this.textPosition.y,
+				text:this.property('label'),
 				align:this.textAlign
 			})
 			.setFill(this.property('fill'));
@@ -232,6 +222,5 @@ dojo.require("dojox.sketch.Anchor");
 	};
 
 	ta.Annotation.register("SingleArrow");
-})();
-
-}
+	return dojox.sketch.SingleArrowAnnotation;
+});

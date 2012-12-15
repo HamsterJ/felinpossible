@@ -1,29 +1,18 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.charting.plot3d.Cylinders"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.charting.plot3d.Cylinders"] = true;
-dojo.provide("dojox.charting.plot3d.Cylinders");
-
-dojo.require("dojox.charting.plot3d.Base");
-
-(function(){
+define("dojox/charting/plot3d/Cylinders", ["dojox/gfx3d", "dojox/gfx3d/matrix", "dojo/_base/declare", "dojo/_base/Color", "dojo/_base/kernel", "./Base"],
+	function(gfx3d, matrix3d, declare, Color, kernel, Base) {
 
 	// reduce function borrowed from dojox.fun
 	var reduce = function(/*Array*/ a, /*Function|String|Array*/ f, /*Object?*/ o){
-		// summary: repeatedly applies a binary function to an array from left 
-		//	to right; returns the final value.
-		a = typeof a == "string" ? a.split("") : a; o = o || dojo.global;
+		// summary:
+		//		repeatedly applies a binary function to an array from left
+		//		to right; returns the final value.
+		a = typeof a == "string" ? a.split("") : a; o = o || kernel.global;
 		var z = a[0];
 		for(var i = 1; i < a.length; z = f.call(o, z, a[i++]));
 		return z;	// Object
 	};
 
-	dojo.declare("dojox.charting.plot3d.Cylinders", dojox.charting.plot3d.Base, {
+	return declare("dojox.charting.plot3d.Cylinders", Base, {
 		constructor: function(width, height, kwArgs){
 			this.depth = "auto";
 			this.gap   = 0;
@@ -35,7 +24,7 @@ dojo.require("dojox.charting.plot3d.Base");
 				if("gap"   in kwArgs){ this.gap   = kwArgs.gap; }
 				if("material" in kwArgs){
 					var m = kwArgs.material;
-					if(typeof m == "string" || m instanceof dojo.Color){
+					if(typeof m == "string" || m instanceof Color){
 						this.material.color = m;
 					}else{
 						this.material = m;
@@ -62,16 +51,14 @@ dojo.require("dojox.charting.plot3d.Base");
 			for(var i = 0; i < this.data.length; ++i, org += step){
 				creator
 					.createCylinder({
-						center: {x: org + step / 2, y: 0, z: 0}, 
-						radius: step / 2 - this.gap, 
+						center: {x: org + step / 2, y: 0, z: 0},
+						radius: step / 2 - this.gap,
 						height: this.data[i] * scale
 					})
-					.setTransform(dojox.gfx3d.matrix.rotateXg(-90))
+					.setTransform(matrix3d.rotateXg(-90))
 					.setFill(this.material).setStroke(this.outline);
 			}
 		}
 	});
-})();
+});
 
-
-}

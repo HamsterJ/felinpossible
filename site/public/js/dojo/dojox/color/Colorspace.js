@@ -1,18 +1,7 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/color/Colorspace", ["./_base", "dojo/_base/lang", "dojox/math/matrix"],
+	function(dcolor, lang, dxm){
 
-
-if(!dojo._hasResource["dojox.color.Colorspace"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.color.Colorspace"] = true;
-dojo.provide("dojox.color.Colorspace");
-dojo.require("dojox.math.matrix");
-
-dojox.color.Colorspace=new (function(){
-	var dxc=dojox.color;
-	var dxm=dojox.math.matrix;
+dcolor.Colorspace = new (function(){
 	var self=this;
 	var wpMap={
 		"2":{
@@ -211,103 +200,103 @@ dojox.color.Colorspace=new (function(){
 		}
 	};
 	var converters={
-		"CMY":{ 
-			"CMYK":function(obj, kwArgs){ return dxc.fromCmy(obj).toCmyk(); },
-			"HSL":function(obj, kwArgs){ return dxc.fromCmy(obj).toHsl(); },
-			"HSV":function(obj, kwArgs){ return dxc.fromCmy(obj).toHsv(); },
-			"Lab":function(obj, kwArgs){ return cMaps["XYZ"]["Lab"](dxc.fromCmy(obj).toXYZ(kwArgs)); },
+		"CMY":{
+			"CMYK":function(obj, kwArgs){ return dcolor.fromCmy(obj).toCmyk(); },
+			"HSL":function(obj, kwArgs){ return dcolor.fromCmy(obj).toHsl(); },
+			"HSV":function(obj, kwArgs){ return dcolor.fromCmy(obj).toHsv(); },
+			"Lab":function(obj, kwArgs){ return cMaps["XYZ"]["Lab"](dcolor.fromCmy(obj).toXYZ(kwArgs)); },
 			"LCHab":function(obj, kwArgs){ return cMaps["Lab"]["LCHab"](converters["CMY"]["Lab"](obj)); },
-			"LCHuv":function(obj, kwArgs){ return cMaps["LCHuv"]["Luv"](cMaps["Luv"]["XYZ"](dxc.fromCmy(obj).toXYZ(kwArgs))); },
-			"Luv":function(obj, kwArgs){ return cMaps["Luv"]["XYZ"](dxc.fromCmy(obj).toXYZ(kwArgs)); },
-			"RGB":function(obj, kwArgs){ return dxc.fromCmy(obj); },
-			"XYZ":function(obj, kwArgs){ return dxc.fromCmy(obj).toXYZ(kwArgs); },
-			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](dxc.fromCmy(obj).toXYZ(kwArgs)); }
+			"LCHuv":function(obj, kwArgs){ return cMaps["LCHuv"]["Luv"](cMaps["Luv"]["XYZ"](dcolor.fromCmy(obj).toXYZ(kwArgs))); },
+			"Luv":function(obj, kwArgs){ return cMaps["Luv"]["XYZ"](dcolor.fromCmy(obj).toXYZ(kwArgs)); },
+			"RGB":function(obj, kwArgs){ return dcolor.fromCmy(obj); },
+			"XYZ":function(obj, kwArgs){ return dcolor.fromCmy(obj).toXYZ(kwArgs); },
+			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](dcolor.fromCmy(obj).toXYZ(kwArgs)); }
 		},
-		"CMYK":{ 
-			"CMY":function(obj, kwArgs){ return dxc.fromCmyk(obj).toCmy(); },
-			"HSL":function(obj, kwArgs){ return dxc.fromCmyk(obj).toHsl(); },
-			"HSV":function(obj, kwArgs){ return dxc.fromCmyk(obj).toHsv(); },
-			"Lab":function(obj, kwArgs){ return cMaps["XYZ"]["Lab"](dxc.fromCmyk(obj).toXYZ(kwArgs)); },
+		"CMYK":{
+			"CMY":function(obj, kwArgs){ return dcolor.fromCmyk(obj).toCmy(); },
+			"HSL":function(obj, kwArgs){ return dcolor.fromCmyk(obj).toHsl(); },
+			"HSV":function(obj, kwArgs){ return dcolor.fromCmyk(obj).toHsv(); },
+			"Lab":function(obj, kwArgs){ return cMaps["XYZ"]["Lab"](dcolor.fromCmyk(obj).toXYZ(kwArgs)); },
 			"LCHab":function(obj, kwArgs){ return cMaps["Lab"]["LCHab"](converters["CMYK"]["Lab"](obj)); },
-			"LCHuv":function(obj, kwArgs){ return cMaps["LCHuv"]["Luv"](cMaps["Luv"]["XYZ"](dxc.fromCmyk(obj).toXYZ(kwArgs))); },
-			"Luv":function(obj, kwArgs){ return cMaps["Luv"]["XYZ"](dxc.fromCmyk(obj).toXYZ(kwArgs)); },
-			"RGB":function(obj, kwArgs){ return dxc.fromCmyk(obj); },
-			"XYZ":function(obj, kwArgs){ return dxc.fromCmyk(obj).toXYZ(kwArgs); },
-			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](dxc.fromCmyk(obj).toXYZ(kwArgs)); }
+			"LCHuv":function(obj, kwArgs){ return cMaps["LCHuv"]["Luv"](cMaps["Luv"]["XYZ"](dcolor.fromCmyk(obj).toXYZ(kwArgs))); },
+			"Luv":function(obj, kwArgs){ return cMaps["Luv"]["XYZ"](dcolor.fromCmyk(obj).toXYZ(kwArgs)); },
+			"RGB":function(obj, kwArgs){ return dcolor.fromCmyk(obj); },
+			"XYZ":function(obj, kwArgs){ return dcolor.fromCmyk(obj).toXYZ(kwArgs); },
+			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](dcolor.fromCmyk(obj).toXYZ(kwArgs)); }
 		},
-		"HSL":{ 
-			"CMY":function(obj, kwArgs){ return dxc.fromHsl(obj).toCmy(); },
-			"CMYK":function(obj, kwArgs){ return dxc.fromHsl(obj).toCmyk(); },
-			"HSV":function(obj, kwArgs){ return dxc.fromHsl(obj).toHsv(); },
-			"Lab":function(obj, kwArgs){ return cMaps["XYZ"]["Lab"](dxc.fromHsl(obj).toXYZ(kwArgs)); },
+		"HSL":{
+			"CMY":function(obj, kwArgs){ return dcolor.fromHsl(obj).toCmy(); },
+			"CMYK":function(obj, kwArgs){ return dcolor.fromHsl(obj).toCmyk(); },
+			"HSV":function(obj, kwArgs){ return dcolor.fromHsl(obj).toHsv(); },
+			"Lab":function(obj, kwArgs){ return cMaps["XYZ"]["Lab"](dcolor.fromHsl(obj).toXYZ(kwArgs)); },
 			"LCHab":function(obj, kwArgs){ return cMaps["Lab"]["LCHab"](converters["CMYK"]["Lab"](obj)); },
-			"LCHuv":function(obj, kwArgs){ return cMaps["LCHuv"]["Luv"](cMaps["Luv"]["XYZ"](dxc.fromHsl(obj).toXYZ(kwArgs))); },
-			"Luv":function(obj, kwArgs){ return cMaps["Luv"]["XYZ"](dxc.fromHsl(obj).toXYZ(kwArgs)); },
-			"RGB":function(obj, kwArgs){ return dxc.fromHsl(obj); },
-			"XYZ":function(obj, kwArgs){ return dxc.fromHsl(obj).toXYZ(kwArgs); },
-			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](dxc.fromHsl(obj).toXYZ(kwArgs)); }
+			"LCHuv":function(obj, kwArgs){ return cMaps["LCHuv"]["Luv"](cMaps["Luv"]["XYZ"](dcolor.fromHsl(obj).toXYZ(kwArgs))); },
+			"Luv":function(obj, kwArgs){ return cMaps["Luv"]["XYZ"](dcolor.fromHsl(obj).toXYZ(kwArgs)); },
+			"RGB":function(obj, kwArgs){ return dcolor.fromHsl(obj); },
+			"XYZ":function(obj, kwArgs){ return dcolor.fromHsl(obj).toXYZ(kwArgs); },
+			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](dcolor.fromHsl(obj).toXYZ(kwArgs)); }
 		},
-		"HSV":{ 
-			"CMY":function(obj, kwArgs){ return dxc.fromHsv(obj).toCmy(); },
-			"CMYK":function(obj, kwArgs){ return dxc.fromHsv(obj).toCmyk(); },
-			"HSL":function(obj, kwArgs){ return dxc.fromHsv(obj).toHsl(); },
-			"Lab":function(obj, kwArgs){ return cMaps["XYZ"]["Lab"](dxc.fromHsv(obj).toXYZ(kwArgs)); },
+		"HSV":{
+			"CMY":function(obj, kwArgs){ return dcolor.fromHsv(obj).toCmy(); },
+			"CMYK":function(obj, kwArgs){ return dcolor.fromHsv(obj).toCmyk(); },
+			"HSL":function(obj, kwArgs){ return dcolor.fromHsv(obj).toHsl(); },
+			"Lab":function(obj, kwArgs){ return cMaps["XYZ"]["Lab"](dcolor.fromHsv(obj).toXYZ(kwArgs)); },
 			"LCHab":function(obj, kwArgs){ return cMaps["Lab"]["LCHab"](converters["CMYK"]["Lab"](obj)); },
-			"LCHuv":function(obj, kwArgs){ return cMaps["LCHuv"]["Luv"](cMaps["Luv"]["XYZ"](dxc.fromHsv(obj).toXYZ(kwArgs))); },
-			"Luv":function(obj, kwArgs){ return cMaps["Luv"]["XYZ"](dxc.fromHsv(obj).toXYZ(kwArgs)); },
-			"RGB":function(obj, kwArgs){ return dxc.fromHsv(obj); },
-			"XYZ":function(obj, kwArgs){ return dxc.fromHsv(obj).toXYZ(kwArgs); },
-			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](dxc.fromHsv(obj).toXYZ(kwArgs)); }
+			"LCHuv":function(obj, kwArgs){ return cMaps["LCHuv"]["Luv"](cMaps["Luv"]["XYZ"](dcolor.fromHsv(obj).toXYZ(kwArgs))); },
+			"Luv":function(obj, kwArgs){ return cMaps["Luv"]["XYZ"](dcolor.fromHsv(obj).toXYZ(kwArgs)); },
+			"RGB":function(obj, kwArgs){ return dcolor.fromHsv(obj); },
+			"XYZ":function(obj, kwArgs){ return dcolor.fromHsv(obj).toXYZ(kwArgs); },
+			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](dcolor.fromHsv(obj).toXYZ(kwArgs)); }
 		},
-		"Lab":{ 
-			"CMY":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Lab"]["XYZ"](obj, kwArgs)).toCmy(); },
-			"CMYK":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Lab"]["XYZ"](obj, kwArgs)).toCmyk(); },
-			"HSL":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Lab"]["XYZ"](obj, kwArgs)).toHsl(); },
-			"HSV":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Lab"]["XYZ"](obj, kwArgs)).toHsv(); },
+		"Lab":{
+			"CMY":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Lab"]["XYZ"](obj, kwArgs)).toCmy(); },
+			"CMYK":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Lab"]["XYZ"](obj, kwArgs)).toCmyk(); },
+			"HSL":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Lab"]["XYZ"](obj, kwArgs)).toHsl(); },
+			"HSV":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Lab"]["XYZ"](obj, kwArgs)).toHsv(); },
 			"LCHab":function(obj, kwArgs){ return cMaps["Lab"]["LCHab"](obj, kwArgs); },
 			"LCHuv":function(obj, kwArgs){ return cMaps["Luv"]["LCHuv"](cMaps["Lab"]["XYZ"](obj, kwArgs), kwArgs); },
 			"Luv":function(obj, kwArgs){ return cMaps["XYZ"]["Luv"](cMaps["Lab"]["XYZ"](obj, kwArgs), kwArgs); },
-			"RGB":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Lab"]["XYZ"](obj, kwArgs)); },
+			"RGB":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Lab"]["XYZ"](obj, kwArgs)); },
 			"XYZ":function(obj, kwArgs){ return cMaps["Lab"]["XYZ"](obj, kwArgs); },
 			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](cMaps["Lab"]["XYZ"](obj, kwArgs), kwArgs); }
 		},
-		"LCHab":{ 
-			"CMY":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs).toCmy(); },
-			"CMYK":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs).toCmyk(); },
-			"HSL":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs).toHsl(); },
-			"HSV":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs).toHsv(); },
+		"LCHab":{
+			"CMY":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs).toCmy(); },
+			"CMYK":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs).toCmyk(); },
+			"HSL":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs).toHsl(); },
+			"HSV":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs).toHsv(); },
 			"Lab":function(obj, kwArgs){ return cMaps["Lab"]["LCHab"](obj, kwArgs); },
 			"LCHuv":function(obj, kwArgs){ return cMaps["Luv"]["LCHuv"](cMaps["XYZ"]["Luv"](cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs), kwArgs);},
 			"Luv":function(obj, kwArgs){ return cMaps["XYZ"]["Luv"](cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs);},
-			"RGB":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs); },
+			"RGB":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs); },
 			"XYZ":function(obj, kwArgs){ return cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj, kwArgs), kwArgs); },
 			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](cMaps["Lab"]["XYZ"](cMaps["LCHab"]["Lab"](obj), kwArgs), kwArgs); }
 		},
-		"LCHuv":{ 
-			"CMY":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs).toCmy(); },
-			"CMYK":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs).toCmyk(); },
-			"HSL":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs).toHsl(); },
-			"HSV":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs).toHsv(); },
+		"LCHuv":{
+			"CMY":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs).toCmy(); },
+			"CMYK":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs).toCmyk(); },
+			"HSL":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs).toHsl(); },
+			"HSV":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs).toHsv(); },
 			"Lab":function(obj, kwArgs){ return cMaps["XYZ"]["Lab"](cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs); },
 			"LCHab":function(obj, kwArgs){ return cMaps["Lab"]["LCHab"](cMaps["XYZ"]["Lab"](cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs), kwArgs); },
 			"Luv":function(obj, kwArgs){ return cMaps["LCHuv"]["Luv"](obj, kwArgs); },
-			"RGB":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs); },
+			"RGB":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs); },
 			"XYZ":function(obj, kwArgs){ return cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs); },
 			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](cMaps["Luv"]["XYZ"](cMaps["LCHuv"]["Luv"](obj), kwArgs), kwArgs); }
 		},
-		"Luv":{ 
-			"CMY":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs).toCmy(); },
-			"CMYK":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs).toCmyk(); },
-			"HSL":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs).toHsl(); },
-			"HSV":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs).toHsv(); },
+		"Luv":{
+			"CMY":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs).toCmy(); },
+			"CMYK":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs).toCmyk(); },
+			"HSL":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs).toHsl(); },
+			"HSV":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs).toHsv(); },
 			"Lab":function(obj, kwArgs){ return cMaps["XYZ"]["Lab"](cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs); },
 			"LCHab":function(obj, kwArgs){ return cMaps["Lab"]["LCHab"](cMaps["XYZ"]["Lab"](cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs), kwArgs); },
 			"LCHuv":function(obj, kwArgs){ return cMaps["Luv"]["LCHuv"](obj, kwArgs); },
-			"RGB":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs); },
+			"RGB":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs); },
 			"XYZ":function(obj, kwArgs){ return cMaps["Luv"]["XYZ"](obj, kwArgs); },
 			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](cMaps["Luv"]["XYZ"](obj, kwArgs), kwArgs); }
 		},
-		"RGB":{ 
+		"RGB":{
 			"CMY":function(obj, kwArgs){ return obj.toCmy(); },
 			"CMYK":function(obj, kwArgs){ return obj.toCmyk(); },
 			"HSL":function(obj, kwArgs){ return obj.toHsl(); },
@@ -319,29 +308,29 @@ dojox.color.Colorspace=new (function(){
 			"XYZ":function(obj, kwArgs){ return obj.toXYZ(kwArgs); },
 			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](obj.toXYZ(kwArgs), kwArgs); }
 		},
-		"XYZ":{ 
-			"CMY":function(obj, kwArgs){ return dxc.fromXYZ(obj, kwArgs).toCmy(); },
-			"CMYK":function(obj, kwArgs){ return dxc.fromXYZ(obj, kwArgs).toCmyk(); },
-			"HSL":function(obj, kwArgs){ return dxc.fromXYZ(obj, kwArgs).toHsl(); },
-			"HSV":function(obj, kwArgs){ return dxc.fromXYZ(obj, kwArgs).toHsv(); },
+		"XYZ":{
+			"CMY":function(obj, kwArgs){ return dcolor.fromXYZ(obj, kwArgs).toCmy(); },
+			"CMYK":function(obj, kwArgs){ return dcolor.fromXYZ(obj, kwArgs).toCmyk(); },
+			"HSL":function(obj, kwArgs){ return dcolor.fromXYZ(obj, kwArgs).toHsl(); },
+			"HSV":function(obj, kwArgs){ return dcolor.fromXYZ(obj, kwArgs).toHsv(); },
 			"Lab":function(obj, kwArgs){ return cMaps["XYZ"]["Lab"](obj, kwArgs); },
 			"LCHab":function(obj, kwArgs){ return cMaps["Lab"]["LCHab"](cMaps["XYZ"]["Lab"](obj, kwArgs), kwArgs); },
 			"LCHuv":function(obj, kwArgs){ return cMaps["Luv"]["LCHuv"](cMaps["XYZ"]["Luv"](obj, kwArgs), kwArgs); },
 			"Luv":function(obj, kwArgs){ return cMaps["XYZ"]["Luv"](obj, kwArgs); },
-			"RGB":function(obj, kwArgs){ return dxc.fromXYZ(obj, kwArgs); },
-			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](dxc.fromXYZ(obj, kwArgs), kwArgs); }
+			"RGB":function(obj, kwArgs){ return dcolor.fromXYZ(obj, kwArgs); },
+			"xyY":function(obj, kwArgs){ return cMaps["XYZ"]["xyY"](dcolor.fromXYZ(obj, kwArgs), kwArgs); }
 		},
 		// TODO: revisit this. xyY represents a single color, not a spectrum of colors.
-		"xyY":{ 
-			"CMY":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs).toCmy(); },
-			"CMYK":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs).toCmyk(); },
-			"HSL":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs).toHsl(); },
-			"HSV":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs).toHsv(); },
+		"xyY":{
+			"CMY":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs).toCmy(); },
+			"CMYK":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs).toCmyk(); },
+			"HSL":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs).toHsl(); },
+			"HSV":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs).toHsv(); },
 			"Lab":function(obj, kwArgs){ return cMaps["Lab"]["XYZ"](cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs); },
 			"LCHab":function(obj, kwArgs){ return cMaps["LCHab"]["Lab"](cMaps["Lab"]["XYZ"](cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs), kwArgs); },
 			"LCHuv":function(obj, kwArgs){ return cMaps["LCHuv"]["Luv"](cMaps["Luv"]["XYZ"](cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs), kwArgs); },
 			"Luv":function(obj, kwArgs){ return cMaps["Luv"]["XYZ"](cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs); },
-			"RGB":function(obj, kwArgs){ return dxc.fromXYZ(cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs); },
+			"RGB":function(obj, kwArgs){ return dcolor.fromXYZ(cMaps["xyY"]["XYZ"](obj, kwArgs), kwArgs); },
 			"XYZ":function(obj, kwArgs){ return cMaps["xyY"]["XYZ"](obj, kwArgs); }
 		}
 	};
@@ -355,7 +344,7 @@ dojox.color.Colorspace=new (function(){
 			t=wpMap[observer][wpName].t;
 		} else {
 			console.warn(
-				"dojox.color.Colorspace::whitepoint: either the observer or the whitepoint name was not found. ", 
+				"dojox.color.Colorspace::whitepoint: either the observer or the whitepoint name was not found. ",
 				observer, wpName
 			);
 		}
@@ -398,25 +387,25 @@ dojox.color.Colorspace=new (function(){
 		} else {
 			console.warn(
 				"dojox.color.Colorspace::primaries: the passed profile was not found.  ",
-				"Available profiles include: ", profiles, 
+				"Available profiles include: ", profiles,
 				".  The profile passed was ", kwArgs.profile
 			);
 		}
 		var primary={
 			name:kwArgs.profile,
-			gamma:m[0], whitepoint:m[1], 
+			gamma:m[0], whitepoint:m[1],
 			xr:m[2], yr:m[3], Yr:m[4],
 			xg:m[5], yg:m[6], Yg:m[7],
 			xb:m[8], yb:m[9], Yb:m[10]
 		};
-		
+
 		//	convert for the whitepoint
 		if(kwArgs.whitepoint!=primary.whitepoint){
 			var r=this.convert(
 				this.adapt({
 					color:this.convert({ x:xr, y:yr, Y:Yr }, "xyY", "XYZ"),
-					adaptor:kwArgs.adaptor, 
-					source:primary.whitepoint, 
+					adaptor:kwArgs.adaptor,
+					source:primary.whitepoint,
 					destination:kwArgs.whitepoint
 				}),
 				"XYZ",
@@ -425,8 +414,8 @@ dojox.color.Colorspace=new (function(){
 			var g=this.convert(
 				this.adapt({
 					color:this.convert({ x:xg, y:yg, Y:Yg }, "xyY", "XYZ"),
-					adaptor:kwArgs.adaptor, 
-					source:primary.whitepoint, 
+					adaptor:kwArgs.adaptor,
+					source:primary.whitepoint,
 					destination:kwArgs.whitepoint
 				}),
 				"XYZ",
@@ -435,8 +424,8 @@ dojox.color.Colorspace=new (function(){
 			var b=this.convert(
 				this.adapt({
 					color:this.convert({ x:xb, y:yb, Y:Yb }, "xyY", "XYZ"),
-					adaptor:kwArgs.adaptor, 
-					source:primary.whitepoint, 
+					adaptor:kwArgs.adaptor,
+					source:primary.whitepoint,
 					destination:kwArgs.whitepoint
 				}),
 				"XYZ",
@@ -490,21 +479,21 @@ dojox.color.Colorspace=new (function(){
 	};
 
 	this.matrix=function(/* String */to, /* Object */primary){
-		var wp=this.whitepoint(primary.whitepoint);
+		var p=primary, wp=this.whitepoint(p.whitepoint);
 		var Xr = p.xr/p.yr, Yr = 1, Zr = (1-p.xr-p.yr)/p.yr;
 		var Xg = p.xg/p.yg, Yg = 1, Zg = (1-p.xg-p.yg)/p.yg;
-		var Xb = p.xb/p.yb, Yb = 1, Zr = (1-p.xb-p.yb)/p.yb;
+		var Xb = p.xb/p.yb, Yb = 1, Zb = (1-p.xb-p.yb)/p.yb;
 
 		var m1 = [[ Xr, Yr, Zr ], [ Xg, Yg, Zg ], [ Xb, Yb, Zb ]];
 		var m2 = [[ wp.X, wp.Y, wp.Z ]];
-		var sm = dojox.math.matrix.multiply(m2, dojox.math.matrix.inverse(m1));
+		var sm = dxm.multiply(m2, dxm.inverse(m1));
 		var Sr = sm[0][0], Sg = sm[0][1], Sb = sm[0][2];
 		var result=[
 			[Sr*Xr, Sr*Yr, Sr*Zr],
 			[Sg*Xg, Sg*Yg, Sg*Zg],
 			[Sb*Xb, Sb*Yb, Sb*Zb]
 		];
-		if(to=="RGB"){ return dojox.math.inverse(result); }
+		if(to=="RGB"){ return dxm.inverse(result); }
 		return result;
 	};
 
@@ -517,19 +506,19 @@ dojox.color.Colorspace=new (function(){
 
 	this.convert=function(/* Object */color, /* string */from, /* string */to, /* Object? */kwArgs){
 		if(converters[from] && converters[from][to]){
-			return converters[from][to](obj, kwArgs);
+			return converters[from][to](color, kwArgs);
 		}
 		console.warn("dojox.color.Colorspace::convert: Can't convert ", color, " from ", from, " to ", to, ".");
 	};
 })();
 
-//	More dojox.color and dojox.color.Color extensions
-dojo.mixin(dojox.color, {
+//	More dcolor and dojox.color.Color extensions
+dojo.mixin(dcolor, {
 	fromXYZ: function(/* Object */xyz, /* Object?*/kwArgs){
 		kwArgs=kwArgs||{};
-		var p=dojox.color.Colorspace.primaries(kwArgs);
-		var m=dojox.color.Colorspace.matrix("RGB", p);
-		var rgb=dojox.math.matrix.mutliply([[ xyz.X, xyz.Y, xyz.Z ]], m);
+		var p=dcolor.Colorspace.primaries(kwArgs);
+		var m=dcolor.Colorspace.matrix("RGB", p);
+		var rgb=dojox.math.matrix.multiply([[ xyz.X, xyz.Y, xyz.Z ]], m);
 		var r=rgb[0][0], g=rgb[0][1], b=rgb[0][2];
 		if(p.profile=="sRGB"){
 			var R = (r>0.0031308)?(1.055*Math.pow(r, 1/2.4))-0.055: 12.92*r;
@@ -538,15 +527,15 @@ dojo.mixin(dojox.color, {
 		}else{
 			var R=Math.pow(r, 1/p.gamma), G=Math.pow(g, 1/p.gamma), B=Math.pow(b, 1/p.gamma);
 		}
-		return new dojox.color.Color({ r:Math.floor(R*255), g:Math.floor(G*255), b:Math.floor(B*255) });
+		return new dcolor.Color({ r:Math.floor(R*255), g:Math.floor(G*255), b:Math.floor(B*255) });
 	}
 });
 
-dojo.extend(dojox.color.Color, {
+dojo.extend(dcolor.Color, {
 	toXYZ: function(/* Object */kwArgs){
 		kwArgs=kwArgs||{};
-		var p=dojox.color.Colorspace.primaries(kwArgs);
-		var m=dojox.color.Colorspace.matrix("XYZ", p);
+		var p=dcolor.Colorspace.primaries(kwArgs);
+		var m=dcolor.Colorspace.matrix("XYZ", p);
 		var _r=this.r/255, _g=this.g/255, _b=this.b/255;
 		if(p.profile=="sRGB"){
 			var r=(_r>0.04045) ? Math.pow(((_r+0.055)/1.055), 2.4):_r/12.92;
@@ -555,9 +544,10 @@ dojo.extend(dojox.color.Color, {
 		} else {
 			var r=Math.pow(_r, p.gamma), g=Math.pow(_g, p.gamma), b=Math.pow(_b, p.gamma);
 		}
-		var xyz=dojox.math.matrix([[ r, g, b ]], m);
+		var xyz=dxm([[ r, g, b ]], m);
 		return { X: xyz[0][0], Y: xyz[0][1], Z: xyz[0][2] };	//	Object
 	}
 });
 
-}
+return dcolor.Colorspace;
+});

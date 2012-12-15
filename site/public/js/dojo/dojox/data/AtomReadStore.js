@@ -1,35 +1,22 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.data.AtomReadStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.data.AtomReadStore"] = true;
-dojo.provide("dojox.data.AtomReadStore");
-
-dojo.require("dojo.data.util.simpleFetch");
-dojo.require("dojo.data.util.filter");
-dojo.require("dojo.date.stamp");
-
+define("dojox/data/AtomReadStore", ["dojo", "dojox", "dojo/data/util/filter", "dojo/data/util/simpleFetch", "dojo/date/stamp"], function(dojo, dojox) {
 dojo.experimental("dojox.data.AtomReadStore");
 
 dojo.declare("dojox.data.AtomReadStore", null, {
-	//	summary:
+	// summary:
 	//		A read only data store for Atom XML based services or documents
-	//	description:
-	//		A data store for Atom XML based services or documents.  This store is still under development
-	//		and doesn't support wildcard filtering yet.  Attribute filtering is limited to category or id.
+	// description:
+	//		A data store for Atom XML based services or documents.	This store is still under development
+	//		and doesn't support wildcard filtering yet.	Attribute filtering is limited to category or id.
 
-	constructor: function(/* object */ args) {
-		//	summary:
+	constructor: function(/* object */ args){
+		// summary:
 		//		Constructor for the AtomRead store.
-		//	args:
-		//		An anonymous object to initialize properties.  It expects the following values:
-		//		url:			The url to a service or an XML document that represents the store
-		//		unescapeHTML:	A boolean to specify whether or not to unescape HTML text
-		//		sendQuery:		A boolean indicate to add a query string to the service URL
+		// args:
+		//		An anonymous object to initialize properties.	It expects the following values:
+		//
+		//		- url:			The url to a service or an XML document that represents the store
+		//		- unescapeHTML:	A boolean to specify whether or not to unescape HTML text
+		//		- sendQuery:	A boolean indicate to add a query string to the service URL
 
 		if(args){
 			this.url = args.url;
@@ -37,6 +24,9 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 			this.label = args.label || this.label;
 			this.sendQuery = (args.sendQuery || args.sendquery || this.sendQuery);
 			this.unescapeHTML = args.unescapeHTML;
+			if("urlPreventCache" in args){
+				this.urlPreventCache = args.urlPreventCache?true:false;
+						}
 		}
 		if(!this.url){
 			throw new Error("AtomReadStore: a URL must be specified when creating the data store");
@@ -54,22 +44,26 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 
 	unescapeHTML: false,
 
-	/* dojo.data.api.Read */
+	// urlPreventCache: Boolean
+	//		Configurable preventCache option for the URL.
+	urlPreventCache: false,
 
-	getValue: function(/* item */ item, /* attribute || attribute-name-string */ attribute, /* value? */ defaultValue){
-		//	summary:
+	/* dojo/data/api/Read */
+
+	getValue: function(/*dojo/data/api/Item*/ item, /*attribute|attribute-name-string*/ attribute, /*anything?*/ defaultValue){
+		// summary:
 		//		Return an attribute value
-		//	description:
+		// description:
 		//		'item' must be an instance of an object created by the AtomReadStore instance.
 		//		Accepted attributes are id, subtitle, title, summary, content, author, updated,
 		//		published, category, link and alternate
-		//	item:
+		// item:
 		//		An item returned by a call to the 'fetch' method.
-		//	attribute:
+		// attribute:
 		//		A attribute of the Atom Entry
-		//	defaultValue:
+		// defaultValue:
 		//		A default value
-		//	returns:
+		// returns:
 		//		An attribute value found, otherwise 'defaultValue'
 		this._assertIsItem(item);
 		this._assertIsAttribute(attribute);
@@ -82,7 +76,7 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		}
 		var retVal = item._attribs[attribute];
 
-		if(!retVal && attribute=="summary") {
+		if(!retVal && attribute == "summary"){
 			var content = this.getValue(item, "content");
 			var regexp = new RegExp("/(<([^>]+)>)/g", "i");
 			var text = content.text.replace(regexp,"");
@@ -94,7 +88,7 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		}
 
 		if(retVal && this.unescapeHTML){
-			if ((attribute == "content" || attribute == "summary" || attribute == "subtitle") && !item["_"+attribute+"Escaped"]) {
+			if((attribute == "content" || attribute == "summary" || attribute == "subtitle") && !item["_"+attribute+"Escaped"]){
 				retVal.text = this._unescapeHTML(retVal.text);
 				item["_"+attribute+"Escaped"] = true;
 			}
@@ -102,18 +96,18 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		return retVal ? dojo.isArray(retVal) ? retVal[0]: retVal : defaultValue;
 	},
 
-	getValues: function(/* item */ item, /* attribute || attribute-name-string */ attribute){
-		//	summary:
+	getValues: function(/*dojo/data/api/Item*/ item, /*attribute|attribute-name-string*/ attribute){
+		// summary:
 		//		Return an attribute value
-		//	description:
+		// description:
 		//		'item' must be an instance of an object created by the AtomReadStore instance.
 		//		Accepted attributes are id, subtitle, title, summary, content, author, updated,
 		//		published, category, link and alternate
-		//	item:
+		// item:
 		//		An item returned by a call to the 'fetch' method.
-		//	attribute:
+		// attribute:
 		//		A attribute of the Atom Entry
-		//	returns:
+		// returns:
 		//		An array of values for the attribute value found, otherwise 'defaultValue'
 		this._assertIsItem(item);
 		this._assertIsAttribute(attribute);
@@ -127,10 +121,10 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		return retVal ? ((retVal.length !== undefined && typeof(retVal) !== "string") ? retVal : [retVal]) : undefined;
 	},
 
-	getAttributes: function(/* item */ item) {
-		//	summary:
+	getAttributes: function(/*dojo/data/api/Item*/ item){
+		// summary:
 		//		Return an array of attribute names
-		// 	description:
+		// description:
 		//		'item' must be have been created by the AtomReadStore instance.
 		//		tag names of child elements and XML attribute names of attributes
 		//		specified to the element are returned along with special attribute
@@ -138,9 +132,9 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		//		if the element has child elements, "text()" if the element has
 		//		child text nodes, and attribute names in '_attributeMap' that match
 		//		the tag name of the element.
-		//	item:
+		// item:
 		//		An XML element
-		//	returns:
+		// returns:
 		//		An array of attributes found
 		this._assertIsItem(item);
 		if(!item._attribs){
@@ -154,27 +148,27 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		return attrNames; //array
 	},
 
-	hasAttribute: function(/* item */ item, /* attribute || attribute-name-string */ attribute){
-		//	summary:
+	hasAttribute: function(/*dojo/data/api/Item*/ item, /*attribute|attribute-name-string*/ attribute){
+		// summary:
 		//		Check whether an element has the attribute
-		//	item:
+		// item:
 		//		'item' must be created by the AtomReadStore instance.
-		//	attribute:
+		// attribute:
 		//		An attribute of an Atom Entry item.
-		//	returns:
+		// returns:
 		//		True if the element has the attribute, otherwise false
 		return (this.getValue(item, attribute) !== undefined); //boolean
 	},
 
-	containsValue: function(/* item */ item, /* attribute || attribute-name-string */ attribute, /* anything */ value){
-		//	summary:
+	containsValue: function(/*dojo/data/api/Item*/ item, /*attribute|attribute-name-string*/ attribute, /* anything */ value){
+		// summary:
 		//		Check whether the attribute values contain the value
-		//	item:
+		// item:
 		//		'item' must be an instance of a dojox.data.XmlItem from the store instance.
-		//	attribute:
+		// attribute:
 		//		A tag name of a child element, An XML attribute name or one of
 		//		special names
-		//	returns:
+		// returns:
 		//		True if the attribute values contain the value, otherwise false
 		var values = this.getValues(item, attribute);
 		for(var i = 0; i < values.length; i++){
@@ -182,7 +176,7 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 				if(values[i].toString && values[i].toString() === value){
 					return true;
 				}
-			}else if (values[i] === value){
+			}else if(values[i] === value){
 				return true; //boolean
 			}
 		}
@@ -190,11 +184,11 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 	},
 
 	isItem: function(/* anything */ something){
-		//	summary:
+		// summary:
 		//		Check whether the object is an item (XML element)
-		//	item:
+		// item:
 		//		An object to check
-		// 	returns:
+		// returns:
 		//		True if the object is an XML element, otherwise false
 		if(something && something.element && something.store && something.store === this){
 			return true; //boolean
@@ -203,26 +197,26 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 	},
 
 	isItemLoaded: function(/* anything */ something){
-		//	summary:
+		// summary:
 		//		Check whether the object is an item (XML element) and loaded
-		//	item:
+		// item:
 		//		An object to check
-		//	returns:
+		// returns:
 		//		True if the object is an XML element, otherwise false
 		return this.isItem(something); //boolean
 	},
 
 	loadItem: function(/* object */ keywordArgs){
-		//	summary:
+		// summary:
 		//		Load an item (XML element)
-		//	keywordArgs:
-		//		object containing the args for loadItem.  See dojo.data.api.Read.loadItem()
+		// keywordArgs:
+		//		object containing the args for loadItem.	See dojo/data/api/Read.loadItem()
 	},
 
-	getFeatures: function() {
-		//	summary:
+	getFeatures: function(){
+		// summary:
 		//		Return supported data APIs
-		//	returns:
+		// returns:
 		//		"dojo.data.api.Read" and "dojo.data.api.Write"
 		var features = {
 			"dojo.data.api.Read": true
@@ -230,14 +224,14 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		return features; //array
 	},
 
-	getLabel: function(/* item */ item){
-		//	summary:
-		//		See dojo.data.api.Read.getLabel()
+	getLabel: function(/*dojo/data/api/Item*/ item){
+		// summary:
+		//		See dojo/data/api/Read.getLabel()
 		if((this.label !== "") && this.isItem(item)){
 			var label = this.getValue(item,this.label);
 			if(label && label.text){
 				return label.text;
-			}else if (label){
+			}else if(label){
 				return label.toString();
 			}else{
 				return undefined;
@@ -246,9 +240,9 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		return undefined; //undefined
 	},
 
-	getLabelAttributes: function(/* item */ item){
-		//	summary:
-		//		See dojo.data.api.Read.getLabelAttributes()
+	getLabelAttributes: function(/*dojo/data/api/Item*/ item){
+		// summary:
+		//		See dojo/data/api/Read.getLabelAttributes()
 		if(this.label !== ""){
 			return [this.label]; //array
 		}
@@ -292,7 +286,7 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		}
 	},
 
-	_fetchItems: function(request, fetchHandler, errorHandler) {
+	_fetchItems: function(request, fetchHandler, errorHandler){
 		// summary:
 		//		Retrieves the items from the Atom XML document.
 		var url = this._getFetchUrl(request);
@@ -307,13 +301,13 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 			_this.doc = data;
 			var items = _this._getItems(data, localRequest);
 			var query = request.query;
-			if(query) {
-				if(query.id) {
+			if(query){
+				if(query.id){
 					items = dojo.filter(items, function(item){
 						return (_this.getValue(item, "id") == query.id);
 					});
-				} else if(query.category){
-					items = dojo.filter(items, function(entry) {
+				}else if(query.category){
+					items = dojo.filter(items, function(entry){
 						var cats = _this.getValues(entry, "category");
 						if(!cats){
 							return false;
@@ -323,21 +317,20 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 				}
 			}
 
-			if (items && items.length > 0) {
+			if(items && items.length > 0){
 				fetchHandler(items, request);
-			}
-			else {
+			}else{
 				fetchHandler([], request);
 			}
 		};
 
-		if (this.doc) {
+		if(this.doc){
 			docHandler(this.doc);
 		}else{
 			var getArgs = {
 				url: url,
-				handleAs: "xml"//,
-			//	preventCache: true
+				handleAs: "xml",
+				preventCache: this.urlPreventCache
 			};
 			var getHandler = dojo.xhrGet(getArgs);
 			getHandler.addCallback(docHandler);
@@ -382,7 +375,7 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		return fullUrl + queryString;
 	},
 
-	_getItems: function(document, request) {
+	_getItems: function(document, request){
 		// summary:
 		//		Parses the document in a first pass
 		if(this._items){
@@ -390,13 +383,13 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		}
 		var items = [];
 		var nodes = [];
-		
+
 		if(document.childNodes.length < 1){
 			this._items = items;
 			console.log("dojox.data.AtomReadStore: Received an invalid Atom document. Check the content type header");
 			return items;
 		}
-		
+
 		var feedNodes = dojo.filter(document.childNodes, "return item.tagName && item.tagName.toLowerCase() == 'feed'");
 
 		var query = request.query;
@@ -423,9 +416,9 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		return items;
 	},
 
-	close: function(/*dojo.data.api.Request || keywordArgs || null */ request){
-		 //	summary:
-		 //		See dojo.data.api.Read.close()
+	close: function(/*dojo/data/api/Request|Object?*/ request){
+		// summary:
+		//		See dojo/data/api/Read.close()
 	},
 
 /* internal API */
@@ -437,22 +430,22 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		};
 	},
 
-	_parseItem: function(item) {
+	_parseItem: function(item){
 		var attribs = item._attribs;
 		var _this = this;
 		var text, type;
 
 		function getNodeText(node){
-			var txt = node.textContent || node.innerHTML || node.innerXML;			
+			var txt = node.textContent || node.innerHTML || node.innerXML;
 			if(!txt && node.childNodes[0]){
 				var child = node.childNodes[0];
-				if (child && (child.nodeType == 3 || child.nodeType == 4)) {
+				if(child && (child.nodeType == 3 || child.nodeType == 4)){
 					txt = node.childNodes[0].nodeValue;
 				}
 			}
 			return txt;
 		}
-		function parseTextAndType(node) {
+		function parseTextAndType(node){
 			return {text: getNodeText(node),type: node.getAttribute("type")};
 		}
 		dojo.forEach(item.element.childNodes, function(node){
@@ -475,8 +468,12 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 							return;
 						}
 						switch(child.tagName.toLowerCase()){
-							case "name":nameNode = child;break;
-							case "uri": uriNode = child; break;
+							case "name":
+								nameNode = child;
+								break;
+							case "uri":
+								uriNode = child;
+								break;
 						}
 					});
 					var author = {};
@@ -488,9 +485,15 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 					}
 					attribs[tagName] = author;
 					break;
-				case "id": attribs[tagName] = getNodeText(node); break;
-				case "updated": attribs[tagName] = dojo.date.stamp.fromISOString(getNodeText(node) );break;
-				case "published": attribs[tagName] = dojo.date.stamp.fromISOString(getNodeText(node));break;
+				case "id":
+					attribs[tagName] = getNodeText(node);
+					break;
+				case "updated":
+					attribs[tagName] = dojo.date.stamp.fromISOString(getNodeText(node) );
+					break;
+				case "published":
+					attribs[tagName] = dojo.date.stamp.fromISOString(getNodeText(node));
+					break;
 				case "category":
 					if(!attribs[tagName]){
 						attribs[tagName] = [];
@@ -507,7 +510,7 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 						type: node.getAttribute("type")};
 					attribs[tagName].push(link);
 
-					if(link.rel == "alternate") {
+					if(link.rel == "alternate"){
 						attribs["alternate"] = link;
 					}
 					break;
@@ -517,32 +520,33 @@ dojo.declare("dojox.data.AtomReadStore", null, {
 		});
 	},
 
-	_unescapeHTML : function(text) {
+	_unescapeHTML : function(text){
 		//Replace HTML character codes with their unencoded equivalents, e.g. &#8217; with '
 		text = text.replace(/&#8217;/m , "'").replace(/&#8243;/m , "\"").replace(/&#60;/m,">").replace(/&#62;/m,"<").replace(/&#38;/m,"&");
 		return text;
 	},
 
-	_assertIsItem: function(/* item */ item){
-		//	summary:
+	_assertIsItem: function(/*dojo/data/api/Item*/ item){
+		// summary:
 		//		This function tests whether the item passed in is indeed an item in the store.
-		//	item: 
+		// item:
 		//		The item to test for being contained by the store.
-		if(!this.isItem(item)){ 
+		if(!this.isItem(item)){
 			throw new Error("dojox.data.AtomReadStore: Invalid item argument.");
 		}
 	},
 
 	_assertIsAttribute: function(/* attribute-name-string */ attribute){
-		//	summary:
+		// summary:
 		//		This function tests whether the item passed in is indeed a valid 'attribute' like type for the store.
-		//	attribute: 
+		// attribute:
 		//		The attribute to test for being contained by the store.
-		if(typeof attribute !== "string"){ 
+		if(typeof attribute !== "string"){
 			throw new Error("dojox.data.AtomReadStore: Invalid attribute argument.");
 		}
 	}
 });
 dojo.extend(dojox.data.AtomReadStore,dojo.data.util.simpleFetch);
 
-}
+return dojox.data.AtomReadStore;
+});

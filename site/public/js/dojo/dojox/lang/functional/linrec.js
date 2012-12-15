@@ -1,12 +1,5 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.lang.functional.linrec"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.lang.functional.linrec"] = true;
+// wrapped by build app
+define("dojox/lang/functional/linrec", ["dojo","dijit","dojox","dojo/require!dojox/lang/functional/lambda,dojox/lang/functional/util"], function(dojo,dijit,dojox){
 dojo.provide("dojox.lang.functional.linrec");
 
 dojo.require("dojox.lang.functional.lambda");
@@ -15,7 +8,7 @@ dojo.require("dojox.lang.functional.util");
 // This module provides recursion combinators:
 //	- a linear recursion combinator.
 
-// Acknoledgements:
+// Acknowledgements:
 //	- recursion combinators are inspired by Manfred von Thun's article
 //		"Recursion Theory and Joy"
 //		(http://www.latrobe.edu.au/philosophy/phimvt/joy/j05cmp.html)
@@ -150,5 +143,4 @@ var linrec2 = function(cond, then, before, after){
 };
 
 */
-
-}
+});

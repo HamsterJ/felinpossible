@@ -1,1 +1,8 @@
-({"edit":"[rediger]","save":"[lagre]","cancel":"[avbryt]","doNew":"[ny(tt)]"})
+define(
+"dojox/atom/widget/nls/nb/FeedEntryEditor", ({
+	doNew: "[ny(tt)]",
+	edit: "[rediger]",
+	save: "[lagre]",
+	cancel: "[avbryt]"
+})
+);

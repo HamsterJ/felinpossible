@@ -1,21 +1,20 @@
-<span class="dijit dijitReset dijitLeft dijitInline"
-	dojoAttachEvent="onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse,onclick:_onDropDownClick,onkeydown:_onDropDownKeydown,onblur:_onDropDownBlur,onkeypress:_onKey"
-	><span class='dijitReset dijitRight dijitInline'
-		><span class='dijitReset dijitInline dijitButtonNode'
-			><button class="dijitReset dijitStretch dijitButtonContents" 
-				${nameAttrSetting} type="${type}" value="${value}"
-				dojoAttachPoint="focusNode,titleNode" 
-				waiRole="button" waiState="haspopup-true,labelledby-${id}_label"
-				><span class="dijitReset dijitInline" 
-					dojoAttachPoint="iconNode"
-				></span
-				><span class="dijitReset dijitInline dijitButtonText"  
-					dojoAttachPoint="containerNode,popupStateNode" 
-					id="${id}_label"
-				></span
-				><span class="dijitReset dijitInline dijitArrowButtonInner">&thinsp;</span
-				><span class="dijitReset dijitInline dijitArrowButtonChar">&#9660;</span
-			></button
+<span class="dijit dijitReset dijitInline"
+	><span class='dijitReset dijitInline dijitButtonNode'
+		data-dojo-attach-event="ondijitclick:_onClick" data-dojo-attach-point="_buttonNode"
+		><span class="dijitReset dijitStretch dijitButtonContents"
+			data-dojo-attach-point="focusNode,titleNode,_arrowWrapperNode"
+			role="button" aria-haspopup="true" aria-labelledby="${id}_label"
+			><span class="dijitReset dijitInline dijitIcon"
+				data-dojo-attach-point="iconNode"
+			></span
+			><span class="dijitReset dijitInline dijitButtonText"
+				data-dojo-attach-point="containerNode,_popupStateNode"
+				id="${id}_label"
+			></span
+			><span class="dijitReset dijitInline dijitArrowButtonInner"></span
+			><span class="dijitReset dijitInline dijitArrowButtonChar">&#9660;</span
 		></span
 	></span
-></span>
+	><input ${!nameAttrSetting} type="${type}" value="${value}" class="dijitOffScreen" tabIndex="-1"
+		data-dojo-attach-point="valueNode" role="presentation"
+/></span>

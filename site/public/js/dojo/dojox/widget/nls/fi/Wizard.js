@@ -1,1 +1,7 @@
-({"next":"Seuraava","done":"Valmis","previous":"Edellinen"})
+define(
+"dojox/widget/nls/fi/Wizard", ({
+next: "Seuraava",
+previous: "Edellinen",
+done: "Valmis"
+})
+);

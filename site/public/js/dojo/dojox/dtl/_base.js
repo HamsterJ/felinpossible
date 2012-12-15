@@ -1,36 +1,39 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/dtl/_base", [
+	"dojo/_base/kernel",
+	"dojo/_base/lang",
+	"dojox/string/tokenize",
+	"dojo/_base/json",
+	"dojo/dom",
+	"dojo/_base/xhr",
+	"dojox/string/Builder",
+	"dojo/_base/Deferred"], 
+	function(kernel, lang, Tokenize, json, dom, xhr, StringBuilder, deferred){
 
-
-if(!dojo._hasResource["dojox.dtl._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl._base"] = true;
-dojo.provide("dojox.dtl._base");
-
-dojo.require("dojox.string.Builder");
-dojo.require("dojox.string.tokenize");
-
-dojo.experimental("dojox.dtl");
-
-(function(){
-	var dd = dojox.dtl;
+	kernel.experimental("dojox.dtl");
+	var dd = lang.getObject("dojox.dtl", true);
+	dd._base = {};
 
 	dd.TOKEN_BLOCK = -1;
 	dd.TOKEN_VAR = -2;
 	dd.TOKEN_COMMENT = -3;
 	dd.TOKEN_TEXT = 3;
 
-	dd._Context = dojo.extend(function(dict){
-		// summary: Pass one of these when rendering a template to tell the template what values to use.
-		dojo._mixin(this, dict || {});
-		this._dicts = [];
+	dd._Context = lang.extend(function(dict){
+		// summary:
+		//		Pass one of these when rendering a template to tell the template what values to use.
+		if(dict){
+			lang._mixin(this, dict);
+			if(dict.get){
+				// Preserve passed getter and restore prototype get
+				this._getter = dict.get;
+				delete this.get;
+			}
+		}
 	},
 	{
 		push: function(){
 			var last = this;
-			var context = dojo.delegate(this);
+			var context = lang.delegate(this);
 			context.pop = function(){ return last; }
 			return context;
 		},
@@ -38,14 +41,17 @@ dojo.experimental("dojox.dtl");
 			throw new Error("pop() called on empty Context");
 		},
 		get: function(key, otherwise){
-			if(typeof this[key] != "undefined"){
-				return this._normalize(this[key]);
+			var n = this._normalize;
+
+			if(this._getter){
+				var got = this._getter(key);
+				if(got !== undefined){
+					return n(got);
+				}
 			}
 
-			for(var i = 0, dict; dict = this._dicts[i]; i++){
-				if(typeof dict[key] != "undefined"){
-					return this._normalize(dict[key]);
-				}
+			if(this[key] !== undefined){
+				return n(this[key]);
 			}
 
 			return otherwise;
@@ -66,13 +72,13 @@ dojo.experimental("dojox.dtl");
 		update: function(dict){
 			var context = this.push();
 			if(dict){
-				dojo._mixin(this, dict);
+				lang._mixin(this, dict);
 			}
 			return context;
 		}
 	});
 
-	var smart_split_re = /("(?:[^"\\]*(?:\\.[^"\\]*)*)"|'(?:[^'\\]*(?:\\.[^'\\]*)*)'|[^\s]+)/g;           
+	var smart_split_re = /("(?:[^"\\]*(?:\\.[^"\\]*)*)"|'(?:[^'\\]*(?:\\.[^'\\]*)*)'|[^\s]+)/g;
 	var split_re = /\s+/g;
 	var split = function(/*String|RegExp?*/ splitter, /*Integer?*/ limit){
 		splitter = splitter || split_re;
@@ -85,7 +91,7 @@ dojo.experimental("dojox.dtl");
 		splitter.exec(""); // Reset the global
 
 		var part, parts = [], lastIndex = 0, i = 0;
-		while(part = splitter.exec(this)){
+		while((part = splitter.exec(this))){
 			parts.push(this.slice(lastIndex, splitter.lastIndex - part[0].length));
 			lastIndex = splitter.lastIndex;
 			if(limit && (++i > limit - 1)){
@@ -94,16 +100,18 @@ dojo.experimental("dojox.dtl");
 		}
 		parts.push(this.slice(lastIndex));
 		return parts;
-	}
+	};
 
 	dd.Token = function(token_type, contents){
+		// tags:
+		//		private
 		this.token_type = token_type;
-		this.contents = new String(dojo.trim(contents));
+		this.contents = new String(lang.trim(contents));
 		this.contents.split = split;
 		this.split = function(){
 			return String.prototype.split.apply(this.contents, arguments);
 		}
-	}
+	};
 	dd.Token.prototype.split_contents = function(/*Integer?*/ limit){
 		var bit, bits = [], i = 0;
 		limit = limit || 999;
@@ -118,11 +126,12 @@ dojo.experimental("dojox.dtl");
 			}
 		}
 		return bits;
-	}
+	};
 
 	var ddt = dd.text = {
 		_get: function(module, name, errorless){
-			// summary: Used to find both tags and filters
+			// summary:
+			//		Used to find both tags and filters
 			var params = dd.register.get(module, name.toLowerCase(), errorless);
 			if(!params){
 				if(!errorless){
@@ -132,7 +141,7 @@ dojo.experimental("dojox.dtl");
 			}
 
 			var fn = params[1];
-			var require = params[2];
+			var deps = params[2];
 
 			var parts;
 			if(fn.indexOf(":") != -1){
@@ -140,9 +149,14 @@ dojo.experimental("dojox.dtl");
 				fn = parts.pop();
 			}
 
-			dojo["require"](require);
+// FIXME: THIS DESIGN DOES NOT WORK WITH ASYNC LOADERS!
+			var mod = deps;
+			if (/\./.test(deps)) {
+				deps = deps.replace(/\./g, "/");
+			}
+			require([deps], function(){});
 
-			var parent = dojo.getObject(require);
+			var parent = lang.getObject(mod);
 
 			return parent[fn || name] || parent[name + "_"] || parent[fn + "_"];
 		},
@@ -156,18 +170,18 @@ dojo.experimental("dojox.dtl");
 			return new dd.Template(ddt.getTemplateString(file));
 		},
 		getTemplateString: function(file){
-			return dojo._getText(file.toString()) || "";
+			return xhr._getText(file.toString()) || "";
 		},
 		_resolveLazy: function(location, sync, json){
 			if(sync){
 				if(json){
-					return dojo.fromJson(dojo._getText(location)) || {};
+					return json.fromJson(xhr._getText(location)) || {};
 				}else{
 					return dd.text.getTemplateString(location);
 				}
 			}else{
-				return dojo.xhrGet({
-					handleAs: (json) ? "json" : "text",
+				return xhr.get({
+					handleAs: json ? "json" : "text",
 					url: location
 				});
 			}
@@ -175,7 +189,7 @@ dojo.experimental("dojox.dtl");
 		_resolveTemplateArg: function(arg, sync){
 			if(ddt._isTemplate(arg)){
 				if(!sync){
-					var d = new dojo.Deferred();
+					var d = new deferred();
 					d.callback(arg);
 					return d;
 				}
@@ -184,12 +198,12 @@ dojo.experimental("dojox.dtl");
 			return ddt._resolveLazy(arg, sync);
 		},
 		_isTemplate: function(arg){
-			return (typeof arg == "undefined") || (typeof arg == "string" && (arg.match(/^\s*[<{]/) || arg.indexOf(" ") != -1));
+			return (arg === undefined) || (typeof arg == "string" && (arg.match(/^\s*[<{]/) || arg.indexOf(" ") != -1));
 		},
 		_resolveContextArg: function(arg, sync){
 			if(arg.constructor == Object){
 				if(!sync){
-					var d = new dojo.Deferred;
+					var d = new deferred;
 					d.callback(arg);
 					return d;
 				}
@@ -199,26 +213,33 @@ dojo.experimental("dojox.dtl");
 		},
 		_re: /(?:\{\{\s*(.+?)\s*\}\}|\{%\s*(load\s*)?(.+?)\s*%\})/g,
 		tokenize: function(str){
-			return dojox.string.tokenize(str, ddt._re, ddt._parseDelims);
+			return Tokenize(str, ddt._re, ddt._parseDelims);
 		},
 		_parseDelims: function(varr, load, tag){
 			if(varr){
 				return [dd.TOKEN_VAR, varr];
 			}else if(load){
-				var parts = dojo.trim(tag).split(/\s+/g);
+				var parts = lang.trim(tag).split(/\s+/g);
 				for(var i = 0, part; part = parts[i]; i++){
-					dojo["require"](part);
+					if (/\./.test(part)){
+						part = part.replace(/\./g,"/");
+					}
+					require([part]);
 				}
 			}else{
 				return [dd.TOKEN_BLOCK, tag];
 			}
 		}
-	}
+	};
 
-	dd.Template = dojo.extend(function(/*String|dojo._Url*/ template, /*Boolean*/ isString){
-		// template:
+	dd.Template = lang.extend(function(/*String|dojo._Url*/ template, /*Boolean*/ isString){
+		// summary:
+		//		The base class for text-based templates.
+		// template: String|dojo/_base/url
 		//		The string or location of the string to
 		//		use as a template
+		// isString: Boolean
+		//		Indicates whether the template is a string or a url.
 		var str = isString ? template : ddt._resolveTemplateArg(template, true) || "";
 		var tokens = ddt.tokenize(str);
 		var parser = new dd._Parser(tokens);
@@ -226,9 +247,11 @@ dojo.experimental("dojox.dtl");
 	},
 	{
 		update: function(node, context){
-			// node: DOMNode|String|dojo.NodeList
+			// summary:
+			//		Updates this template according to the given context.
+			// node: DOMNode|String|dojo/NodeList
 			//		A node reference or set of nodes
-			// context: dojo._Url|String|Object
+			// context: dojo/base/url|String|Object
 			//		The context object or location
 			return ddt._resolveContextArg(context).addCallback(this, function(contextObject){
 				var content = this.render(new dd._Context(contextObject));
@@ -237,19 +260,24 @@ dojo.experimental("dojox.dtl");
 						item.innerHTML = content;
 					});
 				}else{
-					dojo.byId(node).innerHTML = content;
+					dom.byId(node).innerHTML = content;
 				}
 				return this;
 			});
 		},
-		render: function(context, /*concatenatable?*/ buffer){
+		render: function(context, buffer){
+			// summary:
+			//		Renders this template.
+			// context: Object
+			//		The runtime context.
+			// buffer: StringBuilder?
+			//		A string buffer.
 			buffer = buffer || this.getBuffer();
 			context = context || new dd._Context({});
 			return this.nodelist.render(context, buffer) + "";
 		},
 		getBuffer: function(){
-			dojo.require("dojox.string.Builder");
-			return new dojox.string.Builder();
+			return new StringBuilder();
 		}
 	});
 
@@ -260,18 +288,18 @@ dojo.experimental("dojox.dtl");
 		}
 
 		if(str.indexOf("{%") == -1){
-			return new dd._QuickNodeList(dojox.string.tokenize(str, qfRe, function(token){
+			return new dd._QuickNodeList(Tokenize(str, qfRe, function(token){
 				return new dd._Filter(token);
 			}));
 		}
-	}
+	};
 
-	dd._QuickNodeList = dojo.extend(function(contents){
+	dd._QuickNodeList = lang.extend(function(contents){
 		this.contents = contents;
 	},
 	{
 		render: function(context, buffer){
-			for(var i=0, l=this.contents.length; i<l; i++){
+			for(var i = 0, l = this.contents.length; i < l; i++){
 				if(this.contents[i].resolve){
 					buffer = buffer.concat(this.contents[i].resolve(context));
 				}else{
@@ -284,8 +312,9 @@ dojo.experimental("dojox.dtl");
 		clone: function(buffer){ return this; }
 	});
 
-	dd._Filter = dojo.extend(function(token){
-		// summary: Uses a string to find (and manipulate) a variable
+	dd._Filter = lang.extend(function(token){
+		// summary:
+		//		Uses a string to find (and manipulate) a variable
 		if(!token) throw new Error("Filter must be called with variable name");
 		this.contents = token;
 
@@ -295,7 +324,7 @@ dojo.experimental("dojox.dtl");
 			this.filters = cache[1];
 		}else{
 			this.filters = [];
-			dojox.string.tokenize(token, this._re, this._tokenize, this);
+			Tokenize(token, this._re, this._tokenize, this);
 			this._cache[token] = [this.key, this.filters];
 		}
 	},
@@ -318,7 +347,7 @@ dojo.experimental("dojox.dtl");
 			var pos, arg;
 
 			for(var i = 0, has = []; i < arguments.length; i++){
-				has[i] = (typeof arguments[i] != "undefined" && typeof arguments[i] == "string" && arguments[i]);
+				has[i] = (arguments[i] !== undefined && typeof arguments[i] == "string" && arguments[i]);
 			}
 
 			if(!this.key){
@@ -343,7 +372,7 @@ dojo.experimental("dojox.dtl");
 				}
 				// Get a named filter
 				var fn = ddt.getFilter(arguments[3]);
-				if(!dojo.isFunction(fn)) throw new Error(arguments[3] + " is not registered as a filter");
+				if(!lang.isFunction(fn)) throw new Error(arguments[3] + " is not registered as a filter");
 				this.filters.push([fn, arg]);
 			}
 		},
@@ -351,7 +380,7 @@ dojo.experimental("dojox.dtl");
 			return this.contents;
 		},
 		resolve: function(context){
-			if(typeof this.key == "undefined"){
+			if(this.key === undefined){
 				return "";
 			}
 
@@ -388,7 +417,7 @@ dojo.experimental("dojox.dtl");
 				parts = path.split(".");
 				current = context.get(parts[0]);
 
-				if(dojo.isFunction(current)){
+				if(lang.isFunction(current)){
 					var self = context.getThis && context.getThis();
 					if(current.alters_data){
 						current = "";
@@ -403,7 +432,7 @@ dojo.experimental("dojox.dtl");
 					var part = parts[i];
 					if(current){
 						var base = current;
-						if(dojo.isObject(current) && part == "items" && typeof current[part] == "undefined"){
+						if(lang.isObject(current) && part == "items" && current[part] === undefined){
 							var items = [];
 							for(var key in current){
 								items.push([key, current[key]]);
@@ -412,16 +441,16 @@ dojo.experimental("dojox.dtl");
 							continue;
 						}
 
-						if(current.get && dojo.isFunction(current.get) && current.get.safe){
+						if(current.get && lang.isFunction(current.get) && current.get.safe){
 							current = current.get(part);
-						}else if(typeof current[part] == "undefined"){
+						}else if(current[part] === undefined){
 							current = current[part];
 							break;
 						}else{
 							current = current[part];
 						}
 
-						if(dojo.isFunction(current)){
+						if(lang.isFunction(current)){
 							if(current.alters_data){
 								current = "";
 							}else{
@@ -439,8 +468,9 @@ dojo.experimental("dojox.dtl");
 		}
 	});
 
-	dd._TextNode = dd._Node = dojo.extend(function(/*Object*/ obj){
-		// summary: Basic catch-all node
+	dd._TextNode = dd._Node = lang.extend(function(/*Object*/ obj){
+		// summary:
+		//		Basic catch-all node
 		this.contents = obj;
 	},
 	{
@@ -449,23 +479,26 @@ dojo.experimental("dojox.dtl");
 			return this;
 		},
 		render: function(context, buffer){
-			// summary: Adds content onto the buffer
+			// summary:
+			//		Adds content onto the buffer
 			return buffer.concat(this.contents);
 		},
 		isEmpty: function(){
-			return !dojo.trim(this.contents);
+			return !lang.trim(this.contents);
 		},
 		clone: function(){ return this; }
 	});
 
-	dd._NodeList = dojo.extend(function(/*Node[]*/ nodes){
-		// summary: Allows us to render a group of nodes
+	dd._NodeList = lang.extend(function(/*Node[]*/ nodes){
+		// summary:
+		//		Allows us to render a group of nodes
 		this.contents = nodes || [];
 		this.last = "";
 	},
 	{
 		push: function(node){
-			// summary: Add a new node to the list
+			// summary:
+			//		Add a new node to the list
 			this.contents.push(node);
 			return this;
 		},
@@ -474,7 +507,8 @@ dojo.experimental("dojox.dtl");
 			return this;
 		},
 		render: function(context, buffer){
-			// summary: Adds all content onto the buffer
+			// summary:
+			//		Adds all content onto the buffer
 			for(var i = 0; i < this.contents.length; i++){
 				buffer = this.contents[i].render(context, buffer);
 				if(!buffer) throw new Error("Template must return buffer");
@@ -500,8 +534,9 @@ dojo.experimental("dojox.dtl");
 		}
 	});
 
-	dd._VarNode = dojo.extend(function(str){
-		// summary: A node to be processed as a variable
+	dd._VarNode = lang.extend(function(str){
+		// summary:
+		//		A node to be processed as a variable
 		this.contents = new dd._Filter(str);
 	},
 	{
@@ -515,23 +550,27 @@ dojo.experimental("dojox.dtl");
 	});
 
 	dd._noOpNode = new function(){
-		// summary: Adds a no-op node. Useful in custom tags
+		// summary:
+		//		Adds a no-op node. Useful in custom tags
 		this.render = this.unrender = function(){ return arguments[1]; }
 		this.clone = function(){ return this; }
-	}
+	};
 
-	dd._Parser = dojo.extend(function(tokens){
-		// summary: Parser used during initialization and for tag groups.
+	dd._Parser = lang.extend(function(tokens){
+		// summary:
+		//		Parser used during initialization and for tag groups.
 		this.contents = tokens;
 	},
 	{
 		i: 0,
 		parse: function(/*Array?*/ stop_at){
-			// summary: Turns tokens into nodes
-			// description: Steps into tags are they're found. Blocks use the parse object
+			// summary:
+			//		Turns tokens into nodes
+			// description:
+			//		Steps into tags are they're found. Blocks use the parse object
 			//		to find their closing tag (the stop_at array). stop_at is inclusive, it
 			//		returns the node that matched.
-			var terminators = {};
+			var terminators = {}, token;
 			stop_at = stop_at || [];
 			for(var i = 0; i < stop_at.length; i++){
 				terminators[stop_at[i]] = true;
@@ -572,7 +611,8 @@ dojo.experimental("dojox.dtl");
 			return nodelist;
 		},
 		next_token: function(){
-			// summary: Returns the next token in the list.
+			// summary:
+			//		Returns the next token in the list.
 			var token = this.contents[this.i++];
 			return new dd.Token(token[0], token[1]);
 		},
@@ -600,12 +640,17 @@ dojo.experimental("dojox.dtl");
 	});
 
 	dd.register = {
+		// summary:
+		//		A register for filters and tags.
+		
 		_registry: {
 			attributes: [],
 			tags: [],
 			filters: []
 		},
 		get: function(/*String*/ module, /*String*/ name){
+			// tags:
+			//		private
 			var registry = dd.register._registry[module + "s"];
 			for(var i = 0, entry; entry = registry[i]; i++){
 				if(typeof entry[0] == "string"){
@@ -618,14 +663,16 @@ dojo.experimental("dojox.dtl");
 			}
 		},
 		getAttributeTags: function(){
+			// tags:
+			//		private
 			var tags = [];
 			var registry = dd.register._registry.attributes;
 			for(var i = 0, entry; entry = registry[i]; i++){
 				if(entry.length == 3){
 					tags.push(entry);
 				}else{
-					var fn = dojo.getObject(entry[1]);
-					if(fn && dojo.isFunction(fn)){
+					var fn = lang.getObject(entry[1]);
+					if(fn && lang.isFunction(fn)){
 						entry.push(fn);
 						tags.push(entry);
 					}
@@ -637,7 +684,7 @@ dojo.experimental("dojox.dtl");
 			for(var path in locations){
 				for(var i = 0, fn; fn = locations[path][i]; i++){
 					var key = fn;
-					if(dojo.isArray(fn)){
+					if(lang.isArray(fn)){
 						key = fn[0];
 						fn = fn[1];
 					}
@@ -649,7 +696,7 @@ dojo.experimental("dojox.dtl");
 							}
 							dd.register._registry.attributes.push([attr.toLowerCase(), base + "." + path + "." + attr]);
 						}
-						key = key.toLowerCase();
+						key = key.toLowerCase()
 					}
 					dd.register._registry[type].push([
 						key,
@@ -660,9 +707,31 @@ dojo.experimental("dojox.dtl");
 			}
 		},
 		tags: function(/*String*/ base, /*Object*/ locations){
+			// summary:
+			//		Register the specified tag libraries.
+			// description:
+			//		The locations parameter defines the contents of each library as a hash whose keys are the library names and values 
+			//		an array of the tags exported by the library. For example, the tags exported by the logic library would be:
+			//	|	{ logic: ["if", "for", "ifequal", "ifnotequal"] }
+			// base:
+			//		The base path of the libraries.
+			// locations:
+			//		An object defining the tags for each library as a hash whose keys are the library names and values 
+			//		an array of the tags or filters exported by the library.
 			dd.register._any("tags", base, locations);
 		},
 		filters: function(/*String*/ base, /*Object*/ locations){
+			// summary:
+			//		Register the specified filter libraries.
+			// description:
+			//		The locations parameter defines the contents of each library as a hash whose keys are the library names and values 
+			//		an array of the filters exported by the library. For example, the filters exported by the date library would be:
+			//	|	{ "dates": ["date", "time", "timesince", "timeuntil"] }
+			// base:
+			//		The base path of the libraries.
+			// locations:
+			//		An object defining the filters for each library as a hash whose keys are the library names and values 
+			//		an array of the filters exported by the library.
 			dd.register._any("filters", base, locations);
 		}
 	}
@@ -673,9 +742,10 @@ dojo.experimental("dojox.dtl");
 	var escapeqt = /'/g;
 	var escapedblqt = /"/g;
 	dd._base.escape = function(value){
-		// summary: Escapes a string's HTML
+		// summary:
+		//		Escapes a string's HTML
 		return dd.mark_safe(value.replace(escapeamp, '&amp;').replace(escapelt, '&lt;').replace(escapegt, '&gt;').replace(escapedblqt, '&quot;').replace(escapeqt, '&#39;'));
-	}
+	};
 
 	dd._base.safe = function(value){
 		if(typeof value == "string"){
@@ -685,7 +755,7 @@ dojo.experimental("dojox.dtl");
 			value.safe = true;
 		}
 		return value;
-	}
+	};
 	dd.mark_safe = dd._base.safe;
 
 	dd.register.tags("dojox.dtl.tag", {
@@ -707,6 +777,6 @@ dojo.experimental("dojox.dtl");
 	dd.register.filters("dojox.dtl", {
 		"_base": ["escape", "safe"]
 	});
-})();
+	return dd;
+});
 
-}

@@ -1,31 +1,20 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.lang.functional.object"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.lang.functional.object"] = true;
-dojo.provide("dojox.lang.functional.object");
-
-dojo.require("dojox.lang.functional.lambda");
+define("dojox/lang/functional/object", ["dojo/_base/kernel", "dojo/_base/lang", "./lambda"], function(kernel, lang, df){
 
 // This module adds high-level functions and related constructs:
 //	- object/dictionary helpers
 
 // Defined methods:
 //	- take any valid lambda argument as the functional argument
-//	- skip all attributes that are present in the empty object 
+//	- skip all attributes that are present in the empty object
 //		(IE and/or 3rd-party libraries).
 
-(function(){
-	var d = dojo, df = dojox.lang.functional, empty = {};
+	var empty = {};
 
-	d.mixin(df, {
+	lang.mixin(df, {
 		// object helpers
 		keys: function(/*Object*/ obj){
-			// summary: returns an array of all keys in the object
+			// summary:
+			//		returns an array of all keys in the object
 			var t = [];
 			for(var i in obj){
 				if(!(i in empty)){
@@ -35,7 +24,8 @@ dojo.require("dojox.lang.functional.lambda");
 			return	t; // Array
 		},
 		values: function(/*Object*/ obj){
-			// summary: returns an array of all values in the object
+			// summary:
+			//		returns an array of all values in the object
 			var t = [];
 			for(var i in obj){
 				if(!(i in empty)){
@@ -45,9 +35,10 @@ dojo.require("dojox.lang.functional.lambda");
 			return	t; // Array
 		},
 		filterIn: function(/*Object*/ obj, /*Function|String|Array*/ f, /*Object?*/ o){
-			// summary: creates new object with all attributes that pass the test 
-			//	implemented by the provided function.
-			o = o || d.global; f = df.lambda(f);
+			// summary:
+			//		creates new object with all attributes that pass the test
+			//		implemented by the provided function.
+			o = o || kernel.global; f = df.lambda(f);
 			var t = {}, v, i;
 			for(i in obj){
 				if(!(i in empty)){
@@ -58,8 +49,9 @@ dojo.require("dojox.lang.functional.lambda");
 			return t;	// Object
 		},
 		forIn: function(/*Object*/ obj, /*Function|String|Array*/ f, /*Object?*/ o){
-			// summary: iterates over all object attributes.
-			o = o || d.global; f = df.lambda(f);
+			// summary:
+			//		iterates over all object attributes.
+			o = o || kernel.global; f = df.lambda(f);
 			for(var i in obj){
 				if(!(i in empty)){
 					f.call(o, obj[i], i, obj);
@@ -68,9 +60,10 @@ dojo.require("dojox.lang.functional.lambda");
 			return o;	// Object
 		},
 		mapIn: function(/*Object*/ obj, /*Function|String|Array*/ f, /*Object?*/ o){
-			// summary: creates new object with the results of calling 
-			//	a provided function on every attribute in this object.
-			o = o || d.global; f = df.lambda(f);
+			// summary:
+			//		creates new object with the results of calling
+			//		a provided function on every attribute in this object.
+			o = o || kernel.global; f = df.lambda(f);
 			var t = {}, i;
 			for(i in obj){
 				if(!(i in empty)){
@@ -80,6 +73,6 @@ dojo.require("dojox.lang.functional.lambda");
 			return t;	// Object
 		}
 	});
-})();
-
-}
+	
+	return df;
+});

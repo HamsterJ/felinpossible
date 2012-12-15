@@ -1,1 +1,6 @@
-({"badPasswordMessage":"Neveljavno geslo.","nomatchMessage":"Gesli se ne ujemata."})
+define(
+"dojox/form/nls/sl/PasswordValidator", ({
+        nomatchMessage: "Gesli se ne ujemata.",
+	badPasswordMessage: "Neveljavno geslo."
+})
+);

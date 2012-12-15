@@ -1,35 +1,33 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.jsonPath.query"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.jsonPath.query"] = true;
+// wrapped by build app
+define("dojox/jsonPath/query", ["dojo","dijit","dojox"], function(dojo,dijit,dojox){
 dojo.provide("dojox.jsonPath.query");
 
-dojox.jsonPath.query = function(/*Object*/obj, /*String*/expr, /*Object*/arg){
-	// summaRy
-	// 	Perform jsonPath query `expr` on javascript object or json string `obj`
-	//	obj - object || json string to perform query on
-	//	expr - jsonPath expression (string) to be evaluated
-	//	arg - {}special arugments.  
-	//		resultType: "VALUE"||"BOTH"||"PATH"} (defaults to value)
-	//		evalType: "RESULT"||"ITEM"} (defaults to ?)
+dojox.jsonPath.query = function(/*Object*/ obj, /*String*/ expr, /*Object*/ arg){
+	// summary:
+	//		Perform jsonPath query `expr` on javascript object or json string `obj`
+	// obj:
+	//		object || json string to perform query on
+	// expr:
+	//		jsonPath expression (string) to be evaluated
+	// arg:
+	//		{} special arguments.
+	//
+	//		- resultType: "VALUE"||"BOTH"||"PATH"} (defaults to value)
+	//		- evalType: "RESULT"||"ITEM"} (defaults to ?)
 
 	var re = dojox.jsonPath._regularExpressions;
 	if (!arg){arg={};}
 
 	var strs = [];
 	function _str(i){ return strs[i];}
+	var _strName = _str.name;
 	var acc;
 	if (arg.resultType == "PATH" && arg.evalType == "RESULT") throw Error("RESULT based evaluation not supported with PATH based results");
 	var P = {
 		resultType: arg.resultType || "VALUE",
 		normalize: function(expr){
 			var subx = [];
-			expr = expr.replace(/'([^']|'')*'/g, function(t){return "_str("+(strs.push(eval(t))-1)+")";});
+			expr = expr.replace(/'([^']|'')*'/g, function(t){return _strName + "("+(strs.push(eval(t))-1)+")";});
 			var ll = -1;
 			while(ll!=subx.length){
 				ll=subx.length;//TODO: Do expression syntax checking
@@ -62,9 +60,9 @@ dojox.jsonPath.query = function(/*Object*/obj, /*String*/expr, /*Object*/arg){
 			var paths=[path];
 			function add(v, p,def){
 			  if (v && v.hasOwnProperty(p) && P.resultType != "VALUE") paths.push(path.concat([p]));
-				if (def) 
+				if (def)
 				  result = v[p];
-			  else if (v && v.hasOwnProperty(p))  
+			  else if (v && v.hasOwnProperty(p))
 					result.push(v[p]);
 			}
 			function desc(v){
@@ -101,11 +99,11 @@ dojox.jsonPath.query = function(/*Object*/obj, /*String*/expr, /*Object*/arg){
 					function(i){P.walk(val[i],function(j){ add(val[i],j); })} :
 					function(i){ add(val,i); });
 				}
-				else if (loc === "..") 
+				else if (loc === "..")
 					desc(val);
 				else if (/,/.test(loc)){ // [name1,name2,...]
 					for (var s=loc.split(/'?,'?/),i=0,n=s.length; i<n; i++)
-						add(val,repStr(s[i])); 
+						add(val,repStr(s[i]));
 				}
 				else if (/^\?\(.*?\)$/.test(loc)) // [?(expr)]
 					P.walk(val, function(i){ if (P.eval(loc.replace(/^\?\((.*?)\)$/,"$1"),val[i])) add(val,i); });
@@ -113,10 +111,10 @@ dojox.jsonPath.query = function(/*Object*/obj, /*String*/expr, /*Object*/arg){
 					slice(loc, val);
 				else {
 					loc=repStr(loc);
-					if (rb && val instanceof Array && !/^[0-9*]+$/.test(loc)) 
+					if (rb && val instanceof Array && !/^[0-9*]+$/.test(loc))
 						P.walk(val, function(i){ add(val[i], loc)});
-					else 
-						add(val,loc,rb);		
+					else
+						add(val,loc,rb);
 				}
 
 			}
@@ -126,7 +124,7 @@ dojox.jsonPath.query = function(/*Object*/obj, /*String*/expr, /*Object*/arg){
 				result = [];
 				var valPaths = paths;
 				paths = [];
-				if (rb) 
+				if (rb)
 					oper(val)
 				else
 					P.walk(val,function(i){path=valPaths[i]||path;oper(val[i])});
@@ -152,19 +150,19 @@ dojox.jsonPath.query = function(/*Object*/obj, /*String*/expr, /*Object*/arg){
 						f(m);
 			}
 		},
-		eval: function(x, _v){
-			try { return $ && _v && eval(x.replace(/@/g,'_v')); }
-			catch(e){ throw new SyntaxError("jsonPath: " + e.message + ": " + x.replace(/@/g, "_v").replace(/\^/g, "_a")); }
+		eval: function(x, v){
+			try { return $ && v && eval(x.replace(/@/g,'v')); }
+			catch(e){ throw new SyntaxError("jsonPath: " + e.message + ": " + x.replace(/@/g, "v").replace(/\^/g, "_a")); }
 		}
 	};
 
 	var $ = obj;
 	if (expr && obj){
 		return P.exec(P.normalize(expr).slice(1), obj, arg.evalType == "RESULT");
-	}	
+	}
 
 	return false;
 
-}; 
+};
 
-}
+});

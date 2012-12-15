@@ -1,27 +1,17 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/charting/DataChart", ["dojo/_base/kernel", "dojo/_base/lang", "dojo/_base/declare", "dojo/_base/html", "dojo/_base/connect",
+	 "dojo/_base/array", "./Chart2D", "./themes/PlotKit/blue", "dojo/dom"], 
+	 function(kernel, lang, declare, html, hub, arr, Chart, blue, dom){
+	// FIXME: This module drags in all Charting modules because of the Chart2D dependency...it is VERY heavy
+	kernel.experimental("dojox.charting.DataChart");
 
-
-if(!dojo._hasResource["dojox.charting.DataChart"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.charting.DataChart"] = true;
-dojo.provide("dojox.charting.DataChart");
-dojo.require("dojox.charting.Chart2D");
-dojo.require("dojox.charting.themes.PlotKit.blue");
-dojo.experimental("dojox.charting.DataChart"); 
-
-(function(){
-	
 	// Defaults for axes
 	//	to be mixed in with xaxis/yaxis custom properties
 	// see dojox.charting.axis2d.Default for details.
 	var _yaxis = {
-		vertical: true, 
-		min: 0, 
-		max: 10, 
-		majorTickStep: 5, 
+		vertical: true,
+		min: 0,
+		max: 10,
+		majorTickStep: 5,
 		minorTickStep: 1,
 		natural:false,
 		stroke: "black",
@@ -29,7 +19,7 @@ dojo.experimental("dojox.charting.DataChart");
 		minorTick: {stroke: "gray", length: 2},
 		majorLabels:true
 	};
-		
+
 	var _xaxis = {
 		natural: true, 		// true - no fractions
 		majorLabels: true, 	//show labels on major ticks
@@ -38,25 +28,23 @@ dojo.experimental("dojox.charting.DataChart");
 		majorTick: {stroke: "black", length: 8},
 		fixUpper:"major",
 		stroke: "black",
-		htmlLabels: true,                                                                    
+		htmlLabels: true,
 		from:1
 	};
-	
+
 	// default for chart elements
 	var chartPlot = {
 		markers: true,
 		tension:2,
 		gap:2
 	};
-	
-	dojo.declare("dojox.charting.DataChart", [dojox.charting.Chart2D], {
-		//	summary:
-		//		DataChart
+
+	return declare("dojox.charting.DataChart", Chart, {
+		// summary:
 		//		Extension to the 2D chart that connects to a data store in
 		//		a simple manner. Convenience methods have been added for
 		//		connecting store item labels to the chart labels.
-		//
-		//	description:
+		// description:
 		//		This code should be considered very experimental and the APIs subject
 		//		to change. This is currently an alpha version and will need some testing
 		//		and review.
@@ -75,9 +63,7 @@ dojo.experimental("dojox.charting.DataChart");
 		//		Currently, plot lines can only be set at initialization. Setting
 		//		a new store query will have no effect (although using setStore
 		//		may work but its untested).
-		//
-		//	example:
-		//
+		// example:
 		//	|	var chart = new dojox.charting.DataChart("myNode", {
 		//	|		displayRange:8,
 		//	|		store:dataStore,
@@ -85,126 +71,118 @@ dojo.experimental("dojox.charting.DataChart");
 		//	|		fieldName:"price"
 		//	|		type: dojox.charting.plot2d.Columns
 		//	|	});
-		//
-		//	properties:
-		//
-		//	scroll: Boolean
+
+		// scroll: Boolean
 		//		Whether live data updates and changes display, like columns moving
 		//		up and down, or whether it scrolls to the left as data is added
 		scroll:true,
-		//
-		//	comparative: Boolean
+
+		// comparative: Boolean
 		//		If false, all items are each their own series.
 		//		If true, the items are combined into one series
 		//		so that their charted properties can be compared.
 		comparative:false,
-		//
-		//		query: String
-		//			Used for fetching items. Will vary depending upon store.
+
+		// query: String
+		//		Used for fetching items. Will vary depending upon store.
 		query: "*",
-		//
-		//		queryOptions: String
-		//			Option used for fetching items
+
+		// queryOptions: String
+		//		Option used for fetching items
 		queryOptions: "",
-		//
+
 		/*=====
-			//	start:Number
+			// start:Number
 			//		first item to fetch from store
-			//	count:Number
+			// count:Number
 			//		Total amount of items to fetch from store
-			//	sort:Object
-			//		Paramaters to sort the fetched items from store
+			// sort:Object
+			//		Parameters to sort the fetched items from store
 		=====*/
-		//
-		//		fieldName: String
-		//			The field in the store item that is getting charted
+
+		// fieldName: String
+		//		The field in the store item that is getting charted
 		fieldName: "value",
-		//
-		//		chartTheme: dojox.charting.themes.*
-		//			The theme to style the chart. Defaults to PlotKit.blue.
-		chartTheme: dojox.charting.themes.PlotKit.blue,
-		//
-		//		displayRange: Number
-		//			The number of major ticks to show on the xaxis
+
+		// chartTheme: dojox.charting.themes.*
+		//		The theme to style the chart. Defaults to PlotKit.blue.
+		chartTheme: blue,
+
+		// displayRange: Number
+		//		The number of major ticks to show on the xaxis
 		displayRange:0,
-		//
-		// 		stretchToFit: Boolean
-		//			If true, chart is sized to data. If false, chart is a
-		//			fixed size. Note, is overridden by displayRange.
-		//			TODO: Stretch for the y-axis?
+
+		// stretchToFit: Boolean
+		//		If true, chart is sized to data. If false, chart is a
+		//		fixed size. Note, is overridden by displayRange.
+		//		TODO: Stretch for the y-axis?
 		stretchToFit:true,
-		//
-		//		minWidth: Number
-		//			The the smallest the chart width can be
+
+		// minWidth: Number
+		//		The the smallest the chart width can be
 		minWidth:200,
-		//
-		//		minHeight: Number
-		//			The the smallest the chart height can be
+
+		// minHeight: Number
+		//		The the smallest the chart height can be
 		minHeight:100,
-		//
-		//		showing: Boolean
-		//			Whether the chart is showing (default) on
-		//			initialization or hidden.
+
+		// showing: Boolean
+		//		Whether the chart is showing (default) on
+		//		initialization or hidden.
 		showing: true,
-		//
-		//		label: String
-		//			The name field of the store item
-		//			DO NOT SET: Set from store.labelAttribute
+
+		// label: String
+		//		The name field of the store item
+		//		DO NOT SET: Set from store.labelAttribute
 		label: "name",
-		
+
 		constructor: function(node, kwArgs){
 			// summary:
 			//		Set up properties and initialize chart build.
-			//
-			//	arguments:
-			//		node: DomNode
-			//			The node to attach the chart to.
-			//		kwArgs:	Object
-			//			xaxis: Object
-			//				optional parameters for xaxis (see above)
-			//			yaxis: Object
-			//				optional parameters for yaxis (see above)
-			//			store: Object
-			//				dojo.data store (currently nly supports Persevere)
-			//			xaxis: Object
-			//				First query for store
-			//			grid: Object
-			//				Options for the grid plot
-			//			chartPlot: Object
-			//				Options for chart elements (lines, bars, etc)
-			
-			this.domNode = dojo.byId(node);
+			// node: DomNode
+			//		The node to attach the chart to.
+			// kwArgs: Object
+			//		- xaxis: Object: optional parameters for xaxis (see above)
+			//		- yaxis: Object: optional parameters for yaxis (see above)
+			//		- store: Object: dojo.data store (currently nly supports Persevere)
+			//		- xaxis: Object: First query for store
+			//		- grid: Object: Options for the grid plot
+			//		- chartPlot: Object: Options for chart elements (lines, bars, etc)
 
-			dojo.mixin(this, kwArgs);
-			
-			this.xaxis = dojo.mixin(dojo.mixin({}, _xaxis), kwArgs.xaxis);
+			this.domNode = dom.byId(node);
+
+			lang.mixin(this, kwArgs);
+
+			this.xaxis = lang.mixin(lang.mixin({}, _xaxis), kwArgs.xaxis);
 			if(this.xaxis.labelFunc == "seriesLabels"){
-				this.xaxis.labelFunc = dojo.hitch(this, "seriesLabels");
+				this.xaxis.labelFunc = lang.hitch(this, "seriesLabels");
 			}
-			
-			this.yaxis = dojo.mixin(dojo.mixin({}, _yaxis), kwArgs.yaxis);
+
+			this.yaxis = lang.mixin(lang.mixin({}, _yaxis), kwArgs.yaxis);
 			if(this.yaxis.labelFunc == "seriesLabels"){
-				this.yaxis.labelFunc = dojo.hitch(this, "seriesLabels");
+				this.yaxis.labelFunc = lang.hitch(this, "seriesLabels");
 			}
-			
-			
+
+			// potential event's collector
+			this._events = [];
+
 			this.convertLabels(this.yaxis);
 			this.convertLabels(this.xaxis);
-			
+
 			this.onSetItems = {};
 			this.onSetInterval = 0;
 			this.dataLength = 0;
 			this.seriesData = {};
 			this.seriesDataBk = {};
 			this.firstRun =  true;
-			
+
 			this.dataOffset = 0;
-			
+
 			// FIXME: looks better with this, but it's custom
 			this.chartTheme.plotarea.stroke = {color: "gray", width: 3};
-			
+
 			this.setTheme(this.chartTheme);
-			
+
 			// displayRange overrides stretchToFit
 			if(this.displayRange){
 				this.stretchToFit = false;
@@ -212,81 +190,96 @@ dojo.experimental("dojox.charting.DataChart");
 			if(!this.stretchToFit){
 				this.xaxis.to = this.displayRange;
 			}
-			this.addAxis("x", this.xaxis);
-			this.addAxis("y", this.yaxis);
-			chartPlot.type = kwArgs.type || "Markers"
-			this.addPlot("default", dojo.mixin(chartPlot, kwArgs.chartPlot));
-			
-			this.addPlot("grid", dojo.mixin(kwArgs.grid || {}, {type: "Grid", hMinorLines: true}));
+			// we don't want axis on Pie
+			var cartesian = kwArgs.type && kwArgs.type != "Pie" && kwArgs.type.prototype.declaredClass != "dojox.charting.plot2d.Pie";
+			if(cartesian){
+				this.addAxis("x", this.xaxis);
+				this.addAxis("y", this.yaxis);
+			}
+			chartPlot.type = kwArgs.type || "Markers";
+			this.addPlot("default", lang.mixin(chartPlot, kwArgs.chartPlot));
+			if(cartesian){
+				this.addPlot("grid", lang.mixin(kwArgs.grid || {}, {type: "Grid", hMinorLines: true}));
+			}
 			
 			if(this.showing){
-				this.render();	
+				this.render();
 			}
-			
+
 			if(kwArgs.store){
-				this.setStore(kwArgs.store, kwArgs.query, kwArgs.fieldName, kwArgs.queryOptions);	
+				this.setStore(kwArgs.store, kwArgs.query, kwArgs.fieldName, kwArgs.queryOptions);
 			}
 		},
-		
+
+		destroy: function(){
+			arr.forEach(this._events, hub.disconnect);
+			this.inherited(arguments);
+		},
+
 		setStore: function(/*Object*/store, /* ? String*/query, /* ? String*/fieldName, /* ? Object */queryOptions){
-			//	 summary:
+			// summary:
 			//		Sets the chart store and query
 			//		then does the first fetch and
 			//		connects to subsequent changes.
-			//
+
 			// TODO: Not handling resetting store
-			//
+
 			this.firstRun = true;
 			this.store = store || this.store;
 			this.query = query || this.query;
 			this.fieldName = fieldName || this.fieldName;
 			this.label = this.store.getLabelAttributes();
 			this.queryOptions = queryOptions || queryOptions;
+
+			arr.forEach(this._events, hub.disconnect);
+			this._events = [
+				hub.connect(this.store, "onSet", this, "onSet"),
+				hub.connect(this.store, "onError", this, "onError")
+			];
 			this.fetch();
-			dojo.connect(this.store, "onSet", this, "onSet");
-			dojo.connect(this.store, "onError", this, "onError");
 		},
-		
+
 		show: function(){
 			// summary:
 			//		If chart is hidden, show it
 			if(!this.showing){
-				dojo.style(this.domNode, "display", "");	
+				html.style(this.domNode, "display", "");
 				this.showing = true;
 				this.render();
 			}
 		},
 		hide: function(){
-			// 	summary:
+			// summary:
 			//		If chart is showing, hide it
 			//		Prevents rendering while hidden
 			if(this.showing){
-				dojo.style(this.domNode, "display", "none");
+				html.style(this.domNode, "display", "none");
 				this.showing = false;
 			}
 		},
-		
+
 		onSet: function(/*storeObject*/item){
-			//	summary:
+			// summary:
 			//		Fired when a store item changes.
 			//		Collects the item calls and when
 			//		done (after 200ms), sends item
 			//		array to onData().
-			//
+
 			// FIXME: Using labels instead of IDs for item
 			//	identifiers here and in the chart series. This
 			//	is obviously short sighted, but currently used
 			//	for seriesLabels. Workaround for potential bugs
 			//	is to assign a label for which all items are unique.
+
 			var nm = this.getProperty(item, this.label);
-			
+
 			// FIXME: why the check for if-in-runs?
 			if(nm in this.runs || this.comparative){
 				clearTimeout(this.onSetInterval);
 				if(!this.onSetItems[nm]){
 					this.onSetItems[nm] = item;
 				}
-				this.onSetInterval = setTimeout(dojo.hitch(this, function(){
+				this.onSetInterval = setTimeout(lang.hitch(this, function(){
 					clearTimeout(this.onSetInterval);
 					var items = [];
 					for(var nm in this.onSetItems){
@@ -297,11 +290,11 @@ dojo.experimental("dojox.charting.DataChart");
 				}),200);
 			}
 		},
-		
+
 		onError: function(/*Error*/err){
 			// stub
 			//	Fires on fetch error
-			console.error(err);
+			console.error("DataChart Error:", err);
 		},
 
 		onDataReceived: function(/*Array*/items){
@@ -309,7 +302,7 @@ dojo.experimental("dojox.charting.DataChart");
 			//		stub. Fires after data is received but
 			//		before data is parsed and rendered
 		},
-		
+
 		getProperty: function(/*storeObject*/item, prop){
 			// summary:
 			//		The main use of this function is to determine
@@ -329,20 +322,19 @@ dojo.experimental("dojox.charting.DataChart");
 			return value;
 		},
 		onData: function(/*Array*/items){
-			//	summary:
+			// summary:
 			//		Called after a completed fetch
 			//		or when store items change.
 			//		On first run, sets the chart data,
 			//		then updates chart and legends.
-			//
+
 			//console.log("Store:", store);console.log("items: (", items.length+")", items);console.log("Chart:", this);
-			
-			if(!items.length){ return; }
-			
+			if(!items || !items.length){ return; }
+
 			if(this.items && this.items.length != items.length){
-				dojo.forEach(items, function(m){
+				arr.forEach(items, function(m){
 					var id = this.getProperty(m, "id");
-					dojo.forEach(this.items, function(m2, i){
+					arr.forEach(this.items, function(m2, i){
 						if(this.getProperty(m2, "id") == id){
 							this.items[i] = m2;
 						}
@@ -355,49 +347,49 @@ dojo.experimental("dojox.charting.DataChart");
 			}
 			this.onDataReceived(items);
 			this.items = items;
-			
-			
+
+
 			if(this.comparative){
 				// all items are gathered together and used as one
 				//	series so their properties can be compared.
 				var nm = "default";
-				
+
 				this.seriesData[nm] = [];
 				this.seriesDataBk[nm] = [];
-				dojo.forEach(items, function(m, i){
+				arr.forEach(items, function(m, i){
 					var field = this.getProperty(m, this.fieldName);
 					this.seriesData[nm].push(field);
 				}, this);
-				
+
 			}else{
-				
-				// each item is a seperate series.
-				dojo.forEach(items, function(m, i){
+
+				// each item is a separate series.
+				arr.forEach(items, function(m, i){
 					var nm = this.store.getLabel(m);
 					if(!this.seriesData[nm]){
 						this.seriesData[nm] = [];
 						this.seriesDataBk[nm] = [];
 					}
-					
+
 					// the property in the item we are using
 					var field = this.getProperty(m, this.fieldName);
-					if(dojo.isArray(field)){
+					if(lang.isArray(field)){
 						// Data is an array, so it's a snapshot, and not
 						//	live, updating data
 						//
 						this.seriesData[nm] = field;
-			
+
 					}else{
-						if(!this.scroll){ 
+						if(!this.scroll){
 							// Data updates, and "moves in place". Columns and
 							//	line markers go up and down
 							//
 							// create empty chart elements by starting an array
 							//	with zeros until we reach our relevant data
-							var ar = dojo.map(new Array(i+1), function(){ return 0; });
+							var ar = arr.map(new Array(i+1), function(){ return 0; });
 							ar.push(Number(field));
 							this.seriesData[nm] = ar;
-						
+
 						}else{
 							// Data updates and scrolls to the left
 							if(this.seriesDataBk[nm].length > this.seriesData[nm].length){
@@ -412,7 +404,7 @@ dojo.experimental("dojox.charting.DataChart");
 					}
 				}, this);
 			}
-			
+
 			// displayData is the segment of the data array that is within
 			// the chart boundaries
 			var displayData;
@@ -424,13 +416,13 @@ dojo.experimental("dojox.charting.DataChart");
 					this.addSeries(nm, this.seriesData[nm]);
 					displayData = this.seriesData[nm];
 				}
-			
+
 			}else{
-				
+
 				// update existing series
 				for(nm in this.seriesData){
 					displayData = this.seriesData[nm];
-					
+
 					if(this.scroll && displayData.length > this.displayRange){
 						// chart lines have gone beyond the right boundary.
 						this.dataOffset = displayData.length-this.displayRange - 1;
@@ -440,36 +432,42 @@ dojo.experimental("dojox.charting.DataChart");
 				}
 			}
 			this.dataLength = displayData.length;
-			
+
 			if(this.showing){
-				this.render();	
+				this.render();
 			}
-			
+
 		},
-		
+
 		fetch: function(){
 			// summary:
 			//		Fetches initial data. Subsequent changes
 			//		are received via onSet in data store.
 			//
 			if(!this.store){ return; }
-			
-			this.store.fetch({query:this.query, queryOptions:this.queryOptions, start:this.start, count:this.count, sort:this.sort, onComplete:dojo.hitch(this, "onData"), onError:dojo.hitch(this, "onError")});
+			this.store.fetch({query:this.query, queryOptions:this.queryOptions, start:this.start, count:this.count, sort:this.sort,
+				onComplete:lang.hitch(this, function(data){
+					setTimeout(lang.hitch(this, function(){
+						this.onData(data)
+					}),0);
+				}),
+				onError:lang.hitch(this, "onError")
+			});
 		},
-		
+
 		convertLabels: function(axis){
 			// summary:
 			//		Convenience method to convert a label array of strings
 			//		into an array of objects
 			//
-			if(!axis.labels || dojo.isObject(axis.labels[0])){ return null; }
-			
-			axis.labels = dojo.map(axis.labels, function(ele, i){
-				return {value:i, text:ele}; 
+			if(!axis.labels || lang.isObject(axis.labels[0])){ return null; }
+
+			axis.labels = arr.map(axis.labels, function(ele, i){
+				return {value:i, text:ele};
 			});
 			return null; // null
 		},
-		
+
 		seriesLabels: function(/*Number*/val){
 			// summary:
 			//		Convenience method that sets series labels based on item labels.
@@ -477,7 +475,7 @@ dojo.experimental("dojox.charting.DataChart");
 			if(this.series.length<1 || (!this.comparative && val>this.series.length)){ return "-"; }
 			if(this.comparative){
 				return this.store.getLabel(this.items[val]);// String
-				
+
 			}else{
 				// FIXME:
 				// Here we are setting the label base on if there is data in the array slot.
@@ -492,21 +490,18 @@ dojo.experimental("dojox.charting.DataChart");
 				}
 			}
 			return "-"; // String
-			
+
 		},
-		
+
 		resizeChart: function(/*Object*/dim){
-			//	summary:
+			// summary:
 			//		Call this function to change the chart size.
 			//		Can be connected to a layout widget that calls
 			//		resize.
-			//
+
 			var w = Math.max(dim.w, this.minWidth);
 			var h = Math.max(dim.h, this.minHeight);
 			this.resize(w, h);
 		}
 	});
-	
-})();
-
-}
+});

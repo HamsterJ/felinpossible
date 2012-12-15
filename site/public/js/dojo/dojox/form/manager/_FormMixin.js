@@ -1,21 +1,15 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.form.manager._FormMixin"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.form.manager._FormMixin"] = true;
-dojo.provide("dojox.form.manager._FormMixin");
-
-dojo.require("dojox.form.manager._Mixin");
-
-(function(){
-	var fm = dojox.form.manager,
+define("dojox/form/manager/_FormMixin", [
+	"dojo/_base/lang",
+	"dojo/_base/kernel",
+	"dojo/_base/event",
+	"dojo/window",
+	"./_Mixin",
+	"dojo/_base/declare"
+], function(lang, dojo, event, windowUtils, _Mixin, declare){
+	var fm = lang.getObject("dojox.form.manager", true),
 		aa = fm.actionAdapter;
 
-	dojo.declare("dojox.form.manager._FormMixin", null, {
+	return declare("dojox.form.manager._FormMixin", null, {
 		// summary:
 		//		Form manager's mixin for form-specific functionality.
 		// description:
@@ -45,7 +39,7 @@ dojo.require("dojox.form.manager._Mixin");
 		// form-specific functionality
 
 		_onReset: function(evt){
-			// NOTE: this function is taken from dijit.formForm, it works only
+			// NOTE: this function is taken from dijit.form.Form, it works only
 			// for form-based managers.
 
 			// create fake event so we can know if preventDefault() is called
@@ -60,12 +54,12 @@ dojo.require("dojox.form.manager._Mixin");
 			if(!(this.onReset(faux) === false) && faux.returnValue){
 				this.reset();
 			}
-			dojo.stopEvent(evt);
+			event.stop(evt);
 			return false;
 		},
 
 		onReset: function(){
-			//	summary:
+			// summary:
 			//		Callback when user resets the form. This method is intended
 			//		to be over-ridden. When the `reset` method is called
 			//		programmatically, the return value from `onReset` is used
@@ -92,12 +86,12 @@ dojo.require("dojox.form.manager._Mixin");
 			// for form-based managers.
 
 			if(this.onSubmit(evt) === false){ // only exactly false stops submit
-				dojo.stopEvent(evt);
+				event.stop(evt);
 			}
 		},
 
 		onSubmit: function(){
-			//	summary:
+			// summary:
 			//		Callback when user submits the form. This method is
 			//		intended to be over-ridden, but by default it checks and
 			//		returns the validity of form elements. When the `submit`
@@ -124,7 +118,7 @@ dojo.require("dojox.form.manager._Mixin");
 			for(var name in this.formWidgets){
 				var stop = false;
 				aa(function(_, widget){
-					if(!widget.attr("disabled") && widget.isValid && !widget.isValid()){
+					if(!widget.get("disabled") && widget.isValid && !widget.isValid()){
 						stop = true;
 					}
 				}).call(this, null, this.formWidgets[name].widget);
@@ -133,8 +127,29 @@ dojo.require("dojox.form.manager._Mixin");
 				}
 			}
 			return true;
+		},
+		validate: function(){
+			var isValid = true,
+				formWidgets = this.formWidgets,
+				didFocus = false, name;
+
+			for(name in formWidgets){
+				aa(function(_, widget){
+					// Need to set this so that "required" widgets get their
+					// state set.
+					widget._hasBeenBlurred = true;
+					var valid = widget.disabled || !widget.validate || widget.validate();
+					if(!valid && !didFocus){
+						// Set focus of the first non-valid widget
+						windowUtils.scrollIntoView(widget.containerNode || widget.domNode);
+						widget.focus();
+						didFocus = true;
+					}
+					isValid = isValid && valid;
+				}).call(this, null, formWidgets[name].widget);
+			}
+
+			return isValid;
 		}
 	});
-})();
-
-}
+});

@@ -17,11 +17,12 @@ class AdminController extends FP_Controller_CommonController
 		
 		Zend_Dojo::enableView($view);
 		$view->dojo()->setLocalPath($config->site->ressources->url . '/js/dojo/dojo/dojo.js')
-		->addStyleSheetModule('dijit.themes.tundra')
+		-> addStyleSheetModule('dijit.themes.tundra')
 		-> setDjConfigOption('parseOnLoad', true)
+		-> requireModule("dojo.date.locale")
+		-> requireModule("dijit.Tooltip")
 		-> enable();
 
-		$view->headScript()->appendFile($config->site->ressources->url . '/js/dojo/dojo/fpDojo.js');
 		$view->headScript()->appendFile($config->site->ressources->url . '/js/admin-common.min.js');
 		$view->headLink()->appendStylesheet($config->site->ressources->url . '/css/admin.css');
 

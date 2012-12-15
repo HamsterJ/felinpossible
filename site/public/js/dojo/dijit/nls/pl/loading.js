@@ -1,1 +1,6 @@
-({"loadingState":"Ładowanie...","errorState":"Niestety, wystąpił błąd"})
+define(
+"dijit/nls/pl/loading", ({
+	loadingState: "Ładowanie...",
+	errorState: "Niestety, wystąpił błąd"
+})
+);

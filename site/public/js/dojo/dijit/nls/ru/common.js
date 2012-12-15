@@ -1,1 +1,8 @@
-({"buttonOk":"ОК","buttonCancel":"Отмена","buttonSave":"Сохранить","itemClose":"Закрыть"})
+define(
+"dijit/nls/ru/common", ({
+	buttonOk: "OK",
+	buttonCancel: "Отмена",
+	buttonSave: "Сохранить",
+	itemClose: "Закрыть"
+})
+);

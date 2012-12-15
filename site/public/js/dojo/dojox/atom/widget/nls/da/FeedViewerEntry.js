@@ -1,1 +1,5 @@
-({"deleteButton":"[Slet]"})
+define(
+"dojox/atom/widget/nls/da/FeedViewerEntry", ({
+	deleteButton: "[Slet]"
+})
+);

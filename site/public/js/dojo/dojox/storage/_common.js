@@ -1,12 +1,5 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.storage._common"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.storage._common"] = true;
+// wrapped by build app
+define("dojox/storage/_common", ["dojo","dijit","dojox","dojo/require!dojox/storage/Provider,dojox/storage/manager,dojox/storage/LocalStorageProvider,dojox/storage/GearsStorageProvider,dojox/storage/WhatWGStorageProvider,dojox/storage/FlashStorageProvider,dojox/storage/BehaviorStorageProvider,dojox/storage/CookieStorageProvider"], function(dojo,dijit,dojox){
 dojo.provide("dojox.storage._common");
 dojo.require("dojox.storage.Provider");
 dojo.require("dojox.storage.manager");
@@ -16,12 +9,15 @@ dojo.require("dojox.storage.manager");
   have offlineProfile=true when you run the build script:
   ./build.sh action=release profile=offline offlineProfile=true
 */
+dojo.require("dojox.storage.LocalStorageProvider");
 dojo.require("dojox.storage.GearsStorageProvider");
 dojo.require("dojox.storage.WhatWGStorageProvider");
 dojo.require("dojox.storage.FlashStorageProvider");
+dojo.require("dojox.storage.BehaviorStorageProvider");
+dojo.require("dojox.storage.CookieStorageProvider");
 
 // now that we are loaded and registered tell the storage manager to
 // initialize itself
 dojox.storage.manager.initialize();
 
-}
+});

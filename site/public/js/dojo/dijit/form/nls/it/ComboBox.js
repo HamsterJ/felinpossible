@@ -1,1 +1,6 @@
-({"previousMessage":"Scelte precedenti","nextMessage":"Altre scelte"})
+define(
+"dijit/form/nls/it/ComboBox", ({
+		previousMessage: "Scelte precedenti",
+		nextMessage: "Scelte successive"
+})
+);

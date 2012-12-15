@@ -1,1 +1,7 @@
-({"next":"تالي","done":"اتمام","previous":"‏سابق‏"})
+define(
+"dojox/widget/nls/ar/Wizard", ({
+next: "تالي",
+previous: "‏سابق‏",
+done: "اتمام"
+})
+);

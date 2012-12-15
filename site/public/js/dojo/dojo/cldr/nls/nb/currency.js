@@ -1,1 +1,17 @@
-({"HKD_displayName":"Hongkong-dollar","CHF_displayName":"sveitsiske franc","JPY_symbol":"JPY","CAD_displayName":"kanadiske dollar","CNY_displayName":"kinesiske yuan renminbi","USD_symbol":"USD","AUD_displayName":"australske dollar","JPY_displayName":"japanske yen","USD_displayName":"amerikanske dollar","EUR_symbol":"EUR","GBP_displayName":"britiske pund sterling","GBP_symbol":"GBP","EUR_displayName":"euro"})
+define(
+"dojo/cldr/nls/nb/currency", //begin v1.x content
+{
+	"HKD_displayName": "Hongkong-dollar",
+	"CHF_displayName": "sveitsiske franc",
+	"CAD_displayName": "kanadiske dollar",
+	"CNY_displayName": "kinesiske yuan",
+	"AUD_displayName": "australske dollar",
+	"JPY_displayName": "japanske yen",
+	"USD_displayName": "amerikanske dollar",
+	"EUR_symbol": "€",
+	"GBP_displayName": "britiske pund sterling",
+	"GBP_symbol": "£",
+	"EUR_displayName": "euro"
+}
+//end v1.x content
+);

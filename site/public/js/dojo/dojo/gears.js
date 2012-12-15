@@ -1,28 +1,27 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojo/gears", ["./_base/lang", "./sniff"], function(lang, has){
 
+// module:
+//		dojo/gears
 
-if(!dojo._hasResource["dojo.gears"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojo.gears"] = true;
-dojo.provide("dojo.gears");
+var gears = {
+	// summary:
+	//		TODOC
+};
+lang.setObject("dojo.gears", gears);
 
-dojo.gears._gearsObject = function(){
-	// summary: 
+gears._gearsObject = function(){
+	// summary:
 	//		factory method to get a Google Gears plugin instance to
 	//		expose in the browser runtime environment, if present
 	var factory;
-	var results;
-	
-	var gearsObj = dojo.getObject("google.gears");
+
+	var gearsObj = lang.getObject("google.gears");
 	if(gearsObj){ return gearsObj; } // already defined elsewhere
-	
+
 	if(typeof GearsFactory != "undefined"){ // Firefox
 		factory = new GearsFactory();
 	}else{
-		if(dojo.isIE){
+		if(has("ie")){
 			// IE
 			try{
 				factory = new ActiveXObject("Gears.Factory");
@@ -42,22 +41,25 @@ dojo.gears._gearsObject = function(){
 
 	// still nothing?
 	if(!factory){ return null; }
-	
+
 	// define the global objects now; don't overwrite them though if they
 	// were somehow set internally by the Gears plugin, which is on their
 	// dev roadmap for the future
-	dojo.setObject("google.gears.factory", factory);
-	return dojo.getObject("google.gears");
+	lang.setObject("google.gears.factory", factory);
+	return lang.getObject("google.gears");
 };
 
-/*=====
-dojo.gears.available = {
-	// summary: True if client is using Google Gears
-};
-=====*/
+
 // see if we have Google Gears installed, and if
 // so, make it available in the runtime environment
 // and in the Google standard 'google.gears' global object
-dojo.gears.available = (!!dojo.gears._gearsObject())||0;
+gears.available = (!!gears._gearsObject())||0;
+/*=====
+ gears.available = {
+ // summary:
+ //		True if client is using Google Gears
+ };
+ =====*/
 
-}
+return gears;
+});

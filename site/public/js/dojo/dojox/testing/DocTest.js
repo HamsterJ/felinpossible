@@ -1,22 +1,12 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.testing.DocTest"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.testing.DocTest"] = true;
-dojo.provide("dojox.testing.DocTest");
-dojo.require("dojo.string");
+define("dojox/testing/DocTest", ["dojo/string"], function() {
 
 dojo.declare(
 	"dojox.testing.DocTest",
 	null,
 	{
-		//	summary:
+		// summary:
 		//		This class executes doctests.
-		//	description:
+		// description:
 		//		DocTests are tests that are defined inside the comment.
 		//		A doctest looks as if it was copied from the shell (which it mostly is).
 		//		A doctest is executed when the following conditions match:
@@ -66,9 +56,10 @@ dojo.declare(
 		errors: [],
 		
 		getTests:function(/*String*/moduleName){
-			// summary: Extract the tests from the given module or string.
+			// summary:
+			//		Extract the tests from the given module or string.
 			// examples:
-			// 		>>> dojo.isArray(new dojox.testing.DocTest().getTests("dojox.testing.DocTest")) // Use the module name to extract the tests from.
+			//		>>> dojo.isArray(new dojox.testing.DocTest().getTests("dojox.testing.DocTest")) // Use the module name to extract the tests from.
 			//		true
 			var path = dojo.moduleUrl(moduleName).path;
 			// TODO:
@@ -89,8 +80,10 @@ dojo.declare(
 		},
 		
 		_getTestsFromString:function(/*String*/data, /*Boolean*/insideComments){
-			// summary: Parse the given string for tests.
-			// insideComments: Boolean, if false "data" contains only the pure tests, comments already stripped.
+			// summary:
+			//		Parse the given string for tests.
+			// insideComments: Boolean
+			//		if false "data" contains only the pure tests, comments already stripped.
 			var trim = dojo.hitch(dojo.string, "trim");
 			var lines = data.split("\n");
 			var len = lines.length;
@@ -148,8 +141,8 @@ dojo.declare(
 							line:test.line
 						});
 					}
-					test = { 
-						commands: [], 
+					test = {
+						commands: [],
 						expectedResult: [],
 						line:0
 					};
@@ -159,9 +152,9 @@ dojo.declare(
 		},
 		
 		run: function(moduleName){
-			//	summary:
+			// summary:
 			//		Run the doctests in the module given.
-			//	example:
+			// example:
 			//		doctest = new dojox.testing.DocTest();
 			//		doctest.run("dojox.testing.DocTest");
 			//		doctest.errors should finally be an empty array.
@@ -196,10 +189,10 @@ dojo.declare(
 		},
 		
 		_run: function(/*Array*/tests){
-			//	summary:
-			//		Each element in the array contains the test in the first element, 
+			// summary:
+			//		Each element in the array contains the test in the first element,
 			//		and the expected result in the second element.
-			//	tests:
+			// tests:
 			//		Make sure that the types are compared properly. There used to be
 			//		the bug that a return value false was compared to "false" which
 			//		made the test fail. This is fixed and should be verified by the
@@ -231,8 +224,8 @@ dojo.declare(
 				var msg = "Test "+(i+1)+": ";
 				var viewCommands = t.commands.join(" ");
 				// Show the first part of the test command.
-				viewCommands = (viewCommands.length > 50 ? 
-								viewCommands.substr(0,50) + "..." : 
+				viewCommands = (viewCommands.length > 50 ?
+								viewCommands.substr(0,50) + "..." :
 								viewCommands
 				);
 				if(res.success){
@@ -258,7 +251,7 @@ dojo.declare(
 		},
 		
 		runTest: function(commands, expected){
-			var ret = { 
+			var ret = {
 				success: false,
 				actualResult: null
 			};
@@ -268,7 +261,7 @@ dojo.declare(
 			var cmds = commands.join("\n");
 			ret.actualResult = eval(cmds);
 			if( (String(ret.actualResult)==expected) ||
-				(dojo.toJson(ret.actualResult)==expected) || 
+				(dojo.toJson(ret.actualResult)==expected) ||
 				(
 					(expected.charAt(0)=='"')&&
 					(expected.charAt(expected.length-1)=='"')&&
@@ -285,4 +278,5 @@ dojo.declare(
 	}
 );
 
-}
+return dojox.testing.DocTest;
+});

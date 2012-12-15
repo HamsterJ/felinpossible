@@ -1,22 +1,10 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.data.S3Store"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.data.S3Store"] = true;
-dojo.provide("dojox.data.S3Store");
-dojo.require("dojox.rpc.ProxiedPath");
-dojo.require("dojox.data.JsonRestStore");
-
-// S3JsonRestStore is an extension of JsonRestStore to handle
-// Amazon's S3 service using JSON data
-
-dojo.declare("dojox.data.S3Store",
-	dojox.data.JsonRestStore,
+define("dojox/data/S3Store", ["dojo/_base/declare", "dojox/data/JsonRestStore", "dojox/rpc/ProxiedPath"], 
+  function(declare, JsonRestStore, ProxiedPath) {
+return declare("dojox.data.S3Store", JsonRestStore,
 	{
+	// summary:
+	//		S3JsonRestStore is an extension of JsonRestStore to handle
+	//		Amazon's S3 service using JSON data
 		_processResults : function(results){
 			// unfortunately, S3 returns query results in XML form
 			var keyElements = results.getElementsByTagName("Key");
@@ -42,4 +30,4 @@ dojo.declare("dojox.data.S3Store",
 	}
 );
 
-}
+});

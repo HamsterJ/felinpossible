@@ -1,12 +1,5 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.lang.oo.mixin"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.lang.oo.mixin"] = true;
+// wrapped by build app
+define("dojox/lang/oo/mixin", ["dojo","dijit","dojox","dojo/require!dojox/lang/oo/Filter,dojox/lang/oo/Decorator"], function(dojo,dijit,dojox){
 dojo.provide("dojox.lang.oo.mixin");
 
 dojo.experimental("dojox.lang.oo.mixin");
@@ -20,19 +13,20 @@ dojo.require("dojox.lang.oo.Decorator");
 		defaultDecorator = function(name, newValue, oldValue){ return newValue; },
 		defaultMixer = function(target, name, newValue, oldValue){ target[name] = newValue; },
 		defaults = {},	// for the internal use in the mixin()
+		extraNames = dojo._extraNames, extraLen = extraNames.length,
 
 		applyDecorator = oo.applyDecorator = function(decorator, name, newValue, oldValue){
-			//	summary:
+			// summary:
 			//		applies a decorator unraveling all embedded decorators
-			//	decorator: Function:
+			// decorator: Function
 			//		top-level decorator to apply
-			//	name: String:
+			// name: String
 			//		name of the property
-			//	newValue: Object:
+			// newValue: Object
 			//		new value of the property
-			//	oldValue: Object:
+			// oldValue: Object
 			//		old value of the property
-			//	returns: Object:
+			// returns: Object
 			//		returns the final value of the property
 			if(newValue instanceof Decorator){
 				var d = newValue.decorator;
@@ -43,41 +37,38 @@ dojo.require("dojox.lang.oo.Decorator");
 		};
 
 	/*=====
-	dojox.lang.oo.__MixinDefaults = function(){
-		//	summary:
+	dojox.lang.oo.__MixinDefaults = {
+		// summary:
 		//		a dict of default parameters for dojox.lang.oo._mixin
-		//	decorator: Function:
+		// decorator: Function
 		//		a decorator function to be used in absence of other decorators
-		//	filter: Function:
+		// filter: Function
 		//		a filter function to be used in absence of other filters
-		//	mixer: Function:
+		// mixer: Function
 		//		a mixer function to be used to mix in new properties
-		this.decorator = decorator;
-		this.filter = filter;
-		this.mixer = mixer;
 	};
 	=====*/
 
 	oo.__mixin = function(target, source, decorator, filter, mixer){
-		//	summary:
+		// summary:
 		//		mixes in two objects processing decorators and filters
-		//	target: Object:
+		// target: Object
 		//		target to receive new/updated properties
-		//	source: Object:
+		// source: Object
 		//		source of properties
-		//	defaults: dojox.lang.oo.__MixinDefaults?:
+		// defaults: dojox.lang.oo.__MixinDefaults?
 		//		default functions for various aspects of mixing
-		//	returns: Object:
+		// returns: Object
 		//		target
 
-		var name, targetName, prop, newValue, oldValue;
-			
+		var name, targetName, prop, newValue, oldValue, i;
+
 		// start mixing in properties
 		for(name in source){
-			if(!(name in empty)){
-				prop = source[name];
+			prop = source[name];
+			if(!(name in empty) || empty[name] !== prop){
 				targetName = filter(name, target, source, prop);
-				if(targetName){
+				if(targetName && (!(targetName in target) || !(targetName in empty) || empty[targetName] !== prop)){
 					// name is accepted
 					oldValue = target[targetName];
 					newValue = applyDecorator(decorator, targetName, prop, oldValue);
@@ -87,7 +78,25 @@ dojo.require("dojox.lang.oo.Decorator");
 				}
 			}
 		}
-		
+		if(extraLen){
+			for(i = 0; i < extraLen; ++i){
+				name = extraNames[i];
+				// repeating the body above
+				prop = source[name];
+				if(!(name in empty) || empty[name] !== prop){
+					targetName = filter(name, target, source, prop);
+					if(targetName && (!(targetName in target) || !(targetName in empty) || empty[targetName] !== prop)){
+						// name is accepted
+						oldValue = target[targetName];
+						newValue = applyDecorator(decorator, targetName, prop, oldValue);
+						if(oldValue !== newValue){
+							mixer(target, targetName, newValue, oldValue);
+						}
+					}
+				}
+			}
+		}
+
 		return target;	// Object
 	};
 
@@ -95,13 +104,13 @@ dojo.require("dojox.lang.oo.Decorator");
 		// summary:
 		//		mixes in two or more objects processing decorators and filters
 		//		using defaults as a fallback
-		// target: Object:
+		// target: Object
 		//		target to receive new/updated properties
-		// source: Object...:
+		// source: Object...
 		//		source of properties, more than one source is allowed
-		// returns: Object:
+		// returns: Object
 		//		target
-		
+
 		var decorator, filter, i = 1, l = arguments.length;
 		for(; i < l; ++i){
 			source = arguments[i];
@@ -123,4 +132,4 @@ dojo.require("dojox.lang.oo.Decorator");
 	};
 })();
 
-}
+});

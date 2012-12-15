@@ -1,1 +1,13 @@
-({"close":"[סגירה]","title":"כותרת","authors":"מחברים","summary":"סיכום","content":"תוכן","contributors":"תורמים","updated":"עודכן","displayOptions":"[הצגת אפשרויות]","id":"זיהוי"})
+define(
+"dojox/atom/widget/nls/he/FeedEntryViewer", ({
+	displayOptions: "[אפשרויות הצגה]",
+	title: "כותרת",
+	authors: "מחברים",
+	contributors: "תורמים",
+	id: "זיהוי",
+	close: "[סגירה]",
+	updated: "עודכן",
+	summary: "סיכום",
+	content: "תוכן"
+})
+);

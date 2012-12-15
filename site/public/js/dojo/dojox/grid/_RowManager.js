@@ -1,15 +1,9 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/grid/_RowManager", [
+	"dojo/_base/declare",
+	"dojo/_base/lang",
+	"dojo/dom-class"
+], function(declare, lang, domClass){
 
-
-if(!dojo._hasResource["dojox.grid._RowManager"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.grid._RowManager"] = true;
-dojo.provide("dojox.grid._RowManager");
-
-(function(){
 	var setStyleText = function(inNode, inStyleText){
 		if(inNode.style.cssText == undefined){
 			inNode.setAttribute("style", inStyleText);
@@ -18,7 +12,7 @@ dojo.provide("dojox.grid._RowManager");
 		}
 	};
 
-	dojo.declare("dojox.grid._RowManager", null, {
+	return declare("dojox.grid._RowManager", null, {
 		//	Stores information about grid rows. Owned by grid and used internally.
 		constructor: function(inGrid){
 			this.grid = inGrid;
@@ -28,14 +22,14 @@ dojo.provide("dojox.grid._RowManager");
 		// styles
 		prepareStylingRow: function(inRowIndex, inRowNode){
 			return {
-				index: inRowIndex, 
+				index: inRowIndex,
 				node: inRowNode,
 				odd: Boolean(inRowIndex&1),
-				selected: this.grid.selection.isSelected(inRowIndex),
+				selected: !!this.grid.selection.isSelected(inRowIndex),
 				over: this.isOver(inRowIndex),
 				customStyles: "",
 				customClasses: "dojoxGridRow"
-			}
+			};
 		},
 		styleRowNode: function(inRowIndex, inRowNode){
 			var row = this.prepareStylingRow(inRowIndex, inRowNode);
@@ -57,15 +51,13 @@ dojo.provide("dojox.grid._RowManager");
 		setOverRow: function(inRowIndex){
 			var last = this.overRow;
 			this.overRow = inRowIndex;
-			if((last!=this.overRow)&&(last >=0)){
+			if((last!=this.overRow)&&(lang.isString(last) || last >= 0)){
 				this.updateStyles(last);
 			}
 			this.updateStyles(this.overRow);
 		},
 		isOver: function(inRowIndex){
-			return (this.overRow == inRowIndex);
+			return (this.overRow == inRowIndex && !domClass.contains(this.grid.domNode, "dojoxGridColumnResizing"));
 		}
 	});
-})();
-
-}
+});

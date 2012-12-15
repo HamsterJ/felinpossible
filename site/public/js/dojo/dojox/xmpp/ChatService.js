@@ -1,12 +1,5 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.xmpp.ChatService"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.xmpp.ChatService"] = true;
+// wrapped by build app
+define("dojox/xmpp/ChatService", ["dojo","dijit","dojox"], function(dojo,dijit,dojox){
 dojo.provide("dojox.xmpp.ChatService");
 
 dojox.xmpp.chat = {
@@ -17,7 +10,7 @@ dojox.xmpp.chat = {
 	INACTIVE_STATE: 'inactive',
 	PAUSED_STATE: 'paused',
 	GONE_STATE: 'gone'
-}
+};
 
 dojo.declare("dojox.xmpp.ChatService", null, {
 	state: "",
@@ -44,7 +37,7 @@ dojo.declare("dojox.xmpp.ChatService", null, {
 	},
 	
 	invite: function(contact){
-		if (this.uid){return;}	
+		if (this.uid){return;}
 
 
 		if(!contact || contact==''){
@@ -60,7 +53,7 @@ dojo.declare("dojox.xmpp.ChatService", null, {
 			type: "chat"
 		}
 		var request = new dojox.string.Builder(dojox.xmpp.util.createElement("message", req, false));
-		request.append(dojox.xmpp.util.createElement("thread",{},false));	
+		request.append(dojox.xmpp.util.createElement("thread",{},false));
 		request.append(this.chatid);
 		request.append("</thread>");
 		request.append(dojox.xmpp.util.createElement("active",{xmlns: dojox.xmpp.chat.CHAT_STATE_NS},true));
@@ -134,19 +127,19 @@ dojo.declare("dojox.xmpp.ChatService", null, {
 			type: "chat"
 		}
 
-		var request = new dojox.string.Builder(dojox.xmpp.util.createElement("message",req,false));	
+		var request = new dojox.string.Builder(dojox.xmpp.util.createElement("message",req,false));
 		request.append(dojox.xmpp.util.createElement(state, {xmlns: dojox.xmpp.chat.CHAT_STATE_NS},true));
 		this._currentState = state;
 		request.append("<thread>");
 		request.append(this.chatid);
-		request.append("</thread></message>");	
+		request.append("</thread></message>");
 		
 		this.session.dispatchPacket(request.toString());
 	},
 
-	//EVENTS 
+	//EVENTS
 	onNewMessage: function(msg){},
 	onInvite: function(contact){}
 });
 
-}
+});

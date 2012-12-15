@@ -1,29 +1,18 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.charting.plot3d.Bars"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.charting.plot3d.Bars"] = true;
-dojo.provide("dojox.charting.plot3d.Bars");
-
-dojo.require("dojox.charting.plot3d.Base");
-
-(function(){
+define("dojox/charting/plot3d/Bars", ["dojox/gfx3d", "dojo/_base/kernel", "dojo/_base/declare", "dojo/_base/Color", "./Base"],
+	function(gfx3d, kernel, declare, Color, Base) {
 
 	// reduce function borrowed from dojox.fun
 	var reduce = function(/*Array*/ a, /*Function|String|Array*/ f, /*Object?*/ o){
-		// summary: repeatedly applies a binary function to an array from left 
-		//	to right; returns the final value.
-		a = typeof a == "string" ? a.split("") : a; o = o || dojo.global;
+		// summary:
+		//		repeatedly applies a binary function to an array from left
+		//		to right; returns the final value.
+		a = typeof a == "string" ? a.split("") : a; o = o || kernel.global;
 		var z = a[0];
 		for(var i = 1; i < a.length; z = f.call(o, z, a[i++]));
 		return z;	// Object
 	};
 
-	dojo.declare("dojox.charting.plot3d.Bars", dojox.charting.plot3d.Base, {
+	return declare("dojox.charting.plot3d.Bars", Base, {
 		constructor: function(width, height, kwArgs){
 			this.depth = "auto";
 			this.gap   = 0;
@@ -34,7 +23,7 @@ dojo.require("dojox.charting.plot3d.Base");
 				if("gap"   in kwArgs){ this.gap   = kwArgs.gap; }
 				if("material" in kwArgs){
 					var m = kwArgs.material;
-					if(typeof m == "string" || m instanceof dojo.Color){
+					if(typeof m == "string" || m instanceof Color){
 						this.material.color = m;
 					}else{
 						this.material = m;
@@ -61,13 +50,11 @@ dojo.require("dojox.charting.plot3d.Base");
 			for(var i = 0; i < this.data.length; ++i, org += step){
 				creator
 					.createCube({
-						bottom: {x: org + this.gap, y: 0, z: 0}, 
+						bottom: {x: org + this.gap, y: 0, z: 0},
 						top:    {x: org + step - this.gap, y: this.data[i] * scale, z: depth}
 					})
 					.setFill(this.material);
 			}
 		}
 	});
-})();
-
-}
+});

@@ -1,56 +1,64 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+require({cache:{
+'url:dijit/templates/MenuBar.html':"<div class=\"dijitMenuBar dijitMenuPassive\" data-dojo-attach-point=\"containerNode\"  role=\"menubar\" tabIndex=\"${tabIndex}\" data-dojo-attach-event=\"onkeypress: _onKeyPress\"></div>\n"}});
+define("dijit/MenuBar", [
+	"dojo/_base/declare", // declare
+	"dojo/_base/event", // event.stop
+	"dojo/keys", // keys.DOWN_ARROW
+	"./_MenuBase",
+	"dojo/text!./templates/MenuBar.html"
+], function(declare, event, keys, _MenuBase, template){
 
+// module:
+//		dijit/MenuBar
 
-if(!dojo._hasResource["dijit.MenuBar"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dijit.MenuBar"] = true;
-dojo.provide("dijit.MenuBar");
-
-dojo.require("dijit.Menu");
-
-dojo.declare("dijit.MenuBar", dijit._MenuBase, {
+return declare("dijit.MenuBar", _MenuBase, {
 	// summary:
 	//		A menu bar, listing menu choices horizontally, like the "File" menu in most desktop applications
 
-	templateString:"<div class=\"dijitMenuBar dijitMenuPassive\" dojoAttachPoint=\"containerNode\"  waiRole=\"menubar\" tabIndex=\"${tabIndex}\" dojoAttachEvent=\"onkeypress: _onKeyPress\"></div>\r\n",
+	templateString: template,
+
+	baseClass: "dijitMenuBar",
 
 	// _isMenuBar: [protected] Boolean
 	//		This is a MenuBar widget, not a (vertical) Menu widget.
 	_isMenuBar: true,
 
-	constructor: function(){
+	postCreate: function(){
+		this.inherited(arguments);
+		var l = this.isLeftToRight();
+		this.connectKeyNavHandlers(
+			l ? [keys.LEFT_ARROW] : [keys.RIGHT_ARROW],
+			l ? [keys.RIGHT_ARROW] : [keys.LEFT_ARROW]
+		);
+
+		// parameter to dijit.popup.open() about where to put popup (relative to this.domNode)
+		this._orient = ["below"];
+	},
+
+	_moveToPopup: function(/*Event*/ evt){
 		// summary:
-		//		Sets up local variables etc.
+		//		This handles the down arrow key, opening a submenu if one exists.
+		//		Unlike _MenuBase._moveToPopup(), will never move to the next item in the MenuBar.
 		// tags:
 		//		private
 
-		// parameter to dijit.popup.open() about where to put popup (relative to this.domNode)
-		this._orient = this.isLeftToRight() ? {BL: 'TL'} : {BR: 'TR'};
-	},
-
-	postCreate: function(){
-		var k = dojo.keys, l = this.isLeftToRight();
-		this.connectKeyNavHandlers(
-			l ? [k.LEFT_ARROW] : [k.RIGHT_ARROW],
-			l ? [k.RIGHT_ARROW] : [k.LEFT_ARROW]
-		);
+		if(this.focusedChild && this.focusedChild.popup && !this.focusedChild.disabled){
+			this.onItemClick(this.focusedChild, evt);
+		}
 	},
 
 	focusChild: function(item){
 		// overload focusChild so that whenever the focus is moved to a new item,
-		// check the previous focused whether it has its popup open, if so, after 
+		// check the previous focused whether it has its popup open, if so, after
 		// focusing the new item, open its submenu immediately
-		var from_item = this.focusedChild,
-			showpopup = from_item && from_item.popup && from_item.popup.isShowingNow;
+		var prev_item = this.focusedChild,
+			showpopup = prev_item && prev_item.popup && prev_item.popup.isShowingNow;
 		this.inherited(arguments);
-		if(showpopup && !item.disabled){
-			this._openPopup();		// TODO: on down arrow, _openPopup() is called here and in onItemClick()
+		if(showpopup && item.popup && !item.disabled){
+			this._openPopup(true);		// TODO: on down arrow, _openPopup() is called here and in onItemClick()
 		}
 	},
-	
+
 	_onKeyPress: function(/*Event*/ evt){
 		// summary:
 		//		Handle keyboard based menu navigation.
@@ -60,11 +68,25 @@ dojo.declare("dijit.MenuBar", dijit._MenuBase, {
 		if(evt.ctrlKey || evt.altKey){ return; }
 
 		switch(evt.charOrCode){
-			case dojo.keys.DOWN_ARROW:
+			case keys.DOWN_ARROW:
 				this._moveToPopup(evt);
-				dojo.stopEvent(evt);
+				event.stop(evt);
+		}
+	},
+
+	onItemClick: function(/*dijit/_WidgetBase*/ item, /*Event*/ evt){
+		// summary:
+		//		Handle clicks on an item.   Also called by _moveToPopup() due to a down-arrow key on the item.
+		//		Cancels a dropdown if already open and click is either mouse or space/enter.
+		//		Don't close dropdown due to down arrow.
+		// tags:
+		//		private
+		if(item.popup && item.popup.isShowingNow && (evt.type !== "keypress" || evt.keyCode !== keys.DOWN_ARROW)){
+			item.popup.onCancel();
+		}else{
+			this.inherited(arguments);
 		}
 	}
 });
 
-}
+});

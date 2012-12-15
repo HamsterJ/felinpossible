@@ -1,129 +1,130 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.image.ThumbnailPicker"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.image.ThumbnailPicker"] = true;
+// wrapped by build app
+define("dojox/image/ThumbnailPicker", ["dojo","dijit","dojox","dojo/require!dojox/fx/scroll,dojo/fx/easing,dojo/fx,dijit/_Widget,dijit/_Templated"], function(dojo,dijit,dojox){
 dojo.provide("dojox.image.ThumbnailPicker");
 dojo.experimental("dojox.image.ThumbnailPicker");
 //
-// dojox.image.ThumbnailPicker courtesy Shane O Sullivan, licensed under a Dojo CLA 
-// @author  Copyright 2007 Shane O Sullivan (shaneosullivan1@gmail.com)
+// dojox.image.ThumbnailPicker courtesy Shane O Sullivan, licensed under a Dojo CLA
 //
 // For a sample usage, see http://www.skynet.ie/~sos/photos.php
 //
 //	document topics.
 
 dojo.require("dojox.fx.scroll"); // is optional, but don't want to dojo[require] it
-dojo.require("dojo.fx.easing"); 
+dojo.require("dojo.fx.easing");
 
 dojo.require("dojo.fx");
 dojo.require("dijit._Widget");
 dojo.require("dijit._Templated");
 
+// FIXME: use CSS for size, thumbHeight, and thumbWidth
+
 dojo.declare("dojox.image.ThumbnailPicker",
 	[dijit._Widget, dijit._Templated],
 	{
-	// summary: A scrolling Thumbnail Picker widget 
-	//
+	// summary:
+	//		A scrolling Thumbnail Picker widget
+
 	// imageStore: Object
-	// A data store that implements the dojo.data Read API.
+	//		A data store that implements the dojo.data Read API.
 	imageStore: null,
 
 	// request: Object
-	// A dojo.data Read API Request object.
+	//		A dojo.data Read API Request object.
 	request: null,
 
 	// size: Number
-	// Width or height in pixels, depending if horizontal or vertical.
-	size: 500, //FIXME: use CSS?
+	//		Width or height in pixels, depending if horizontal or vertical.
+	size: 500, 
 
 	// thumbHeight: Number
-	// Default height of a thumbnail image
-	thumbHeight: 75, // FIXME: use CSS?
+	//		Default height of a thumbnail image
+	thumbHeight: 75, 
 
 	// thumbWidth: Number
-	// Default width of an image
-	thumbWidth: 100, // FIXME: use CSS?
+	//		Default width of an image
+	thumbWidth: 100, 
 
 	// useLoadNotifier: Boolean
-	// Setting useLoadNotifier to true makes a colored DIV appear under each
-	// thumbnail image, which is used to display the loading status of each
-	// image in the data store.
+	//		Setting useLoadNotifier to true makes a colored DIV appear under each
+	//		thumbnail image, which is used to display the loading status of each
+	//		image in the data store.
 	useLoadNotifier: false,
 
 	// useHyperlink: boolean
-	// Setting useHyperlink to true causes a click on a thumbnail to open a link.
+	//		Setting useHyperlink to true causes a click on a thumbnail to open a link.
 	useHyperlink: false,
 
 	// hyperlinkTarget: String
-	// If hyperlinkTarget is set to "new", clicking on a thumb will open a new window
-	// If it is set to anything else, clicking a thumbnail will open the url in the
-	// current window.
+	//		If hyperlinkTarget is set to "new", clicking on a thumb will open a new window
+	//		If it is set to anything else, clicking a thumbnail will open the url in the
+	//		current window.
 	hyperlinkTarget: "new",
 
 	// isClickable: Boolean
-	// When set to true, the cursor over a thumbnail changes.
+	//		When set to true, the cursor over a thumbnail changes.
 	isClickable: true,
 
 	// isScrollable: Boolean
-	// When true, uses smoothScroll to move between pages
+	//		When true, uses smoothScroll to move between pages
 	isScrollable: true,
 
 	// isHorizontal: Boolean
-	// If true, the thumbnails are displayed horizontally. Otherwise they are displayed
-	// vertically
+	//		If true, the thumbnails are displayed horizontally. Otherwise they are displayed
+	//		vertically
 	isHorizontal: true,
 
-	//autoLoad: Boolean
+	// autoLoad: Boolean
 	autoLoad: true,
 
 	// linkAttr: String
-	// The attribute name for accessing the url from the data store
+	//		The attribute name for accessing the url from the data store
 	linkAttr: "link",
 	
 	// imageThumbAttr: String
-	// The attribute name for accessing the thumbnail image url from the data store
-	imageThumbAttr: "imageUrlThumb",	
+	//		The attribute name for accessing the thumbnail image url from the data store
+	imageThumbAttr: "imageUrlThumb",
 	
 	// imageLargeAttr: String
-	// The attribute name for accessing the large image url from the data store
+	//		The attribute name for accessing the large image url from the data store
 	imageLargeAttr: "imageUrl",
 	
 	// pageSize: Number
-	//	The number of images to request each time.
+	//		The number of images to request each time.
 	pageSize: 20,
 	
 	// titleAttr: String
-	// The attribute name for accessing the title from the data store
+	//		The attribute name for accessing the title from the data store
 	titleAttr: "title",
 	
-	templateString:"<div dojoAttachPoint=\"outerNode\" class=\"thumbOuter\">\r\n\t<div dojoAttachPoint=\"navPrev\" class=\"thumbNav thumbClickable\">\r\n\t  <img src=\"\" dojoAttachPoint=\"navPrevImg\"/>    \r\n\t</div>\r\n\t<div dojoAttachPoint=\"thumbScroller\" class=\"thumbScroller\">\r\n\t  <div dojoAttachPoint=\"thumbsNode\" class=\"thumbWrapper\"></div>\r\n\t</div>\r\n\t<div dojoAttachPoint=\"navNext\" class=\"thumbNav thumbClickable\">\r\n\t  <img src=\"\" dojoAttachPoint=\"navNextImg\"/>  \r\n\t</div>\r\n</div>\r\n", 
+	templateString: dojo.cache("dojox.image", "resources/ThumbnailPicker.html", "<div dojoAttachPoint=\"outerNode\" class=\"thumbOuter\">\n\t<div dojoAttachPoint=\"navPrev\" class=\"thumbNav thumbClickable\">\n\t  <img src=\"\" dojoAttachPoint=\"navPrevImg\"/>    \n\t</div>\n\t<div dojoAttachPoint=\"thumbScroller\" class=\"thumbScroller\">\n\t  <div dojoAttachPoint=\"thumbsNode\" class=\"thumbWrapper\"></div>\n\t</div>\n\t<div dojoAttachPoint=\"navNext\" class=\"thumbNav thumbClickable\">\n\t  <img src=\"\" dojoAttachPoint=\"navNextImg\"/>  \n\t</div>\n</div>"),
 	
 	// thumbs: Array
-	// Stores the image nodes for the thumbnails.
+	//		Stores the image nodes for the thumbnails.
 	_thumbs: [],
 	
 	// _thumbIndex: Number
-	// The index of the first thumbnail shown
+	//		The index of the first thumbnail shown
 	_thumbIndex: 0,
 	
 	// _maxPhotos: Number
-	// The total number of photos in the image store
+	//		The total number of photos in the image store
 	_maxPhotos: 0,
 	
 	// _loadedImages: Object
-	// Stores the indices of images that have been marked as loaded using the
-	// markImageLoaded function.
+	//		Stores the indices of images that have been marked as loaded using the
+	//		markImageLoaded function.
 	_loadedImages: {},
 
+	baseClass: "ThumbnailPicker",
+
+	cellClass: "Thumbnail",
+
 	postCreate: function(){
-		// summary: Initializes styles and listeners		
-		this.widgetid = this.id;
+		// summary:
+		//		Initializes styles and listeners
+
 		this.inherited(arguments);
+		
 		this.pageSize = Number(this.pageSize);
 
 		this._scrollerSize = this.size - (51 * 2);
@@ -160,21 +161,22 @@ dojo.declare("dojox.image.ThumbnailPicker",
 		this._totalSize = 0;
 		this.init();
 	},
-	
+
 	init: function(){
-		// summary: Creates DOM nodes for thumbnail images and initializes their listeners 
+		// summary:
+		//		Creates DOM nodes for thumbnail images and initializes their listeners
 		if(this.isInitialized) {return false;}
 	
 		var classExt = this.isHorizontal ? "Horiz" : "Vert";
 	
-		// FIXME: can we setup a listener around the whole element and determine based on e.target?	  
+		// FIXME: can we setup a listener around the whole element and determine based on e.target?
 		dojo.addClass(this.navPrev, "prev" + classExt);
 		dojo.addClass(this.navNext, "next" + classExt);
 		dojo.addClass(this.thumbsNode, "thumb"+classExt);
 		dojo.addClass(this.outerNode, "thumb"+classExt);
 	
-		this.navNextImg.setAttribute("src", this._blankGif);
-		this.navPrevImg.setAttribute("src", this._blankGif);
+		dojo.attr(this.navNextImg, "src", this._blankGif);
+		dojo.attr(this.navPrevImg, "src", this._blankGif);
 		
 		this.connect(this.navPrev, "onclick", "_prev");
 		this.connect(this.navNext, "onclick", "_next");
@@ -196,31 +198,34 @@ dojo.declare("dojox.image.ThumbnailPicker",
 	},
 
 	getClickTopicName: function(){
-		// summary: Returns the name of the dojo topic that can be
-		//   subscribed to in order to receive notifications on
-		//   which thumbnail was selected.
-		return (this.widgetId || this.id) + "/select"; // String
+		// summary:
+		//		Returns the name of the dojo topic that can be
+		//		subscribed to in order to receive notifications on
+		//		which thumbnail was selected.
+		return this.id + "/select"; // String
 	},
 
 	getShowTopicName: function(){
-		// summary: Returns the name of the dojo topic that can be
-		//   subscribed to in order to receive notifications on
-		//   which thumbnail is now visible
-		return (this.widgetId || this.id) + "/show"; // String
+		// summary:
+		//		Returns the name of the dojo topic that can be
+		//		subscribed to in order to receive notifications on
+		//		which thumbnail is now visible
+		return this.id + "/show"; // String
 	},
 
 	setDataStore: function(dataStore, request, /*optional*/paramNames){
-		// summary: Sets the data store and request objects to read data from.
+		// summary:
+		//		Sets the data store and request objects to read data from.
 		// dataStore:
-		//	An implementation of the dojo.data.api.Read API. This accesses the image
-		//	data.
+		//		An implementation of the dojo/data/api/Read API. This accesses the image
+		//		data.
 		// request:
-		//	An implementation of the dojo.data.api.Request API. This specifies the
-		//	query and paging information to be used by the data store
+		//		An implementation of the dojo/data/api/Request API. This specifies the
+		//		query and paging information to be used by the data store
 		// paramNames:
-		//	An object defining the names of the item attributes to fetch from the
-		//	data store.  The four attributes allowed are 'linkAttr', 'imageLargeAttr',
-		//	'imageThumbAttr' and 'titleAttr'
+		//		An object defining the names of the item attributes to fetch from the
+		//		data store.  The four attributes allowed are 'linkAttr', 'imageLargeAttr',
+		//		'imageThumbAttr' and 'titleAttr'
 		this.reset();
 	
 		this.request = {
@@ -236,26 +241,24 @@ dojo.declare("dojox.image.ThumbnailPicker",
 	
 		if(paramNames){
 			dojo.forEach(["imageThumbAttr", "imageLargeAttr", "linkAttr", "titleAttr"], function(attrName){
-				if(paramNames[attrName]){ this[attrName] = paramNames[attrName]; }	
+				if(paramNames[attrName]){ this[attrName] = paramNames[attrName]; }
 			}, this);
 		}
 		
 		this.request.start = 0;
 		this.request.count = this.pageSize;
 		this.imageStore = dataStore;
-	
+		this._loadInProgress = false;
 		if(!this.init()){this._loadNextPage();}
 	},
 
 	reset: function(){
-		// summary: Resets the widget back to its original state.
+		// summary:
+		//		Resets the widget back to its original state.
 		this._loadedImages = {};
 		dojo.forEach(this._thumbs, function(img){
-			if(img){
-				//	dojo.event.browser.clean(img);
-				if(img.parentNode){
-					img.parentNode.removeChild(img);	
-				}
+			if(img && img.parentNode){
+				dojo.destroy(img);
 			}
 		});
 	
@@ -265,7 +268,8 @@ dojo.declare("dojox.image.ThumbnailPicker",
 	},
 	
 	isVisible: function(index) {
-		// summary: Returns true if the image at the specified index is currently visible. False otherwise.
+		// summary:
+		//		Returns true if the image at the specified index is currently visible. False otherwise.
 		var img = this._thumbs[index];
 		if(!img){return false;}
 		var pos = this.isHorizontal ? "offsetLeft" : "offsetTop";
@@ -273,11 +277,38 @@ dojo.declare("dojox.image.ThumbnailPicker",
 		var scrollAttr = this.isHorizontal ? "scrollLeft" : "scrollTop";
 		var offset = img[pos] - this.thumbsNode[pos];
 		return (offset >= this.thumbScroller[scrollAttr]
-			&& offset + img[size] <= this.thumbScroller[scrollAttr] + this._scrollerSize);	
+			&& offset + img[size] <= this.thumbScroller[scrollAttr] + this._scrollerSize);
+	},
+	
+	resize: function(dim){
+		var sizeParam = this.isHorizontal ? "w": "h";
+
+		var total = 0;
+
+		if(this._thumbs.length > 0 && dojo.marginBox(this._thumbs[0]).w == 0){
+			// Skip the resize if the widget is not visible
+			return;
+		}
+
+		// Calculate the complete size of the thumbnails
+		dojo.forEach(this._thumbs, dojo.hitch(this, function(imgContainer){
+			var mb = dojo.marginBox(imgContainer.firstChild);
+			var size = mb[sizeParam];
+			total += (Number(size) + 10);
+			
+			if(this.useLoadNotifier && mb.w > 0){
+				dojo.style(imgContainer.lastChild, "width", (mb.w - 4) + "px");
+			}
+			dojo.style(imgContainer, "width", mb.w + "px");
+		}));
+
+		dojo.style(this.thumbsNode, this._sizeProperty, total + "px");
+		this._updateNavControls();
 	},
 	
 	_next: function() {
-		// summary: Displays the next page of images
+		// summary:
+		//		Displays the next page of images
 		var pos = this.isHorizontal ? "offsetLeft" : "offsetTop";
 		var size = this.isHorizontal ? "offsetWidth" : "offsetHeight";
 		var baseOffset = this.thumbsNode[pos];
@@ -296,7 +327,8 @@ dojo.declare("dojox.image.ThumbnailPicker",
 	},
 
 	_prev: function(){
-		// summary: Displays the next page of images
+		// summary:
+		//		Displays the next page of images
 		if(this.thumbScroller[this.isHorizontal ? "scrollLeft" : "scrollTop"] == 0){return;}
 		var pos = this.isHorizontal ? "offsetLeft" : "offsetTop";
 		var size = this.isHorizontal ? "offsetWidth" : "offsetHeight";
@@ -317,22 +349,25 @@ dojo.declare("dojox.image.ThumbnailPicker",
 	},
 
 	_checkLoad: function(img, index){
+		// summary:
+		//		Checks if an image is loaded.
 		dojo.publish(this.getShowTopicName(), [{index:index}]);
 		this._updateNavControls();
 		this._loadingImages = {};
 	
 		this._thumbIndex = index;
 	
-		//If we have not already requested the data from the store, do so. 
+		//If we have not already requested the data from the store, do so.
 		if(this.thumbsNode.offsetWidth - img.offsetLeft < (this._scrollerSize * 2)){
 			this._loadNextPage();
 		}
 	},
 
 	_showThumbs: function(index){
-		// summary: Displays thumbnail images, starting at position 'index'
+		// summary:
+		//		Displays thumbnail images, starting at position 'index'
 		// index: Number
-		//	The index of the first thumbnail
+		//		The index of the first thumbnail
 
 //FIXME: When is this be called with an invalid index?  Do we need this check at all?
 //		if(typeof index != "number"){ index = this._thumbIndex; }
@@ -371,41 +406,51 @@ dojo.declare("dojox.image.ThumbnailPicker",
 				this.thumbScroller.scrollTop = top;
 			}
 			this._checkLoad(img, index);
-		}	
+		}
 	},
 	
 	markImageLoaded: function(index){
-		// summary: Changes a visual cue to show the image is loaded
-		// description: If 'useLoadNotifier' is set to true, then a visual cue is
-		//	given to state whether the image is loaded or not.	Calling this function
-		//	marks an image as loaded.
-		var thumbNotifier = dojo.byId("loadingDiv_"+this.widgetid+"_"+index);
+		// summary:
+		//		Changes a visual cue to show the image is loaded
+		// description:
+		//		If 'useLoadNotifier' is set to true, then a visual cue is
+		//		given to state whether the image is loaded or not.	Calling this function
+		//		marks an image as loaded.
+		var thumbNotifier = dojo.byId("loadingDiv_"+this.id+"_"+index);
 		if(thumbNotifier){this._setThumbClass(thumbNotifier, "thumbLoaded");}
 		this._loadedImages[index] = true;
 	},
 
 	_setThumbClass: function(thumb, className){
-		// summary: Adds a CSS class to a thumbnail, only if 'autoLoad' is true
+		// summary:
+		//		Adds a CSS class to a thumbnail, only if 'autoLoad' is true
 		// thumb: DomNode
-		//	The thumbnail DOM node to set the class on
+		//		The thumbnail DOM node to set the class on
 		// className: String
-		//	The CSS class to add to the DOM node.
+		//		The CSS class to add to the DOM node.
 		if(!this.autoLoad){ return; }
 		dojo.addClass(thumb, className);
 	},
                                                  
 	_loadNextPage: function(){
-		// summary: Loads the next page of thumbnail images
+		// summary:
+		//		Loads the next page of thumbnail images
 		if(this._loadInProgress){return;}
 		this._loadInProgress = true;
 		var start = this.request.start + (this._noImages ? 0 : this.pageSize);
 		
 		var pos = start;
-		while(pos < this._thumbs.length && this._thumbs[pos]){pos ++;}	
-			
-		//Define the function to call when the items have been 
+		while(pos < this._thumbs.length && this._thumbs[pos]){pos ++;}
+		
+		var store = this.imageStore;
+		
+		//Define the function to call when the items have been
 		//returned from the data store.
 		var complete = function(items, request){
+			if(store != this.imageStore){
+				// If the store has been changed, ignore this callback.
+				return;
+			}
 			if(items && items.length){
 				var itemCounter = 0;
 				var loadNext = dojo.hitch(this, function(){
@@ -419,55 +464,60 @@ dojo.declare("dojox.image.ThumbnailPicker",
 				});
 				loadNext();
 
-				//Show or hide the navigation arrows on the thumbnails, 
+				//Show or hide the navigation arrows on the thumbnails,
 				//depending on whether or not the widget is at the start,
-				//end, or middle of the list of images. 
+				//end, or middle of the list of images.
 				this._updateNavControls();
 			}else{
 				this._loadInProgress = false;
 			}
 		};
 	
-		//Define the function to call if the store reports an error. 
+		//Define the function to call if the store reports an error.
 		var error = function(){
 			this._loadInProgress = false;
-			console.debug("Error getting items");
+			console.log("Error getting items");
 		};
 
 		this.request.onComplete = dojo.hitch(this, complete);
 		this.request.onError = dojo.hitch(this, error);
 	
 		//Increment the start parameter. This is the dojo.data API's
-		//version of paging. 
+		//version of paging.
 		this.request.start = start;
 		this._noImages = false;
 		
-		//Execute the request for data. 
+		//Execute the request for data.
 		this.imageStore.fetch(this.request);
-	
 	},
 
-	_loadImage: function(data, index, callback){	
-		var url = this.imageStore.getValue(data,this.imageThumbAttr);
-		var img = document.createElement("img");
-		var imgContainer = document.createElement("div");
-		imgContainer.setAttribute("id","img_" + this.widgetid+"_"+index);
-		imgContainer.appendChild(img);
+	_loadImage: function(data, index, callback){
+		// summary:
+		//		Loads an image.
+
+		var store = this.imageStore;
+		var url = store.getValue(data,this.imageThumbAttr);
+		
+		var imgContainer = dojo.create("div", {
+			id: "img_" + this.id + "_" + index,
+			"class": this.cellClass
+		});
+		
+		var img = dojo.create("img", {}, imgContainer);
 		img._index = index;
 		img._data = data;
 	
 		this._thumbs[index] = imgContainer;
 		var loadingDiv;
 		if(this.useLoadNotifier){
-			loadingDiv = document.createElement("div");
-			loadingDiv.setAttribute("id","loadingDiv_" + this.widgetid+"_"+index);
+			loadingDiv = dojo.create("div", {
+				id: "loadingDiv_" + this.id+"_" + index
+			}, imgContainer);
 	
 			//If this widget was previously told that the main image for this
 			//thumb has been loaded, make the loading indicator transparent.
 			this._setThumbClass(loadingDiv,
 				this._loadedImages[index] ? "thumbLoaded":"thumbNotifier");
-	
-			imgContainer.appendChild(loadingDiv);
 		}
 		var size = dojo.marginBox(this.thumbsNode);
 		var defaultSize;
@@ -481,34 +531,39 @@ dojo.declare("dojox.image.ThumbnailPicker",
 		}
 		size = size[sizeParam];
 		var sl = this.thumbScroller.scrollLeft, st = this.thumbScroller.scrollTop;
+
 		dojo.style(this.thumbsNode, this._sizeProperty, (size + defaultSize + 20) + "px");
+
 		//Remember the scroll values, as changing the size can alter them
 		this.thumbScroller.scrollLeft = sl;
 		this.thumbScroller.scrollTop = st;
 		this.thumbsNode.appendChild(imgContainer);
 	
-		dojo.connect(img, "onload", this, function(){
-			var realSize = dojo.marginBox(img)[sizeParam];
-			this._totalSize += (Number(realSize) + 4);
-			dojo.style(this.thumbsNode, this._sizeProperty, this._totalSize + "px");
-	
-			if(this.useLoadNotifier){
-				dojo.style(loadingDiv, "width", (img.width - 4) + "px"); 
+		dojo.connect(img, "onload", this, dojo.hitch(this, function(){
+			if(store != this.imageStore){
+				// If the store has changed, ignore this load event
+				return false;
 			}
-			dojo.style(imgContainer, "width", img.width + "px");
-			callback();
+			this.resize();
+						
+			// Have to use a timeout here to prevent a call stack that gets
+			// so deep that IE throws stack overflow errors
+			setTimeout(callback, 0);
 			return false;
-		});
+		}));
 	
 		dojo.connect(img, "onclick", this, function(evt){
 			dojo.publish(this.getClickTopicName(),	[{
 				index: evt.target._index,
 				data: evt.target._data,
-				url: img.getAttribute("src"), 
+				url: img.getAttribute("src"),
 				largeUrl: this.imageStore.getValue(data,this.imageLargeAttr),
 				title: this.imageStore.getValue(data,this.titleAttr),
 				link: this.imageStore.getValue(data,this.linkAttr)
 			}]);
+			//
+			dojo.query("." + this.cellClass, this.thumbsNode).removeClass(this.cellClass + "Selected");
+			dojo.addClass(evt.target.parentNode, this.cellClass + "Selected");
 			return false;
 		});
 		dojo.addClass(img, "imageGalleryThumb");
@@ -520,9 +575,9 @@ dojo.declare("dojox.image.ThumbnailPicker",
 	},
 
 	_updateNavControls: function(){
-		// summary: Updates the navigation controls to hide/show them when at
-		//	the first or last images.
-		var cells = [];
+		// summary:
+		//		Updates the navigation controls to hide/show them when at
+		//		the first or last images.
 		var change = function(node, add){
 			var fn = add ? "addClass" : "removeClass";
 			dojo[fn](node,"enabled");
@@ -533,10 +588,9 @@ dojo.declare("dojox.image.ThumbnailPicker",
 		var size = this.isHorizontal ? "offsetWidth" : "offsetHeight";
 		change(this.navPrev, (this.thumbScroller[pos] > 0));
 		
-		var last = this._thumbs[this._thumbs.length - 1];
 		var addClass = (this.thumbScroller[pos] + this._scrollerSize < this.thumbsNode[size]);
 		change(this.navNext, addClass);
 	}
 });
 
-}
+});

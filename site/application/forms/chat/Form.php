@@ -32,45 +32,45 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 
 		$dateNaissance = new Zend_Form_Element_Text('dateNaissance');
 		$dateNaissance->setLabel('Date de naissance');
-		$dateNaissance->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateNaissance->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$dateNaissanceApprox = new Zend_Form_Element_Checkbox('dateApproximative');
 		$dateNaissanceApprox->setLabel('Date de naissance approximative ?');
 
 		$datePriseEnCharge = new Zend_Form_Element_Text('datePriseEnCharge');
 		$datePriseEnCharge->setLabel('Date de prise en charge');
-		$datePriseEnCharge->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$datePriseEnCharge->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$dateAdoption = new Zend_Form_Element_Text('dateAdoption');
 		$dateAdoption->setLabel('Date d\'adoption (calcul auto)');
-		$dateAdoption->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateAdoption->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$dateContratAdoption = new Zend_Form_Element_Text('dateContratAdoption');
 		$dateContratAdoption->setLabel('Date réception contrat adoption');
-		$dateContratAdoption->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateContratAdoption->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$dateVaccins = new Zend_Form_Element_Text('dateRappelVaccins');
 		$dateVaccins->setLabel('Date du prochain rappel de vaccins');
-		$dateVaccins->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateVaccins->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$dateTests = new Zend_Form_Element_Text('dateTests');
 		$dateTests->setLabel('Date des derniers tests');
-		$dateTests->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateTests->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$dateSterilisation = new Zend_Form_Element_Text('dateSterilisation');
 		$dateSterilisation->setLabel('Date de la stérilisation (prévue ou effectuée)');
-		$dateSterilisation->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateSterilisation->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$sterilise = new Zend_Form_Element_Checkbox('sterilise');
 		$sterilise->setLabel('Stérilisé(e) ?');
 
 		$dateAntiPuces = new Zend_Form_Element_Text('dateAntiPuces');
 		$dateAntiPuces->setLabel('Date anti-puces');
-		$dateAntiPuces->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateAntiPuces->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$dateVermifuge = new Zend_Form_Element_Text('dateVermifuge');
 		$dateVermifuge->setLabel('Date vermifuge');
-		$dateVermifuge->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$dateVermifuge->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$race = new Zend_Form_Element_Text('race');
 		$race->setLabel('Race');

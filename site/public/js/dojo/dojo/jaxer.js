@@ -1,14 +1,8 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojo/jaxer", ["./_base/kernel"], function(dojo){
+	// module:
+	//		dojo/jaxer
 
-
-if(!dojo._hasResource["dojo.jaxer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojo.jaxer"] = true;
-dojo.provide("dojo.jaxer");
-
+dojo.deprecated("(dojo)/jaxer interface", "Jaxer is no longer supported by the Dojo Toolkit, will be removed with DTK 1.9.");
 if(typeof print == "function"){
 	console.debug = Jaxer.Log.debug;
 	console.warn = Jaxer.Log.warn;
@@ -19,4 +13,5 @@ if(typeof print == "function"){
 
 onserverload = dojo._loadInit;
 
-}
+return dojo;
+});

@@ -1,32 +1,24 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.data.demos.stores.LazyLoadJSIStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.data.demos.stores.LazyLoadJSIStore"] = true;
+// wrapped by build app
+define("dojox/data/demos/stores/LazyLoadJSIStore", ["dojo","dijit","dojox","dojo/require!dojo/data/ItemFileReadStore"], function(dojo,dijit,dojox){
 dojo.provide("dojox.data.demos.stores.LazyLoadJSIStore");
 dojo.require("dojo.data.ItemFileReadStore");
 
 dojo.declare("dojox.data.demos.stores.LazyLoadJSIStore", dojo.data.ItemFileReadStore, {
 	constructor: function(/* object */ keywordParameters){
-		// LazyLoadJSIStore extends ItemFileReadStore to implement an 
+		// LazyLoadJSIStore extends ItemFileReadStore to implement an
 		// example of lazy-loading/faulting in items on-demand.
-		// Note this is certianly not a perfect implementation, it is 
+		// Note this is certianly not a perfect implementation, it is
 		// an example.
 	},
 	
 	isItemLoaded: function(/*object*/ item) {
-		//	summary:
+		// summary:
 		//		Overload of the isItemLoaded function to look for items of type 'stub', which indicate
 		//		the data hasn't been loaded in yet.
-		//
-		//	item:
+		// item:
 		//		The item to examine.
 		
-		//For this store, if it has the value of stub for its type attribute, 
+		//For this store, if it has the value of stub for its type attribute,
 		//then the item basn't been fully loaded yet.  It's just a placeholder.
 		if(this.getValue(item, "type") === "stub"){
 			return false;
@@ -35,20 +27,19 @@ dojo.declare("dojox.data.demos.stores.LazyLoadJSIStore", dojo.data.ItemFileReadS
 	},
 		
 	loadItem: function(keywordArgs){
-		//	summary:
+		// summary:
 		//		Overload of the loadItem function to fault in items.  This assumes the data for an item is laid out
 		//		in a RESTful sort of pattern name0/name1/data.json and so on and uses that to load the data.
 		//		It will also detect stub items in the newly loaded item and insert the stubs into the ItemFileReadStore
 		//		list so they can also be loaded in on-demand.
-		//
-		//	item:
+		// item:
 		//		The item to examine.
 
 		var item = keywordArgs.item;
 		this._assertIsItem(item);
 
 		//Build the path to the data.json for this item
-		//The path consists of where its parent was loaded from 
+		//The path consists of where its parent was loaded from
 		//plus the item name.
 		var itemName = this.getValue(item, "name");
 		var parent   = this.getValue(item, "parent");
@@ -77,7 +68,7 @@ dojo.declare("dojox.data.demos.stores.LazyLoadJSIStore", dojo.data.ItemFileReadS
 			delete item.parent;
 
 			//Set up the loaded values in the format ItemFileReadStore uses for attributes.
-			for (i in data) {
+			for (var i in data) {
 				if (dojo.isArray(data[i])) {
 					item[i] = data[i];
 				}else{
@@ -88,11 +79,11 @@ dojo.declare("dojox.data.demos.stores.LazyLoadJSIStore", dojo.data.ItemFileReadS
 			//Reset the item in the reference.
 			self._arrayOfAllItems[item[self._itemNumPropName]] = item;
 
-			//Scan the new values in the item for extra stub items we need to 
+			//Scan the new values in the item for extra stub items we need to
 			//add to the items array of the store so they can be lazy-loaded later...
 			var attributes = self.getAttributes(item);
 			for(i in attributes){
-				var values = self.getValues(item, attributes[i]);
+				var values = item[attributes[i]];
 				for (var j = 0; j < values.length; j++) {
 					var value = values[j];
 					
@@ -101,12 +92,12 @@ dojo.declare("dojox.data.demos.stores.LazyLoadJSIStore", dojo.data.ItemFileReadS
 							//We have a stub reference here, we need to create the stub item
 							var stub = {
 								type: ["stub"],
-								name: [value["stub"]],	//
+								name: [value["stub"]],
 								parent: [itemName]		//The child stub item is parented by this item name...
 							};
 							if (parent) {
 								//Add in any parents to your parent so URL construstruction is accurate.
-								stub.parent[0] = parent + "/" + stub.parent[0]; 
+								stub.parent[0] = parent + "/" + stub.parent[0];
 							}
 							//Finalize the addition of the new stub item into the ItemFileReadStore list.
 							self._arrayOfAllItems.push(stub);
@@ -146,4 +137,4 @@ dojo.declare("dojox.data.demos.stores.LazyLoadJSIStore", dojo.data.ItemFileReadS
 });
 
 
-}
+});

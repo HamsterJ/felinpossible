@@ -1,15 +1,4 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.encoding.digests.MD5"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.encoding.digests.MD5"] = true;
-dojo.provide("dojox.encoding.digests.MD5");
-
-dojo.require("dojox.encoding.digests._base");
+define("dojox/encoding/digests/MD5", ["./_base"], function(dxd) {
 
 /*	A port of Paul Johnstone's MD5 implementation
  *	http://pajhome.org.uk/crypt/md5/index.html
@@ -20,8 +9,7 @@ dojo.require("dojox.encoding.digests._base");
  *
  *	Dojo port by Tom Trenka
  */
-(function(){
-	var dxd=dojox.encoding.digests;
+
 	var chrsz=8;
 
 	//	MD5 rounds functions
@@ -124,7 +112,7 @@ dojo.require("dojox.encoding.digests._base");
 
 	function hmac(data, key){
 		var wa=dxd.stringToWord(key);
-		if(wa.length>16){ 
+		if(wa.length>16){
 			wa=core(wa, key.length*chrsz);
 		}
 		var l=[], r=[];
@@ -138,8 +126,8 @@ dojo.require("dojox.encoding.digests._base");
 
 	//	public function
 	dxd.MD5=function(/* string */data, /* dojox.encoding.digests.outputTypes? */outputType){
-		//	summary
-		//	computes the digest of data, and returns the result according to type outputType
+		// summary:
+		//		computes the digest of data, and returns the result according to type outputType
 		var out=outputType || dxd.outputTypes.Base64;
 		var wa=core(dxd.stringToWord(data), data.length*chrsz);
 		switch(out){
@@ -160,8 +148,8 @@ dojo.require("dojox.encoding.digests._base");
 
 	//	make this private, for later use with a generic HMAC calculator.
 	dxd.MD5._hmac=function(/* string */data, /* string */key, /* dojox.encoding.digests.outputTypes? */outputType){
-		//	summary
-		//	computes the digest of data, and returns the result according to type outputType
+		// summary:
+		//		computes the digest of data, and returns the result according to type outputType
 		var out=outputType || dxd.outputTypes.Base64;
 		var wa=hmac(data, key);
 		switch(out){
@@ -179,6 +167,6 @@ dojo.require("dojox.encoding.digests._base");
 			}
 		}
 	};
-})();
 
-}
+	return dxd.MD5;
+});

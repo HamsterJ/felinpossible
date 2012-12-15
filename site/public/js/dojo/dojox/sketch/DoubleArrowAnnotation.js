@@ -1,19 +1,7 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.sketch.DoubleArrowAnnotation"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.sketch.DoubleArrowAnnotation"] = true;
-dojo.provide("dojox.sketch.DoubleArrowAnnotation");
-
-dojo.require("dojox.sketch.Annotation");
-dojo.require("dojox.sketch.Anchor");
-
-(function(){
+define("dojox/sketch/DoubleArrowAnnotation", ["dojo/_base/kernel", "dojo/_base/lang", "./Annotation", "./Anchor"], function(dojo){
+	dojo.getObject("sketch", true, dojox);
 	var ta=dojox.sketch;
+	console.log(ta);
 	ta.DoubleArrowAnnotation=function(figure, id){
 		ta.Annotation.call(this, figure, id);
 		this.transform={ dx:0, dy:0 };
@@ -64,15 +52,15 @@ dojo.require("dojox.sketch.Anchor");
 		if(this.control.y<this.end.y){ offset*=-1; }
 		else { offset+=this.textYOffset; }
 		var ab={
-			x:((this.control.x-this.start.x)*.5)+this.start.x, 
+			x:((this.control.x-this.start.x)*.5)+this.start.x,
 			y:((this.control.y-this.start.y)*.5)+this.start.y
 		};
 		var bc={
-			x:((this.end.x-this.control.x)*.5)+this.control.x, 
+			x:((this.end.x-this.control.x)*.5)+this.control.x,
 			y:((this.end.y-this.control.y)*.5)+this.control.y
 		};
 		this.textPosition={
-			x:((bc.x-ab.x)*.5)+ab.x, 
+			x:((bc.x-ab.x)*.5)+ab.x,
 			y:(((bc.y-ab.y)*.5)+ab.y)+offset
 		};
 	};
@@ -144,9 +132,9 @@ dojo.require("dojox.sketch.Anchor");
 		this.endArrow=this.endArrowGroup.createPath();//("M" + this.end.x + "," + this.end.y + " l-20,-5 3,5 -3,5 Z").setFill(this.property('fill'));
 
 		this.labelShape=this.shape.createText({
-				x:this.textPosition.x, 
-				y:this.textPosition.y, 
-				text:this.property('label'), 
+				x:this.textPosition.x,
+				y:this.textPosition.y,
+				text:this.property('label'),
 				align:this.textAlign
 			})
 			//.setFont(font)
@@ -185,8 +173,8 @@ dojo.require("dojox.sketch.Anchor");
 		this.endArrowGroup.setTransform(endRot);
 		this.endArrow.setFill(this.property('fill'));
 		this.labelShape.setShape({
-				x:this.textPosition.x, 
-				y:this.textPosition.y, 
+				x:this.textPosition.x,
+				y:this.textPosition.y,
 				text:this.property('label')
 			})
 			.setFill(this.property('fill'));
@@ -240,6 +228,5 @@ dojo.require("dojox.sketch.Anchor");
 	};
 
 	ta.Annotation.register("DoubleArrow");
-})();
-
-}
+	return dojox.sketch.DoubleArrowAnnotation;
+});

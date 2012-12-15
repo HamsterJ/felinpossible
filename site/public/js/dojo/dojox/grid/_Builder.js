@@ -1,26 +1,25 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/grid/_Builder", [
+	"../main",
+	"dojo/_base/array",
+	"dojo/_base/lang",
+	"dojo/_base/window",
+	"dojo/_base/event",
+	"dojo/_base/sniff",
+	"dojo/_base/connect",
+	"dojo/dnd/Moveable",
+	"dojox/html/metrics",
+	"./util",
+	"dojo/_base/html"
+], function(dojox, array, lang, win, event, has, connect, Moveable, metrics, util, html){
 
-
-if(!dojo._hasResource["dojox.grid._Builder"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.grid._Builder"] = true;
-dojo.provide("dojox.grid._Builder");
-
-dojo.require("dojox.grid.util");
-dojo.require("dojo.dnd.Moveable");
-
-(function(){
 	var dg = dojox.grid;
 
 	var getTdIndex = function(td){
-		return td.cellIndex >=0 ? td.cellIndex : dojo.indexOf(td.parentNode.cells, td);
+		return td.cellIndex >=0 ? td.cellIndex : array.indexOf(td.parentNode.cells, td);
 	};
 	
 	var getTrIndex = function(tr){
-		return tr.rowIndex >=0 ? tr.rowIndex : dojo.indexOf(tr.parentNode.childNodes, tr);
+		return tr.rowIndex >=0 ? tr.rowIndex : array.indexOf(tr.parentNode.childNodes, tr);
 	};
 	
 	var getTr = function(rowOwner, index){
@@ -28,12 +27,12 @@ dojo.require("dojo.dnd.Moveable");
 	};
 
 	var findTable = function(node){
-		for(var n=node; n && n.tagName!='TABLE'; n=n.parentNode);
+		for(var n=node; n && n.tagName!='TABLE'; n=n.parentNode){}
 		return n;
 	};
 	
 	var ascendDom = function(inNode, inWhile){
-		for(var n=inNode; n && inWhile(n); n=n.parentNode);
+		for(var n=inNode; n && inWhile(n); n=n.parentNode){}
 		return n;
 	};
 	
@@ -42,11 +41,11 @@ dojo.require("dojo.dnd.Moveable");
 		return function(node){ return node.tagName != name; };
 	};
 
-	var rowIndexTag = dojox.grid.util.rowIndexTag;
-	var gridViewTag = dojox.grid.util.gridViewTag;
+	var rowIndexTag = util.rowIndexTag;
+	var gridViewTag = util.gridViewTag;
 
 	// base class for generating markup for the views
-	dg._Builder = dojo.extend(function(view){
+	var _Builder = dg._Builder = lang.extend(function(view){
 		if(view){
 			this.view = view;
 			this.grid = view.grid;
@@ -54,7 +53,7 @@ dojo.require("dojo.dnd.Moveable");
 	},{
 		view: null,
 		// boilerplate HTML
-		_table: '<table class="dojoxGridRowTable" border="0" cellspacing="0" cellpadding="0" role="'+(dojo.isFF<3 ? "wairole:" : "")+'presentation"',
+		_table: '<table class="dojoxGridRowTable" border="0" cellspacing="0" cellpadding="0" role="presentation"',
 
 		// Returns the table variable as an array - and with the view width, if specified
 		getTableArray: function(){
@@ -69,34 +68,53 @@ dojo.require("dojo.dnd.Moveable");
 		// generate starting tags for a cell
 		generateCellMarkup: function(inCell, inMoreStyles, inMoreClasses, isHeader){
 			var result = [], html;
-			var waiPrefix = dojo.isFF<3 ? "wairole:" : "";
 			if(isHeader){
 				var sortInfo = inCell.index != inCell.grid.getSortIndex() ? "" : inCell.grid.sortInfo > 0 ? 'aria-sort="ascending"' : 'aria-sort="descending"';
-				html = ['<th tabIndex="-1" role="', waiPrefix, 'columnheader"', sortInfo];
+				if (!inCell.id){
+					inCell.id = this.grid.id + "Hdr" + inCell.index;
+				}
+				// column headers are not editable, mark as aria-readonly=true
+				html = ['<th tabIndex="-1" aria-readonly="true" role="columnheader"', sortInfo, 'id="', inCell.id, '"'];
 			}else{
-				html = ['<td tabIndex="-1" role="', waiPrefix, 'gridcell"'];
+				// cells inherit grid aria-readonly property; default value for aria-readonly is false(grid is editable)
+				// if grid is editable (had any editable cells), mark non editable cells as aria-readonly=true
+				// if no editable cells, grid's aria-readonly value will have been set to true and cells will inherit
+				var editInfo = this.grid.editable && !inCell.editable ? 'aria-readonly="true"' : "";
+				html = ['<td tabIndex="-1" role="gridcell"', editInfo];
 			}
-			inCell.colSpan && html.push(' colspan="', inCell.colSpan, '"');
-			inCell.rowSpan && html.push(' rowspan="', inCell.rowSpan, '"');
+			if(inCell.colSpan){
+				html.push(' colspan="', inCell.colSpan, '"');
+			}
+			if(inCell.rowSpan){
+				html.push(' rowspan="', inCell.rowSpan, '"');
+			}
 			html.push(' class="dojoxGridCell ');
-			inCell.classes && html.push(inCell.classes, ' ');
-			inMoreClasses && html.push(inMoreClasses, ' ');
+			if(inCell.classes){
+				html.push(inCell.classes, ' ');
+			}
+			if(inMoreClasses){
+				html.push(inMoreClasses, ' ');
+			}
 			// result[0] => td opener, style
 			result.push(html.join(''));
-			// SLOT: result[1] => td classes 
+			// SLOT: result[1] => td classes
 			result.push('');
 			html = ['" idx="', inCell.index, '" style="'];
 			if(inMoreStyles && inMoreStyles[inMoreStyles.length-1] != ';'){
 				inMoreStyles += ';';
 			}
 			html.push(inCell.styles, inMoreStyles||'', inCell.hidden?'display:none;':'');
-			inCell.unitWidth && html.push('width:', inCell.unitWidth, ';');
+			if(inCell.unitWidth){
+				html.push('width:', inCell.unitWidth, ';');
+			}
 			// result[2] => markup
 			result.push(html.join(''));
-			// SLOT: result[3] => td style 
+			// SLOT: result[3] => td style
 			result.push('');
 			html = [ '"' ];
-			inCell.attrs && html.push(" ", inCell.attrs);
+			if(inCell.attrs){
+				html.push(" ", inCell.attrs);
+			}
 			html.push('>');
 			// result[4] => td postfix
 			result.push(html.join(''));
@@ -109,21 +127,22 @@ dojo.require("dojo.dnd.Moveable");
 
 		// cell finding
 		isCellNode: function(inNode){
-			return Boolean(inNode && inNode!=dojo.doc && dojo.attr(inNode, "idx"));
+			return Boolean(inNode && inNode!=win.doc && html.attr(inNode, "idx"));
 		},
 		
 		getCellNodeIndex: function(inCellNode){
-			return inCellNode ? Number(dojo.attr(inCellNode, "idx")) : -1;
+			return inCellNode ? Number(html.attr(inCellNode, "idx")) : -1;
 		},
 		
 		getCellNode: function(inRowNode, inCellIndex){
-			for(var i=0, row; row=getTr(inRowNode.firstChild, i); i++){
-				for(var j=0, cell; cell=row.cells[j]; j++){
+			for(var i=0, row; ((row = getTr(inRowNode.firstChild, i)) && row.cells); i++){
+				for(var j=0, cell; (cell = row.cells[j]); j++){
 					if(this.getCellNodeIndex(cell) == inCellIndex){
 						return cell;
 					}
 				}
 			}
+			return null;
 		},
 		
 		findCellTarget: function(inSourceNode, inTopNode){
@@ -131,7 +150,7 @@ dojo.require("dojo.dnd.Moveable");
 			while(n && (!this.isCellNode(n) || (n.offsetParent && gridViewTag in n.offsetParent.parentNode && n.offsetParent.parentNode[gridViewTag] != this.view.id)) && (n!=inTopNode)){
 				n = n.parentNode;
 			}
-			return n!=inTopNode ? n : null 
+			return n!=inTopNode ? n : null;
 		},
 		
 		// event decoration
@@ -150,7 +169,7 @@ dojo.require("dojo.dnd.Moveable");
 			while(n && (n!=this.domNode) && (!(inTag in n) || (gridViewTag in n && n[gridViewTag] != this.view.id))){
 				n = n.parentNode;
 			}
-			return (n != this.domNode) ? n : null; 
+			return (n != this.domNode) ? n : null;
 		},
 
 		findRowTarget: function(inSource){
@@ -159,7 +178,7 @@ dojo.require("dojo.dnd.Moveable");
 
 		isIntraNodeEvent: function(e){
 			try{
-				return (e.cellNode && e.relatedTarget && dojo.isDescendant(e.relatedTarget, e.cellNode));
+				return (e.cellNode && e.relatedTarget && html.isDescendant(e.relatedTarget, e.cellNode));
 			}catch(x){
 				// e.relatedTarget has permission problem in FF if it's an input: https://bugzilla.mozilla.org/show_bug.cgi?id=208427
 				return false;
@@ -169,7 +188,7 @@ dojo.require("dojo.dnd.Moveable");
 		isIntraRowEvent: function(e){
 			try{
 				var row = e.relatedTarget && this.findRowTarget(e.relatedTarget);
-				return !row && (e.rowIndex==-1) || row && (e.rowIndex==row.gridRowIndex);			
+				return !row && (e.rowIndex==-1) || row && (e.rowIndex==row.gridRowIndex);
 			}catch(x){
 				// e.relatedTarget on INPUT has permission problem in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=208427
 				return false;
@@ -180,6 +199,7 @@ dojo.require("dojo.dnd.Moveable");
 			if(e.dispatch in this){
 				return this[e.dispatch](e);
 			}
+			return false;
 		},
 
 		// dispatched event handlers
@@ -204,15 +224,15 @@ dojo.require("dojo.dnd.Moveable");
 		domousedown: function(e){
 			if (e.cellNode)
 				this.grid.onMouseDown(e);
-			this.grid.onMouseDownRow(e)
+			this.grid.onMouseDownRow(e);
 		}
 	});
 
-	// Produces html for grid data content. Owned by grid and used internally 
+	// Produces html for grid data content. Owned by grid and used internally
 	// for rendering data. Override to implement custom rendering.
-	dg._ContentBuilder = dojo.extend(function(view){
-		dg._Builder.call(this, view);
-	},dg._Builder.prototype,{
+	var _ContentBuilder = dg._ContentBuilder = lang.extend(function(view){
+		_Builder.call(this, view);
+	},_Builder.prototype,{
 		update: function(){
 			this.prepareHtml();
 		},
@@ -224,6 +244,9 @@ dojo.require("dojo.dnd.Moveable");
 				for(var i=0, cell; (cell=row[i]); i++){
 					cell.get = cell.get || (cell.value == undefined) && defaultGet;
 					cell.markup = this.generateCellMarkup(cell, cell.cellStyles, cell.cellClasses, false);
+					if (!this.grid.editable && cell.editable){
+						this.grid.editable = true;
+					}
 				}
 			}
 		},
@@ -236,14 +259,14 @@ dojo.require("dojo.dnd.Moveable");
 				cells = v.structure.cells,
 				item = this.grid.getItem(inRowIndex);
 
-			dojox.grid.util.fire(this.view, "onBeforeRow", [inRowIndex, cells]);
+			util.fire(this.view, "onBeforeRow", [inRowIndex, cells]);
 			for(var j=0, row; (row=cells[j]); j++){
 				if(row.hidden || row.header){
 					continue;
 				}
 				html.push(!row.invisible ? '<tr>' : '<tr class="dojoxGridInvisible">');
 				for(var i=0, cell, m, cc, cs; (cell=row[i]); i++){
-					m = cell.markup, cc = cell.customClasses = [], cs = cell.customStyles = [];
+					m = cell.markup; cc = cell.customClasses = []; cs = cell.customStyles = [];
 					// content (format can fill in cc and cs as side-effects)
 					m[5] = cell.format(inRowIndex, item);
 					// classes
@@ -261,7 +284,7 @@ dojo.require("dojo.dnd.Moveable");
 
 		decorateEvent: function(e){
 			e.rowNode = this.findRowTarget(e.target);
-			if(!e.rowNode){return false};
+			if(!e.rowNode){return false;}
 			e.rowIndex = e.rowNode[rowIndexTag];
 			this.baseDecorateEvent(e);
 			e.cell = this.grid.getCell(e.cellIndex);
@@ -269,12 +292,12 @@ dojo.require("dojo.dnd.Moveable");
 		}
 	});
 
-	// Produces html for grid header content. Owned by grid and used internally 
+	// Produces html for grid header content. Owned by grid and used internally
 	// for rendering data. Override to implement custom rendering.
-	dg._HeaderBuilder = dojo.extend(function(view){
+	var _HeaderBuilder = dg._HeaderBuilder = lang.extend(function(view){
 		this.moveable = null;
-		dg._Builder.call(this, view);
-	},dg._Builder.prototype,{
+		_Builder.call(this, view);
+	},_Builder.prototype,{
 		_skipBogusClicks: false,
 		overResizeWidth: 4,
 		minColWidth: 1,
@@ -290,7 +313,7 @@ dojo.require("dojo.dnd.Moveable");
 		generateHtml: function(inGetValue, inValue){
 			var html = this.getTableArray(), cells = this.view.structure.cells;
 			
-			dojox.grid.util.fire(this.view, "onBeforeRow", [-1, cells]);
+			util.fire(this.view, "onBeforeRow", [-1, cells]);
 			for(var j=0, row; (row=cells[j]); j++){
 				if(row.hidden){
 					continue;
@@ -300,12 +323,14 @@ dojo.require("dojo.dnd.Moveable");
 					cell.customClasses = [];
 					cell.customStyles = [];
 					if(this.view.simpleStructure){
-						if(cell.headerClasses){
-							if(cell.headerClasses.indexOf('dojoDndItem') == -1){
-								cell.headerClasses += ' dojoDndItem';
+						if(cell.draggable){
+							if(cell.headerClasses){
+								if(cell.headerClasses.indexOf('dojoDndItem') == -1){
+									cell.headerClasses += ' dojoDndItem';
+								}
+							}else{
+								cell.headerClasses = 'dojoDndItem';
 							}
-						}else{
-							cell.headerClasses = 'dojoDndItem';
 						}
 						if(cell.attrs){
 							if(cell.attrs.indexOf("dndType='gridColumn_") == -1){
@@ -332,16 +357,19 @@ dojo.require("dojo.dnd.Moveable");
 
 		// event helpers
 		getCellX: function(e){
-			var x = e.layerX;
-			if(dojo.isMoz){
-				var n = ascendDom(e.target, makeNotTagName("th"));
+			var n, x = e.layerX;
+			if(has('mozilla') || has('ie') >= 9){
+				n = ascendDom(e.target, makeNotTagName("th"));
 				x -= (n && n.offsetLeft) || 0;
 				var t = e.sourceView.getScrollbarWidth();
-				if(!dojo._isBodyLtr() && e.sourceView.headerNode.scrollLeft < t)
-					x -= t;
+				if(!this.grid.isLeftToRight()/*&& e.sourceView.headerNode.scrollLeft < t*/){
+					//fix #11253
+					table = ascendDom(n,makeNotTagName("table"));
+					x -= (table && table.offsetLeft) || 0;
+				}
 				//x -= getProp(ascendDom(e.target, mkNotTagName("td")), "offsetLeft") || 0;
 			}
-			var n = ascendDom(e.target, function(){
+			n = ascendDom(e.target, function(){
 				if(!n || n == e.cellNode){
 					return false;
 				}
@@ -366,7 +394,7 @@ dojo.require("dojo.dnd.Moveable");
 		// resizing
 		prepareResize: function(e, mod){
 			do{
-				var i = getTdIndex(e.cellNode);
+				var i = e.cellIndex;
 				e.cellNode = (i ? e.cellNode.parentNode.cells[i+mod] : null);
 				e.cellIndex = (e.cellNode ? this.getCellNodeIndex(e.cellNode) : -1);
 			}while(e.cellNode && e.cellNode.style.display == "none");
@@ -377,44 +405,54 @@ dojo.require("dojo.dnd.Moveable");
 			if(!e.cellNode || e.cellNode.colSpan > 1){
 				return false;
 			}
-			var cell = this.grid.getCell(e.cellIndex); 
+			var cell = this.grid.getCell(e.cellIndex);
 			return !cell.noresize && cell.canResize();
 		},
 
 		overLeftResizeArea: function(e){
+			// We are never over a resize area if we are in the process of moving
+			if(html.hasClass(win.body(), "dojoDndMove")){
+				return false;
+			}
 			//Bugfix for crazy IE problem (#8807).  IE returns position information for the icon and text arrow divs
 			//as if they were still on the left instead of returning the position they were 'float: right' to.
-			//So, the resize check ends up checking the wrong adjacent cell.  This checks to see if the hover was over 
+			//So, the resize check ends up checking the wrong adjacent cell.  This checks to see if the hover was over
 			//the image or text nodes, then just ignored them/treat them not in scale range.
-			if(dojo.isIE){
+			if(has('ie')){
 				var tN = e.target;
-				if(dojo.hasClass(tN, "dojoxGridArrowButtonNode") || 
-					dojo.hasClass(tN, "dojoxGridArrowButtonChar")){
+				if(html.hasClass(tN, "dojoxGridArrowButtonNode") ||
+					html.hasClass(tN, "dojoxGridArrowButtonChar") ||
+					html.hasClass(tN, "dojoxGridColCaption")){
 					return false;
 				}
 			}
 
-			if(dojo._isBodyLtr()){
-				return (e.cellIndex>0) && (e.cellX < this.overResizeWidth) && this.prepareResize(e, -1);
+			if(this.grid.isLeftToRight()){
+				return (e.cellIndex>0) && (e.cellX > 0 && e.cellX < this.overResizeWidth) && this.prepareResize(e, -1);
 			}
-			var t = e.cellNode && (e.cellX < this.overResizeWidth);
+			var t = e.cellNode && (e.cellX > 0 && e.cellX < this.overResizeWidth);
 			return t;
 		},
 
 		overRightResizeArea: function(e){
+			// We are never over a resize area if we are in the process of moving
+			if(html.hasClass(win.body(), "dojoDndMove")){
+				return false;
+			}
 			//Bugfix for crazy IE problem (#8807).  IE returns position information for the icon and text arrow divs
 			//as if they were still on the left instead of returning the position they were 'float: right' to.
-			//So, the resize check ends up checking the wrong adjacent cell.  This checks to see if the hover was over 
+			//So, the resize check ends up checking the wrong adjacent cell.  This checks to see if the hover was over
 			//the image or text nodes, then just ignored them/treat them not in scale range.
-			if(dojo.isIE){
+			if(has('ie')){
 				var tN = e.target;
-				if(dojo.hasClass(tN, "dojoxGridArrowButtonNode") || 
-					dojo.hasClass(tN, "dojoxGridArrowButtonChar")){
+				if(html.hasClass(tN, "dojoxGridArrowButtonNode") ||
+					html.hasClass(tN, "dojoxGridArrowButtonChar") ||
+					html.hasClass(tN, "dojoxGridColCaption")){
 					return false;
 				}
 			}
 
-			if(dojo._isBodyLtr()){
+			if(this.grid.isLeftToRight()){
 				return e.cellNode && (e.cellX >= e.cellNode.offsetWidth - this.overResizeWidth);
 			}
 			return (e.cellIndex>0) && (e.cellX >= e.cellNode.offsetWidth - this.overResizeWidth) && this.prepareResize(e, -1);
@@ -423,19 +461,14 @@ dojo.require("dojo.dnd.Moveable");
 		domousemove: function(e){
 			//console.log(e.cellIndex, e.cellX, e.cellNode.offsetWidth);
 			if(!this.moveable){
-				var c = (this.overRightResizeArea(e) ? 'e-resize' : (this.overLeftResizeArea(e) ? 'w-resize' : ''));
+				var c = (this.overRightResizeArea(e) ? 'dojoxGridColResize' : (this.overLeftResizeArea(e) ? 'dojoxGridColResize' : ''));
 				if(c && !this.canResize(e)){
-					c = 'not-allowed';
+					c = 'dojoxGridColNoResize';
 				}
-				if(dojo.isIE){
-					var t = e.sourceView.headerNode.scrollLeft;
-					e.sourceView.headerNode.style.cursor = c || ''; //'default';
-					e.sourceView.headerNode.scrollLeft = t;
-				}else{
-					e.sourceView.headerNode.style.cursor = c || ''; //'default';
-				}
+				html.toggleClass(e.sourceView.headerNode, "dojoxGridColNoResize", (c == "dojoxGridColNoResize"));
+				html.toggleClass(e.sourceView.headerNode, "dojoxGridColResize", (c == "dojoxGridColResize"));
 				if(c){
-					dojo.stopEvent(e);
+					event.stop(e);
 				}
 			}
 		},
@@ -456,18 +489,38 @@ dojo.require("dojo.dnd.Moveable");
 
 		doclick: function(e) {
 			if(this._skipBogusClicks){
-				dojo.stopEvent(e);
+				event.stop(e);
 				return true;
 			}
+			return false;
 		},
 
 		// column resizing
-		beginColumnResize: function(e){
-			this.moverDiv = document.createElement("div");
-			dojo.style(this.moverDiv,{position: "absolute", left:0}); // to make DnD work with dir=rtl
-			dojo.body().appendChild(this.moverDiv);
-			var m = this.moveable = new dojo.dnd.Moveable(this.moverDiv);
+		colResizeSetup: function(/*Event Object*/e, /*boolean*/ isMouse ){
+			//Set up the drag object for column resizing
+			// Called with mouse event in case of drag and drop,
+			// Also called from keyboard shift-arrow event when focus is on a header
+			var headContentBox = html.contentBox(e.sourceView.headerNode);
+			
+			if(isMouse){  //IE draws line even with no mouse down so separate from keyboard
+				this.lineDiv = document.createElement('div');
 
+				var vw = html.position(e.sourceView.headerNode, true);
+				var bodyContentBox = html.contentBox(e.sourceView.domNode);
+				//fix #11340
+				var l = e.pageX;
+				if(!this.grid.isLeftToRight() && has('ie') < 8){
+					l -= metrics.getScrollbar().w;
+				}
+				html.style(this.lineDiv, {
+					top: vw.y + "px",
+					left: l + "px",
+					height: (bodyContentBox.h + headContentBox.h) + "px"
+				});
+				html.addClass(this.lineDiv, "dojoxGridResizeColLine");
+				this.lineDiv._origLeft = l;
+				win.body().appendChild(this.lineDiv);
+			}
 			var spanners = [], nodes = this.tableMap.findOverlappingNodes(e.cellNode);
 			for(var i=0, cell; (cell=nodes[i]); i++){
 				spanners.push({ node: cell, index: this.getCellNodeIndex(cell), width: cell.offsetWidth });
@@ -475,10 +528,10 @@ dojo.require("dojo.dnd.Moveable");
 			}
 
 			var view = e.sourceView;
-			var adj = dojo._isBodyLtr() ? 1 : -1;
+			var adj = this.grid.isLeftToRight() ? 1 : -1;
 			var views = e.grid.views.views;
 			var followers = [];
-			for(var i=view.idx+adj, cView; (cView=views[i]); i=i+adj){
+			for(var j=view.idx+adj, cView; (cView=views[j]); j=j+adj){
 				followers.push({ node: cView.headerNode, left: window.parseInt(cView.headerNode.style.left) });
 			}
 			var table = view.headerContentNode.firstChild;
@@ -487,17 +540,27 @@ dojo.require("dojo.dnd.Moveable");
 				view: view,
 				node: e.cellNode,
 				index: e.cellIndex,
-				w: dojo.contentBox(e.cellNode).w,
-				vw: dojo.contentBox(view.headerNode).w,
+				w: html.contentBox(e.cellNode).w,
+				vw: headContentBox.w,
 				table: table,
-				tw: dojo.contentBox(table).w,
+				tw: html.contentBox(table).w,
 				spanners: spanners,
 				followers: followers
 			};
+			return drag;
+		},
+		beginColumnResize: function(e){
+			this.moverDiv = document.createElement("div");
+			html.style(this.moverDiv,{position: "absolute", left:0}); // to make DnD work with dir=rtl
+			win.body().appendChild(this.moverDiv);
+			html.addClass(this.grid.domNode, "dojoxGridColumnResizing");
+			var m = (this.moveable = new Moveable(this.moverDiv));
 
-			m.onMove = dojo.hitch(this, "doResizeColumn", drag);
+			var drag = this.colResizeSetup(e,true);
 
-			dojo.connect(m, "onMoveStop", dojo.hitch(this, function(){
+			m.onMove = lang.hitch(this, "doResizeColumn", drag);
+
+			connect.connect(m, "onMoveStop", lang.hitch(this, function(){
 				this.endResizeColumn(drag);
 				if(drag.node.releaseCapture){
 					drag.node.releaseCapture();
@@ -505,9 +568,8 @@ dojo.require("dojo.dnd.Moveable");
 				this.moveable.destroy();
 				delete this.moveable;
 				this.moveable = null;
+				html.removeClass(this.grid.domNode, "dojoxGridColumnResizing");
 			}));
-
-			view.convertColPctToFixed();
 
 			if(e.cellNode.setCapture){
 				e.cellNode.setCapture();
@@ -516,57 +578,99 @@ dojo.require("dojo.dnd.Moveable");
 		},
 
 		doResizeColumn: function(inDrag, mover, leftTop){
-			var isLtr = dojo._isBodyLtr();
-			var deltaX = isLtr ? leftTop.l : -leftTop.l;
-			var w = inDrag.w + deltaX;
-			var vw = inDrag.vw + deltaX;
-			var tw = inDrag.tw + deltaX;
-			if(w >= this.minColWidth){
-				for(var i=0, s, sw; (s=inDrag.spanners[i]); i++){
-					sw = s.width + deltaX;
-					s.node.style.width = sw + 'px';
-					inDrag.view.setColWidth(s.index, sw);
-					//console.log('setColWidth', '#' + s.index, sw + 'px');
+			var changeX = leftTop.l;
+			var data = {
+				deltaX: changeX,
+				w: inDrag.w + (this.grid.isLeftToRight() ? changeX : -changeX),//fix #11341
+				vw: inDrag.vw + changeX,
+				tw: inDrag.tw + changeX
+			};
+			
+			this.dragRecord = {inDrag: inDrag, mover: mover, leftTop:leftTop};
+			
+			if(data.w >= this.minColWidth){
+				if (!mover) { // we are using keyboard do immediate resize
+					this.doResizeNow(inDrag, data);
 				}
-				for(var i=0, f, fl; (f=inDrag.followers[i]); i++){
-					fl = f.left + deltaX;
-					f.node.style.left = fl + 'px';
+				else{
+					html.style(this.lineDiv, "left", (this.lineDiv._origLeft + data.deltaX) + "px");
 				}
-				inDrag.node.style.width = w + 'px';
-				inDrag.view.setColWidth(inDrag.index, w);
-				inDrag.view.headerNode.style.width = vw + 'px';
-				inDrag.view.setColumnsWidth(tw);
-				if(!isLtr){
-					inDrag.view.headerNode.scrollLeft = inDrag.scrollLeft + deltaX;
-				}
-			}
-			if(inDrag.view.flexCells && !inDrag.view.testFlexCells()){
-				var t = findTable(inDrag.node);
-				t && (t.style.width = '');
 			}
 		},
 
 		endResizeColumn: function(inDrag){
-			dojo.destroy(this.moverDiv);
+			if(this.dragRecord){
+				var leftTop = this.dragRecord.leftTop;
+				var changeX = this.grid.isLeftToRight() ? leftTop.l : -leftTop.l;
+				// Make sure we are not under our minimum
+				// http://bugs.dojotoolkit.org/ticket/9390
+				changeX += Math.max(inDrag.w + changeX, this.minColWidth) - (inDrag.w + changeX);
+				if(has('webkit') && inDrag.spanners.length){
+					// Webkit needs the pad border extents back in
+					changeX += html._getPadBorderExtents(inDrag.spanners[0].node).w;
+				}
+				var data = {
+					deltaX: changeX,
+					w: inDrag.w + changeX,
+					vw: inDrag.vw + changeX,
+					tw: inDrag.tw + changeX
+				};
+				// Only resize the columns when the drag has finished
+				this.doResizeNow(inDrag, data);
+				delete this.dragRecord;
+			}
+			
+			html.destroy(this.lineDiv);
+ 			html.destroy(this.moverDiv);
+			html.destroy(this.moverDiv);
 			delete this.moverDiv;
 			this._skipBogusClicks = true;
-			var conn = dojo.connect(inDrag.view, "update", this, function(){
-				dojo.disconnect(conn);
-				this._skipBogusClicks = false;
-			});
-			setTimeout(dojo.hitch(inDrag.view, "update"), 50);
+			inDrag.view.update();
+			this._skipBogusClicks = false;
+			this.grid.onResizeColumn(inDrag.index);
+		},
+		doResizeNow: function(inDrag, data){
+			inDrag.view.convertColPctToFixed();
+			if(inDrag.view.flexCells && !inDrag.view.testFlexCells()){
+				var t = findTable(inDrag.node);
+				if(t){
+					(t.style.width = '');
+				}
+			}
+			var i, s, sw, f, fl;
+			for(i=0; (s=inDrag.spanners[i]); i++){
+				sw = s.width + data.deltaX;
+				if(sw > 0){
+					s.node.style.width = sw + 'px';
+					inDrag.view.setColWidth(s.index, sw);
+				}
+			}
+			if(this.grid.isLeftToRight() || !has('ie')){//fix #11339
+				for(i=0; (f=inDrag.followers[i]); i++){
+					fl = f.left + data.deltaX;
+					f.node.style.left = fl + 'px';
+				}
+			}
+			inDrag.node.style.width = data.w + 'px';
+			inDrag.view.setColWidth(inDrag.index, data.w);
+			inDrag.view.headerNode.style.width = data.vw + 'px';
+			inDrag.view.setColumnsWidth(data.tw);
+			if(!this.grid.isLeftToRight()){
+				inDrag.view.headerNode.scrollLeft = inDrag.scrollLeft + data.deltaX;
+			}
 		}
 	});
 
 	// Maps an html table into a structure parsable for information about cell row and col spanning.
 	// Used by HeaderBuilder.
-	dg._TableMap = dojo.extend(function(rows){
+	dg._TableMap = lang.extend(function(rows){
 		this.mapRows(rows);
 	},{
 		map: null,
 
 		mapRows: function(inRows){
-			// summary: Map table topography
+			// summary:
+			//		Map table topography
 
 			//console.log('mapRows');
 			// # of rows
@@ -576,12 +680,13 @@ dojo.require("dojo.dnd.Moveable");
 			}
 			// map which columns and rows fill which cells
 			this.map = [];
-			for(var j=0, row; (row=inRows[j]); j++){
-				this.map[j] = [];
+			var row;
+			for(var k=0; (row=inRows[k]); k++){
+				this.map[k] = [];
 			}
-			for(var j=0, row; (row=inRows[j]); j++){
+			for(var j=0; (row=inRows[j]); j++){
 				for(var i=0, x=0, cell, colSpan, rowSpan; (cell=row[i]); i++){
-					while (this.map[j][x]){x++};
+					while(this.map[j][x]){x++;}
 					this.map[j][x] = { c: i, r: j };
 					rowSpan = cell.rowSpan || 1;
 					colSpan = cell.colSpan || 1;
@@ -601,12 +706,12 @@ dojo.require("dojo.dnd.Moveable");
 				for(var i=0, cell; (cell=row[i]); i++){
 					h += cell.r + ',' + cell.c + '   ';
 				}
-				//console.log(h);
 			}
 		},
 
 		getMapCoords: function(inRow, inCol){
-			// summary: Find node's map coords by it's structure coords
+			// summary:
+			//		Find node's map coords by it's structure coords
 			for(var j=0, row; (row=this.map[j]); j++){
 				for(var i=0, cell; (cell=row[i]); i++){
 					if(cell.c==inCol && cell.r == inRow){
@@ -619,7 +724,8 @@ dojo.require("dojo.dnd.Moveable");
 		},
 		
 		getNode: function(inTable, inRow, inCol){
-			// summary: Find a node in inNode's table with the given structure coords
+			// summary:
+			//		Find a node in inNode's table with the given structure coords
 			var row = inTable && inTable.rows[inRow];
 			return row && row.cells[inCol];
 		},
@@ -628,7 +734,6 @@ dojo.require("dojo.dnd.Moveable");
 			var nodes = [];
 			var m = this.getMapCoords(inRow, inCol);
 			//console.log("node j: %d, i: %d", m.j, m.i);
-			var row = this.map[m.j];
 			for(var j=0, row; (row=this.map[j]); j++){
 				if(j == m.j){ continue; }
 				var rw = row[m.i];
@@ -644,6 +749,10 @@ dojo.require("dojo.dnd.Moveable");
 			return this._findOverlappingNodes(findTable(inNode), getTrIndex(inNode.parentNode), getTdIndex(inNode));
 		}
 	});
-})();
 
-}
+	return {
+		_Builder: _Builder,
+		_HeaderBuilder: _HeaderBuilder,
+		_ContentBuilder: _ContentBuilder
+	};
+});

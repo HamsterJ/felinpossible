@@ -1,15 +1,7 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/encoding/ascii85", ["dojo/_base/lang"], function(lang) {
 
+	var ascii85 = lang.getObject("dojox.encoding.ascii85", true);
 
-if(!dojo._hasResource["dojox.encoding.ascii85"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.encoding.ascii85"] = true;
-dojo.provide("dojox.encoding.ascii85");
-
-(function(){
 	var c = function(input, length, result){
 		var i, j, n, b = [0, 0, 0, 0, 0];
 		for(i = 0; i < length; i += 4){
@@ -22,10 +14,12 @@ dojo.provide("dojox.encoding.ascii85");
 			result.push(String.fromCharCode(b[4], b[3], b[2], b[1], b[0]));
 		}
 	};
-	
-	dojox.encoding.ascii85.encode = function(input){
-		// summary: encodes input data in ascii85 string
-		// input: Array: an array of numbers (0-255) to encode
+
+	ascii85.encode = function(input){
+		// summary:
+		//		encodes input data in ascii85 string
+		// input: Array
+		//		an array of numbers (0-255) to encode
 		var result = [], reminder = input.length % 4, length = input.length - reminder;
 		c(input, length, result);
 		if(reminder){
@@ -39,9 +33,11 @@ dojo.provide("dojox.encoding.ascii85");
 		return result.join("");	// String
 	};
 
-	dojox.encoding.ascii85.decode = function(input){
-		// summary: decodes the input string back to array of numbers
-		// input: String: the input string to decode
+	ascii85.decode = function(input){
+		// summary:
+		//		decodes the input string back to array of numbers
+		// input: String
+		//		the input string to decode
 		var n = input.length, r = [], b = [0, 0, 0, 0, 0], i, j, t, x, y, d;
 		for(i = 0; i < n; ++i){
 			if(input.charAt(i) == "z"){
@@ -65,6 +61,6 @@ dojo.provide("dojox.encoding.ascii85");
 		}
 		return r;
 	};
-})();
 
-}
+	return ascii85;
+});

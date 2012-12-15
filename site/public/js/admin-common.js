@@ -26,6 +26,7 @@ function formatDate(inDatum) {
 		selector : "date"
 	  });
 	} catch(e) {
+		console.error("Unable to format date ", inDatum, "error: ", e);
 		return inDatum;
 	}
 }
@@ -53,6 +54,7 @@ function formatDateFutur(inDatum) {
 	  	selector : "date"
 	  }) + "</div>";
 	} catch (e) {
+		console.error("Unable to format date ", inDatum, "error: ", e);
 		return inDatum;
 	}
 }
@@ -83,6 +85,7 @@ function formatDateFuturSterilisation(inDatum, rowIndex) {
 	  	selector : "date"
 	  }) + "</div>";
 	} catch (e) {
+		console.error("Unable to format date ", inDatum, "error: ", e);
 		return inDatum;
 	}
 }
@@ -102,6 +105,7 @@ function formatTimestamp(nbSeconds) {
 		datePattern : "dd/MM/yyyy",
 		selector : "date"});
 	} catch (e) {
+		console.error("Unable to format nbSeconds ", nbSeconds, "error: ", e);
 		return nbSeconds;
 	}
 }
@@ -119,7 +123,9 @@ function formatUpperCase(str) {
 	  if (str != "") {
 		return str.toUpperCase();
 	  }
-	} catch (e) {}
+	} catch (e) {
+		console.error("Unable to format string to uppercase ", str, "error: ", e);
+	}
 	return str;
 }
 
@@ -157,7 +163,7 @@ function formatUcfirst(str) {
 		return str.charAt(0).toUpperCase() + str.substring(1);
 	  }
 	} catch (e) {
-		alert("Erreur : " + e.message);
+		console.error("Unable to format str ", str, "error: ", e);
 	}
 	return str;
 }

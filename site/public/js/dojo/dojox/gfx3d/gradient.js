@@ -1,33 +1,32 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/gfx3d/gradient", ["dojo/_base/lang","./matrix","./vector"], 
+	function(lang,m,v){
 
+	var gfx3d = lang.getObject("dojox.gfx3d",true);
 
-if(!dojo._hasResource["dojox.gfx3d.gradient"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.gfx3d.gradient"] = true;
-dojo.provide("dojox.gfx3d.gradient");
-
-dojo.require("dojox.gfx3d.vector");
-dojo.require("dojox.gfx3d.matrix");
-
-(function(){
 	var dist = function(a, b){ return Math.sqrt(Math.pow(b.x - a.x, 2) + Math.pow(b.y - a.y, 2)); };
 	var N = 32;
 
-	dojox.gfx3d.gradient = function(model, material, center, radius, from, to, matrix){
-		// summary: calculate a cylindrical gradient
-		// model: dojox.gfx3d.lighting.Model: color model
-		// material: Object: defines visual properties
-		// center: Object: center of the cylinder's bottom
-		// radius: Number: radius of the cylinder
-		// from: Number: from position in radians
-		// to: Number: from position in radians
-		// matrix: dojox.gfx3d.Matrix3D: the cumulative transformation matrix
-		// tolerance: Number: tolerable diffirence in colors between gradient steps
+	gfx3d.gradient = function(model, material, center, radius, from, to, matrix){
+		// summary:
+		//		calculate a cylindrical gradient
+		// model: dojox.gfx3d.lighting.Model
+		//		color model
+		// material: Object
+		//		defines visual properties
+		// center: Object
+		//		center of the cylinder's bottom
+		// radius: Number
+		//		radius of the cylinder
+		// from: Number
+		//		from position in radians
+		// to: Number
+		//		from position in radians
+		// matrix: dojox.gfx3d.Matrix3D
+		//		the cumulative transformation matrix
+		// tolerance: Number
+		//		tolerable difference in colors between gradient steps
 
-		var m = dojox.gfx3d.matrix, v = dojox.gfx3d.vector, mx = m.normalize(matrix),
+		var mx = m.normalize(matrix),
 			f = m.multiplyPoint(mx, radius * Math.cos(from) + center.x, radius * Math.sin(from) + center.y, center.z),
 			t = m.multiplyPoint(mx, radius * Math.cos(to)   + center.x, radius * Math.sin(to)   + center.y, center.z),
 			c = m.multiplyPoint(mx, center.x, center.y, center.z), step = (to - from) / N, r = dist(f, t) / 2,
@@ -43,6 +42,6 @@ dojo.require("dojox.gfx3d.matrix");
 
 		return {type: "linear", x1: 0, y1: -r, x2: 0, y2: r, colors: colors};
 	};
-})();
 
-}
+	return gfx3d.gradient;
+});

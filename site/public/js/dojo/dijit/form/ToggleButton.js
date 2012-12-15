@@ -1,13 +1,26 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dijit/form/ToggleButton", [
+	"dojo/_base/declare", // declare
+	"dojo/_base/kernel", // kernel.deprecated
+	"./Button",
+	"./_ToggleButtonMixin"
+], function(declare, kernel, Button, _ToggleButtonMixin){
+
+	// module:
+	//		dijit/form/ToggleButton
 
 
-if(!dojo._hasResource["dijit.form.ToggleButton"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dijit.form.ToggleButton"] = true;
-dojo.provide("dijit.form.ToggleButton");
-dojo.require("dijit.form.Button");
+	return declare("dijit.form.ToggleButton", [Button, _ToggleButtonMixin], {
+		// summary:
+		//		A templated button widget that can be in two states (checked or not).
+		//		Can be base class for things like tabs or checkbox or radio buttons.
 
-}
+		baseClass: "dijitToggleButton",
+
+		setChecked: function(/*Boolean*/ checked){
+			// summary:
+			//		Deprecated.  Use set('checked', true/false) instead.
+			kernel.deprecated("setChecked("+checked+") is deprecated. Use set('checked',"+checked+") instead.", "", "2.0");
+			this.set('checked', checked);
+		}
+	});
+});

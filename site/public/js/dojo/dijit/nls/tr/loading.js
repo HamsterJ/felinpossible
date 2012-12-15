@@ -1,1 +1,6 @@
-({"loadingState":"Yükleniyor...","errorState":"Üzgünüz, bir hata oluştu"})
+define(
+"dijit/nls/tr/loading", ({
+	loadingState: "Yükleniyor...",
+	errorState: "Üzgünüz, bir hata oluştu"
+})
+);

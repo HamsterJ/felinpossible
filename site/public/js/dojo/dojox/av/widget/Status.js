@@ -1,63 +1,40 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/av/widget/Status", ['dojo', 'dijit', 'dijit/_Widget', 'dijit/_TemplatedMixin'],function(dojo, dijit, _Widget, _TemplatedMixin){
 
-
-if(!dojo._hasResource["dojox.av.widget.Status"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.av.widget.Status"] = true;
-dojo.provide("dojox.av.widget.Status");
-dojo.require("dijit._Widget");
-dojo.require("dijit._Templated");
-
-dojo.declare("dojox.av.widget.Status", [dijit._Widget, dijit._Templated], {
+return dojo.declare("dojox.av.widget.Status", [_Widget, _TemplatedMixin], {
 	// summary:
 	//		A Status widget to use with dojox.av.widget.Player
-	//
-	//	description:
+	// description:
 	//		Displays the name of the media file, and it's current status
 	//		(playing, paused, buffering, etc.) in the middle. Displays
 	//		the playhead time on the left and the duration on the right.
-	//
-	templateString:"<table class=\"Status\">\r\n    <tr>\r\n        <td class=\"Time\"><span dojoAttachPoint=\"timeNode\">0.00</span></td>\r\n        <td class=\"Status\"><div dojoAttachPoint=\"titleNode\">Loading...</div></td>\r\n        <td class=\"Duration\"><span dojoAttachPoint=\"durNode\">0.00</span></td>\r\n    </tr>\r\n</table>\r\n",
-	//
-	postCreate: function(){
-		this.titleNode = dojo.query(".Status", this.domNode);
-		this.durNode = dojo.query(".Duration", this.domNode);
-		this.timeNode = dojo.query(".Time", this.domNode);
-		
-		console.log("this.timeNode:", this.timeNode)
-		console.log("this.durNode:", this.durNode)
-		console.log("this.titleNode:", this.titleNode)
-		
-	},
-	
+
+	templateString: dojo.cache("dojox.av.widget","resources/Status.html"),
+
 	setMedia: function(/* Object */med){
 		// summary:
 		//		A common method to set the media in all Player widgets.
 		//		May do connections and initializations.
-		//
+
 		this.media = med;
 		dojo.connect(this.media, "onMetaData", this, function(data){
 			this.duration = data.duration;
 			this.durNode.innerHTML = this.toSeconds(this.duration);
 		});
 		dojo.connect(this.media, "onPosition", this, function(time){
-			//this.timeNode.innerHTML = this.toSeconds(time);													  
+			this.timeNode.innerHTML = this.toSeconds(time);
 		});
-		
-		var cons = ["onMetaData", "onPosition", "onStart", "onBuffer", "onPlay", "onPause", "onStop", "onEnd", "onError", "onLoad"];
+
+		var cons = ["onMetaData", "onPosition", "onStart", "onBuffer", "onPlay", "onPaused", "onStop", "onEnd", "onError", "onLoad"];
 		dojo.forEach(cons, function(c){
-			dojo.connect(this.media, c, this, c);							
+			dojo.connect(this.media, c, this, c);
 		}, this);
-		
+
 	},
 	onMetaData: function(data){
 		this.duration = data.duration;
 		this.durNode.innerHTML = this.toSeconds(this.duration);
 		if(this.media.title){
-			this.title = this.media.title;	
+			this.title = this.media.title;
 		}else{
 			var a = this.media.mediaUrl.split("/");
 			var b = a[a.length-1].split(".")[0];
@@ -68,14 +45,14 @@ dojo.declare("dojox.av.widget.Status", [dijit._Widget, dijit._Templated], {
 		this.isBuffering = isBuffering;
 		console.warn("status onBuffer", this.isBuffering);
 		if(this.isBuffering){
-			this.setStatus("buffering...");	
+			this.setStatus("buffering...");
 		}else{
 			this.setStatus("Playing");
 		}
 	},
 	onPosition:function(time){
 		//console.log("onPosition:", time)
-		//	this.timeNode.innerHTML = this.toSeconds(time);													  
+		//	this.timeNode.innerHTML = this.toSeconds(time);
 	},
 	onStart: function(){
 		this.setStatus("Starting");
@@ -83,7 +60,7 @@ dojo.declare("dojox.av.widget.Status", [dijit._Widget, dijit._Templated], {
 	onPlay: function(){
 		this.setStatus("Playing");
 	},
-	onPause: function(){
+	onPaused: function(){
 		this.setStatus("Paused");
 	},
 	onStop: function(){
@@ -103,20 +80,20 @@ dojo.declare("dojox.av.widget.Status", [dijit._Widget, dijit._Templated], {
 	onLoad: function(){
 		this.setStatus("Loading...");
 	},
-	
+
 	setStatus: function(str, isError){
 		if(isError){
-			dojo.addClass(this.titleNode, "statusError");		
+			dojo.addClass(this.titleNode, "statusError");
 		}else{
-			dojo.removeClass(this.titleNode, "statusError");	
+			dojo.removeClass(this.titleNode, "statusError");
 			if(this.isBuffering){
-				str = "buffering...";	
+				str = "buffering...";
 			}
 		}
 		//console.log(this.titleNode, "title:",this.title, "str:",str)
 		this.titleNode.innerHTML = '<span class="statusTitle">'+this.title+'</span> <span class="statusInfo">'+str+'</span>';
 	},
-	
+
 	toSeconds: function(time){
 		var ts = time.toString()
 
@@ -129,7 +106,7 @@ dojo.declare("dojox.av.widget.Status", [dijit._Widget, dijit._Templated], {
 		}
 		return ts;
 	}
-	
+
 });
 
-}
+});

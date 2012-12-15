@@ -1,34 +1,45 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dijit/layout/StackContainer", [
+	"dojo/_base/array", // array.forEach array.indexOf array.some
+	"dojo/cookie", // cookie
+	"dojo/_base/declare", // declare
+	"dojo/dom-class", // domClass.add domClass.replace
+	"dojo/has",	// has("dijit-legacy-requires")
+	"dojo/_base/lang",	// lang.extend
+	"dojo/ready",
+	"dojo/topic", // publish
+	"../registry",	// registry.byId
+	"../_WidgetBase",
+	"./_LayoutWidget",
+	"dojo/i18n!../nls/common"
+], function(array, cookie, declare, domClass, has, lang, ready, topic,
+			registry, _WidgetBase, _LayoutWidget){
 
+// module:
+//		dijit/layout/StackContainer
 
-if(!dojo._hasResource["dijit.layout.StackContainer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dijit.layout.StackContainer"] = true;
-dojo.provide("dijit.layout.StackContainer");
+// Back compat w/1.6, remove for 2.0
+if(has("dijit-legacy-requires")){
+	ready(0, function(){
+		var requires = ["dijit/layout/StackController"];
+		require(requires);	// use indirection so modules not rolled into a build
+	});
+}
 
-dojo.require("dijit._Templated");
-dojo.require("dijit.layout._LayoutWidget");
-dojo.requireLocalization("dijit", "common", null, "ROOT,ar,ca,cs,da,de,el,es,fi,fr,he,hu,it,ja,ko,nb,nl,pl,pt,pt-pt,ru,sk,sl,sv,th,tr,zh,zh-tw");
-dojo.require("dojo.cookie");
-
-dojo.declare(
-	"dijit.layout.StackContainer",
-	dijit.layout._LayoutWidget,
-	{
-	// summary: 
+var StackContainer = declare("dijit.layout.StackContainer", _LayoutWidget, {
+	// summary:
 	//		A container that has multiple children, but shows only
 	//		one child at a time
 	//
 	// description:
 	//		A container for widgets (ContentPanes, for example) That displays
 	//		only one Widget at a time.
-	//	
+	//
 	//		Publishes topics [widgetId]-addChild, [widgetId]-removeChild, and [widgetId]-selectChild
 	//
 	//		Can be base class for container, Wizard, Show, etc.
+	//
+	//		See `StackContainer.ChildWidgetProperties` for details on the properties that can be set on
+	//		children of a `StackContainer`.
 
 	// doLayout: Boolean
 	//		If true, change the size of my currently displayed child to match my size
@@ -36,27 +47,25 @@ dojo.declare(
 
 	// persist: Boolean
 	//		Remembers the selected child across sessions
-	persist: false,	// Boolean
-	
+	persist: false,
+
 	baseClass: "dijitStackContainer",
 
-	// _started: Boolean
-	//		startup() has completed.
-	//	TODO: comment this section out, it's just needed for documentation.
-	//	Plus, move it to _Widget
-	_started: false,
-
 /*=====
-	// selectedChildWidget: Widget
-	//		References the currently selected child widget, if any
-	//
+	// selectedChildWidget: [readonly] dijit._Widget
+	//		References the currently selected child widget, if any.
+	//		Adjust selected child with selectChild() method.
 	selectedChildWidget: null,
 =====*/
 
+	buildRendering: function(){
+		this.inherited(arguments);
+		domClass.add(this.domNode, "dijitLayoutContainer");
+		this.containerNode.setAttribute("role", "tabpanel");
+	},
+
 	postCreate: function(){
 		this.inherited(arguments);
-		dojo.addClass(this.domNode, "dijitLayoutContainer");
-		dijit.setWaiRole(this.containerNode, "tabpanel");
 		this.connect(this.domNode, "onkeypress", this._onKeyPress);
 	},
 
@@ -66,13 +75,13 @@ dojo.declare(
 		var children = this.getChildren();
 
 		// Setup each page panel to be initially hidden
-		dojo.forEach(children, this._setupChild, this);
+		array.forEach(children, this._setupChild, this);
 
 		// Figure out which child to initially display, defaulting to first one
 		if(this.persist){
-			this.selectedChildWidget = dijit.byId(dojo.cookie(this.id + "_selectedChild"));
+			this.selectedChildWidget = registry.byId(cookie(this.id + "_selectedChild"));
 		}else{
-			dojo.some(children, function(child){
+			array.some(children, function(child){
 				if(child.selected){
 					this.selectedChildWidget = child;
 				}
@@ -88,45 +97,55 @@ dojo.declare(
 		// Publish information about myself so any StackControllers can initialize.
 		// This needs to happen before this.inherited(arguments) so that for
 		// TabContainer, this._contentBox doesn't include the space for the tab labels.
-		dojo.publish(this.id+"-startup", [{children: children, selected: selected}]);
-
-		// Show the initially selected child (do this before this.inherited() call,
-		// because child can't size correctly if it's hidden).
-		// TODO: this will call onShow() on the child widget before startup() which is weird.
-		if(selected){
-			this._showChild(selected);
-		}
+		topic.publish(this.id+"-startup", {children: children, selected: selected});
 
 		// Startup each child widget, and do initial layout like setting this._contentBox,
 		// then calls this.resize() which does the initial sizing on the selected child.
 		this.inherited(arguments);
 	},
 
-	_setupChild: function(/*Widget*/ child){
+	resize: function(){
+		// Overrides _LayoutWidget.resize()
+		// Resize is called when we are first made visible (it's called from startup()
+		// if we are initially visible). If this is the first time we've been made
+		// visible then show our first child.
+		if(!this._hasBeenShown){
+			this._hasBeenShown = true;
+			var selected = this.selectedChildWidget;
+			if(selected){
+				this._showChild(selected);
+			}
+		}
+		this.inherited(arguments);
+	},
+
+	_setupChild: function(/*dijit/_WidgetBase*/ child){
 		// Overrides _LayoutWidget._setupChild()
 
 		this.inherited(arguments);
 
-		dojo.removeClass(child.domNode, "dijitVisible");
-		dojo.addClass(child.domNode, "dijitHidden");
+		domClass.replace(child.domNode, "dijitHidden", "dijitVisible");
 
 		// remove the title attribute so it doesn't show up when i hover
 		// over a node
 		child.domNode.title = "";
-
-		return child; // dijit._Widget		(TODO: remove this, return code is unused)
 	},
 
-	addChild: function(/*Widget*/ child, /*Integer?*/ insertIndex){
+	addChild: function(/*dijit/_WidgetBase*/ child, /*Integer?*/ insertIndex){
 		// Overrides _Container.addChild() to do layout and publish events
-		 
+
 		this.inherited(arguments);
 
 		if(this._started){
-			dojo.publish(this.id+"-addChild", [child, insertIndex]);
+			topic.publish(this.id+"-addChild", child, insertIndex);	// publish
 
 			// in case the tab titles have overflowed from one line to two lines
 			// (or, if this if first child, from zero lines to one line)
+			// TODO: w/ScrollingTabController this is no longer necessary, although
+			// ScrollTabController.resize() does need to get called to show/hide
+			// the navigation buttons as appropriate, but that's handled in ScrollingTabController.onAddChild().
+			// If this is updated to not layout [except for initial child added / last child removed], update
+			// "childless startup" test in StackContainer.html to check for no resize event after second addChild()
 			this.layout();
 
 			// if this is the first child, then select it
@@ -136,23 +155,22 @@ dojo.declare(
 		}
 	},
 
-	removeChild: function(/*Widget*/ page){
+	removeChild: function(/*dijit/_WidgetBase*/ page){
 		// Overrides _Container.removeChild() to do layout and publish events
 
 		this.inherited(arguments);
 
-		// If we are being destroyed than don't run the code below (to select another page), because we are deleting
-		// every page one by one
-		if(this._beingDestroyed){ return; }
-
 		if(this._started){
 			// this will notify any tablists to remove a button; do this first because it may affect sizing
-			dojo.publish(this.id+"-removeChild", [page]);
-
-			// in case the tab titles now take up one line instead of two lines
-			this.layout();
+			topic.publish(this.id + "-removeChild", page);	// publish
 		}
 
+		// If all our children are being destroyed than don't run the code below (to select another page),
+		// because we are deleting every page one by one
+		if(this._descendantsBeingDestroyed){ return; }
+
+		// Select new page to display, also updating TabController to show the respective tab.
+		// Do this before layout call because it can affect the height of the TabController.
 		if(this.selectedChildWidget === page){
 			this.selectedChildWidget = undefined;
 			if(this._started){
@@ -162,110 +180,137 @@ dojo.declare(
 				}
 			}
 		}
-	},
 
-	selectChild: function(/*Widget*/ page){
-		// summary:
-		//		Show the given widget (which must be one of my children)
-
-		page = dijit.byId(page);
-
-		if(this.selectedChildWidget != page){
-			// Deselect old page and select new one
-			this._transition(page, this.selectedChildWidget);
-			this.selectedChildWidget = page;
-			dojo.publish(this.id+"-selectChild", [page]);
-
-			if(this.persist){
-				dojo.cookie(this.id + "_selectedChild", this.selectedChildWidget.id);
-			}
+		if(this._started){
+			// In case the tab titles now take up one line instead of two lines
+			// (note though that ScrollingTabController never overflows to multiple lines),
+			// or the height has changed slightly because of addition/removal of tab which close icon
+			this.layout();
 		}
 	},
 
-	_transition: function(/*Widget*/newWidget, /*Widget*/oldWidget){
+	selectChild: function(/*dijit/_WidgetBase|String*/ page, /*Boolean*/ animate){
+		// summary:
+		//		Show the given widget (which must be one of my children)
+		// page:
+		//		Reference to child widget or id of child widget
+
+		page = registry.byId(page);
+
+		if(this.selectedChildWidget != page){
+			// Deselect old page and select new one
+			var d = this._transition(page, this.selectedChildWidget, animate);
+			this._set("selectedChildWidget", page);
+			topic.publish(this.id+"-selectChild", page);	// publish
+
+			if(this.persist){
+				cookie(this.id + "_selectedChild", this.selectedChildWidget.id);
+			}
+		}
+
+		return d;		// If child has an href, promise that fires when the child's href finishes loading
+	},
+
+	_transition: function(newWidget, oldWidget /*===== ,  animate =====*/){
 		// summary:
 		//		Hide the old widget and display the new widget.
 		//		Subclasses should override this.
+		// newWidget: dijit/_WidgetBase
+		//		The newly selected widget.
+		// oldWidget: dijit/_WidgetBase
+		//		The previously selected widget.
+		// animate: Boolean
+		//		Used by AccordionContainer to turn on/off slide effect.
 		// tags:
 		//		protected extension
 		if(oldWidget){
 			this._hideChild(oldWidget);
 		}
-		this._showChild(newWidget);
+		var d = this._showChild(newWidget);
 
 		// Size the new widget, in case this is the first time it's being shown,
 		// or I have been resized since the last time it was shown.
-		// Note that page must be visible for resizing to work. 
-		if(this.doLayout && newWidget.resize){
-			newWidget.resize(this._containerContentBox || this._contentBox);
+		// Note that page must be visible for resizing to work.
+		if(newWidget.resize){
+			if(this.doLayout){
+				newWidget.resize(this._containerContentBox || this._contentBox);
+			}else{
+				// the child should pick it's own size but we still need to call resize()
+				// (with no arguments) to let the widget lay itself out
+				newWidget.resize();
+			}
 		}
+
+		return d;	// If child has an href, promise that fires when the child's href finishes loading
 	},
 
 	_adjacent: function(/*Boolean*/ forward){
 		// summary:
 		//		Gets the next/previous child widget in this container from the current selection.
+
+		// TODO: remove for 2.0 if this isn't being used.   Otherwise, fix to skip disabled tabs.
+
 		var children = this.getChildren();
-		var index = dojo.indexOf(children, this.selectedChildWidget);
+		var index = array.indexOf(children, this.selectedChildWidget);
 		index += forward ? 1 : children.length - 1;
-		return children[ index % children.length ]; // dijit._Widget
+		return children[ index % children.length ]; // dijit/_WidgetBase
 	},
 
 	forward: function(){
 		// summary:
 		//		Advance to next page.
-		this.selectChild(this._adjacent(true));
+		return this.selectChild(this._adjacent(true), true);
 	},
 
 	back: function(){
 		// summary:
 		//		Go back to previous page.
-		this.selectChild(this._adjacent(false));
+		return this.selectChild(this._adjacent(false), true);
 	},
 
 	_onKeyPress: function(e){
-		dojo.publish(this.id+"-containerKeyPress", [{ e: e, page: this}]);
+		topic.publish(this.id+"-containerKeyPress", { e: e, page: this});	// publish
 	},
 
 	layout: function(){
 		// Implement _LayoutWidget.layout() virtual method.
-		if(this.doLayout && this.selectedChildWidget && this.selectedChildWidget.resize){
-			this.selectedChildWidget.resize(this._contentBox);
+		var child = this.selectedChildWidget;
+		if(child && child.resize){
+			if(this.doLayout){
+				child.resize(this._containerContentBox || this._contentBox);
+			}else{
+				child.resize();
+			}
 		}
 	},
 
-	_showChild: function(/*Widget*/ page){
+	_showChild: function(/*dijit/_WidgetBase*/ page){
 		// summary:
 		//		Show the specified child by changing it's CSS, and call _onShow()/onShow() so
 		//		it can do any updates it needs regarding loading href's etc.
+		// returns:
+		//		Promise that fires when page has finished showing, or true if there's no href
 		var children = this.getChildren();
 		page.isFirstChild = (page == children[0]);
 		page.isLastChild = (page == children[children.length-1]);
-		page.selected = true;
+		page._set("selected", true);
 
-		dojo.removeClass(page.domNode, "dijitHidden");
-		dojo.addClass(page.domNode, "dijitVisible");
+		domClass.replace(page.domNode, "dijitVisible", "dijitHidden");
 
-		if(page._onShow){
-			page._onShow(); // trigger load in ContentPane
-		}else if(page.onShow){
-			page.onShow();
-		}
+		return (page._onShow && page._onShow()) || true;
 	},
 
-	_hideChild: function(/*Widget*/ page){
+	_hideChild: function(/*dijit/_WidgetBase*/ page){
 		// summary:
 		//		Hide the specified child by changing it's CSS, and call _onHide() so
 		//		it's notified.
-		page.selected=false;
-		dojo.removeClass(page.domNode, "dijitVisible");
-		dojo.addClass(page.domNode, "dijitHidden");
+		page._set("selected", false);
+		domClass.replace(page.domNode, "dijitHidden", "dijitVisible");
 
-		if(page.onHide){
-			page.onHide();
-		}
+		page.onHide && page.onHide();
 	},
 
-	closeChild: function(/*Widget*/ page){
+	closeChild: function(/*dijit/_WidgetBase*/ page){
 		// summary:
 		//		Callback when user clicks the [X] to remove a page.
 		//		If onClose() returns true then remove and destroy the child.
@@ -279,41 +324,51 @@ dojo.declare(
 		}
 	},
 
-	destroy: function(){
-		this._beingDestroyed = true;
-		this.inherited(arguments);
+	destroyDescendants: function(/*Boolean*/ preserveDom){
+		this._descendantsBeingDestroyed = true;
+		this.selectedChildWidget = undefined;
+		array.forEach(this.getChildren(), function(child){
+			if(!preserveDom){
+				this.removeChild(child);
+			}
+			child.destroyRecursive(preserveDom);
+		}, this);
+		this._descendantsBeingDestroyed = false;
 	}
 });
 
-// For back-compat, remove for 2.0
-dojo.require("dijit.layout.StackController");
-
-
-// These arguments can be specified for the children of a StackContainer.
-// Since any widget can be specified as a StackContainer child, mix them
-// into the base widget class.  (This is a hack, but it's effective.)
-dojo.extend(dijit._Widget, {
-	// title: String
-	//		Title of this widget.  Used by TabContainer to the name the tab, etc.
-	// TODO: remove this, it's in _Widget already.
-	title: "",
+StackContainer.ChildWidgetProperties = {
+	// summary:
+	//		These properties can be specified for the children of a StackContainer.
 
 	// selected: Boolean
-	//		Is this child currently selected?
+	//		Specifies that this widget should be the initially displayed pane.
+	//		Note: to change the selected child use `dijit/layout/StackContainer.selectChild`
 	selected: false,
+
+	// disabled: Boolean
+	//		Specifies that the button to select this pane should be disabled.
+	//		Doesn't affect programmatic selection of the pane, nor does it deselect the pane if it is currently selected.
+	disabled: false,
 
 	// closable: Boolean
 	//		True if user can close (destroy) this child, such as (for example) clicking the X on the tab.
-	closable: false,	// true if user can close this tab pane
+	closable: false,
 
-	onClose: function(){
-		// summary:
-		//		Callback if someone tries to close the child, child will be closed if func returns true
-		// tags:
-		//		extension
+	// iconClass: String
+	//		CSS Class specifying icon to use in label associated with this pane.
+	iconClass: "dijitNoIcon",
 
-		return true;		// Boolean
-	}
+	// showTitle: Boolean
+	//		When true, display title of this widget as tab label etc., rather than just using
+	//		icon specified in iconClass
+	showTitle: true
+};
+
+// Since any widget can be specified as a StackContainer child, mix them
+// into the base widget class.  (This is a hack, but it's effective.)
+// This is for the benefit of the parser.   Remove for 2.0.  Also, hide from doc viewer.
+lang.extend(_WidgetBase, /*===== {} || =====*/ StackContainer.ChildWidgetProperties);
+
+return StackContainer;
 });
-
-}

@@ -1,12 +1,5 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.help._base"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.help._base"] = true;
+// wrapped by build app
+define("dojox/help/_base", ["dojo","dijit","dojox","dojo/require!dojox/rpc/Service,dojo/io/script"], function(dojo,dijit,dojox){
 dojo.provide("dojox.help._base");
 dojo.require("dojox.rpc.Service");
 dojo.require("dojo.io.script");
@@ -20,10 +13,10 @@ dojox.help = {
 	locate: function(/*String*/ searchFor, /*String|Object|String[]|Object[]*/ searchIn, /*Number*/ maxResults){
 		// summary:
 		//		Search for dojo functionality that has something to do with the given string.
-		//  description:
+		// description:
 		//		Search for locally available data; variable names and any cached
 		//		documentation results for matches containing our search parameter
-		// searchFor
+		// searchFor:
 		//		The string to search for.
 		// searchIn:
 		//		The namespaces to search in. Defaults to dojox.help._namespaces
@@ -105,7 +98,7 @@ dojox.help = {
 		}
 
 		dojox.help._displayLocated(found);
-		if(!+dojo.isFF){
+		if(!dojo.isMoz){
 			return "";
 		}
 	},
@@ -263,7 +256,7 @@ dojox.help = {
 				}
 			});
 		}
-		if(!+dojo.isFF){
+		if(!dojo.isMoz){
 			return "";
 		}
 	},
@@ -336,7 +329,7 @@ dojox.help = {
 
 		var message = "function Loading info for " + this.__name__ + "... (watch console for result) {}";
 
-		if(!+dojo.isFF){
+		if(!dojo.isMoz){
 			this.__output__ = true;
 			return message;
 		}
@@ -477,5 +470,4 @@ dojox.help = {
 		}
 	}
 };
-
-}
+});

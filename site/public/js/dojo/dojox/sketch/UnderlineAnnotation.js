@@ -1,17 +1,4 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.sketch.UnderlineAnnotation"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.sketch.UnderlineAnnotation"] = true;
-dojo.provide("dojox.sketch.UnderlineAnnotation");
-dojo.require("dojox.sketch.Annotation");
-dojo.require("dojox.sketch.Anchor");
-
-(function(){
+define("dojox/sketch/UnderlineAnnotation", ["./Annotation", "./Anchor"], function(){
 	var ta=dojox.sketch;
 	ta.UnderlineAnnotation=function(figure, id){
 		ta.Annotation.call(this, figure, id);
@@ -73,9 +60,9 @@ dojo.require("dojox.sketch.Anchor");
 		//if(this.transform.dx || this.transform.dy){ this.shape.setTransform(this.transform); }
 
 		this.labelShape=this.shape.createText({
-				x:0, 
-				y:0, 
-				text:this.property('label'), 
+				x:0,
+				y:0,
+				text:this.property('label'),
 				decoration:"underline",
 				align:"start"
 			})
@@ -83,11 +70,11 @@ dojo.require("dojox.sketch.Anchor");
 			//.setFill(this.property('fill'));
 		this.labelShape.getEventSource().setAttribute('id',this.id+"-labelShape");
 
-		this.lineShape=this.shape.createLine({ 
-				x1:1, 
-				x2:this.labelShape.getTextWidth(), 
-				y1:2, 
-				y2:2 
+		this.lineShape=this.shape.createLine({
+				x1:1,
+				x2:this.labelShape.getTextWidth(),
+				y1:2,
+				y2:2
 			})
 			//.setStroke({ color:this.property('fill'), width:1 });
 		this.lineShape.getEventSource().setAttribute("shape-rendering","crispEdges");
@@ -136,8 +123,22 @@ dojo.require("dojox.sketch.Anchor");
 			+ '</text>'
 			+ '</g>';
 	};
-
-	ta.Annotation.register("Underline");
-})();
-
-}
+    
+    //customize AnnotationTool to place a underlilne shape onmouseup, no need
+	//to drag a box (like other shapes)
+    dojo.declare("dojox.sketch.UnderlineAnnotationTool", ta.AnnotationTool, {
+		onMouseDown: function(){},
+		onMouseUp: function(){
+			var f=this.figure;
+			if(!f._start){
+				return;
+			}
+			//zero out end so that the clickover is shown at the right pos
+			f._end={x:0,y:0};
+			this._create(f._start,{x:f._start.x+10,y:f._start.y+10});
+		},
+		onMouseMove: function(){}
+	});
+	ta.Annotation.register("Underline", ta.UnderlineAnnotationTool);
+	return dojox.sketch.UnderlineAnnotation;
+});

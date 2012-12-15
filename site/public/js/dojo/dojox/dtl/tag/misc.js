@@ -1,20 +1,15 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/dtl/tag/misc", [
+	"dojo/_base/lang",
+	"dojo/_base/array",
+	"dojo/_base/connect",
+	"../_base"
+], function(lang,array,connect,dd){
 
+	lang.getObject("dojox.dtl.tag.misc", true);
 
-if(!dojo._hasResource["dojox.dtl.tag.misc"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.tag.misc"] = true;
-dojo.provide("dojox.dtl.tag.misc");
-dojo.require("dojox.dtl._base");
-
-(function(){
-	var dd = dojox.dtl;
 	var ddtm = dd.tag.misc;
 
-	ddtm.DebugNode = dojo.extend(function(text){
+	ddtm.DebugNode = lang.extend(function(text){
 		this.text = text;
 	},
 	{
@@ -38,7 +33,7 @@ dojo.require("dojox.dtl._base");
 		toString: function(){ return "ddtm.DebugNode"; }
 	});
 
-	ddtm.FilterNode = dojo.extend(function(varnode, nodelist){
+	ddtm.FilterNode = lang.extend(function(varnode, nodelist){
 		this._varnode = varnode;
 		this._nodelist = nodelist;
 	},
@@ -59,9 +54,9 @@ dojo.require("dojox.dtl._base");
 		}
 	});
 
-	ddtm.FirstOfNode = dojo.extend(function(vars, text){
+	ddtm.FirstOfNode = lang.extend(function(vars, text){
 		this._vars = vars;
-		this.vars = dojo.map(vars, function(item){
+		this.vars = array.map(vars, function(item){
 			return new dojox.dtl._Filter(item);
 		});
 		this.contents = text;
@@ -88,7 +83,7 @@ dojo.require("dojox.dtl._base");
 		}
 	});
 
-	ddtm.SpacelessNode = dojo.extend(function(nodelist, text){
+	ddtm.SpacelessNode = lang.extend(function(nodelist, text){
 		this.nodelist = nodelist;
 		this.contents = text;
 	},
@@ -97,12 +92,12 @@ dojo.require("dojox.dtl._base");
 			if(buffer.getParent){
 				// Unfortunately, we have to branch here
 				var watch = [
-					dojo.connect(buffer, "onAddNodeComplete", this, "_watch"),
-					dojo.connect(buffer, "onSetParent", this, "_watchParent")
+					connect.connect(buffer, "onAddNodeComplete", this, "_watch"),
+					connect.connect(buffer, "onSetParent", this, "_watchParent")
 				];
 				buffer = this.nodelist.render(context, buffer);
-				dojo.disconnect(watch[0]);
-				dojo.disconnect(watch[1]);
+				connect.disconnect(watch[0]);
+				connect.disconnect(watch[1]);
 			}else{
 				var value = this.nodelist.dummyRender(context);
 				this.contents.set(value.replace(/>\s+</g, '><'));
@@ -151,7 +146,7 @@ dojo.require("dojox.dtl._base");
 		}
 	});
 
-	ddtm.TemplateTagNode = dojo.extend(function(tag, text){
+	ddtm.TemplateTagNode = lang.extend(function(tag, text){
 		this.tag = tag;
 		this.contents = text;
 	},
@@ -178,7 +173,7 @@ dojo.require("dojox.dtl._base");
 		}
 	});
 
-	ddtm.WidthRatioNode = dojo.extend(function(current, max, width, text){
+	ddtm.WidthRatioNode = lang.extend(function(current, max, width, text){
 		this.current = new dd._Filter(current);
 		this.max = new dd._Filter(max);
 		this.width = width;
@@ -203,7 +198,7 @@ dojo.require("dojox.dtl._base");
 		}
 	});
 
-	ddtm.WithNode = dojo.extend(function(target, alias, nodelist){
+	ddtm.WithNode = lang.extend(function(target, alias, nodelist){
 		this.target = new dd._Filter(target);
 		this.alias = alias;
 		this.nodelist = nodelist;
@@ -225,18 +220,21 @@ dojo.require("dojox.dtl._base");
 		}
 	});
 
-	dojo.mixin(ddtm, {
+	lang.mixin(ddtm, {
 		comment: function(parser, token){
-			// summary: Ignore everything between {% comment %} and {% endcomment %}
+			// summary:
+			//		Ignore everything between {% comment %} and {% endcomment %}
 			parser.skip_past("endcomment");
 			return dd._noOpNode;
 		},
 		debug: function(parser, token){
-			// summary: Output the current context, maybe add more stuff later.
+			// summary:
+			//		Output the current context, maybe add more stuff later.
 			return new ddtm.DebugNode(parser.create_text_node());
 		},
 		filter: function(parser, token){
-			// summary: Filter the contents of the blog through variable filters.
+			// summary:
+			//		Filter the contents of the blog through variable filters.
 			var rest = token.contents.split(null, 1)[1];
 			var varnode = parser.create_variable_node("var|" + rest);
 			var nodelist = parser.parse(["endfilter"]);
@@ -292,6 +290,5 @@ dojo.require("dojox.dtl._base");
 			return new ddtm.WithNode(parts[1], parts[3], nodelist);
 		}
 	});
-})();
-
-}
+	return dojox.dtl.tag.misc;
+});

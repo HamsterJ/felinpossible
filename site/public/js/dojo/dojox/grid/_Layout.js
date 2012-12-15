@@ -1,17 +1,15 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/grid/_Layout", [
+	"dojo/_base/kernel",
+	"../main",
+	"dojo/_base/declare",
+	"dojo/_base/array",
+	"dojo/_base/lang",
+	"dojo/dom-geometry",
+	"./cells",
+	"./_RowSelector"
+], function(dojo, dojox, declare, array, lang, domGeometry){
 
-
-if(!dojo._hasResource["dojox.grid._Layout"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.grid._Layout"] = true;
-dojo.provide("dojox.grid._Layout");
-dojo.require("dojox.grid.cells");
-dojo.require("dojox.grid._RowSelector");
-
-dojo.declare("dojox.grid._Layout", null, {
+return declare("dojox.grid._Layout", null, {
 	// summary:
 	//	Controls grid cell layout. Owned by grid and used internally.
 	constructor: function(inGrid){
@@ -59,10 +57,11 @@ dojo.declare("dojox.grid._Layout", null, {
 		}
 
 		this.cells = [];
-		var cellIndex = 0;
-		for(var i=0, v; v=this.structure[i]; i++){
+		cellIndex = 0;
+		var v;
+		for(i=0; v=this.structure[i]; i++){
 			for(var j=0, cs; cs=v.cells[j]; j++){
-				for(var k=0, c; c=cs[k]; k++){
+				for(var k=0; c=cs[k]; k++){
 					c.index = cellIndex;
 					this.cells.push(c);
 					if("_currentlySorted" in c){
@@ -75,6 +74,17 @@ dojo.declare("dojox.grid._Layout", null, {
 				}
 			}
 		}
+		
+		//Fix #9481 - reset idx in cell markup
+		array.forEach(this.cells, function(c){
+			var marks = c.markup[2].split(" ");
+			var oldIdx = parseInt(marks[1].substring(5));//get old "idx"
+			if(oldIdx != c.index){
+				marks[1] = "idx=\"" + c.index + "\"";
+				c.markup[2] = marks.join(" ");
+			}
+		});
+		
 		this.grid.setupHeaderMenu();
 		//this.grid.renderOnIdle();
 	},
@@ -85,7 +95,7 @@ dojo.declare("dojox.grid._Layout", null, {
 			cell.hidden = !visible;
 			var v = cell.view, w = v.viewWidth;
 			if(w && w != "auto"){
-				v._togglingColumn = dojo.marginBox(cell.getHeaderNode()).w || 0;
+				v._togglingColumn = domGeometry.getMarginBox(cell.getHeaderNode()).w || 0;
 			}
 			v.update();
 			return true;
@@ -118,16 +128,19 @@ dojo.declare("dojox.grid._Layout", null, {
 		};
 
 		if(inDef && inDef instanceof dojox.grid.cells._Base){
-			var new_cell = dojo.clone(inDef);
+			var new_cell = lang.clone(inDef);
 			props.unitWidth = getCellWidth(new_cell._props);
-			new_cell = dojo.mixin(new_cell, this._defaultCellProps, inDef._props, props);
+			new_cell = lang.mixin(new_cell, this._defaultCellProps, inDef._props, props);
 			return new_cell;
 		}
 
-		var cell_type = inDef.type || this._defaultCellProps.type || dojox.grid.cells.Cell;
+		var cell_type = inDef.type || inDef.cellType || this._defaultCellProps.type || this._defaultCellProps.cellType || dojox.grid.cells.Cell;
+		if(lang.isString(cell_type)){
+			cell_type = lang.getObject(cell_type);
+		}
 
 		props.unitWidth = getCellWidth(inDef);
-		return new cell_type(dojo.mixin({}, this._defaultCellProps, inDef, props));	
+		return new cell_type(lang.mixin({}, this._defaultCellProps, inDef, props));
 	},
 	
 	addRowDef: function(inRowIndex, inDef){
@@ -146,7 +159,7 @@ dojo.declare("dojox.grid._Layout", null, {
 					pctSum += window.parseInt(w, 10);
 				}else if(w == "auto"){
 					// relative widths doesn't play nice with auto - since we
-					// don't have a way of knowing how much space the auto is 
+					// don't have a way of knowing how much space the auto is
 					// supposed to take up.
 					doRel = false;
 				}
@@ -154,7 +167,7 @@ dojo.declare("dojox.grid._Layout", null, {
 		}
 		if(relSum && doRel){
 			// We have some kind of relWidths specified - so change them to %
-			dojo.forEach(result, function(cell){
+			array.forEach(result, function(cell){
 				if(cell.relWidth){
 					cell.width = cell.unitWidth = ((cell.relWidth / relSum) * (100 - pctSum)) + "%";
 				}
@@ -166,8 +179,8 @@ dojo.declare("dojox.grid._Layout", null, {
 
 	addRowsDef: function(inDef){
 		var result = [];
-		if(dojo.isArray(inDef)){
-			if(dojo.isArray(inDef[0])){
+		if(lang.isArray(inDef)){
+			if(lang.isArray(inDef[0])){
 				for(var i=0, row; inDef && (row=inDef[i]); i++){
 					result.push(this.addRowDef(i, row));
 				}
@@ -175,7 +188,7 @@ dojo.declare("dojox.grid._Layout", null, {
 				result.push(this.addRowDef(0, inDef));
 			}
 		}
-		return result;	
+		return result;
 	},
 	
 	addViewDef: function(inDef){
@@ -183,7 +196,7 @@ dojo.declare("dojox.grid._Layout", null, {
 		if(inDef.width && inDef.width == "auto"){
 			delete inDef.width;
 		}
-		return dojo.mixin({}, inDef, {cells: this.addRowsDef(inDef.rows || inDef.cells)});
+		return lang.mixin({}, inDef, {cells: this.addRowsDef(inDef.rows || inDef.cells)});
 	},
 	
 	setStructure: function(inStructure){
@@ -194,7 +207,7 @@ dojo.declare("dojox.grid._Layout", null, {
 		if(this.grid.rowSelector){
 			var sel = { type: dojox._scopeName + ".grid._RowSelector" };
 
-			if(dojo.isString(this.grid.rowSelector)){
+			if(lang.isString(this.grid.rowSelector)){
 				var width = this.grid.rowSelector;
 
 				if(width == "false"){
@@ -218,8 +231,8 @@ dojo.declare("dojox.grid._Layout", null, {
 		};
 
 		var isRowDef = function(def){
-			if(dojo.isArray(def)){
-				if(dojo.isArray(def[0]) || isCell(def[0])){
+			if(lang.isArray(def)){
+				if(lang.isArray(def[0]) || isCell(def[0])){
 					return true;
 				}
 			}
@@ -227,11 +240,11 @@ dojo.declare("dojox.grid._Layout", null, {
 		};
 
 		var isView = function(def){
-			return (def != null && dojo.isObject(def) &&
+			return (def !== null && lang.isObject(def) &&
 					("cells" in def || "rows" in def || ("type" in def && !isCell(def))));
 		};
 
-		if(dojo.isArray(inStructure)){
+		if(lang.isArray(inStructure)){
 			var hasViews = false;
 			for(var i=0, st; (st=inStructure[i]); i++){
 				if(isView(st)){
@@ -242,7 +255,7 @@ dojo.declare("dojox.grid._Layout", null, {
 			if(!hasViews){
 				s.push(this.addViewDef({ cells: inStructure }));
 			}else{
-				for(var i=0, st; (st=inStructure[i]); i++){
+				for(i=0; (st=inStructure[i]); i++){
 					if(isRowDef(st)){
 						s.push(this.addViewDef({ cells: st }));
 					}else if(isView(st)){
@@ -259,5 +272,4 @@ dojo.declare("dojox.grid._Layout", null, {
 		this.grid.setupHeaderMenu();
 	}
 });
-
-}
+});

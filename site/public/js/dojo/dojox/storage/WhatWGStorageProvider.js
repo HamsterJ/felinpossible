@@ -1,31 +1,24 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.storage.WhatWGStorageProvider"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.storage.WhatWGStorageProvider"] = true;
+// wrapped by build app
+define("dojox/storage/WhatWGStorageProvider", ["dojo","dijit","dojox","dojo/require!dojox/storage/Provider,dojox/storage/manager"], function(dojo,dijit,dojox){
 dojo.provide("dojox.storage.WhatWGStorageProvider");
 dojo.require("dojox.storage.Provider");
 dojo.require("dojox.storage.manager");
 
 dojo.declare("dojox.storage.WhatWGStorageProvider", [ dojox.storage.Provider ], {
 	// summary:
-	//		Storage provider that uses WHAT Working Group features in Firefox 2 
+	//		Storage provider that uses WHAT Working Group features in Firefox 2
 	//		to achieve permanent storage.
-	// description: 
-	//		The WHAT WG storage API is documented at 
+	// description:
+	//		The WHAT WG storage API is documented at
 	//		http://www.whatwg.org/specs/web-apps/current-work/#scs-client-side
 	//
-	//		You can disable this storage provider with the following djConfig
-	//		variable:
-	//		var djConfig = { disableWhatWGStorage: true };
-	//		
-	//		Authors of this storage provider-	
-	//			JB Boisseau, jb.boisseau@eutech-ssii.com
-	//			Brad Neuberg, bkn3@columbia.edu 
+	//		You can disable this storage provider with the following djConfig variable:
+	// |	var djConfig = { disableWhatWGStorage: true };
+	//
+	//		Authors of this storage provider:
+	//
+	//		- JB Boisseau, jb.boisseau@eutech-ssii.com
+	//		- Brad Neuberg, bkn3@columbia.edu
 
 	initialized: false,
 	
@@ -41,23 +34,23 @@ dojo.declare("dojox.storage.WhatWGStorageProvider", [ dojox.storage.Provider ], 
 		}
 		
 		// get current domain
-		this._domain = this._getDomain();
+		this._domain = location.hostname;
 		// console.debug(this._domain);
 		
 		// indicate that this storage provider is now loaded
 		this.initialized = true;
-		dojox.storage.manager.loaded();	
+		dojox.storage.manager.loaded();
 	},
 	
 	isAvailable: function(){
 		try{
-			var myStorage = globalStorage[this._getDomain()]; 
+			var myStorage = globalStorage[location.hostname];
 		}catch(e){
 			this._available = false;
 			return this._available;
 		}
 		
-		this._available = true;	
+		this._available = true;
 		return this._available;
 	},
 
@@ -68,7 +61,7 @@ dojo.declare("dojox.storage.WhatWGStorageProvider", [ dojox.storage.Provider ], 
 		namespace = namespace||this.DEFAULT_NAMESPACE;
 		
 		// get our full key name, which is namespace + key
-		key = this.getFullKey(key, namespace);	
+		key = this.getFullKey(key, namespace);
 		
 		this._statusHandler = resultsHandler;
 		
@@ -85,7 +78,7 @@ dojo.declare("dojox.storage.WhatWGStorageProvider", [ dojox.storage.Provider ], 
 			// remove any old storage event listener we might have added
 			// to the window on old put() requests; Firefox has a bug
 			// where it can occassionaly go into infinite loops calling
-			// our storage event listener over and over -- this is a 
+			// our storage event listener over and over -- this is a
 			// workaround
 			// FIXME: Simplify this into a test case and submit it
 			// to Firefox
@@ -99,7 +92,7 @@ dojo.declare("dojox.storage.WhatWGStorageProvider", [ dojox.storage.Provider ], 
 		
 		window.addEventListener("storage", storageListener, false);
 		
-		// try to store the value	
+		// try to store the value
 		try{
 			var myStorage = globalStorage[this._domain];
 			myStorage.setItem(key, value);
@@ -134,7 +127,7 @@ dojo.declare("dojox.storage.WhatWGStorageProvider", [ dojox.storage.Provider ], 
 		
 		results = results.value;
 		
-		// destringify the content back into a 
+		// destringify the content back into a
 		// real JavaScript object;
 		// handle strings differently so they have better performance
 		if(dojo.isString(results) && (/^string:/.test(results))){
@@ -183,7 +176,7 @@ dojo.declare("dojox.storage.WhatWGStorageProvider", [ dojox.storage.Provider ], 
 		// of dojox.storage
 		var namespaceTester;
 		if(namespace == this.DEFAULT_NAMESPACE){
-			namespaceTester = new RegExp("^([^_]{2}.*)$");	
+			namespaceTester = new RegExp("^([^_]{2}.*)$");
 		}else{
 			namespaceTester = new RegExp("^__" + namespace + "_(.*)$");
 		}
@@ -216,7 +209,7 @@ dojo.declare("dojox.storage.WhatWGStorageProvider", [ dojox.storage.Provider ], 
 		// of dojox.storage
 		var namespaceTester;
 		if(namespace == this.DEFAULT_NAMESPACE){
-			namespaceTester = new RegExp("^[^_]{2}");	
+			namespaceTester = new RegExp("^[^_]{2}");
 		}else{
 			namespaceTester = new RegExp("^__" + namespace + "_");
 		}
@@ -274,15 +267,10 @@ dojo.declare("dojox.storage.WhatWGStorageProvider", [ dojox.storage.Provider ], 
 		}else{
 			return "__" + namespace + "_" + key;
 		}
-	},
-
-	_getDomain: function(){
-		// see: https://bugzilla.mozilla.org/show_bug.cgi?id=357323
-		return ((location.hostname == "localhost" && dojo.isFF && dojo.isFF < 3) ? "localhost.localdomain" : location.hostname);
 	}
 });
 
-dojox.storage.manager.register("dojox.storage.WhatWGStorageProvider", 
+dojox.storage.manager.register("dojox.storage.WhatWGStorageProvider",
 								new dojox.storage.WhatWGStorageProvider());
 
-}
+});

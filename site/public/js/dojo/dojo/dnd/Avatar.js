@@ -1,19 +1,22 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojo/dnd/Avatar", [
+	"../_base/declare",
+	"../_base/window",
+	"../dom",
+	"../dom-attr",
+	"../dom-class",
+	"../dom-construct",
+	"../hccss",
+	"../query"
+], function(declare, win, dom, domAttr, domClass, domConstruct, has, query){
 
+// module:
+//		dojo/dnd/Avatar
 
-if(!dojo._hasResource["dojo.dnd.Avatar"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojo.dnd.Avatar"] = true;
-dojo.provide("dojo.dnd.Avatar");
-
-dojo.require("dojo.dnd.common");
-
-dojo.declare("dojo.dnd.Avatar", null, {
-	// summary: an object, which represents transferred DnD items visually
-	// manager: Object: a DnD manager object
+return declare("dojo.dnd.Avatar", null, {
+	// summary:
+	//		Object that represents transferred DnD items visually
+	// manager: Object
+	//		a DnD manager object
 
 	constructor: function(manager){
 		this.manager = manager;
@@ -22,9 +25,11 @@ dojo.declare("dojo.dnd.Avatar", null, {
 
 	// methods
 	construct: function(){
-		// summary: a constructor function;
-		//	it is separate so it can be (dynamically) overwritten in case of need
-		var a = dojo.create("table", {
+		// summary:
+		//		constructor function;
+		//		it is separate so it can be (dynamically) overwritten in case of need
+
+		var a = domConstruct.create("table", {
 				"class": "dojoDndAvatar",
 				style: {
 					position: "absolute",
@@ -32,15 +37,24 @@ dojo.declare("dojo.dnd.Avatar", null, {
 					margin:   "0px"
 				}
 			}),
-			b = dojo.create("tbody", null, a),
-			tr = dojo.create("tr", null, b),
-			td = dojo.create("td", {
-				innerHTML: this._generateText()
-			}, tr),
-			k = Math.min(5, this.manager.nodes.length), i = 0,
-			source = this.manager.source, node;
+			source = this.manager.source, node,
+			b = domConstruct.create("tbody", null, a),
+			tr = domConstruct.create("tr", null, b),
+			td = domConstruct.create("td", null, tr),
+			k = Math.min(5, this.manager.nodes.length), i = 0;
+
+		if(has("highcontrast")){
+			domConstruct.create("span", {
+				id : "a11yIcon",
+				innerHTML : this.manager.copy ? '+' : "<"
+			}, td)
+		}
+		domConstruct.create("span", {
+			innerHTML: source.generateText ? this._generateText() : ""
+		}, td);
+
 		// we have to set the opacity on IE only after the node is live
-		dojo.attr(tr, {
+		domAttr.set(tr, {
 			"class": "dojoDndAvatarHeader",
 			style: {opacity: 0.9}
 		});
@@ -53,17 +67,17 @@ dojo.declare("dojo.dnd.Avatar", null, {
 				node = this.manager.nodes[i].cloneNode(true);
 				if(node.tagName.toLowerCase() == "tr"){
 					// insert extra table nodes
-					var table = dojo.create("table"),
-						tbody = dojo.create("tbody", null, table);
+					var table = domConstruct.create("table"),
+						tbody = domConstruct.create("tbody", null, table);
 					tbody.appendChild(node);
 					node = table;
 				}
 			}
 			node.id = "";
-			tr = dojo.create("tr", null, b);
-			td = dojo.create("td", null, tr);
+			tr = domConstruct.create("tr", null, b);
+			td = domConstruct.create("td", null, tr);
 			td.appendChild(node);
-			dojo.attr(tr, {
+			domAttr.set(tr, {
 				"class": "dojoDndAvatarItem",
 				style: {opacity: (9 - i) / 10}
 			});
@@ -71,22 +85,38 @@ dojo.declare("dojo.dnd.Avatar", null, {
 		this.node = a;
 	},
 	destroy: function(){
-		// summary: a desctructor for the avatar, called to remove all references so it can be garbage-collected
-		dojo.destroy(this.node);
+		// summary:
+		//		destructor for the avatar; called to remove all references so it can be garbage-collected
+		domConstruct.destroy(this.node);
 		this.node = false;
 	},
 	update: function(){
-		// summary: updates the avatar to reflect the current DnD state
-		dojo[(this.manager.canDropFlag ? "add" : "remove") + "Class"](this.node, "dojoDndAvatarCanDrop");
+		// summary:
+		//		updates the avatar to reflect the current DnD state
+		domClass.toggle(this.node, "dojoDndAvatarCanDrop", this.manager.canDropFlag);
+		if(has("highcontrast")){
+			var icon = dom.byId("a11yIcon");
+			var text = '+';   // assume canDrop && copy
+			if (this.manager.canDropFlag && !this.manager.copy){
+				text = '< '; // canDrop && move
+			}else if (!this.manager.canDropFlag && !this.manager.copy){
+				text = "o"; //!canDrop && move
+			}else if(!this.manager.canDropFlag){
+				text = 'x';  // !canDrop && copy
+			}
+			icon.innerHTML=text;
+		}
 		// replace text
-		dojo.query("tr.dojoDndAvatarHeader td", this.node).forEach(function(node){
-			node.innerHTML = this._generateText();
-		}, this);
+		query(("tr.dojoDndAvatarHeader td span" +(has("highcontrast") ? " span" : "")), this.node).forEach(
+			function(node){
+				node.innerHTML = this.manager.source.generateText ? this._generateText() : "";
+			}, this);
 	},
 	_generateText: function(){
-		// summary: generates a proper text to reflect copying or moving of items
+		// summary:
+		//		generates a proper text to reflect copying or moving of items
 		return this.manager.nodes.length.toString();
 	}
 });
 
-}
+});

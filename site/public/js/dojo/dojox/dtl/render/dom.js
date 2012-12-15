@@ -1,44 +1,42 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/dtl/render/dom", [
+	"dojo/_base/lang",
+	"dojo/dom",
+	"../Context",
+	"../dom",
+	"../_base"
+], function(lang,dom,ddc,dddom,dd){
 
+	lang.getObject("dojox.dtl.render.dom", true);
 
-if(!dojo._hasResource["dojox.dtl.render.dom"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.render.dom"] = true;
-dojo.provide("dojox.dtl.render.dom");
+	dd.render.dom.Render = function(/*DOMNode?*/ attachPoint, /*dojox/dtl/DomTemplate?*/ tpl){
+		this._tpl = tpl;
+		this.domNode = dom.byId(attachPoint);
+	};
+	lang.extend(dd.render.dom.Render, {
+		setAttachPoint: function(/*Node*/ node){
+			this.domNode = node;
+		},
+		render: function(/*Object*/ context, /*dojox/dtl/DomTemplate?*/ tpl, /*dojox/dtl/DomBuffer?*/ buffer){
+			if(!this.domNode){
+				throw new Error("You cannot use the Render object without specifying where you want to render it");
+			}
 
-dojo.require("dojox.dtl.Context");
-dojo.require("dojox.dtl.dom");
+			this._tpl = tpl = tpl || this._tpl;
+			buffer = buffer || tpl.getBuffer();
+			context = context || new ddc();
 
-dojox.dtl.render.dom.Render = function(/*DOMNode?*/ attachPoint, /*dojox.dtl.DomTemplate?*/ tpl){
-	this._tpl = tpl;
-	this.domNode = dojo.byId(attachPoint);
-}
-dojo.extend(dojox.dtl.render.dom.Render, {
-	setAttachPoint: function(/*Node*/ node){
-		this.domNode = node;
-	},
-	render: function(/*Object*/ context, /*dojox.dtl.DomTemplate?*/ tpl, /*dojox.dtl.DomBuffer?*/ buffer){
-		if(!this.domNode){
-			throw new Error("You cannot use the Render object without specifying where you want to render it");
+			var frag = tpl.render(context, buffer).getParent();
+			if(!frag){
+				throw new Error("Rendered template does not have a root node");
+			}
+
+			if(this.domNode !== frag){
+				if(this.domNode.parentNode){
+					this.domNode.parentNode.replaceChild(frag, this.domNode);
+				}
+				this.domNode = frag;
+			}
 		}
-
-		this._tpl = tpl = tpl || this._tpl;
-		buffer = buffer || tpl.getBuffer();
-		context = context || new dojox.dtl.Context();
-
-		var frag = tpl.render(context, buffer).getParent();
-		if(!frag){
-			throw new Error("Rendered template does not have a root node");
-		}
-
-		if(this.domNode !== frag){
-			this.domNode.parentNode.replaceChild(frag, this.domNode);
-			this.domNode = frag;
-		}
-	}
+	});
+	return dojox.dtl.render.dom;
 });
-
-}

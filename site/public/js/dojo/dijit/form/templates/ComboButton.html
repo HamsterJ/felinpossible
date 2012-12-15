@@ -1,20 +1,23 @@
-<table class='dijit dijitReset dijitInline dijitLeft'
-	cellspacing='0' cellpadding='0' waiRole="presentation"
-	><tbody waiRole="presentation"><tr waiRole="presentation"
-		><td class="dijitReset dijitStretch dijitButtonContents dijitButtonNode"
-			dojoAttachEvent="ondijitclick:_onButtonClick,onmouseenter:_onMouse,onmouseleave:_onMouse,onmousedown:_onMouse"  dojoAttachPoint="titleNode"
-			waiRole="button" waiState="labelledby-${id}_label"
-			><div class="dijitReset dijitInline" dojoAttachPoint="iconNode" waiRole="presentation"></div
-			><div class="dijitReset dijitInline dijitButtonText" id="${id}_label" dojoAttachPoint="containerNode" waiRole="presentation"></div
+<table class="dijit dijitReset dijitInline dijitLeft"
+	cellspacing='0' cellpadding='0' role="presentation"
+	><tbody role="presentation"><tr role="presentation"
+		><td class="dijitReset dijitStretch dijitButtonNode" data-dojo-attach-point="buttonNode" data-dojo-attach-event="ondijitclick:_onClick,onkeypress:_onButtonKeyPress"
+		><div id="${id}_button" class="dijitReset dijitButtonContents"
+			data-dojo-attach-point="titleNode"
+			role="button" aria-labelledby="${id}_label"
+			><div class="dijitReset dijitInline dijitIcon" data-dojo-attach-point="iconNode" role="presentation"></div
+			><div class="dijitReset dijitInline dijitButtonText" id="${id}_label" data-dojo-attach-point="containerNode" role="presentation"></div
+		></div
 		></td
-		><td class='dijitReset dijitRight dijitButtonNode dijitArrowButton dijitDownArrowButton'
-			dojoAttachPoint="popupStateNode,focusNode"
-			dojoAttachEvent="ondijitclick:_onArrowClick, onkeypress:_onKey,onmouseenter:_onMouse,onmouseleave:_onMouse"
-			stateModifier="DownArrow"
-			title="${optionsTitle}" ${nameAttrSetting}
-			waiRole="button" waiState="haspopup-true"
-			><div class="dijitReset dijitArrowButtonInner" waiRole="presentation">&thinsp;</div
-			><div class="dijitReset dijitArrowButtonChar" waiRole="presentation">&#9660;</div
+		><td id="${id}_arrow" class='dijitReset dijitRight dijitButtonNode dijitArrowButton'
+			data-dojo-attach-point="_popupStateNode,focusNode,_buttonNode"
+			data-dojo-attach-event="onkeypress:_onArrowKeyPress"
+			title="${optionsTitle}"
+			role="button" aria-haspopup="true"
+			><div class="dijitReset dijitArrowButtonInner" role="presentation"></div
+			><div class="dijitReset dijitArrowButtonChar" role="presentation">&#9660;</div
 		></td
-	></tr></tbody
+		><td style="display:none !important;"
+			><input ${!nameAttrSetting} type="${type}" value="${value}" data-dojo-attach-point="valueNode" role="presentation"
+		/></td></tr></tbody
 ></table>

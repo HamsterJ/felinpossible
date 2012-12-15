@@ -1,17 +1,6 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/color/Palette", ["dojo/_base/lang", "dojo/_base/array", "./_base"],
+	function(lang, arr, dxc){
 
-
-if(!dojo._hasResource["dojox.color.Palette"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.color.Palette"] = true;
-dojo.provide("dojox.color.Palette");
-dojo.require("dojox.color");
-
-(function(){
-	var dxc = dojox.color;
 	/***************************************************************
 	*	dojox.color.Palette
 	*
@@ -32,9 +21,9 @@ dojo.require("dojox.color");
 
 	//	ctor ----------------------------------------------------------------------------
 	dxc.Palette = function(/* String|Array|dojox.color.Color|dojox.color.Palette */base){
-		//	summary
+		// summary:
 		//		An object that represents a palette of colors.
-		//	description
+		// description:
 		//		A Palette is a representation of a set of colors.  While the standard
 		//		number of colors contained in a palette is 5, it can really handle any
 		//		number of colors.
@@ -43,24 +32,24 @@ dojo.require("dojox.color");
 		//		using a simple object-based approach.  In addition, you can generate
 		//		palettes using dojox.color.Palette.generate; these generated palettes
 		//		are based on the palette generators at http://kuler.adobe.com.
-		//
-		//	colors: dojox.color.Color[]
+
+		// colors: dojox.color.Color[]
 		//		The actual color references in this palette.
 		this.colors = [];
-		if(base instanceof dojox.color.Palette){
+		if(base instanceof dxc.Palette){
 			this.colors = base.colors.slice(0);
 		}
-		else if(base instanceof dojox.color.Color){
+		else if(base instanceof dxc.Color){
 			this.colors = [ null, null, base, null, null ];
 		}
-		else if(dojo.isArray(base)){
-			this.colors = dojo.map(base.slice(0), function(item){
-				if(dojo.isString(item)){ return new dojox.color.Color(item); }
+		else if(lang.isArray(base)){
+			this.colors = arr.map(base.slice(0), function(item){
+				if(lang.isString(item)){ return new dxc.Color(item); }
 				return item;
 			});
 		}
-		else if (dojo.isString(base)){
-			this.colors = [ null, null, new dojox.color.Color(base), null, null ];
+		else if (lang.isString(base)){
+			this.colors = [ null, null, new dxc.Color(base), null, null ];
 		}
 	}
 
@@ -68,33 +57,32 @@ dojo.require("dojox.color");
 
 	//	transformations
 	function tRGBA(p, param, val){
-		var ret = new dojox.color.Palette();
+		var ret = new dxc.Palette();
 		ret.colors = [];
-		dojo.forEach(p.colors, function(item){
+		arr.forEach(p.colors, function(item){
 			var r=(param=="dr")?item.r+val:item.r,
 				g=(param=="dg")?item.g+val:item.g,
 				b=(param=="db")?item.b+val:item.b,
 				a=(param=="da")?item.a+val:item.a
-			ret.colors.push(new dojox.color.Color({
+			ret.colors.push(new dxc.Color({
 				r: Math.min(255, Math.max(0, r)),
 				g: Math.min(255, Math.max(0, g)),
 				b: Math.min(255, Math.max(0, b)),
 				a: Math.min(1, Math.max(0, a))
 			}));
 		});
-		console.log("The return colors are ", ret.colors, " from the original colors ", p.colors);
 		return ret;
 	}
 
 	function tCMY(p, param, val){
-		var ret = new dojox.color.Palette();
+		var ret = new dxc.Palette();
 		ret.colors = [];
-		dojo.forEach(p.colors, function(item){
-			var o=item.toCmy(), 
+		arr.forEach(p.colors, function(item){
+			var o=item.toCmy(),
 				c=(param=="dc")?o.c+val:o.c,
 				m=(param=="dm")?o.m+val:o.m,
 				y=(param=="dy")?o.y+val:o.y;
-			ret.colors.push(dojox.color.fromCmy(
+			ret.colors.push(dxc.fromCmy(
 				Math.min(100, Math.max(0, c)),
 				Math.min(100, Math.max(0, m)),
 				Math.min(100, Math.max(0, y))
@@ -104,15 +92,15 @@ dojo.require("dojox.color");
 	}
 
 	function tCMYK(p, param, val){
-		var ret = new dojox.color.Palette();
+		var ret = new dxc.Palette();
 		ret.colors = [];
-		dojo.forEach(p.colors, function(item){
-			var o=item.toCmyk(), 
+		arr.forEach(p.colors, function(item){
+			var o=item.toCmyk(),
 				c=(param=="dc")?o.c+val:o.c,
 				m=(param=="dm")?o.m+val:o.m,
 				y=(param=="dy")?o.y+val:o.y,
 				k=(param=="dk")?o.b+val:o.b;
-			ret.colors.push(dojox.color.fromCmyk(
+			ret.colors.push(dxc.fromCmyk(
 				Math.min(100, Math.max(0, c)),
 				Math.min(100, Math.max(0, m)),
 				Math.min(100, Math.max(0, y)),
@@ -123,27 +111,27 @@ dojo.require("dojox.color");
 	}
 
 	function tHSL(p, param, val){
-		var ret = new dojox.color.Palette();
+		var ret = new dxc.Palette();
 		ret.colors = [];
-		dojo.forEach(p.colors, function(item){
-			var o=item.toHsl(), 
+		arr.forEach(p.colors, function(item){
+			var o=item.toHsl(),
 				h=(param=="dh")?o.h+val:o.h,
 				s=(param=="ds")?o.s+val:o.s,
 				l=(param=="dl")?o.l+val:o.l;
-			ret.colors.push(dojox.color.fromHsl(h%360, Math.min(100, Math.max(0, s)), Math.min(100, Math.max(0, l))));
+			ret.colors.push(dxc.fromHsl(h%360, Math.min(100, Math.max(0, s)), Math.min(100, Math.max(0, l))));
 		});
 		return ret;
 	}
 
 	function tHSV(p, param, val){
-		var ret = new dojox.color.Palette();
+		var ret = new dxc.Palette();
 		ret.colors = [];
-		dojo.forEach(p.colors, function(item){
-			var o=item.toHsv(), 
+		arr.forEach(p.colors, function(item){
+			var o=item.toHsv(),
 				h=(param=="dh")?o.h+val:o.h,
 				s=(param=="ds")?o.s+val:o.s,
 				v=(param=="dv")?o.v+val:o.v;
-			ret.colors.push(dojox.color.fromHsv(h%360, Math.min(100, Math.max(0, s)), Math.min(100, Math.max(0, v))));
+			ret.colors.push(dxc.fromHsv(h%360, Math.min(100, Math.max(0, s)), Math.min(100, Math.max(0, v))));
 		});
 		return ret;
 	}
@@ -155,13 +143,77 @@ dojo.require("dojox.color");
 		return high-((high-val)*((high-low)/high));
 	}
 
+/*=====
+var __transformArgs = {
+	// summary:
+	//		The keywords argument to be passed to the dojox.color.Palette.transform function.  Note that
+	//		while all arguments are optional, *some* arguments must be passed.  The basic concept is that
+	//		you pass a delta value for a specific aspect of a color model (or multiple aspects of the same
+	//		color model); for instance, if you wish to transform a palette based on the HSV color model,
+	//		you would pass one of "dh", "ds", or "dv" as a value.
+	// use: String?
+	//		Specify the color model to use for the transformation.  Can be "rgb", "rgba", "hsv", "hsl", "cmy", "cmyk".
+	// dr: Number?
+	//		The delta to be applied to the red aspect of the RGB/RGBA color model.
+	// dg: Number?
+	//		The delta to be applied to the green aspect of the RGB/RGBA color model.
+	// db: Number?
+	//		The delta to be applied to the blue aspect of the RGB/RGBA color model.
+	// da: Number?
+	//		The delta to be applied to the alpha aspect of the RGBA color model.
+	// dc: Number?
+	//		The delta to be applied to the cyan aspect of the CMY/CMYK color model.
+	// dm: Number?
+	//		The delta to be applied to the magenta aspect of the CMY/CMYK color model.
+	// dy: Number?
+	//		The delta to be applied to the yellow aspect of the CMY/CMYK color model.
+	// dk: Number?
+	//		The delta to be applied to the black aspect of the CMYK color model.
+	// dh: Number?
+	//		The delta to be applied to the hue aspect of the HSL/HSV color model.
+	// ds: Number?
+	//		The delta to be applied to the saturation aspect of the HSL/HSV color model.
+	// dl: Number?
+	//		The delta to be applied to the luminosity aspect of the HSL color model.
+	// dv: Number?
+	//		The delta to be applied to the value aspect of the HSV color model.
+};
+var __generatorArgs = {
+	// summary:
+	//		The keyword arguments object used to create a palette based on a base color.
+	// base: dojo/_base/Color
+	//		The base color to be used to generate the palette.
+};
+var __analogousArgs = {
+	// summary:
+	//		The keyword arguments object that is used to create a 5 color palette based on the
+	//		analogous rules as implemented at http://kuler.adobe.com, using the HSV color model.
+	// base: dojo/_base/Color
+	//		The base color to be used to generate the palette.
+	// high: Number?
+	//		The difference between the hue of the base color and the highest hue.  In degrees, default is 60.
+	// low: Number?
+	//		The difference between the hue of the base color and the lowest hue.  In degrees, default is 18.
+};
+var __splitComplementaryArgs = {
+	// summary:
+	//		The keyword arguments object used to create a palette based on the split complementary rules
+	//		as implemented at http://kuler.adobe.com.
+	// base: dojo/_base/Color
+	//		The base color to be used to generate the palette.
+	// da: Number?
+	//		The delta angle to be used to determine where the split for the complementary rules happen.
+	//		In degrees, the default is 30.
+};
+=====*/
+
 	//	object methods ---------------------------------------------------------------
-	dojo.extend(dxc.Palette, {
-		transform: function(/* Object */kwArgs){
-			//	summary
+	lang.extend(dxc.Palette, {
+		transform: function(/*__transformArgs*/kwArgs){
+			// summary:
 			//		Transform the palette using a specific transformation function
 			//		and a set of transformation parameters.
-			//	description
+			// description:
 			//		{palette}.transform is a simple way to uniformly transform
 			//		all of the colors in a palette using any of 5 formulae:
 			//		RGBA, HSL, HSV, CMYK or CMY.
@@ -205,19 +257,21 @@ dojo.require("dojox.color");
 			return palette;		//	dojox.color.Palette
 		},
 		clone: function(){
-			//	summary
+			// summary:
 			//		Clones the current palette.
 			return new dxc.Palette(this);	//	dojox.color.Palette
 		}
 	});
 
-	//	static methods ---------------------------------------------------------------
-	dojo.mixin(dxc.Palette, {
+	lang.mixin(dxc.Palette, {
 		generators: {
-			analogous:function(/* Object */args){
+			analogous:function(/* __analogousArgs */args){
+				// summary:
+				//		Create a 5 color palette based on the analogous rules as implemented at
+				//		http://kuler.adobe.com.
 				var high=args.high||60, 	//	delta between base hue and highest hue (subtracted from base)
 					low=args.low||18,		//	delta between base hue and lowest hue (added to base)
-					base = dojo.isString(args.base)?new dojox.color.Color(args.base):args.base,
+					base = lang.isString(args.base)?new dxc.Color(args.base):args.base,
 					hsv=base.toHsv();
 
 				//	generate our hue angle differences
@@ -236,13 +290,16 @@ dojo.require("dojox.color");
 					s=[ s1, s2, hsv.s, s1, s1 ],
 					v=[ v1, v2, hsv.v, v1, v2 ]
 
-				return new dxc.Palette(dojo.map(h, function(hue, i){
-					return dojox.color.fromHsv(hue, s[i], v[i]);
+				return new dxc.Palette(arr.map(h, function(hue, i){
+					return dxc.fromHsv(hue, s[i], v[i]);
 				}));		//	dojox.color.Palette
 			},
 
-			monochromatic: function(/* Object */args){
-				var base = dojo.isString(args.base)?new dojox.color.Color(args.base):args.base,
+			monochromatic: function(/* __generatorArgs */args){
+				// summary:
+				//		Create a 5 color palette based on the monochromatic rules as implemented at
+				//		http://kuler.adobe.com.
+				var base = lang.isString(args.base)?new dxc.Color(args.base):args.base,
 					hsv = base.toHsv();
 				
 				//	figure out the saturation and value
@@ -253,16 +310,19 @@ dojo.require("dojox.color");
 					v3 = (hsv.v-50>20)?hsv.v-50:hsv.v+30;
 
 				return new dxc.Palette([
-					dojox.color.fromHsv(hsv.h, s1, v1),
-					dojox.color.fromHsv(hsv.h, s2, v3),
+					dxc.fromHsv(hsv.h, s1, v1),
+					dxc.fromHsv(hsv.h, s2, v3),
 					base,
-					dojox.color.fromHsv(hsv.h, s1, v3),
-					dojox.color.fromHsv(hsv.h, s2, v2)
+					dxc.fromHsv(hsv.h, s1, v3),
+					dxc.fromHsv(hsv.h, s2, v2)
 				]);		//	dojox.color.Palette
 			},
 
-			triadic: function(/* Object */args){
-				var base = dojo.isString(args.base)?new dojox.color.Color(args.base):args.base,
+			triadic: function(/* __generatorArgs */args){
+				// summary:
+				//		Create a 5 color palette based on the triadic rules as implemented at
+				//		http://kuler.adobe.com.
+				var base = lang.isString(args.base)?new dxc.Color(args.base):args.base,
 					hsv = base.toHsv();
 
 				var h1 = (hsv.h+57+360)%360,
@@ -275,16 +335,19 @@ dojo.require("dojox.color");
 					v3 = (hsv.v-30>70)?hsv.v-30:hsv.v+30;
 
 				return new dxc.Palette([
-					dojox.color.fromHsv(h1, s1, hsv.v),
-					dojox.color.fromHsv(hsv.h, s2, v2),
+					dxc.fromHsv(h1, s1, hsv.v),
+					dxc.fromHsv(hsv.h, s2, v2),
 					base,
-					dojox.color.fromHsv(h2, s2, v1),
-					dojox.color.fromHsv(h2, s3, v3)
+					dxc.fromHsv(h2, s2, v1),
+					dxc.fromHsv(h2, s3, v3)
 				]);		//	dojox.color.Palette
 			},
 
-			complementary: function(/* Object */args){
-				var base = dojo.isString(args.base)?new dojox.color.Color(args.base):args.base,
+			complementary: function(/* __generatorArgs */args){
+				// summary:
+				//		Create a 5 color palette based on the complementary rules as implemented at
+				//		http://kuler.adobe.com.
+				var base = lang.isString(args.base)?new dxc.Color(args.base):args.base,
 					hsv = base.toHsv();
 
 				var h1 = ((hsv.h*2)+137<360)?(hsv.h*2)+137:Math.floor(hsv.h/2)-137,
@@ -295,16 +358,19 @@ dojo.require("dojox.color");
 					v2 = (hsv.v>20)?hsv.v-30:hsv.v+30;
 
 				return new dxc.Palette([
-					dojox.color.fromHsv(hsv.h, s1, v1),
-					dojox.color.fromHsv(hsv.h, s2, v2),
+					dxc.fromHsv(hsv.h, s1, v1),
+					dxc.fromHsv(hsv.h, s2, v2),
 					base,
-					dojox.color.fromHsv(h1, s3, v2),
-					dojox.color.fromHsv(h1, hsv.s, hsv.v)
+					dxc.fromHsv(h1, s3, v2),
+					dxc.fromHsv(h1, hsv.s, hsv.v)
 				]);		//	dojox.color.Palette
 			},
 
-			splitComplementary: function(/* Object */args){
-				var base = dojo.isString(args.base)?new dojox.color.Color(args.base):args.base,
+			splitComplementary: function(/* __splitComplementaryArgs */args){
+				// summary:
+				//		Create a 5 color palette based on the split complementary rules as implemented at
+				//		http://kuler.adobe.com.
+				var base = lang.isString(args.base)?new dxc.Color(args.base):args.base,
 					dangle = args.da || 30,
 					hsv = base.toHsv();
 
@@ -318,16 +384,19 @@ dojo.require("dojox.color");
 					v2 = (hsv.v>20)?hsv.v-30:hsv.v+30;
 
 				return new dxc.Palette([
-					dojox.color.fromHsv(h1, s1, v1),
-					dojox.color.fromHsv(h1, s2, v2),
+					dxc.fromHsv(h1, s1, v1),
+					dxc.fromHsv(h1, s2, v2),
 					base,
-					dojox.color.fromHsv(h2, s3, v2),
-					dojox.color.fromHsv(h2, hsv.s, hsv.v)
+					dxc.fromHsv(h2, s3, v2),
+					dxc.fromHsv(h2, hsv.s, hsv.v)
 				]);		//	dojox.color.Palette
 			},
 
-			compound: function(/* Object */args){
-				var base = dojo.isString(args.base)?new dojox.color.Color(args.base):args.base,
+			compound: function(/* __generatorArgs */args){
+				// summary:
+				//		Create a 5 color palette based on the compound rules as implemented at
+				//		http://kuler.adobe.com.
+				var base = lang.isString(args.base)?new dxc.Color(args.base):args.base,
 					hsv = base.toHsv();
 
 				var h1 = ((hsv.h*2)+18<360)?(hsv.h*2)+18:Math.floor(hsv.h/2)-18,
@@ -341,16 +410,19 @@ dojo.require("dojox.color");
 					v3 = Math.max(hsv.v, 20);
 
 				return new dxc.Palette([
-					dojox.color.fromHsv(h1, s1, v1),
-					dojox.color.fromHsv(h1, s2, v2),
+					dxc.fromHsv(h1, s1, v1),
+					dxc.fromHsv(h1, s2, v2),
 					base,
-					dojox.color.fromHsv(h2, s3, v3),
-					dojox.color.fromHsv(h3, s2, v2)
+					dxc.fromHsv(h2, s3, v3),
+					dxc.fromHsv(h3, s2, v2)
 				]);		//	dojox.color.Palette
 			},
 
-			shades: function(/* Object */args){
-				var base = dojo.isString(args.base)?new dojox.color.Color(args.base):args.base,
+			shades: function(/* __generatorArgs */args){
+				// summary:
+				//		Create a 5 color palette based on the shades rules as implemented at
+				//		http://kuler.adobe.com.
+				var base = lang.isString(args.base)?new dxc.Color(args.base):args.base,
 					hsv = base.toHsv();
 
 				var s  = (hsv.s==100 && hsv.v==0)?0:hsv.s,
@@ -360,19 +432,21 @@ dojo.require("dojox.color");
 					v4 = Math.max(hsv.v-10, 20);
 
 				return new dxc.Palette([
-					new dojox.color.fromHsv(hsv.h, s, v1),
-					new dojox.color.fromHsv(hsv.h, s, v2),
+					new dxc.fromHsv(hsv.h, s, v1),
+					new dxc.fromHsv(hsv.h, s, v2),
 					base,
-					new dojox.color.fromHsv(hsv.h, s, v3),
-					new dojox.color.fromHsv(hsv.h, s, v4)
+					new dxc.fromHsv(hsv.h, s, v3),
+					new dxc.fromHsv(hsv.h, s, v4)
 				]);		//	dojox.color.Palette
 			}
 		},
 		generate: function(/* String|dojox.color.Color */base, /* Function|String */type){
-			//	summary
+			// summary:
 			//		Generate a new Palette using any of the named functions in
-			//		dojox.color.Palette.generators or an optional function definition.
-			if(dojo.isFunction(type)){
+			//		dojox.color.Palette.generators or an optional function definition.  Current
+			//		generators include "analogous", "monochromatic", "triadic", "complementary",
+			//		"splitComplementary", and "shades".
+			if(lang.isFunction(type)){
 				return type({ base: base });	//	dojox.color.Palette
 			}
 			else if(dxc.Palette.generators[type]){
@@ -381,6 +455,6 @@ dojo.require("dojox.color");
 			throw new Error("dojox.color.Palette.generate: the specified generator ('" + type + "') does not exist.");
 		}
 	});
-})();
-
-}
+	
+	return dxc.Palette;
+});

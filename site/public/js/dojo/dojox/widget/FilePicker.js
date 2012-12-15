@@ -1,31 +1,25 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.widget.FilePicker"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.widget.FilePicker"] = true;
+// wrapped by build app
+define("dojox/widget/FilePicker", ["dojo","dijit","dojox","dojo/i18n!dojox/widget/nls/FilePicker","dojo/require!dojox/widget/RollingList,dojo/i18n"], function(dojo,dijit,dojox){
 dojo.provide("dojox.widget.FilePicker");
 
 dojo.require("dojox.widget.RollingList");
 
-dojo.require("dojo.i18n"); 
-dojo.requireLocalization("dojox.widget", "FilePicker", null, "ROOT,ar,ca,cs,da,de,el,es,fi,fr,he,hu,it,ja,ko,nb,nl,pl,pt,pt-pt,ru,sk,sl,sv,th,tr,zh,zh-tw"); 
+dojo.require("dojo.i18n");
+dojo.requireLocalization("dojox.widget", "FilePicker");
 
-dojo.declare("dojox.widget._FileInfoPane", 
+dojo.declare("dojox.widget._FileInfoPane",
 	[dojox.widget._RollingListPane], {
-	// summary: a pane to display the information for the currently-selected
-	//	file
+	// summary:
+	//		a pane to display the information for the currently-selected
+	//		file
 	
 	// templateString: string
-	//	delete our template string
+	//		delete our template string
 	templateString: "",
 	
-	// templatePath: string
-	//	Our template path
-	templateString:"<div class=\"dojoxFileInfoPane\">\r\n\t<table>\r\n\t\t<tbody>\r\n\t\t\t<tr>\r\n\t\t\t\t<td class=\"dojoxFileInfoLabel dojoxFileInfoNameLabel\">${_messages.name}</td>\r\n\t\t\t\t<td class=\"dojoxFileInfoName\" dojoAttachPoint=\"nameNode\"></td>\r\n\t\t\t</tr>\r\n\t\t\t<tr>\r\n\t\t\t\t<td class=\"dojoxFileInfoLabel dojoxFileInfoPathLabel\">${_messages.path}</td>\r\n\t\t\t\t<td class=\"dojoxFileInfoPath\" dojoAttachPoint=\"pathNode\"></td>\r\n\t\t\t</tr>\r\n\t\t\t<tr>\r\n\t\t\t\t<td class=\"dojoxFileInfoLabel dojoxFileInfoSizeLabel\">${_messages.size}</td>\r\n\t\t\t\t<td class=\"dojoxFileInfoSize\" dojoAttachPoint=\"sizeNode\"></td>\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table>\r\n\t<div dojoAttachPoint=\"containerNode\" style=\"display:none;\"></div>\r\n</div>\r\n",
+	// templateString: String
+	//		The template to be used to construct the widget.
+	templateString: dojo.cache("dojox.widget", "FilePicker/_FileInfoPane.html", "<div class=\"dojoxFileInfoPane\">\n\t<table>\n\t\t<tbody>\n\t\t\t<tr>\n\t\t\t\t<td class=\"dojoxFileInfoLabel dojoxFileInfoNameLabel\">${_messages.name}</td>\n\t\t\t\t<td class=\"dojoxFileInfoName\" dojoAttachPoint=\"nameNode\"></td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td class=\"dojoxFileInfoLabel dojoxFileInfoPathLabel\">${_messages.path}</td>\n\t\t\t\t<td class=\"dojoxFileInfoPath\" dojoAttachPoint=\"pathNode\"></td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td class=\"dojoxFileInfoLabel dojoxFileInfoSizeLabel\">${_messages.size}</td>\n\t\t\t\t<td class=\"dojoxFileInfoSize\" dojoAttachPoint=\"sizeNode\"></td>\n\t\t\t</tr>\n\t\t</tbody>\n\t</table>\n\t<div dojoAttachPoint=\"containerNode\" style=\"display:none;\"></div>\n</div>"),
 	
 	postMixInProperties: function(){
 		this._messages = dojo.i18n.getLocalization("dojox.widget", "FilePicker", this.lang);
@@ -34,8 +28,8 @@ dojo.declare("dojox.widget._FileInfoPane",
 
 	onItems: function(){
 		// summary:
-		//	called after a fetch or load - at this point, this.items should be
-		//  set and loaded.
+		//		called after a fetch or load - at this point, this.items should be
+		//		set and loaded.
 		var store = this.store, item = this.items[0];
 		if(!item){
 			this._onError("Load", new Error("No item defined"));
@@ -50,47 +44,49 @@ dojo.declare("dojox.widget._FileInfoPane",
 });
 
 dojo.declare("dojox.widget.FilePicker", dojox.widget.RollingList, {
-	// summary: a specialized version of RollingList that handles file information
-	//  in a store
+	// summary:
+	//		a specialized version of RollingList that handles file information
+	//		in a store
 	
 	className: "dojoxFilePicker",
 	
-	// pathSeparator: string
-	//  Our file separator - it will be guessed if not set
+	// pathSeparator: String
+	//		Our file separator - it will be guessed if not set
 	pathSeparator: "",
 	
-	// topDir: string
-	//	The top directory string - it will be guessed if not set
+	// topDir: String
+	//		The top directory string - it will be guessed if not set
 	topDir: "",
 		
-	// parentAttr: string
-	//	the attribute to read for finding our parent directory
+	// parentAttr: String
+	//		the attribute to read for finding our parent directory
 	parentAttr: "parentDir",
 	
-	// pathAttr: string
-	//  the attribute to read for getting the full path of our file
+	// pathAttr: String
+	//		the attribute to read for getting the full path of our file
 	pathAttr: "path",
 	
-	// preloadItems: boolean or int
-	//  Set this to a sane number - since we expect to mostly be using the 
-	//	dojox.data.FileStore - which doesn't like loading lots of items
-	//	all at once.
+	// preloadItems: Boolean|Int
+	//		Set this to a sane number - since we expect to mostly be using the
+	//		dojox.data.FileStore - which doesn't like loading lots of items
+	//		all at once.
 	preloadItems: 50,
 
-	// selectDirectories: boolean
-	//  whether or not we allow selection of directories - that is, whether or
-	//  our value can be set to a directory.
+	// selectDirectories: Boolean
+	//		whether or not we allow selection of directories - that is, whether or
+	//		our value can be set to a directory.
 	selectDirectories: true,
 
-	// selectFiles: boolean
-	//  whether or not we allow selection of files - that is, we will disable
-	//  the file entries.
+	// selectFiles: Boolean
+	//		whether or not we allow selection of files - that is, we will disable
+	//		the file entries.
 	selectFiles: true,
 
 	_itemsMatch: function(/*item*/ item1, /*item*/ item2){
-		// Summary: returns whether or not the two items match - checks ID if
-		//  they aren't the exact same object - ignoring trailing slashes
-		if(!item1 && !item2){ 
+		// Summary:
+		//		Returns whether or not the two items match - checks ID if
+		//		they aren't the exact same object - ignoring trailing slashes
+		if(!item1 && !item2){
 			return true;
 		}else if(!item1 || !item2){
 			return false;
@@ -100,7 +96,7 @@ dojo.declare("dojox.widget.FilePicker", dojox.widget.RollingList, {
 			var iArr = [ this.store.getIdentity(item1), this.store.getIdentity(item2) ];
 			dojo.forEach(iArr, function(i, idx){
 				if(i.lastIndexOf(this.pathSeparator) == (i.length - 1)){
-					iArr[idx] = i.substring(0, i.length - 1); 
+					iArr[idx] = i.substring(0, i.length - 1);
 				}else{
 				}
 			}, this);
@@ -154,7 +150,7 @@ dojo.declare("dojox.widget.FilePicker", dojox.widget.RollingList, {
 		return ret;
 	},
 	
-	getMenuItemForItem: function(/*item*/ item, /* dijit._Contained */ parentPane, /* item[]? */ children){
+	getMenuItemForItem: function(/*item*/ item, /* dijit/_Contained */ parentPane, /* item[]? */ children){
 		var menuOptions = {iconClass: "dojoxDirectoryItemIcon"};
 		if(!this.store.getValue(item, "directory")){
 			menuOptions.iconClass = "dojoxFileItemIcon";
@@ -170,7 +166,7 @@ dojo.declare("dojox.widget.FilePicker", dojox.widget.RollingList, {
 		return ret;
 	},
 	
-	getPaneForItem: function(/*item*/ item, /* dijit._Contained */ parentPane, /* item[]? */ children){
+	getPaneForItem: function(/*item*/ item, /* dijit/_Contained */ parentPane, /* item[]? */ children){
 		var ret = null;
 		if(!item || (this.store.isItem(item) && this.store.getValue(item, "directory"))){
 			ret = new dojox.widget._RollingListGroupPane({});
@@ -180,10 +176,11 @@ dojo.declare("dojox.widget.FilePicker", dojox.widget.RollingList, {
 		return ret;
 	},
 	
-	_setPathValueAttr: function(/*string*/ path, /*boolean?*/ resetLastExec, /*function?*/ onSet){
-		// Summary: sets the value of this widget based off the given path
+	_setPathValueAttr: function(/*String*/ path, /*Boolean?*/ resetLastExec, /*function?*/ onSet){
+		// summary:
+		//		sets the value of this widget based off the given path
 		if(!path){
-			this.attr("value", null);
+			this.set("value", null);
 			return;
 		}
 		if(path.lastIndexOf(this.pathSeparator) == (path.length - 1)){
@@ -191,18 +188,19 @@ dojo.declare("dojox.widget.FilePicker", dojox.widget.RollingList, {
 		}
 		this.store.fetchItemByIdentity({identity: path,
 										onItem: function(v){
-											if(resetLastExec){ 
+											if(resetLastExec){
 												this._lastExecutedValue = v;
 											}
-											this.attr("value", v);
+											this.set("value", v);
 											if(onSet){ onSet(); }
 										},
 										scope: this});
 	},
 	
 	_getPathValueAttr: function(/*item?*/val){
-		// summary: returns the path value of the given value (or current value
-		//  if not passed a value)
+		// summary:
+		//		returns the path value of the given value (or current value
+		//		if not passed a value)
 		if(!val){
 			val = this.value;
 		}
@@ -214,7 +212,8 @@ dojo.declare("dojox.widget.FilePicker", dojox.widget.RollingList, {
 	},
 	
 	_setValue: function(/* item */ value){
-		// summary: internally sets the value and fires onchange
+		// summary:
+		//		internally sets the value and fires onchange
 		delete this._setInProgress;
 		var store = this.store;
 		if(value && store.isItem(value)){
@@ -228,7 +227,7 @@ dojo.declare("dojox.widget.FilePicker", dojox.widget.RollingList, {
 			this.value = value;
 			this._onChange(value);
 		}
-	}	
+	}
 });
 
-}
+});

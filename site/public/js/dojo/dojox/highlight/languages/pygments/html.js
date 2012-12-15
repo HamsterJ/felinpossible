@@ -1,19 +1,6 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/highlight/languages/pygments/html", ["../../_base", "./_html"], function(dh){
 
-
-if(!dojo._hasResource["dojox.highlight.languages.pygments.html"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.highlight.languages.pygments.html"] = true;
-dojo.provide("dojox.highlight.languages.pygments.html");
-
-dojo.require("dojox.highlight._base");
-dojo.require("dojox.highlight.languages.pygments._html");
-
-(function(){
-	var dh = dojox.highlight, dhl = dh.languages, tags = [],
+	var dhl = dh.languages, tags = [],
 		ht = dhl.pygments._html.tags;
 	
 	for(var key in ht){
@@ -54,7 +41,7 @@ dojo.require("dojox.highlight.languages.pygments._html");
 			},
 			{
 				className: "string",
-				begin: '"', 
+				begin: '"',
 				end: '"',
 				illegal: "\\n",
 				relevance: 0
@@ -103,6 +90,7 @@ dojo.require("dojox.highlight.languages.pygments._html");
 			}
 		]
 	};
-})();
 
-}
+	return dhl.html;
+	
+});

@@ -1,31 +1,25 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/form/TimeSpinner", [
+	"dojo/_base/lang",
+	"dojo/_base/event",
+	"dijit/form/_Spinner",
+	"dojo/keys",
+	"dojo/date",
+	"dojo/date/locale",
+	"dojo/date/stamp",
+	"dojo/_base/declare"
+], function(lang, event, Spinner, keys, dateUtil, dateLocale, dateStamp, declare){
 
-
-if(!dojo._hasResource["dojox.form.TimeSpinner"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.form.TimeSpinner"] = true;
-dojo.provide("dojox.form.TimeSpinner");
-
-dojo.require("dijit.form._Spinner");
-dojo.require("dijit.form.NumberTextBox");
-dojo.require("dojo.date");
-dojo.require("dojo.date.locale");
-dojo.require("dojo.date.stamp");
-
-dojo.declare(
-"dojox.form.TimeSpinner",
-[dijit.form._Spinner],
+return declare("dojox.form.TimeSpinner", Spinner,
 {
-	// summary: Time Spinner
-	// description: This widget is the same as a normal NumberSpinner, but for the time component of a date object instead
+	// summary:
+	//		Time Spinner
+	// description:
+	//		This widget is the same as a normal NumberSpinner, but for the time component of a date object instead
 
 	required: false,
 
-	adjust: function(/* Object */ val, /*Number*/ delta){
-		return dojo.date.add(val, "minute", delta)
+	adjust: function(/*Object*/ val, /*Number*/ delta){
+		return dateUtil.add(val, "minute", delta)
 	},
 
 	//FIXME should we allow for constraints in this widget?
@@ -35,21 +29,31 @@ dojo.declare(
 
 	largeDelta: 30,
 
-	timeoutChangeRate: 0.50,	
+	timeoutChangeRate: 0.50,
 
 	parse: function(time, locale){
-		return dojo.date.locale.parse(time, {selector:"time", formatLength:"short"});
+		return dateLocale.parse(time, {selector:"time", formatLength:"short"});
 	},
 
 	format: function(time, locale){
-		if (dojo.isString(time)) { return time; }
-		return dojo.date.locale.format(time, {selector:"time", formatLength:"short"});
+		if(lang.isString(time)){ return time; }
+		return dateLocale.format(time, {selector:"time", formatLength:"short"});
 	},
 
-	serialize: dojo.date.stamp.toISOString,
+	serialize: dateStamp.toISOString,
 
-	value: "12:00 AM"
+	value: "12:00 AM",
 
+   _onKeyPress: function(e){
+			if((e.charOrCode == keys.HOME || e.charOrCode == keys.END) && !(e.ctrlKey || e.altKey || e.metaKey)
+			&& typeof this.get('value') != 'undefined' /* gibberish, so HOME and END are default editing keys*/){
+					var value = this.constraints[(e.charOrCode == keys.HOME ? "min" : "max")];
+					if(value){
+							this._setValueAttr(value,true);
+					}
+					// eat home or end key whether we change the value or not
+					event.stop(e);
+			}
+	}
 });
-
-}
+});

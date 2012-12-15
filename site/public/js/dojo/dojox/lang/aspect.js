@@ -1,12 +1,5 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.lang.aspect"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.lang.aspect"] = true;
+// wrapped by build app
+define("dojox/lang/aspect", ["dojo","dijit","dojox"], function(dojo,dijit,dojox){
 dojo.provide("dojox.lang.aspect");
 
 (function(){
@@ -163,7 +156,7 @@ dojo.provide("dojox.lang.aspect");
 		//		satisfy the RegExp condition are processed. This function
 		//		returns a handle, which can be used to unadvise, or null,
 		//		if advising has failed.
-		//		
+		//
 		//		This function is a convenience wrapper for
 		//		dojox.lang.aspect.adviseRaw().
 		//
@@ -375,4 +368,4 @@ JoinPoint = {
 };
 */
 
-}
+});

@@ -1,22 +1,18 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dijit/layout/LayoutContainer", [
+	"dojo/_base/kernel", // kernel.deprecated
+	"dojo/_base/lang",
+	"dojo/_base/declare", // declare
+	"../_WidgetBase",
+	"./_LayoutWidget",
+	"./utils"		// layoutUtils.layoutChildren
+], function(kernel, lang, declare, _WidgetBase, _LayoutWidget, layoutUtils){
 
+// module:
+//		dijit/layout/LayoutContainer
 
-if(!dojo._hasResource["dijit.layout.LayoutContainer"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dijit.layout.LayoutContainer"] = true;
-dojo.provide("dijit.layout.LayoutContainer");
-
-dojo.require("dijit.layout._LayoutWidget");
-
-dojo.declare("dijit.layout.LayoutContainer",
-	dijit.layout._LayoutWidget,
-	{
+var LayoutContainer = declare("dijit.layout.LayoutContainer", _LayoutWidget, {
 	// summary:
-	//		Deprecated.  Use `dijit.layout.BorderContainer` instead.
-	//
+	//		Deprecated.  Use `dijit/layout/BorderContainer` instead.
 	// description:
 	//		Provides Delphi-style panel layout semantics.
 	//
@@ -32,14 +28,17 @@ dojo.declare("dijit.layout.LayoutContainer",
 	//		Note that there can only be one client element, but there can be multiple left, right, top,
 	//		or bottom elements.
 	//
+	//		See `LayoutContainer.ChildWidgetProperties` for details on the properties that can be set on
+	//		children of a `LayoutContainer`.
+	//
 	// example:
 	// |	<style>
 	// |		html, body{ height: 100%; width: 100%; }
 	// |	</style>
-	// |	<div dojoType="dijit.layout.LayoutContainer" style="width: 100%; height: 100%">
-	// |		<div dojoType="dijit.layout.ContentPane" layoutAlign="top">header text</div>
-	// |		<div dojoType="dijit.layout.ContentPane" layoutAlign="left" style="width: 200px;">table of contents</div>
-	// |		<div dojoType="dijit.layout.ContentPane" layoutAlign="client">client area</div>
+	// |	<div data-dojo-type="dijit/layout/LayoutContainer" style="width: 100%; height: 100%">
+	// |		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="layoutAlign: 'top'">header text</div>
+	// |		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="layoutAlign: 'left'" style="width: 200px;">table of contents</div>
+	// |		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="layoutAlign: 'client'">client area</div>
 	// |	</div>
 	//
 	//		Lays out each child in the natural order the children occur in.
@@ -51,36 +50,42 @@ dojo.declare("dijit.layout.LayoutContainer",
 	baseClass: "dijitLayoutContainer",
 
 	constructor: function(){
-		dojo.deprecated("dijit.layout.LayoutContainer is deprecated", "use BorderContainer instead", 2.0);
+		kernel.deprecated("dijit.layout.LayoutContainer is deprecated", "use BorderContainer instead", 2.0);
 	},
 
 	layout: function(){
-		dijit.layout.layoutChildren(this.domNode, this._contentBox, this.getChildren());
+		layoutUtils.layoutChildren(this.domNode, this._contentBox, this.getChildren());
 	},
 
-	addChild: function(/*Widget*/ child, /*Integer?*/ insertIndex){
+	addChild: function(/*dijit/_WidgetBase*/ child, /*Integer?*/ insertIndex){
 		this.inherited(arguments);
 		if(this._started){
-			dijit.layout.layoutChildren(this.domNode, this._contentBox, this.getChildren());
+			layoutUtils.layoutChildren(this.domNode, this._contentBox, this.getChildren());
 		}
 	},
 
-	removeChild: function(/*Widget*/ widget){
+	removeChild: function(/*dijit/_WidgetBase*/ widget){
 		this.inherited(arguments);
 		if(this._started){
-			dijit.layout.layoutChildren(this.domNode, this._contentBox, this.getChildren());
+			layoutUtils.layoutChildren(this.domNode, this._contentBox, this.getChildren());
 		}
 	}
 });
 
-// This argument can be specified for the children of a LayoutContainer.
-// Since any widget can be specified as a LayoutContainer child, mix it
-// into the base widget class.  (This is a hack, but it's effective.)
-dojo.extend(dijit._Widget, {
+LayoutContainer.ChildWidgetProperties = {
+	// summary:
+	//		This property can be specified for the children of a LayoutContainer.
+
 	// layoutAlign: String
 	//		"none", "left", "right", "bottom", "top", and "client".
 	//		See the LayoutContainer description for details on this parameter.
 	layoutAlign: 'none'
-});
+};
 
-}
+// Since any widget can be specified as a LayoutContainer child, mix it
+// into the base widget class.  (This is a hack, but it's effective.)
+// This is for the benefit of the parser.   Remove for 2.0.  Also, hide from doc viewer.
+lang.extend(_WidgetBase, /*===== {} || =====*/ LayoutContainer.ChildWidgetProperties);
+
+return LayoutContainer;
+});

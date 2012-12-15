@@ -1,44 +1,32 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.timing.ThreadPool"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.timing.ThreadPool"] = true;
-dojo.provide("dojox.timing.ThreadPool");
-dojo.require("dojox.timing");
-
-dojo.experimental("dojox.timing.ThreadPool");
+define("dojox/timing/ThreadPool", ["./_base"], function(){
+	dojo.experimental("dojox.timing.ThreadPool");
 
 //	dojox.timing.Timer is included as part of _base
 /********************************************************************
-	This is a port of the original System.Threading.ThreadPool from 
+	This is a port of the original System.Threading.ThreadPool from
 	the f(m) class library.
 	
 	Donated to the Dojo toolkit by the author :)
 *********************************************************************/
-(function(){
 	var t=dojox.timing;
-	t.threadStates={ 
-		UNSTARTED:"unstarted", 
-		STOPPED:"stopped", 
-		PENDING:"pending", 
-		RUNNING:"running", 
-		SUSPENDED:"suspended", 
-		WAITING:"waiting", 
+	t.threadStates={
+		UNSTARTED:"unstarted",
+		STOPPED:"stopped",
+		PENDING:"pending",
+		RUNNING:"running",
+		SUSPENDED:"suspended",
+		WAITING:"waiting",
 		COMPLETE:"complete",
 		ERROR:"error"
 	};
 
 	//	Before rar says a word, we actually *use* these numbers for a purpose :)
-	t.threadPriorities={ 
-		LOWEST:1, 
-		BELOWNORMAL:2, 
-		NORMAL:3, 
-		ABOVENORMAL:4, 
-		HIGHEST:5 
+	t.threadPriorities={
+		LOWEST:1,
+		BELOWNORMAL:2,
+		NORMAL:3,
+		ABOVENORMAL:4,
+		HIGHEST:5
 	};
 	
 	t.Thread=function(/* Function */fn, /* dojox.timing.threadPriorities? */priority){
@@ -85,7 +73,7 @@ dojo.experimental("dojox.timing.ThreadPool");
 		this.getMaxThreads=function(){ return maxThreads; };
 		this.getAvailableThreads=function(){ return availableThreads; };
 		this.getTickInterval=function(){ return interval; };
-		this.queueUserWorkItem=function(/* Function || dojox.timing.Thread */fn){
+		this.queueUserWorkItem=function(/* Function|dojox/timing/Thread */fn){
 			var item=fn;
 			if(item instanceof Function){
 				item=new t.Thread(item);
@@ -104,7 +92,7 @@ dojo.experimental("dojox.timing.ThreadPool");
 			}
 			return true;
 		};
-		this.removeQueuedUserWorkItem=function(/* Function || dojox.timing.Thread */item){
+		this.removeQueuedUserWorkItem=function(/* Function|dojox/timing/Thread */item){
 			if(item instanceof Function){
 				var idx=-1;
 				for(var i=0; i<queue.length; i++){
@@ -159,6 +147,5 @@ dojo.experimental("dojox.timing.ThreadPool");
 		//	dedicate the timer to us.
 		timer.onTick=self.invoke;
 	})(16, 5000);
-})();
-
-}
+	return dojox.timing.ThreadPool;
+});

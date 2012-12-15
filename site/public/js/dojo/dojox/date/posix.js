@@ -1,17 +1,7 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/date/posix", ["dojo/_base/kernel", "dojo/date", "dojo/date/locale", "dojo/string", "dojo/cldr/supplemental"],
+       function(dojo, dojoDate, dojoDateLocale, dojoString, dojoCldrSupplemental){
 
-
-if(!dojo._hasResource["dojox.date.posix"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.date.posix"] = true;
-dojo.provide("dojox.date.posix");
-
-dojo.require("dojo.date");
-dojo.require("dojo.date.locale");
-dojo.require("dojo.string");
+dojo.getObject("date.posix", true, dojox);
 
 dojox.date.posix.strftime = function(/*Date*/dateObject, /*String*/format, /*String?*/locale){
 //
@@ -24,29 +14,29 @@ dojox.date.posix.strftime = function(/*Date*/dateObject, /*String*/format, /*Str
 	// zero pad
 	var padChar = null;
 	var _ = function(s, n){
-		return dojo.string.pad(s, n || 2, padChar || "0");
+		return dojoString.pad(s, n || 2, padChar || "0");
 	};
 
-	var bundle = dojo.date.locale._getGregorianBundle(locale);
+	var bundle = dojoDateLocale._getGregorianBundle(locale);
 
 	var $ = function(property){
 		switch(property){
 			case "a": // abbreviated weekday name according to the current locale
-				return dojo.date.locale.getNames('days', 'abbr', 'format', locale)[dateObject.getDay()];
+				return dojoDateLocale.getNames('days', 'abbr', 'format', locale)[dateObject.getDay()];
 
 			case "A": // full weekday name according to the current locale
-				return dojo.date.locale.getNames('days', 'wide', 'format', locale)[dateObject.getDay()];
+				return dojoDateLocale.getNames('days', 'wide', 'format', locale)[dateObject.getDay()];
 
 			case "b":
 			case "h": // abbreviated month name according to the current locale
-				return dojo.date.locale.getNames('months', 'abbr', 'format', locale)[dateObject.getMonth()];
+				return dojoDateLocale.getNames('months', 'abbr', 'format', locale)[dateObject.getMonth()];
 				
 			case "B": // full month name according to the current locale
-				return dojo.date.locale.getNames('months', 'wide', 'format', locale)[dateObject.getMonth()];
+				return dojoDateLocale.getNames('months', 'wide', 'format', locale)[dateObject.getMonth()];
 				
 			case "c": // preferred date and time representation for the current
 				      // locale
-				return dojo.date.locale.format(dateObject, {formatLength: 'full', locale: locale});
+				return dojoDateLocale.format(dateObject, {formatLength: 'full', locale: locale});
 
 			case "C": // century number (the year divided by 100 and truncated
 				      // to an integer, range 00 to 99)
@@ -66,7 +56,7 @@ dojox.date.posix.strftime = function(/*Date*/dateObject, /*String*/format, /*Str
 			case "f": // month as a decimal number, a single digit is
 							// preceded by a space (range ' 1' to '12')
 				if(padChar == null){ padChar = " "; }
-				return _(dateObject.getMonth()+1);				
+				return _(dateObject.getMonth()+1);
 			
 			case "g": // like %G, but without the century.
 				break;
@@ -75,7 +65,7 @@ dojox.date.posix.strftime = function(/*Date*/dateObject, /*String*/format, /*Str
 				      // (see %V).  This has the same format and value as %Y,
 				      // except that if the ISO week number belongs to the
 				      // previous or next year, that year is used instead.
-				dojo.unimplemented("unimplemented modifier 'G'");
+				console.warn("unimplemented modifier 'G'");
 				break;
 			
 			case "F": // same as %Y-%m-%d
@@ -90,7 +80,7 @@ dojox.date.posix.strftime = function(/*Date*/dateObject, /*String*/format, /*Str
 				return _(dateObject.getHours() % 12 || 12);
 
 			case "j": // day of the year as a decimal number (range 001 to 366)
-				return _(dojo.date.locale._getDayOfYear(dateObject), 3);
+				return _(dojoDateLocale._getDayOfYear(dateObject), 3);
 
 			case "k": // Hour as a decimal number using a 24-hour clock (range
 					  // 0 to 23 (space-padded))
@@ -113,7 +103,7 @@ dojox.date.posix.strftime = function(/*Date*/dateObject, /*String*/format, /*Str
 
 			case "p": // either `am' or `pm' according to the given time value,
 				      // or the corresponding strings for the current locale
-				return bundle[dateObject.getHours() < 12 ? "am" : "pm"];
+				return bundle['dayPeriods-format-wide-' + (dateObject.getHours() < 12 ? "am" : "pm")];
 				
 			case "r": // time in a.m. and p.m. notation
 				return $("I") + ":" + $("M") + ":" + $("S") + " " + $("p");
@@ -137,30 +127,30 @@ dojox.date.posix.strftime = function(/*Date*/dateObject, /*String*/format, /*Str
 			case "U": // week number of the current year as a decimal number,
 				      // starting with the first Sunday as the first day of the
 				      // first week
-				return _(dojo.date.locale._getWeekOfYear(dateObject));
+				return _(dojoDateLocale._getWeekOfYear(dateObject));
 
 			case "V": // week number of the year (Monday as the first day of the
 				      // week) as a decimal number [01,53]. If the week containing
-				      // 1 January has four or more days in the new year, then it 
-				      // is considered week 1. Otherwise, it is the last week of 
+				      // 1 January has four or more days in the new year, then it
+				      // is considered week 1. Otherwise, it is the last week of
 				      // the previous year, and the next week is week 1.
 				return _(dojox.date.posix.getIsoWeekOfYear(dateObject));
 				
 			case "W": // week number of the current year as a decimal number,
 				      // starting with the first Monday as the first day of the
 				      // first week
-				return _(dojo.date.locale._getWeekOfYear(dateObject, 1));
+				return _(dojoDateLocale._getWeekOfYear(dateObject, 1));
 				
 			case "w": // day of the week as a decimal, Sunday being 0
 				return String(dateObject.getDay());
 
 			case "x": // preferred date representation for the current locale
 				      // without the time
-				return dojo.date.locale.format(dateObject, {selector:'date', formatLength: 'full', locale:locale});
+				return dojoDateLocale.format(dateObject, {selector:'date', formatLength: 'full', locale:locale});
 
 			case "X": // preferred time representation for the current locale
 				      // without the date
-				return dojo.date.locale.format(dateObject, {selector:'time', formatLength: 'full', locale:locale});
+				return dojoDateLocale.format(dateObject, {selector:'time', formatLength: 'full', locale:locale});
 
 			case "y": // year as a decimal number without a century (range 00 to
 				      // 99)
@@ -171,12 +161,12 @@ dojox.date.posix.strftime = function(/*Date*/dateObject, /*String*/format, /*Str
 			
 			case "z": // time zone or name or abbreviation
 				var timezoneOffset = dateObject.getTimezoneOffset();
-				return (timezoneOffset > 0 ? "-" : "+") + 
+				return (timezoneOffset > 0 ? "-" : "+") +
 					_(Math.floor(Math.abs(timezoneOffset)/60)) + ":" +
 					_(Math.abs(timezoneOffset)%60);
 
 			case "Z": // time zone or name or abbreviation
-				return dojo.date.getTimezoneName(dateObject);
+				return dojoDate.getTimezoneName(dateObject);
 			
 			case "%":
 				return "%";
@@ -184,10 +174,10 @@ dojox.date.posix.strftime = function(/*Date*/dateObject, /*String*/format, /*Str
 	};
 
 	// parse the formatting string and construct the resulting string
-	var string = "";
-	var i = 0;
-	var index = 0;
-	var switchCase = null;
+	var string = "",
+		i = 0,
+		index = 0,
+		switchCase = null;
 	while ((index = format.indexOf("%", i)) != -1){
 		string += format.substring(i, index++);
 		
@@ -243,10 +233,11 @@ dojox.date.posix.strftime = function(/*Date*/dateObject, /*String*/format, /*Str
 };
 
 dojox.date.posix.getStartOfWeek = function(/*Date*/dateObject, /*Number*/firstDay){
-	// summary: Return a date object representing the first day of the given
-	//   date's week.
+	// summary:
+	//		Return a date object representing the first day of the given
+	//		date's week.
 	if(isNaN(firstDay)){
-		firstDay = dojo.cldr.supplemental.getFirstDayOfWeek ? dojo.cldr.supplemental.getFirstDayOfWeek() : 0;
+		firstDay = dojoCldrSupplemental.getFirstDayOfWeek ? dojoCldrSupplemental.getFirstDayOfWeek() : 0;
 	}
 	var offset = firstDay;
 	if(dateObject.getDay() >= firstDay){
@@ -256,14 +247,15 @@ dojox.date.posix.getStartOfWeek = function(/*Date*/dateObject, /*Number*/firstDa
 	}
 	var date = new Date(dateObject);
 	date.setHours(0, 0, 0, 0);
-	return dojo.date.add(date, "day", offset); // Date
-}
+	return dojoDate.add(date, "day", offset); // Date
+};
 
 dojox.date.posix.setIsoWeekOfYear = function(/*Date*/dateObject, /*Number*/week){
-	// summary: Set the ISO8601 week number of the given date.
-	//   The week containing January 4th is the first week of the year.
+	// summary:
+	//		Set the ISO8601 week number of the given date.
+	//		The week containing January 4th is the first week of the year.
 	// week:
-	//   can be positive or negative: -1 is the year's last week.
+	//		can be positive or negative: -1 is the year's last week.
 	if(!week){ return dateObject; }
 	var currentWeek = dojox.date.posix.getIsoWeekOfYear(dateObject);
 	var offset = week - currentWeek;
@@ -271,30 +263,32 @@ dojox.date.posix.setIsoWeekOfYear = function(/*Date*/dateObject, /*Number*/week)
 		var weeks = dojox.date.posix.getIsoWeeksInYear(dateObject);
 		offset = (weeks + week + 1) - currentWeek;
 	}
-	return dojo.date.add(dateObject, "week", offset); // Date
-}
+	return dojoDate.add(dateObject, "week", offset); // Date
+};
 
 dojox.date.posix.getIsoWeekOfYear = function(/*Date*/dateObject){
-	// summary: Get the ISO8601 week number of the given date.
-	//   The week containing January 4th is the first week of the year.
-	//   See http://en.wikipedia.org/wiki/ISO_week_date
+	// summary:
+	//		Get the ISO8601 week number of the given date.
+	//		The week containing January 4th is the first week of the year.
+	//		See http://en.wikipedia.org/wiki/ISO_week_date
 	var weekStart = dojox.date.posix.getStartOfWeek(dateObject, 1);
 	var yearStart = new Date(dateObject.getFullYear(), 0, 4); // January 4th
 	yearStart = dojox.date.posix.getStartOfWeek(yearStart, 1);
 	var diff = weekStart.getTime() - yearStart.getTime();
 	if(diff < 0){ return dojox.date.posix.getIsoWeeksInYear(weekStart); } // Integer
 	return Math.ceil(diff / 604800000) + 1; // Integer
-}
+};
 
 dojox.date.posix.getIsoWeeksInYear = function(/*Date*/dateObject) {
-	// summary: Determine the number of ISO8601 weeks in the year of the given 
-	//   date. Most years have 52 but some have 53.
-	//   See http://www.phys.uu.nl/~vgent/calendar/isocalendar_text3.htm	
+	// summary:
+	//		Determine the number of ISO8601 weeks in the year of the given
+	//		date. Most years have 52 but some have 53.
+	//		See http://www.phys.uu.nl/~vgent/calendar/isocalendar_text3.htm
 	function p(y) {
 		return y + Math.floor(y/4) - Math.floor(y/100) + Math.floor(y/400);
 	}
 	var y = dateObject.getFullYear();
 	return ( p(y) % 7 == 4 || p(y-1) % 7 == 3 ) ? 53 : 52;	//	Integer
-}
-
-}
+};
+	return dojox.date.posix;
+});

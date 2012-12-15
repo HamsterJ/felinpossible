@@ -1,1 +1,22 @@
-({"decimalFormat":"#,##0.###","group":",","scientificFormat":"#E0","percentFormat":"#,##0%","currencyFormat":"¤#,##0.00","decimal":".","currencySpacing-afterCurrency-currencyMatch":"[:letter:]","infinity":"∞","list":";","percentSign":"%","minusSign":"-","currencySpacing-beforeCurrency-surroundingMatch":"[:digit:]","currencySpacing-afterCurrency-insertBetween":" ","nan":"NaN","nativeZeroDigit":"0","plusSign":"+","currencySpacing-afterCurrency-surroundingMatch":"[:digit:]","currencySpacing-beforeCurrency-currencyMatch":"[:letter:]","perMille":"‰","patternDigit":"#","currencySpacing-beforeCurrency-insertBetween":" ","exponential":"E"})
+define(
+"dojo/cldr/nls/zh/number", //begin v1.x content
+{
+	"group": ",",
+	"percentSign": "%",
+	"exponential": "E",
+	"scientificFormat": "#E0",
+	"percentFormat": "#,##0%",
+	"list": ";",
+	"infinity": "∞",
+	"minusSign": "-",
+	"decimal": ".",
+	"nan": "NaN",
+	"perMille": "‰",
+	"decimalFormat": "#,##0.###",
+	"currencyFormat": "¤#,##0.00;(¤#,##0.00)",
+	"plusSign": "+",
+	"decimalFormat-long": "000兆",
+	"decimalFormat-short": "000兆"
+}
+//end v1.x content
+);

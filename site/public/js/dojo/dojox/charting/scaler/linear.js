@@ -1,23 +1,22 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.charting.scaler.linear"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.charting.scaler.linear"] = true;
-dojo.provide("dojox.charting.scaler.linear");
-dojo.require("dojox.charting.scaler.common");
-
-(function(){
+define("dojox/charting/scaler/linear", ["dojo/_base/lang", "./common"], 
+	function(lang, common){
+	var linear = lang.getObject("dojox.charting.scaler.linear", true);
+	
 	var deltaLimit = 3,	// pixels
-		dc = dojox.charting, dcs = dc.scaler, dcsc = dcs.common,
-		findString = dcsc.findString,
-		getLabel = dcsc.getNumericLabel;
+		getLabel = common.getNumericLabel;
+
+		function findString(/*String*/ val, /*Array*/ text){
+			val = val.toLowerCase();
+			for(var i = text.length - 1; i >= 0; --i){
+				if(val === text[i]){
+					return true;
+				}
+			}
+			return false;
+		}
 	
 	var calcTicks = function(min, max, kwArgs, majorTick, minorTick, microTick, span){
-		kwArgs = dojo.delegate(kwArgs);
+		kwArgs = lang.delegate(kwArgs);
 		if(!majorTick){
 			if(kwArgs.fixUpper == "major"){ kwArgs.fixUpper = "minor"; }
 			if(kwArgs.fixLower == "major"){ kwArgs.fixLower = "minor"; }
@@ -65,7 +64,7 @@ dojo.require("dojox.charting.scaler.common");
 			microPerMinor  = microTick ? Math.round(minorTick / microTick) : 0,
 			majorPrecision = majorTick ? Math.floor(Math.log(majorTick) / Math.LN10) : 0,
 			minorPrecision = minorTick ? Math.floor(Math.log(minorTick) / Math.LN10) : 0,
-			scale = span / (max - min);	
+			scale = span / (max - min);
 		if(!isFinite(scale)){ scale = 1; }
 		
 		return {
@@ -97,18 +96,19 @@ dojo.require("dojox.charting.scaler.common");
 			},
 			minorPerMajor:	minorPerMajor,
 			microPerMinor:	microPerMinor,
-			scaler:			dcs.linear
+			scaler:			linear
 		};
 	};
 	
-	dojo.mixin(dojox.charting.scaler.linear, {
-		buildScaler: function(/*Number*/ min, /*Number*/ max, /*Number*/ span, /*Object*/ kwArgs){
+	return lang.mixin(linear, {
+		buildScaler: function(/*Number*/ min, /*Number*/ max, /*Number*/ span, /*Object*/ kwArgs, /*Number?*/ delta, /*Number?*/ minorDelta){
 			var h = {fixUpper: "none", fixLower: "none", natural: false};
 			if(kwArgs){
 				if("fixUpper" in kwArgs){ h.fixUpper = String(kwArgs.fixUpper); }
 				if("fixLower" in kwArgs){ h.fixLower = String(kwArgs.fixLower); }
 				if("natural"  in kwArgs){ h.natural  = Boolean(kwArgs.natural); }
 			}
+			minorDelta = !minorDelta || minorDelta < deltaLimit ? deltaLimit : minorDelta;
 			
 			// update bounds
 			if("min" in kwArgs){ min = kwArgs.min; }
@@ -135,9 +135,11 @@ dojo.require("dojox.charting.scaler.common");
 			if(max <= min){
 				return calcTicks(min, max, h, 0, 0, 0, span);	// Object
 			}
-			
-			var mag = Math.floor(Math.log(max - min) / Math.LN10),
-				major = kwArgs && ("majorTickStep" in kwArgs) ? kwArgs.majorTickStep : Math.pow(10, mag), 
+			if(!delta){
+				delta = max - min;
+			}
+			var mag = Math.floor(Math.log(delta) / Math.LN10),
+				major = kwArgs && ("majorTickStep" in kwArgs) ? kwArgs.majorTickStep : Math.pow(10, mag),
 				minor = 0, micro = 0, ticks;
 				
 			// calculate minor ticks
@@ -148,17 +150,17 @@ dojo.require("dojox.charting.scaler.common");
 					minor = major / 10;
 					if(!h.natural || minor > 0.9){
 						ticks = calcTicks(min, max, h, major, minor, 0, span);
-						if(ticks.bounds.scale * ticks.minor.tick > deltaLimit){ break; }
+						if(ticks.bounds.scale * ticks.minor.tick > minorDelta){ break; }
 					}
 					minor = major / 5;
 					if(!h.natural || minor > 0.9){
 						ticks = calcTicks(min, max, h, major, minor, 0, span);
-						if(ticks.bounds.scale * ticks.minor.tick > deltaLimit){ break; }
+						if(ticks.bounds.scale * ticks.minor.tick > minorDelta){ break; }
 					}
 					minor = major / 2;
 					if(!h.natural || minor > 0.9){
 						ticks = calcTicks(min, max, h, major, minor, 0, span);
-						if(ticks.bounds.scale * ticks.minor.tick > deltaLimit){ break; }
+						if(ticks.bounds.scale * ticks.minor.tick > minorDelta){ break; }
 					}
 					return calcTicks(min, max, h, major, 0, 0, span);	// Object
 				}while(false);
@@ -193,8 +195,8 @@ dojo.require("dojox.charting.scaler.common");
 		},
 		buildTicks: function(/*Object*/ scaler, /*Object*/ kwArgs){
 			var step, next, tick,
-				nextMajor = scaler.major.start, 
-				nextMinor = scaler.minor.start, 
+				nextMajor = scaler.major.start,
+				nextMinor = scaler.minor.start,
 				nextMicro = scaler.micro.start;
 			if(kwArgs.microTicks && scaler.micro.tick){
 				step = scaler.micro.tick, next = nextMicro;
@@ -257,6 +259,4 @@ dojo.require("dojox.charting.scaler.common");
 			return function(x){ return x / scale + offset; };	// Function
 		}
 	});
-})();
-
-}
+});

@@ -1,29 +1,18 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/data/WikipediaStore", ["dojo/_base/kernel", "dojo/_base/lang", "dojo/_base/declare", "dojo/io/script", 
+		"dojo/io-query", "dojox/rpc/Service", "dojox/data/ServiceStore"], 
+  function(kernel, lang, declare, scriptIO, ioQuery, Service, ServiceStore) {
 
+kernel.experimental("dojox.data.WikipediaStore");
 
-if(!dojo._hasResource["dojox.data.WikipediaStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.data.WikipediaStore"] = true;
-dojo.provide("dojox.data.WikipediaStore");
-
-dojo.require("dojo.io.script");
-dojo.require("dojox.rpc.Service");
-dojo.require("dojox.data.ServiceStore");
-
-dojo.experimental("dojox.data.WikipediaStore");
-
-dojo.declare("dojox.data.WikipediaStore", dojox.data.ServiceStore,{
-	//	summary:
+return declare("dojox.data.WikipediaStore", ServiceStore, {
+	// summary:
 	//		Initializer for the Wikipedia data store interface.
-	//	description:
+	// description:
 	//		The WikipediaStore is a data store interface to Wikipedia, using the
 	//		Wikipedia SMD spec from dojox.rpc. It currently is useful only for
 	//		finding articles that contain some particular text or grabbing single
 	//		articles by full name; no wildcards or other filtering are supported.
-	//	example:
+	// example:
 	//		|	var store = new dojox.data.WikipediaStore();
 	//		|	store.fetch({
 	//		|		query: {title:"Dojo Toolkit"},
@@ -35,7 +24,7 @@ dojo.declare("dojox.data.WikipediaStore", dojox.data.ServiceStore,{
 		if(options && options.service){
 			this.service = options.service;
 		}else{
-			var svc = new dojox.rpc.Service(dojo.moduleUrl("dojox.rpc.SMDLibrary", "wikipedia.smd"));
+			var svc = new Service(require.toUrl("dojox/rpc/SMDLibrary/wikipedia.smd"));
 			this.service = svc.query;
 		}
 
@@ -43,17 +32,17 @@ dojo.declare("dojox.data.WikipediaStore", dojox.data.ServiceStore,{
 	},
 
 	fetch: function(/* object */ request){
-		//	summary:
+		// summary:
 		//		Fetch a page or some partially-loaded search results from
 		//		Wikipedia. Note that there isn't a way to sort data coming
 		//		in from the API, so we just ignore the *sort* parameter.
-		//	example:
+		// example:
 		//		Loading a page:
 		//		|	store.fetch({
 		//		|		query: {title:"Dojo Toolkit"},
 		//		|		// define your handlers here
 		//		|	});
-		//	example:
+		// example:
 		//		Searching for pages containing "dojo":
 		//		|	store.fetch({
 		//		|		query: {
@@ -62,7 +51,7 @@ dojo.declare("dojox.data.WikipediaStore", dojox.data.ServiceStore,{
 		//		|		},
 		//		|		// define your handlers here
 		//		|	});
-		//	example:
+		// example:
 		//		Searching for the next 50 pages containing "dojo":
 		//		|	store.fetch({
 		//		|		query: {
@@ -73,7 +62,7 @@ dojo.declare("dojox.data.WikipediaStore", dojox.data.ServiceStore,{
 		//		|		},
 		//		|		// define your handlers here
 		//		|	});
-		var rq = dojo.mixin({}, request.query);
+		var rq = lang.mixin({}, request.query);
 		if(rq && (!rq.action || rq.action === "parse")){
 			// default to a single page fetch
 			rq.action = "parse";
@@ -100,7 +89,7 @@ dojo.declare("dojox.data.WikipediaStore", dojox.data.ServiceStore,{
 	_processResults: function(results, def){
 		if(results.parse){
 			// loading a complete page
-			results.parse.title = dojo.queryToObject(def.ioArgs.url.split("?")[1]).page;
+			results.parse.title = ioQuery.queryToObject(def.ioArgs.url.split("?")[1]).page;
 			results = [results.parse];
 
 		}else if(results.query && results.query.search){
@@ -122,5 +111,5 @@ dojo.declare("dojox.data.WikipediaStore", dojox.data.ServiceStore,{
 	}
 });
 
+});
 
-}

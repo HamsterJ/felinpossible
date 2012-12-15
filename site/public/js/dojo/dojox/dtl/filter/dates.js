@@ -1,20 +1,13 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/dtl/filter/dates", [
+	"dojo/_base/lang",
+	"../_base",	
+	"../utils/date"
+], function(lang,dd,ddud){
 
+	lang.getObject("dojox.dtl.filter.dates", true);
 
-if(!dojo._hasResource["dojox.dtl.filter.dates"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.filter.dates"] = true;
-dojo.provide("dojox.dtl.filter.dates");
-
-dojo.require("dojox.dtl.utils.date");
-
-(function(){
-	var ddfd = dojox.dtl.filter.dates;
-
-	dojo.mixin(ddfd, {
+	var ddfd = dd.filter.dates;
+	lang.mixin(ddfd, {
 		_toDate: function(value){
 			if(value instanceof Date){
 				return value;
@@ -26,48 +19,51 @@ dojo.require("dojox.dtl.utils.date");
 			return value;
 		},
 		date: function(value, arg){
-			// summary: Formats a date according to the given format
+			// summary:
+			//		Formats a date according to the given format
 			value = ddfd._toDate(value);
 			if(!value){
 				return "";
 			}
 			arg = arg || "N j, Y";
-			return dojox.dtl.utils.date.format(value, arg);
+			return ddud.format(value, arg);
 		},
 		time: function(value, arg){
-			// summary: Formats a time according to the given format
+			// summary:
+			//		Formats a time according to the given format
 			value = ddfd._toDate(value);
 			if(!value){
 				return "";
 			}
 			arg = arg || "P";
-			return dojox.dtl.utils.date.format(value, arg);
+			return ddud.format(value, arg);
 		},
 		timesince: function(value, arg){
-			// summary: Formats a date as the time since that date (i.e. "4 days, 6 hours")
+			// summary:
+			//		Formats a date as the time since that date (i.e. "4 days, 6 hours")
 			value = ddfd._toDate(value);
 			if(!value){
 				return "";
 			}
-			var timesince = dojox.dtl.utils.date.timesince;
+			var timesince = ddud.timesince;
 			if(arg){
 				return timesince(arg, value);
 			}
 			return timesince(value);
 		},
 		timeuntil: function(value, arg){
-			// summary: Formats a date as the time until that date (i.e. "4 days, 6 hours")
+			// summary:
+			//		Formats a date as the time until that date (i.e. "4 days, 6 hours")
 			value = ddfd._toDate(value);
 			if(!value){
 				return "";
 			}
-			var timesince = dojox.dtl.utils.date.timesince;
+			var timesince = ddud.timesince;
 			if(arg){
 				return timesince(arg, value);
 			}
 			return timesince(new Date(), value);
 		}
 	});
-})();
-
-}
+	return dojox.dtl.filter.dates;
+});

@@ -1,13 +1,11 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/uuid", ['dojox/uuid/_base'], function(uuid){
 
-
-if(!dojo._hasResource["dojox.uuid"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.uuid"] = true;
-dojo.provide("dojox.uuid");
-dojo.require("dojox.uuid._base");
-
-}
+	/*=====
+	 return {
+	 // summary:
+	 //		Deprecated.  Should require dojox/uuid modules directly rather than trying to access them through
+	 //		this module.
+	 };
+	 =====*/
+	return uuid;
+});

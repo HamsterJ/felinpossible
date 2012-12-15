@@ -1,1 +1,22 @@
-({"group":" ","percentSign":"%","exponential":"E","percentFormat":"#,##0 %","scientificFormat":"#E0","list":";","infinity":"∞","patternDigit":"#","minusSign":"-","decimal":",","nan":"epäluku","nativeZeroDigit":"0","perMille":"‰","decimalFormat":"#,##0.###","currencyFormat":"#,##0.00 ¤","plusSign":"+","currencySpacing-afterCurrency-currencyMatch":"[:letter:]","currencySpacing-beforeCurrency-surroundingMatch":"[:digit:]","currencySpacing-afterCurrency-insertBetween":" ","currencySpacing-afterCurrency-surroundingMatch":"[:digit:]","currencySpacing-beforeCurrency-currencyMatch":"[:letter:]","currencySpacing-beforeCurrency-insertBetween":" "})
+define(
+"dojo/cldr/nls/fi/number", //begin v1.x content
+{
+	"group": " ",
+	"percentSign": "%",
+	"exponential": "E",
+	"scientificFormat": "#E0",
+	"percentFormat": "#,##0 %",
+	"list": ";",
+	"infinity": "∞",
+	"minusSign": "-",
+	"decimal": ",",
+	"nan": "epäluku",
+	"perMille": "‰",
+	"decimalFormat": "#,##0.###",
+	"currencyFormat": "#,##0.00 ¤",
+	"plusSign": "+",
+	"decimalFormat-long": "000 biljoonaa",
+	"decimalFormat-short": "000 bilj'.'"
+}
+//end v1.x content
+);

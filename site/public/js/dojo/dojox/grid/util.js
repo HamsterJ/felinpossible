@@ -1,17 +1,17 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/grid/util", [
+	"../main",
+	"dojo/_base/lang",
+	"dojo/dom"
+], function(dojox, lang, dom){
 
+	var dgu = lang.getObject("grid.util", true, dojox);
 
-if(!dojo._hasResource["dojox.grid.util"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.grid.util"] = true;
-dojo.provide("dojox.grid.util");
-
-// summary: grid utility library
-(function(){
-	var dgu = dojox.grid.util;
+/*=====
+dgu = {
+	// summary:
+	//		grid utility library
+};
+=====*/
 
 	dgu.na = '...';
 	dgu.rowIndexTag = "gridRowIndex";
@@ -42,10 +42,10 @@ dojo.provide("dojox.grid.util");
 		for (var i=0, l=evts.length; i<l; i++){
 			inObject.connect(inNode, 'on' + evts[i], inMethod);
 		}
-	},
+	};
 
 	dgu.removeNode = function(inNode){
-		inNode = dojo.byId(inNode);
+		inNode = dom.byId(inNode);
 		inNode && inNode.parentNode && inNode.parentNode.removeChild(inNode);
 		return inNode;
 	};
@@ -74,6 +74,7 @@ dojo.provide("dojox.grid.util");
 		inArray[inI] = inArray[inJ];
 		inArray[inJ] = cache;
 	};
-})();
 
-}
+	return dgu;
+
+});

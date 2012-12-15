@@ -2,10 +2,10 @@
   <h3><?php echo $this->titreChat ?></h3>
   <h4><span id="nbElements"><?php echo $this->nbChats?></span> chat(s)</h4>
   <br>
-  <div dojoType="dojox.data.QueryReadStore" sortInfo="3" clientSort="true" jsId="gridChatStore" url="<?php echo $this->urlChatListeJson ?>"></div>
+  <div data-dojo-type="dojox/data/QueryReadStore" sortInfo="3" clientSort="true" jsId="gridChatStore" url="<?php echo $this->urlChatListeJson ?>"></div>
   
-  <div dojoType="dijit.Menu" jsid="gridChatAd" style="display: none;">
-        <div dojoType="dojox.widget.PlaceholderMenuItem" label="GridColumns"></div>
+  <div data-dojo-type="dijit/Menu" jsid="gridChatAd" style="display: none;">
+        <div data-dojo-type="dojox/widget/PlaceholderMenuItem" label="GridColumns"></div>
   </div>
   <div style="text-align:left">  
   <div class="chatFaGrid">
@@ -15,7 +15,7 @@
            columnReordering="true"
            sortInfo="3" 
            jsId="gridChat" 
-           dojoType="dojox.grid.DataGrid" 
+           data-dojo-type="dojox/grid/DataGrid" 
            store="gridChatStore" 
            selectable="true" 
            selectionMode="single" 

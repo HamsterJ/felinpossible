@@ -1,14 +1,11 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/dtl/render/html", [
+	"dojo/_base/lang",
+	"../render/dom",
+	"../_base"
+], function(lang,ddrd,dd){
 
+	lang.getObject("dojox.dtl.render.html", true);
 
-if(!dojo._hasResource["dojox.dtl.render.html"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.render.html"] = true;
-dojo.provide("dojox.dtl.render.html");
-dojo.require("dojox.dtl.render.dom");
-dojox.dtl.render.html.Render = dojox.dtl.render.dom.Render;
-
-}
+	dd.render.html.Render = ddrd.Render;
+	return dojox.dtl.render.html;
+});

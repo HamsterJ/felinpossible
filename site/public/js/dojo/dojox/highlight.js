@@ -1,13 +1,10 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.highlight"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.highlight"] = true;
-dojo.provide("dojox.highlight");
-dojo.require("dojox.highlight._base"); 
-
-}
+define("dojox/highlight", ["./highlight/_base"], function(highlight){
+	/*=====
+	 return {
+	 // summary:
+	 //		Deprecated.  Should require dojox/highlight modules directly rather than trying to access them through
+	 //		this module.
+	 };
+	 =====*/
+	return highlight;
+});

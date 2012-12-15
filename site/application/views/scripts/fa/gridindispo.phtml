@@ -1,9 +1,9 @@
   <h3><?php echo $this->titreIndispo ?></h3>
   <br>
-  <div dojoType="dojox.data.QueryReadStore" sortInfo="-3" clientSort="true" jsId="gridIndispoStore" url="<?php echo $this->urlIndispoListeJson ?>"></div>
+  <div data-dojo-type="dojox/data/QueryReadStore" sortInfo="-3" clientSort="true" jsId="gridIndispoStore" url="<?php echo $this->urlIndispoListeJson ?>"></div>
 
-  <div dojoType="dijit.Menu" jsid="gridMenuIndisp" style="display: none;">
-      <div dojoType="dojox.widget.PlaceholderMenuItem" label="GridColumns"></div>
+  <div data-dojo-type="dijit/Menu" jsid="gridMenuIndisp" style="display: none;">
+      <div data-dojo-type="dojox/widget/PlaceholderMenuItem" label="GridColumns"></div>
   </div>
   <div style="text-align:left">
   <div class="indispoFaGrid">
@@ -13,7 +13,7 @@
        columnReordering="true"
        sortInfo="-3" 
        jsId="gridIndispo" 
-       dojoType="dojox.grid.DataGrid" 
+       data-dojo-type="dojox/grid/DataGrid" 
        store="gridIndispoStore" 
        selectable="true" 
        noDataMessage="Aucune indisponibilité.">

@@ -1,12 +1,5 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.help.console"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.help.console"] = true;
+// wrapped by build app
+define("dojox/help/console", ["dojo","dijit","dojox","dojo/require!dojox/help/_base"], function(dojo,dijit,dojox){
 dojo.provide("dojox.help.console");
 dojo.require("dojox.help._base");
 
@@ -16,7 +9,7 @@ dojo.mixin(dojox.help, {
 	},
 	_displayLocated: function(located){
 		var obj = {};
-		dojo.forEach(located, function(item){ obj[item[0]] = (+dojo.isFF) ? { toString: function(){ return "Click to view"; }, item: item[1] } : item[1]; });
+		dojo.forEach(located, function(item){ obj[item[0]] = dojo.isMoz ? { toString: function(){ return "Click to view"; }, item: item[1] } : item[1]; });
 		console.dir(obj);
 	},
 	_displayHelp: function(loading, obj){
@@ -83,5 +76,4 @@ dojo.mixin(dojox.help, {
 });
 
 dojox.help.init();
-
-}
+});

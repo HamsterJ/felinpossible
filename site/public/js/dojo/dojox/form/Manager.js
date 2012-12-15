@@ -1,57 +1,44 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/form/Manager", [
+	"dijit/_Widget",
+	"dijit/_TemplatedMixin",
+	"./manager/_Mixin",
+	"./manager/_NodeMixin",
+	"./manager/_FormMixin",
+	"./manager/_ValueMixin",
+	"./manager/_EnableMixin",
+	"./manager/_DisplayMixin",
+	"./manager/_ClassMixin",
+	"dojo/_base/declare"
+], function(_Widget, _TemplatedMixin, _Mixin, _NodeMixin, _FormMixin, _ValueMixin, _EnableMixin, _DisplayMixin, _ClassMixin, declare){
 
-
-if(!dojo._hasResource["dojox.form.Manager"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.form.Manager"] = true;
-dojo.provide("dojox.form.Manager");
-
-dojo.require("dijit._Widget");
-dojo.require("dijit._Templated");
-
-dojo.require("dojox.form.manager._Mixin");
-dojo.require("dojox.form.manager._NodeMixin");
-dojo.require("dojox.form.manager._FormMixin");
-dojo.require("dojox.form.manager._ValueMixin");
-dojo.require("dojox.form.manager._EnableMixin");
-dojo.require("dojox.form.manager._DisplayMixin");
-dojo.require("dojox.form.manager._ClassMixin");
-
-dojo.declare("dojox.form.Manager", [
-		dijit._Widget, dijit._Templated,
-		dojox.form.manager._Mixin,
-		dojox.form.manager._NodeMixin,
-		dojox.form.manager._FormMixin,
-		dojox.form.manager._ValueMixin,
-		dojox.form.manager._EnableMixin,
-		dojox.form.manager._DisplayMixin,
-		dojox.form.manager._ClassMixin
-], {
+return declare("dojox.form.Manager", [ _Widget, _Mixin, _NodeMixin, _FormMixin, _ValueMixin, _EnableMixin, _DisplayMixin, _ClassMixin ], {
 	// summary:
 	//		The widget to orchestrate dynamic forms.
 	// description:
 	//		This widget hosts dojox.form.manager mixins.
-	//		See dojox.form.manager._Mixin for more info.
-
-	widgetsInTemplate: true,
+	//		See _Mixin for more info.
 
 	buildRendering: function(){
-		var node = this.domNode = this.srcNodeRef;
+		var node = (this.domNode = this.srcNodeRef);
 		if(!this.containerNode){
 			// all widgets with descendants must set containerNode
-				this.containerNode = node;
+			this.containerNode = node;
 		}
-		this._attachTemplateNodes(node);
+		this.inherited(arguments);
+		this._attachPoints = [];
+		this._attachEvents = [];
+		_TemplatedMixin.prototype._attachTemplateNodes.call(this, node, function(n, p){ return n.getAttribute(p); });
 	},
 
-	startup: function(){
-		if(this._started){ return; }
-		this._attachTemplateNodes(this.getDescendants(), function(n,p){ return n[p]; });
-		this.inherited(arguments);
+	destroyRendering: function(preserveDom){
+		// ctm: calling _TemplatedMixin
+		if(!this.__ctm){
+			// avoid recursive call from _TemplatedMixin
+			this.__ctm = true;
+			_TemplatedMixin.prototype.destroyRendering.apply(this, arguments);
+			delete this.__ctm;
+			this.inherited(arguments);
+		}
 	}
 });
-
-}
+});

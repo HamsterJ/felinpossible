@@ -1,13 +1,12 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/validate", ["./validate/_base"], function(validate){
 
+	/*=====
+	 return {
+	 // summary:
+	 //		Deprecated.  Should require dojox/validate modules directly rather than trying to access them through
+	 //		this module.
+	 };
+	 =====*/
 
-if(!dojo._hasResource["dojox.validate"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.validate"] = true;
-dojo.provide("dojox.validate");
-dojo.require("dojox.validate._base"); 
-
-}
+	return validate;
+});

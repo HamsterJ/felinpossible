@@ -1,28 +1,16 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/av/widget/VolumeButton", ['dojo', 'dijit', 'dijit/_Widget', 'dijit/_TemplatedMixin', 'dijit/form/Button'],	// TODO: why button??
+function(dojo, dijit, _Widget, _TemplatedMixin, Button){
 
-
-if(!dojo._hasResource["dojox.av.widget.VolumeButton"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.av.widget.VolumeButton"] = true;
-dojo.provide("dojox.av.widget.VolumeButton");
-dojo.require("dijit._Widget");
-dojo.require("dijit._Templated");
-dojo.require("dijit.form.Button");
-
-dojo.declare("dojox.av.widget.VolumeButton", [dijit._Widget, dijit._Templated], {
+return dojo.declare("dojox.av.widget.VolumeButton", [_Widget, _TemplatedMixin], {
 	// summary:
 	//		A volume widget to use with dojox.av.widget.Player
-	//
-	//	description:
+	// description:
 	//		Controls and displays the volume of the media. This widget
 	//		opens a slider on click that is used to adjust the volume.
 	//		The icon changes according to the volume level.
-	//
-	templateString:"<div class=\"Volume\" dojoAttachEvent=\"mousedown:onShowVolume\">\r\n\t<div class=\"VolumeSlider\" dojoAttachPoint=\"volumeSlider\">\r\n    \t<div class=\"VolumeSliderBack\" dojoAttachPoint=\"volumeSliderBack\"></div>\r\n    \t<div class=\"VolumeSliderHandle\" dojoAttachPoint=\"handle\" dojoAttachEvent=\"mousedown:startDrag, mouseup:endDrag, mouseover:handleOver, mouseout:handleOut\"></div>\t\r\n    </div>\r\n    <div class=\"icon\"></div>\r\n</div>\r\n",
-	//
+
+	templateString: dojo.cache("dojox.av.widget","resources/VolumeButton.html"),
+
 	postCreate: function(){
 		// summary:
 		//	Initialize the widget.
@@ -56,7 +44,7 @@ dojo.declare("dojox.av.widget.VolumeButton", [dijit._Widget, dijit._Templated], 
 			dojo.attr(this.domNode, "class", "Volume high");
 		}
 	},
-	
+
 	onShowVolume: function(/*DOMEvent*/evt){
 		// summary:
 		//		Shows the volume slider.
@@ -66,31 +54,31 @@ dojo.declare("dojox.av.widget.VolumeButton", [dijit._Widget, dijit._Templated], 
 			this.showing = false;
 		}
 		if(!this.showing){
-			
+
 			var TOPMARG = 2;
 			var LEFTMARG = 7;
 			var vol = this.media.volume();
 			var dim = this._getVolumeDim();
 			var hand = this._getHandleDim();
 			this.x = dim.x - this.width;
-			
-			
-			
+
+
+
 			dojo.style(this.volumeSlider, "display", "");
 			dojo.style(this.volumeSlider, "top", dim.y+"px");
 			dojo.style(this.volumeSlider, "left", (this.x)+"px");
-			
+
 			var x = (this.slotWidth * vol);
-			
+
 			dojo.style(this.handle, "top", (TOPMARG+(hand.w/2))+"px");
 			dojo.style(this.handle, "left", (x+LEFTMARG+(hand.h/2))+"px");
-			
+
 			this.showing = true;
 			//this.startDrag();
-			
+
 			this.clickOff = dojo.connect(dojo.doc, "onmousedown", this, "onDocClick");
 		}else{
-			this.onHideVolume();		
+			this.onHideVolume();
 		}
 	},
 	onDocClick: function(/*DOMEvent*/evt){
@@ -99,22 +87,22 @@ dojo.declare("dojox.av.widget.VolumeButton", [dijit._Widget, dijit._Templated], 
 		//		of this widget or not.
 		//
 		if(!dojo.isDescendant(evt.target, this.domNode) && !dojo.isDescendant(evt.target, this.volumeSlider)){
-			this.onHideVolume();		
+			this.onHideVolume();
 		}
 	},
-	
+
 	onHideVolume: function(){
-		//	summary:
+		// summary:
 		//		Hides volume slider.
-		//
+
 		this.endDrag();
 		dojo.style(this.volumeSlider, "display", "none");
 		this.showing = false;
 	},
-	
+
 	onDrag: function(/*DOMEvent*/evt){
 		// summary:
-		//		Fired on mousemove. Updates volume and position of 
+		//		Fired on mousemove. Updates volume and position of
 		//		slider handle.
 		var beg = this.handleWidth/2;
 		var end = beg + this.slotWidth
@@ -122,7 +110,7 @@ dojo.declare("dojox.av.widget.VolumeButton", [dijit._Widget, dijit._Templated], 
 		if(x<beg) x = beg;
 		if(x>end) x=end;
 		dojo.style(this.handle, "left", (x)+"px");
-		
+
 		var p = (x-beg)/(end-beg);
 		this.media.volume(p);
 		this.updateIcon(p);
@@ -130,7 +118,7 @@ dojo.declare("dojox.av.widget.VolumeButton", [dijit._Widget, dijit._Templated], 
 	startDrag: function(){
 		// summary:
 		//		Fired on mousedown of the slider handle.
-		//
+
 		this.isDragging = true;
 		this.cmove = dojo.connect(dojo.doc, "mousemove", this, "onDrag");
 		this.cup = dojo.connect(dojo.doc, "mouseup", this, "endDrag");
@@ -138,18 +126,18 @@ dojo.declare("dojox.av.widget.VolumeButton", [dijit._Widget, dijit._Templated], 
 	endDrag: function(){
 		// summary:
 		//		Fired on mouseup of the slider handle.
-		//
+
 		this.isDragging = false;
 		if(this.cmove) dojo.disconnect(this.cmove);
 		if(this.cup) dojo.disconnect(this.cup);
 		this.handleOut();
 	},
-	
+
 	handleOver: function(){
 		// summary:
-		//		Highlights the slider handle on mouseover, and 
+		//		Highlights the slider handle on mouseover, and
 		//		stays highlighted during drag.
-		//
+
 		dojo.addClass(this.handle, "over");
 	},
 	handleOut: function(){
@@ -157,21 +145,21 @@ dojo.declare("dojox.av.widget.VolumeButton", [dijit._Widget, dijit._Templated], 
 		//		Unhighlights handle onmouseover, or on endDrag.
 		//
 		if(!this.isDragging){
-			dojo.removeClass(this.handle, "over");	
+			dojo.removeClass(this.handle, "over");
 		}
 	},
-	
+
 	_getVolumeDim: function(){
 		// summary:
 		//		Gets dimensions of slider background node.
 		//		Only uses dojo.coords once, unless the page
 		//		or player is resized.
-		//
+
 		if(this._domCoords){
 			return this._domCoords;
 		}
 		this._domCoords = dojo.coords(this.domNode);
-		return this._domCoords;	
+		return this._domCoords;
 	},
 	_getHandleDim: function(){
 		// summary:
@@ -181,17 +169,17 @@ dojo.declare("dojox.av.widget.VolumeButton", [dijit._Widget, dijit._Templated], 
 			return this._handleCoords;
 		}
 		this._handleCoords = dojo.marginBox(this.handle);
-		return this._handleCoords;	
+		return this._handleCoords;
 	},
-	
+
 	onResize: function(/*Object*/playerDimensions){
 		// summary:
 		//		Fired on player resize. Zeros dimensions
 		//		so that it can be calculated again.
-		//
+
 		this.onHideVolume();
 		this._domCoords = null;
 	}
 });
 
-}
+});

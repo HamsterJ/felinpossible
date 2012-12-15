@@ -1,22 +1,21 @@
-if(!dojo._hasResource["dojox.analytics.plugins.dojo"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.analytics.plugins.dojo"] = true;
-dojo.provide("dojox.analytics.plugins.dojo");
+define("dojox/analytics/plugins/dojo", ["dojo/_base/lang","../_base", "dojo/_base/config", "dojo/ready"
+], function(lang, dxa, config, ready){
+	var plugins = lang.getObject("dojox.analytics.plugins", true);
 
-dojox.analytics.plugins.dojo = new (function(){
-	// summary:
-	//	plugin to have analyitcs return the base info dojo collects
-	this.addData = dojo.hitch(dojox.analytics, "addData", "dojo");
-	dojo.addOnLoad(dojo.hitch(this, function(){
-		var data = {};
-		for(var i in dojo){
-			if ((i=="version") || ((!dojo.isObject(dojo[i]))&&(i[0]!="_"))){
-				data[i]=dojo[i];
+	return (plugins.dojo = new (function(){
+		// summary:
+		//		plugin to have analyitcs return the base info dojo collects
+		this.addData = lang.hitch(dxa, "addData", "dojo");
+		ready(lang.hitch(this, function(){
+			var data = {};
+			for(var i in dojo){
+				if((i == "version") || ((!(typeof dojo[i] == "object" || typeof dojo[i] == "function")) && (i[0] != "_"))){
+					data[i] = dojo[i];
+				}
 			}
-		}
 
-		if (dojo.config){data.djConfig=dojo.config}
-		this.addData(data);
-	}));
-})();
-
-}
+			if(config){data.djConfig = config}
+			this.addData(data);
+		}));
+	})());
+});

@@ -1,1 +1,6 @@
-({"badPasswordMessage":"Geçersiz Parola.","nomatchMessage":"Parolalar eşleşmiyor."})
+define(
+"dojox/form/nls/tr/PasswordValidator", ({
+        nomatchMessage: "Parolalar eşleşmiyor.",
+	badPasswordMessage: "Geçersiz Parola."
+})
+);

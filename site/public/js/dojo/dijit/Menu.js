@@ -1,291 +1,77 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dijit/Menu", [
+	"require",
+	"dojo/_base/array", // array.forEach
+	"dojo/_base/declare", // declare
+	"dojo/_base/event", // event.stop
+	"dojo/dom", // dom.byId dom.isDescendant
+	"dojo/dom-attr", // domAttr.get domAttr.set domAttr.has domAttr.remove
+	"dojo/dom-geometry", // domStyle.getComputedStyle domGeometry.position
+	"dojo/dom-style", // domStyle.getComputedStyle
+	"dojo/keys",	// keys.F10
+	"dojo/_base/lang", // lang.hitch
+	"dojo/on",
+	"dojo/sniff", // has("ie"), has("quirks")
+	"dojo/_base/window", // win.body win.doc.documentElement win.doc.frames
+	"dojo/window", // winUtils.get
+	"./popup",
+	"./DropDownMenu",
+	"dojo/ready"
+], function(require, array, declare, event, dom, domAttr, domGeometry, domStyle, keys, lang, on,
+			has, win, winUtils, pm, DropDownMenu, ready){
 
+// module:
+//		dijit/Menu
 
-if(!dojo._hasResource["dijit.Menu"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dijit.Menu"] = true;
-dojo.provide("dijit.Menu");
+// Back compat w/1.6, remove for 2.0
+if(has("dijit-legacy-requires")){
+	ready(0, function(){
+		var requires = ["dijit/MenuItem", "dijit/PopupMenuItem", "dijit/CheckedMenuItem", "dijit/MenuSeparator"];
+		require(requires);	// use indirection so modules not rolled into a build
+	});
+}
 
-dojo.require("dijit._Widget");
-dojo.require("dijit._KeyNavContainer");
-dojo.require("dijit._Templated");
-
-dojo.declare("dijit._MenuBase",
-	[dijit._Widget, dijit._Templated, dijit._KeyNavContainer],
-{
+return declare("dijit.Menu", DropDownMenu, {
 	// summary:
-	//		Base class for Menu and MenuBar
-
-	// parentMenu: [readonly] Widget
-	//		pointer to menu that displayed me
-	parentMenu: null,
-
-	// popupDelay: Integer
-	//		number of milliseconds before hovering (without clicking) causes the popup to automatically open.
-	popupDelay: 500,
-
-	startup: function(){
-		if(this._started){ return; }
-
-		dojo.forEach(this.getChildren(), function(child){ child.startup(); });
-		this.startupKeyNavChildren();
-
-		this.inherited(arguments);
-	},
-
-	onExecute: function(){
-		// summary:
-		//		Attach point for notification about when a menu item has been executed.
-		//		This is an internal mechanism used for Menus to signal to their parent to
-		//		close them, because they are about to execute the onClick handler.   In
-		//		general developers should not attach to or override this method.
-		// tags:
-		//		protected
-	},
-
-	onCancel: function(/*Boolean*/ closeAll){
-		// summary:
-		//		Attach point for notification about when the user cancels the current menu
-		//		This is an internal mechanism used for Menus to signal to their parent to
-		//		close them.  In general developers should not attach to or override this method.
-		// tags:
-		//		protected
-	},
-
-	_moveToPopup: function(/*Event*/ evt){
-		// summary:
-		//		This handles the right arrow key (left arrow key on RTL systems),
-		//		which will either open a submenu, or move to the next item in the
-		//		ancestor MenuBar
-		// tags:
-		//		private
-
-		if(this.focusedChild && this.focusedChild.popup && !this.focusedChild.disabled){
-			this.focusedChild._onClick(evt);
-		}else{
-			var topMenu = this._getTopMenu();
-			if(topMenu && topMenu._isMenuBar){
-				topMenu.focusNext();
-			}
-		}
-	},
-
-	onItemHover: function(/*MenuItem*/ item){
-		// summary:
-		//		Called when cursor is over a MenuItem.
-		// tags:
-		//		protected
-
-		// Don't do anything unless user has "activated" the menu by:
-		//		1) clicking it
-		//		2) tabbing into it
-		//		3) opening it from a parent menu (which automatically focuses it)
-		if(this.isActive){
-			this.focusChild(item);
-	
-			if(this.focusedChild.popup && !this.focusedChild.disabled && !this.hover_timer){
-				this.hover_timer = setTimeout(dojo.hitch(this, "_openPopup"), this.popupDelay);
-			}
-		}
-	},
-
-	_onChildBlur: function(item){
-		// summary:
-		//		Called when a child MenuItem becomes inactive because focus
-		//		has been removed from the MenuItem *and* it's descendant menus.
-		// tags:
-		//		private
-
-		item._setSelected(false);
-
-		// Close all popups that are open and descendants of this menu
-		dijit.popup.close(item.popup);
-		this._stopPopupTimer();
-	},
-
-	onItemUnhover: function(/*MenuItem*/ item){
-		// summary:
-		//		Callback fires when mouse exits a MenuItem
-		// tags:
-		//		protected
-		if(this.isActive){
-			this._stopPopupTimer();
-		}
-	},
-
-	_stopPopupTimer: function(){
-		// summary:
-		//		Cancels the popup timer because the user has stop hovering
-		//		on the MenuItem, etc.
-		// tags:
-		//		private
-		if(this.hover_timer){
-			clearTimeout(this.hover_timer);
-			this.hover_timer = null;
-		}
-	},
-
-	_getTopMenu: function(){
-		// summary:
-		//		Returns the top menu in this chain of Menus
-		// tags:
-		//		private
-		for(var top=this; top.parentMenu; top=top.parentMenu);
-		return top;
-	},
-
-	onItemClick: function(/*Widget*/ item, /*Event*/ evt){
-		// summary:
-		//		Handle clicks on an item.
-		// tags:
-		//		private
-		if(item.disabled){ return false; }
-
-		this.focusChild(item);
-
-		if(item.popup){
-			if(!this.is_open){
-				this._openPopup();
-			}
-		}else{
-			// before calling user defined handler, close hierarchy of menus
-			// and restore focus to place it was when menu was opened
-			this.onExecute();
-
-			// user defined handler for click
-			item.onClick(evt);
-		}
-	},
-
-	_openPopup: function(){
-		// summary:
-		//		Open the popup to the side of/underneath the current menu item
-		// tags:
-		//		protected
-
-		this._stopPopupTimer();
-		var from_item = this.focusedChild;
-		var popup = from_item.popup;
-
-		if(popup.isShowingNow){ return; }
-		popup.parentMenu = this;
-		var self = this;
-		dijit.popup.open({
-			parent: this,
-			popup: popup,
-			around: from_item.domNode,
-			orient: this._orient || (this.isLeftToRight() ? {'TR': 'TL', 'TL': 'TR'} : {'TL': 'TR', 'TR': 'TL'}),
-			onCancel: function(){
-				// called when the child menu is canceled
-				dijit.popup.close(popup);
-				from_item.focus();	// put focus back on my node
-				self.currentPopup = null;
-			},
-			onExecute: dojo.hitch(this, "_onDescendantExecute")
-		});
-
-		this.currentPopup = popup;
-
-		if(popup.focus){
-			// If user is opening the popup via keyboard (right arrow, or down arrow for MenuBar),
-			// if the cursor happens to collide with the popup, it will generate an onmouseover event
-			// even though the mouse wasn't moved.   Use a setTimeout() to call popup.focus so that
-			// our focus() call overrides the onmouseover event, rather than vice-versa.  (#8742)
-			setTimeout(dojo.hitch(popup, "focus"), 0);
-		}
-	},
-
-	onOpen: function(/*Event*/ e){
-		// summary:
-		//		Callback when this menu is opened.
-		//		This is called by the popup manager as notification that the menu
-		//		was opened.
-		// tags:
-		//		private
-
-		this.isShowingNow = true;
-	},
-
-	onClose: function(){
-		// summary:
-		//		Callback when this menu is closed.
-		//		This is called by the popup manager as notification that the menu
-		//		was closed.
-		// tags:
-		//		private
-
-		this._stopPopupTimer();
-		this.parentMenu = null;
-		this.isShowingNow = false;
-		this.currentPopup = null;
-		if(this.focusedChild){
-			this._onChildBlur(this.focusedChild);
-			this.focusedChild = null;
-		}
-	},
-
-	_onFocus: function(){
-		// summary:
-		//		Called when this Menu gets focus from:
-		//			1) clicking it
-		//			2) tabbing into it
-		//			3) being opened by a parent menu.
-		//		This is not called just from mouse hover.
-		// tags:
-		//		protected
-		this.isActive = true;
-		dojo.addClass(this.domNode, "dijitMenuActive");
-		dojo.removeClass(this.domNode, "dijitMenuPassive");
-		this.inherited(arguments);
-	},
-	
-	_onBlur: function(){
-		// summary:
-		//		Called when focus is moved away from this Menu and it's submenus.
-		// tags:
-		//		protected
-		this.isActive = false;
-		dojo.removeClass(this.domNode, "dijitMenuActive");
-		dojo.addClass(this.domNode, "dijitMenuPassive");
-
-		// If user blurs/clicks away from a MenuBar (or always visible Menu), then close all popped up submenus etc.
-		this.onClose();
-
-		this.inherited(arguments);
-	},
-
-	_onDescendantExecute: function(){
-		// summary:
-		//		Called when submenu is clicked.  Close hierarchy of menus.
-		// tags:
-		//		private
-		this.onClose();
-	}
-});
-
-dojo.declare("dijit.Menu",
-	dijit._MenuBase,
-	{
-	// summary
 	//		A context menu you can assign to multiple elements
 
-	// TODO: most of the code in here is just for context menu (right-click menu)
-	// support.  In retrospect that should have been a separate class (dijit.ContextMenu).
-	// Split them for 2.0
+	constructor: function(/*===== params, srcNodeRef =====*/){
+		// summary:
+		//		Create the widget.
+		// params: Object|null
+		//		Hash of initialization parameters for widget, including scalar values (like title, duration etc.)
+		//		and functions, typically callbacks like onClick.
+		//		The hash can contain any of the widget's properties, excluding read-only properties.
+		// srcNodeRef: DOMNode|String?
+		//		If a srcNodeRef (DOM node) is specified:
+		//
+		//		- use srcNodeRef.innerHTML as my contents
+		//		- replace srcNodeRef with my generated DOM tree
 
-	constructor: function(){
 		this._bindings = [];
 	},
-
-	templateString:"<table class=\"dijit dijitMenu dijitMenuPassive dijitReset dijitMenuTable\" waiRole=\"menu\" tabIndex=\"${tabIndex}\" dojoAttachEvent=\"onkeypress:_onKeyPress\">\r\n\t<tbody class=\"dijitReset\" dojoAttachPoint=\"containerNode\"></tbody>\r\n</table>\r\n",
 
 	// targetNodeIds: [const] String[]
 	//		Array of dom node ids of nodes to attach to.
 	//		Fill this with nodeIds upon widget creation and it becomes context menu for those nodes.
 	targetNodeIds: [],
+
+	// selector: String?
+	//		CSS expression to apply this Menu to descendants of targetNodeIds, rather than to
+	//		the nodes specified by targetNodeIds themselves.    Useful for applying a Menu to
+	//		a range of rows in a table, tree, etc.
+	//
+	//		The application must require() an appropriate level of dojo/query to handle the selector.
+	selector: "",
+
+	// TODO: in 2.0 remove support for multiple targetNodeIds.   selector gives the same effect.
+	// So, change targetNodeIds to a targetNodeId: "", remove bindDomNode()/unBindDomNode(), etc.
+
+/*=====
+	// currentTarget: [readonly] DOMNode
+	//		For context menus, set to the current node that the Menu is being displayed for.
+	//		Useful so that the menu actions can be tailored according to the node
+	currentTarget: null,
+=====*/
 
 	// contextMenuForWindow: [const] Boolean
 	//		If true, right clicking anywhere on the window will cause this context menu to open.
@@ -293,51 +79,23 @@ dojo.declare("dijit.Menu",
 	contextMenuForWindow: false,
 
 	// leftClickToOpen: [const] Boolean
-	//		If true, menu will open on left click instead of right click, similiar to a file menu.
+	//		If true, menu will open on left click instead of right click, similar to a file menu.
 	leftClickToOpen: false,
-	
-	// _contextMenuWithMouse: [private] Boolean
-	//		Used to record mouse and keyboard events to determine if a context
-	//		menu is being opened with the keyboard or the mouse.
-	_contextMenuWithMouse: false,
+
+	// refocus: Boolean
+	//		When this menu closes, re-focus the element which had focus before it was opened.
+	refocus: true,
 
 	postCreate: function(){
 		if(this.contextMenuForWindow){
-			this.bindDomNode(dojo.body());
+			this.bindDomNode(this.ownerDocumentBody);
 		}else{
-			dojo.forEach(this.targetNodeIds, this.bindDomNode, this);
+			// TODO: should have _setTargetNodeIds() method to handle initialization and a possible
+			// later set('targetNodeIds', ...) call.  There's also a problem that targetNodeIds[]
+			// gets stale after calls to bindDomNode()/unBindDomNode() as it still is just the original list (see #9610)
+			array.forEach(this.targetNodeIds, this.bindDomNode, this);
 		}
-		var k = dojo.keys, l = this.isLeftToRight();
-		this._openSubMenuKey = l ? k.RIGHT_ARROW : k.LEFT_ARROW;
-		this._closeSubMenuKey = l ? k.LEFT_ARROW : k.RIGHT_ARROW;
-		this.connectKeyNavHandlers([k.UP_ARROW], [k.DOWN_ARROW]);
-	},
-
-	_onKeyPress: function(/*Event*/ evt){
-		// summary:
-		//		Handle keyboard based menu navigation.
-		// tags:
-		//		protected
-
-		if(evt.ctrlKey || evt.altKey){ return; }
-
-		switch(evt.charOrCode){
-			case this._openSubMenuKey:
-				this._moveToPopup(evt);
-				dojo.stopEvent(evt);
-				break;
-			case this._closeSubMenuKey:
-				if(this.parentMenu){
-					if(this.parentMenu._isMenuBar){
-						this.parentMenu.focusPrev();
-					}else{
-						this.onCancel(false);
-					}
-				}else{
-					dojo.stopEvent(evt);
-				}
-				break;
-		}
+		this.inherited(arguments);
 	},
 
 	// thanks burstlib!
@@ -346,11 +104,10 @@ dojo.declare("dijit.Menu",
 		//		Returns the window reference of the passed iframe
 		// tags:
 		//		private
-		var win = dijit.getDocumentWindow(dijit.Menu._iframeContentDocument(iframe_el)) ||
+		return winUtils.get(this._iframeContentDocument(iframe_el)) ||
 			// Moz. TODO: is this available when defaultView isn't?
-			dijit.Menu._iframeContentDocument(iframe_el)['__parent__'] ||
-			(iframe_el.name && dojo.doc.frames[iframe_el.name]) || null;
-		return win;	//	Window
+			this._iframeContentDocument(iframe_el)['__parent__'] ||
+			(iframe_el.name && win.doc.frames[iframe_el.name]) || null;	//	Window
 	},
 
 	_iframeContentDocument: function(/* HTMLIFrameElement */iframe_el){
@@ -358,117 +115,215 @@ dojo.declare("dijit.Menu",
 		//		Returns a reference to the document object inside iframe_el
 		// tags:
 		//		protected
-		var doc = iframe_el.contentDocument // W3
+		return iframe_el.contentDocument // W3
 			|| (iframe_el.contentWindow && iframe_el.contentWindow.document) // IE
-			|| (iframe_el.name && dojo.doc.frames[iframe_el.name] && dojo.doc.frames[iframe_el.name].document)
-			|| null;
-		return doc;	//	HTMLDocument
+			|| (iframe_el.name && win.doc.frames[iframe_el.name] && win.doc.frames[iframe_el.name].document)
+			|| null;	//	HTMLDocument
 	},
 
 	bindDomNode: function(/*String|DomNode*/ node){
 		// summary:
 		//		Attach menu to given node
-		node = dojo.byId(node);
+		node = dom.byId(node, this.ownerDocument);
 
-		//TODO: this is to support context popups in Editor.  Maybe this shouldn't be in dijit.Menu
-		var win = dijit.getDocumentWindow(node.ownerDocument);
-		if(node.tagName.toLowerCase()=="iframe"){
-			win = this._iframeContentWindow(node);
-			node = dojo.withGlobal(win, dojo.body);
+		var cn;	// Connect node
+
+		// Support context menus on iframes.  Rather than binding to the iframe itself we need
+		// to bind to the <body> node inside the iframe.
+		if(node.tagName.toLowerCase() == "iframe"){
+			var iframe = node,
+				window = this._iframeContentWindow(iframe);
+			cn = win.body(window.document);
+		}else{
+			// To capture these events at the top level, attach to <html>, not <body>.
+			// Otherwise right-click context menu just doesn't work.
+			cn = (node == win.body(this.ownerDocument) ? this.ownerDocument.documentElement : node);
 		}
 
-		// to capture these events at the top level,
-		// attach to document, not body
-		var cn = (node == dojo.body() ? dojo.doc : node);
 
-		node[this.id] = this._bindings.push([
-			dojo.connect(cn, (this.leftClickToOpen)?"onclick":"oncontextmenu", this, "_openMyself"),
-			dojo.connect(cn, "onkeydown", this, "_contextKey"),
-			dojo.connect(cn, "onmousedown", this, "_contextMouse")
-		]);
+		// "binding" is the object to track our connection to the node (ie, the parameter to bindDomNode())
+		var binding = {
+			node: node,
+			iframe: iframe
+		};
+
+		// Save info about binding in _bindings[], and make node itself record index(+1) into
+		// _bindings[] array.  Prefix w/_dijitMenu to avoid setting an attribute that may
+		// start with a number, which fails on FF/safari.
+		domAttr.set(node, "_dijitMenu" + this.id, this._bindings.push(binding));
+
+		// Setup the connections to monitor click etc., unless we are connecting to an iframe which hasn't finished
+		// loading yet, in which case we need to wait for the onload event first, and then connect
+		// On linux Shift-F10 produces the oncontextmenu event, but on Windows it doesn't, so
+		// we need to monitor keyboard events in addition to the oncontextmenu event.
+		var doConnects = lang.hitch(this, function(cn){
+			var selector = this.selector,
+				delegatedEvent = selector ?
+					function(eventType){ return on.selector(selector, eventType); } :
+					function(eventType){ return eventType; },
+				self = this;
+			return [
+				// TODO: when leftClickToOpen is true then shouldn't space/enter key trigger the menu,
+				// rather than shift-F10?
+				on(cn, delegatedEvent(this.leftClickToOpen ? "click" : "contextmenu"), function(evt){
+					// Schedule context menu to be opened unless it's already been scheduled from onkeydown handler
+					event.stop(evt);
+					self._scheduleOpen(this, iframe, {x: evt.pageX, y: evt.pageY});
+				}),
+				on(cn, delegatedEvent("keydown"), function(evt){
+					if(evt.shiftKey && evt.keyCode == keys.F10){
+						event.stop(evt);
+						self._scheduleOpen(this, iframe);	// no coords - open near target node
+					}
+				})
+			];
+		});
+		binding.connects = cn ? doConnects(cn) : [];
+
+		if(iframe){
+			// Setup handler to [re]bind to the iframe when the contents are initially loaded,
+			// and every time the contents change.
+			// Need to do this b/c we are actually binding to the iframe's <body> node.
+			// Note: can't use connect.connect(), see #9609.
+
+			binding.onloadHandler = lang.hitch(this, function(){
+				// want to remove old connections, but IE throws exceptions when trying to
+				// access the <body> node because it's already gone, or at least in a state of limbo
+
+				var window = this._iframeContentWindow(iframe);
+					cn = win.body(window.document)
+				binding.connects = doConnects(cn);
+			});
+			if(iframe.addEventListener){
+				iframe.addEventListener("load", binding.onloadHandler, false);
+			}else{
+				iframe.attachEvent("onload", binding.onloadHandler);
+			}
+		}
 	},
 
 	unBindDomNode: function(/*String|DomNode*/ nodeName){
 		// summary:
 		//		Detach menu from given node
-		var node = dojo.byId(nodeName);
-		if(node){
-			var bid = node[this.id]-1, b = this._bindings[bid];
-			dojo.forEach(b, dojo.disconnect);
+
+		var node;
+		try{
+			node = dom.byId(nodeName, this.ownerDocument);
+		}catch(e){
+			// On IE the dom.byId() call will get an exception if the attach point was
+			// the <body> node of an <iframe> that has since been reloaded (and thus the
+			// <body> node is in a limbo state of destruction.
+			return;
+		}
+
+		// node["_dijitMenu" + this.id] contains index(+1) into my _bindings[] array
+		var attrName = "_dijitMenu" + this.id;
+		if(node && domAttr.has(node, attrName)){
+			var bid = domAttr.get(node, attrName)-1, b = this._bindings[bid], h;
+			while((h = b.connects.pop())){
+				h.remove();
+			}
+
+			// Remove listener for iframe onload events
+			var iframe = b.iframe;
+			if(iframe){
+				if(iframe.removeEventListener){
+					iframe.removeEventListener("load", b.onloadHandler, false);
+				}else{
+					iframe.detachEvent("onload", b.onloadHandler);
+				}
+			}
+
+			domAttr.remove(node, attrName);
 			delete this._bindings[bid];
 		}
 	},
 
-	_contextKey: function(e){
+	_scheduleOpen: function(/*DomNode?*/ target, /*DomNode?*/ iframe, /*Object?*/ coords){
 		// summary:
-		//		Code to handle popping up editor using F10 key rather than mouse
-		// tags:
-		//		private
-		this._contextMenuWithMouse = false;
-		if(e.keyCode == dojo.keys.F10){
-			dojo.stopEvent(e);
-			if(e.shiftKey && e.type=="keydown"){
-				// FF: copying the wrong property from e will cause the system
-				// context menu to appear in spite of stopEvent. Don't know
-				// exactly which properties cause this effect.
-				var _e = { target: e.target, pageX: e.pageX, pageY: e.pageY };
-				_e.preventDefault = _e.stopPropagation = function(){};
-				// IE: without the delay, focus work in "open" causes the system
-				// context menu to appear in spite of stopEvent.
-				window.setTimeout(dojo.hitch(this, function(){ this._openMyself(_e); }), 1);
+		//		Set timer to display myself.  Using a timer rather than displaying immediately solves
+		//		two problems:
+		//
+		//		1. IE: without the delay, focus work in "open" causes the system
+		//		context menu to appear in spite of stopEvent.
+		//
+		//		2. Avoid double-shows on linux, where shift-F10 generates an oncontextmenu event
+		//		even after a event.stop(e).  (Shift-F10 on windows doesn't generate the
+		//		oncontextmenu event.)
+
+		if(!this._openTimer){
+			this._openTimer = this.defer(function(){
+				delete this._openTimer;
+				this._openMyself({
+					target: target,
+					iframe: iframe,
+					coords: coords
+				});
+			}, 1);
+		}
+	},
+
+	_openMyself: function(args){
+		// summary:
+		//		Internal function for opening myself when the user does a right-click or something similar.
+		// args:
+		//		This is an Object containing:
+		//
+		//		- target: The node that is being clicked
+		//		- iframe: If an `<iframe>` is being clicked, iframe points to that iframe
+		//		- coords: Put menu at specified x/y position in viewport, or if iframe is
+		//		  specified, then relative to iframe.
+		//
+		//		_openMyself() formerly took the event object, and since various code references
+		//		evt.target (after connecting to _openMyself()), using an Object for parameters
+		//		(so that old code still works).
+
+		var target = args.target,
+			iframe = args.iframe,
+			coords = args.coords;
+
+		// To be used by MenuItem event handlers to tell which node the menu was opened on
+		this.currentTarget = target;
+
+		// Get coordinates to open menu, either at specified (mouse) position or (if triggered via keyboard)
+		// then near the node the menu is assigned to.
+		if(coords){
+			if(iframe){
+				// Specified coordinates are on <body> node of an <iframe>, convert to match main document
+				var ifc = domGeometry.position(iframe, true),
+					window = this._iframeContentWindow(iframe),
+					scroll = domGeometry.docScroll(window.document);
+
+				var cs = domStyle.getComputedStyle(iframe),
+					tp = domStyle.toPixelValue,
+					left = (has("ie") && has("quirks") ? 0 : tp(iframe, cs.paddingLeft)) + (has("ie") && has("quirks") ? tp(iframe, cs.borderLeftWidth) : 0),
+					top = (has("ie") && has("quirks") ? 0 : tp(iframe, cs.paddingTop)) + (has("ie") && has("quirks") ? tp(iframe, cs.borderTopWidth) : 0);
+
+				coords.x += ifc.x + left - scroll.x;
+				coords.y += ifc.y + top - scroll.y;
 			}
-		}
-	},
-
-	_contextMouse: function(e){
-		// summary:
-		//		Helper to remember when we opened the context menu with the mouse instead
-		//		of with the keyboard
-		// tags:
-		//		private
-		this._contextMenuWithMouse = true;
-	},
-
-	_openMyself: function(/*Event*/ e){
-		// summary:
-		//		Internal function for opening myself when the user
-		//		does a right-click or something similar
-		// tags:
-		//		private
-
-		if(this.leftClickToOpen&&e.button>0){
-			return;
-		}
-		dojo.stopEvent(e);
-
-		// Get coordinates.
-		// if we are opening the menu with the mouse or on safari open
-		// the menu at the mouse cursor
-		// (Safari does not have a keyboard command to open the context menu
-		// and we don't currently have a reliable way to determine
-		// _contextMenuWithMouse on Safari)
-		var x,y;
-		if(dojo.isSafari || this._contextMenuWithMouse){
-			x=e.pageX;
-			y=e.pageY;
 		}else{
-			// otherwise open near e.target
-			var coords = dojo.coords(e.target, true);
-			x = coords.x + 10;
-			y = coords.y + 10;
+			coords = domGeometry.position(target, true);
+			coords.x += 10;
+			coords.y += 10;
 		}
 
 		var self=this;
-		var savedFocus = dijit.getFocus(this);
+		var prevFocusNode = this._focusManager.get("prevNode");
+		var curFocusNode = this._focusManager.get("curNode");
+		var savedFocusNode = !curFocusNode || (dom.isDescendant(curFocusNode, this.domNode)) ? prevFocusNode : curFocusNode;
+
 		function closeAndRestoreFocus(){
 			// user has clicked on a menu or popup
-			dijit.focus(savedFocus);
-			dijit.popup.close(self);
+			if(self.refocus && savedFocusNode){
+				savedFocusNode.focus();
+			}
+			pm.close(self);
 		}
-		dijit.popup.open({
+		pm.open({
 			popup: this,
-			x: x,
-			y: y,
+			x: coords.x,
+			y: coords.y,
 			onExecute: closeAndRestoreFocus,
 			onCancel: closeAndRestoreFocus,
 			orient: this.isLeftToRight() ? 'L' : 'R'
@@ -479,24 +334,16 @@ dojo.declare("dijit.Menu",
 			this.inherited('_onBlur', arguments);
 			// Usually the parent closes the child widget but if this is a context
 			// menu then there is no parent
-			dijit.popup.close(this);
+			pm.close(this);
 			// don't try to restore focus; user has clicked another part of the screen
 			// and set focus there
 		};
 	},
 
-	uninitialize: function(){
- 		dojo.forEach(this.targetNodeIds, this.unBindDomNode, this);
- 		this.inherited(arguments);
+	destroy: function(){
+		array.forEach(this._bindings, function(b){ if(b){ this.unBindDomNode(b.node); } }, this);
+		this.inherited(arguments);
 	}
-}
-);
+});
 
-// Back-compat (TODO: remove in 2.0)
-dojo.require("dijit.MenuItem");
-dojo.require("dijit.PopupMenuItem");
-dojo.require("dijit.CheckedMenuItem");
-dojo.require("dijit.MenuSeparator");
-
-
-}
+});

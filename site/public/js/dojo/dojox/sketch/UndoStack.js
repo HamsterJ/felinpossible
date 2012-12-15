@@ -1,16 +1,10 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.sketch.UndoStack"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.sketch.UndoStack"] = true;
-dojo.provide("dojox.sketch.UndoStack");
-dojo.require("dojox.xml.DomParser");
-
-(function(){
+define("dojox/sketch/UndoStack", [
+	"dojo/_base/kernel",
+	"dojo/_base/lang",
+	"dojo/_base/declare",
+	"../xml/DomParser"
+], function(dojo){
+	dojo.getObject("sketch", true, dojox);
 	var ta=dojox.sketch;
 	ta.CommandTypes={ Create:"Create", Move:"Move", Modify:"Modify", Delete:"Delete", Convert:"Convert"};
 
@@ -47,14 +41,14 @@ dojo.require("dojox.xml.DomParser");
 			}
 			if(toText.length==0){
 				//	we are deleting.
-				var ann=this.figure.get(from.shapeId);
+				var ann=this.figure.getAnnotator(from.shapeId);
 				this.figure._delete([ann],true);
 				return;
 			}
 			
 			//	we can simply reinit and draw from the shape itself,
 			//		regardless of the actual command.
-			var nann=this.figure.get(to.shapeId);
+			var nann=this.figure.getAnnotator(to.shapeId);
 			var no=dojox.xml.DomParser.parse(toText).documentElement;
 			nann.draw(no);
 			this.figure.select(nann);
@@ -106,6 +100,6 @@ dojo.require("dojox.xml.DomParser");
 			}
 		}
 	});
-})();
 
-}
+	return dojox.sketch.UndoStack;
+});

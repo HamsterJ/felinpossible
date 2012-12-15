@@ -1,8 +1,8 @@
-<div id="indispoStatutStore" style="display:none" dojoType="dojo.data.ItemFileReadStore" jsId="indispoStatutStore" url="<?php echo $this->url(array('action' => 'listestatutsindispo')) ?>"></div>
+<div id="indispoStatutStore" style="display:none" data-dojo-type="dojo/data/ItemFileReadStore" jsId="indispoStatutStore" url="<?php echo $this->url(array('action' => 'listestatutsindispo')) ?>"></div>
 Statut : 
 <span>
   <input id="filterIndispoStatut" 
-               dojoType="dijit.form.FilteringSelect"
+               data-dojo-type="dijit/form/FilteringSelect"
                store="indispoStatutStore"
                searchAttr="nom"
                autocomplete="true"

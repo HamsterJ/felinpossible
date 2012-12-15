@@ -1,13 +1,9 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.collections"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.collections"] = true;
-dojo.provide("dojox.collections");
-dojo.require("dojox.collections._base");
-
-}
+define("dojox/collections", ["./collections/_base"], function(collections){
+	/*=====
+	 return {
+	 // summary:
+	 //		Deprecated.  Should require dojox/collections modules directly rather than trying to access them through
+	 //		this module.
+	 };
+	 =====*/	return collections;
+});

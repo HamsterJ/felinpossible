@@ -1,1 +1,6 @@
-({"loadingState":"Загрузка...","errorState":"Извините, возникла ошибка"})
+define(
+"dijit/nls/ru/loading", ({
+	loadingState: "Загрузка...",
+	errorState: "Извините, возникла ошибка"
+})
+);

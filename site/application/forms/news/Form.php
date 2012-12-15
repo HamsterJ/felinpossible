@@ -30,7 +30,7 @@ class FP_Form_news_Form extends FP_Form_common_Form {
 		$date = new Zend_Form_Element_Text('dateEvenement');
 		$date->setLabel('Date de l\'événement');
 		$date->setRequired(true);
-		$date->setAttrib('dojoType', "dijit.form.DateTextBox");
+		$date->setAttrib('data-dojo-type', "dijit/form/DateTextBox");
 
 		$idNews = new Zend_Form_Element_Hidden('id');
 

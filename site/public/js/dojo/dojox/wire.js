@@ -1,14 +1,9 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.wire"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.wire"] = true;
-dojo.provide("dojox.wire");
-dojo.require("dojox.wire._base");
-
-
-}
+define("dojox/wire", ['./wire/_base'],function(){
+	/*=====
+	 return {
+	 // summary:
+	 //		Deprecated.  Should require dojox/wire modules directly rather than trying to access them through
+	 //		this module.
+	 };
+	 =====*/
+});

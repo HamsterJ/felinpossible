@@ -1,1 +1,13 @@
-({"close":"[kapat]","title":"Başlık","authors":"Yazarlar","summary":"Özet","content":"İçerik","contributors":"Katkıda Bulunanlar","updated":"Güncelleştirildi","displayOptions":"[görüntüleme seçenekleri]","id":"Kimlik"})
+define(
+"dojox/atom/widget/nls/tr/FeedEntryViewer", ({
+	displayOptions: "[görüntüleme seçenekleri]",
+	title: "Başlık",
+	authors: "Yazarlar",
+	contributors: "Katkıda Bulunanlar",
+	id: "Kimlik",
+	close: "[kapat]",
+	updated: "Güncelleştirildi",
+	summary: "Özet",
+	content: "İçerik"
+})
+);

@@ -1,1 +1,13 @@
-({"close":"[bezárás]","title":"Cím","authors":"Szerzők","summary":"Összegzés","content":"Tartalom","contributors":"Közreműködők","updated":"Frissítve","displayOptions":"[megjelenítési beállítások]","id":"Azonosító"})
+define(
+"dojox/atom/widget/nls/hu/FeedEntryViewer", ({
+	displayOptions: "[megjelenítési beállítások]",
+	title: "Cím",
+	authors: "Szerzők",
+	contributors: "Közreműködők",
+	id: "Azonosító",
+	close: "[bezárás]",
+	updated: "Frissítve",
+	summary: "Összegzés",
+	content: "Tartalom"
+})
+);

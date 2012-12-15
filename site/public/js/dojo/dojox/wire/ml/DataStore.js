@@ -1,41 +1,34 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.wire.ml.DataStore"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.wire.ml.DataStore"] = true;
+// wrapped by build app
+define("dojox/wire/ml/DataStore", ["dojo","dijit","dojox","dojo/require!dijit/_Widget,dojox/wire/_base"], function(dojo,dijit,dojox){
 dojo.provide("dojox.wire.ml.DataStore");
 
 dojo.require("dijit._Widget");
 dojo.require("dojox.wire._base");
 
 dojo.declare("dojox.wire.ml.DataStore", dijit._Widget, {
-	//	summary:
+	// summary:
 	//		A widget for a data store
-	//	description:
+	// description:
 	//		This widget represents a data store of 'storeClass' attribute.
-	//	storeClass:
+	// storeClass:
 	//		A class name of a data store
 	storeClass: "",
 
 	postCreate: function(){
-		//	summary:
+		// summary:
 		//		Call _createStore()
-		//	description:
+		// description:
 		//		See _createStore().
 		this.store = this._createStore();
 	},
 
 	_createStore: function(){
-		//	summary:
+		// summary:
 		//		Create a data store
-		//	desription:
+		// description:
 		//		A data store of 'storeClass' is created with arguments
 		//		specified with attributes.
-		//	returns:
+		// returns:
 		//		A data store
 		if(!this.storeClass){
 			return null; //null
@@ -56,68 +49,68 @@ dojo.declare("dojox.wire.ml.DataStore", dijit._Widget, {
 	},
 
 	getFeatures: function(){
-		//	summary:
+		// summary:
 		//		Call getFeatures() method of a data store
-		//	description:
-		//		See dojo.data.api.Read.getFeatures().
-		//	returns:
+		// description:
+		//		See dojo/data/api/Read.getFeatures().
+		// returns:
 		//		A features object
 		return this.store.getFeatures(); //Object
 	},
 
 	fetch: function(/*Object*/request){
-		//	summary:
+		// summary:
 		//		Call fetch() method of a data store
-		//	description:
-		//		See dojo.data.api.Read.fetch().
-		//	request:
+		// description:
+		//		See dojo/data/api/Read.fetch().
+		// request:
 		//		A request object
-		//	returns:
+		// returns:
 		//		A request object
 		return this.store.fetch(request); //Object
 	},
 
 	save: function(/*Object*/args){
-		//	summary:
+		// summary:
 		//		Call save() method of a data store
-		//	description:
-		//		See dojo.data.api.Write.save().
-		//	args:
+		// description:
+		//		See dojo/data/api/Write.save().
+		// args:
 		//		A save arguments object
 		this.store.save(args);
 	},
 
 	newItem: function(/*Object*/args){
-		//	summary:
+		// summary:
 		//		Call newItem() method of a data store
-		//	description:
-		//		See dojo.data.api.Write.newItem().
-		//	args:
+		// description:
+		//		See dojo/data/api/Write.newItem().
+		// args:
 		//		A new item arguments object
-		//	returns:
+		// returns:
 		//		A new item
 		return this.store.newItem(args); //Object
 	},
 
 	deleteItem: function(/*Object*/item){
-		//	summary:
+		// summary:
 		//		Call deleteItem() method of a data store
-		//	description:
-		//		See dojo.data.api.Write.deleteItem().
-		//	returns:
+		// description:
+		//		See dojo/data/api/Write.deleteItem().
+		// returns:
 		//		A boolean
 		return this.store.deleteItem(item); //Boolean
 	},
 
 	revert: function(){
-		//	summary:
+		// summary:
 		//		Call revert() method of a data store
-		//	description:
-		//		See dojo.data.api.Write.revert().
-		//	returns:
+		// description:
+		//		See dojo/data/api/Write.revert().
+		// returns:
 		//		A boolean
 		return this.store.revert(); //Boolean
 	}
 });
 
-}
+});

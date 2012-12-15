@@ -1,22 +1,18 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/dtl/contrib/objects", [
+	"dojo/_base/lang",
+	"../_base"	
+], function(lang,dd){
 
+	lang.getObject("dojox.dtl.contrib.objects", true);
 
-if(!dojo._hasResource["dojox.dtl.contrib.objects"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.contrib.objects"] = true;
-dojo.provide("dojox.dtl.contrib.objects");
+	lang.mixin(dd.contrib.objects, {
+		key: function(value, arg){
+			return value[arg];
+		}
+	});
 
-dojo.mixin(dojox.dtl.contrib.objects, {
-	key: function(value, arg){
-		return value[arg];
-	}
+	dd.register.filters("dojox.dtl.contrib", {
+		"objects": ["key"]
+	});
+	return dojox.dtl.contrib.objects;
 });
-
-dojox.dtl.register.filters("dojox.dtl.contrib", {
-	"objects": ["key"]
-});
-
-}

@@ -1,41 +1,33 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/analytics/plugins/idle", ["dojo/_base/lang", "../_base", "dojo/_base/config", "dojo/ready", 
+		"dojo/aspect", "dojo/_base/window"
+], function(lang, dxa, config, ready, aspect, window){
 
+	// window startup data
+	return (dxa.plugins.idle = new (function(){
+		this.addData = lang.hitch(dxa, "addData", "idle");
+		this.idleTime = config["idleTime"] || 60000;
+		this.idle = true;
 
-if(!dojo._hasResource["dojox.analytics.plugins.idle"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.analytics.plugins.idle"] = true;
-dojo.provide("dojox.analytics.plugins.idle");
+		this.setIdle = function(){
+			this.addData("isIdle");
+			this.idle = true;
 
-// window startup data
-dojox.analytics.plugins.idle = new (function(){
-	this.addData = dojo.hitch(dojox.analytics, "addData", "idle");
-	this.idleTime=dojo.config["idleTime"] || 60000;
-	this.idle=true;
-
-	this.setIdle = function(){
-		this.addData("isIdle");
-		this.idle=true;
-
-	}
-	
-	dojo.addOnLoad(dojo.hitch(this, function(){
-		var idleResets=["onmousemove","onkeydown","onclick","onscroll"];
-		for (var i=0;i<idleResets.length;i++){
-			dojo.connect(dojo.doc,idleResets[i],this, function(e){ 
-				if (this.idle){
-					this.idle=false;
-					this.addData("isActive");
-					this.idleTimer=setTimeout(dojo.hitch(this,"setIdle"), this.idleTime);
-				}else{
-					clearTimeout(this.idleTimer);
-					this.idleTimer=setTimeout(dojo.hitch(this,"setIdle"), this.idleTime);
-				}
-			});
 		}
-	}));
-})();
 
-}
+		ready(lang.hitch(this, function(){
+			var idleResets = ["onmousemove","onkeydown","onclick","onscroll"];
+			for(var i = 0;i < idleResets.length;i++){
+				aspect.after(window.doc,idleResets[i],lang.hitch(this, function(e){
+					if(this.idle){
+						this.idle = false;
+						this.addData("isActive");
+						this.idleTimer = setTimeout(lang.hitch(this,"setIdle"), this.idleTime);
+					}else{
+						clearTimeout(this.idleTimer);
+						this.idleTimer = setTimeout(lang.hitch(this,"setIdle"), this.idleTime);
+					}
+				}),true);
+			}
+		}));
+	})());
+});

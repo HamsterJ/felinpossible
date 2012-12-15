@@ -1,16 +1,9 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/grid/_RowSelector", [
+	"dojo/_base/declare",
+	"./_View"
+], function(declare, _View){
 
-
-if(!dojo._hasResource["dojox.grid._RowSelector"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.grid._RowSelector"] = true;
-dojo.provide("dojox.grid._RowSelector");
-dojo.require("dojox.grid._View");
-
-dojo.declare('dojox.grid._RowSelector', dojox.grid._View, {
+return declare('dojox.grid._RowSelector', _View, {
 	// summary:
 	//	Custom grid view. If used in a grid structure, provides a small selectable region for grid rows.
 	defaultWidth: "2em",
@@ -20,24 +13,30 @@ dojo.declare('dojox.grid._RowSelector', dojox.grid._View, {
 		this.inherited('buildRendering', arguments);
 		this.scrollboxNode.style.overflow = "hidden";
 		this.headerNode.style.visibility = "hidden";
-	},	
+	},
 	getWidth: function(){
 		return this.viewWidth || this.defaultWidth;
 	},
 	buildRowContent: function(inRowIndex, inRowNode){
-		var w = this.contentNode.offsetWidth - this.padBorderWidth 
-		inRowNode.innerHTML = '<table class="dojoxGridRowbarTable" style="width:' + w + 'px;" border="0" cellspacing="0" cellpadding="0" role="'+(dojo.isFF<3 ? "wairole:" : "")+'presentation"><tr><td class="dojoxGridRowbarInner">&nbsp;</td></tr></table>';
+		var w = this.contentWidth || 0;
+		inRowNode.innerHTML = '<table class="dojoxGridRowbarTable" style="width:' + w + 'px;height:1px;" border="0" cellspacing="0" cellpadding="0" role="presentation"><tr><td class="dojoxGridRowbarInner">&nbsp;</td></tr></table>';
 	},
 	renderHeader: function(){
+	},
+	updateRow: function(){
 	},
 	resize: function(){
 		this.adaptHeight();
 	},
 	adaptWidth: function(){
+		// Only calculate this here - rather than every call to buildRowContent
+		if(!("contentWidth" in this) && this.contentNode && this.contentNode.offsetWidth > 0){
+			this.contentWidth = this.contentNode.offsetWidth - this.padBorderWidth;
+		}
 	},
 	// styling
 	doStyleRowNode: function(inRowIndex, inRowNode){
-		var n = [ "dojoxGridRowbar" ];
+		var n = [ "dojoxGridRowbar dojoxGridNonNormalizedCell" ];
 		if(this.grid.rows.isOver(inRowIndex)){
 			n.push("dojoxGridRowbarOver");
 		}
@@ -56,5 +55,4 @@ dojo.declare('dojox.grid._RowSelector', dojox.grid._View, {
 		}
 	}
 });
-
-}
+});

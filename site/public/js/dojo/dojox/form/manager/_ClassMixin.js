@@ -1,22 +1,15 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
-
-
-if(!dojo._hasResource["dojox.form.manager._ClassMixin"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.form.manager._ClassMixin"] = true;
-dojo.provide("dojox.form.manager._ClassMixin");
-
-dojo.require("dojox.form.manager._Mixin");
-
-(function(){
-	var fm = dojox.form.manager,
+define("dojox/form/manager/_ClassMixin", [
+	"dojo/_base/lang",
+	"dojo/_base/kernel",
+	"dojo/dom-class",
+	"./_Mixin",
+	"dojo/_base/declare"
+], function(lang, dojo, domClass, _Mixin, declare){
+	var fm = lang.getObject("dojox.form.manager", true),
 		aa = fm.actionAdapter,
 		ia = fm.inspectorAdapter;
 
-	dojo.declare("dojox.form.manager._ClassMixin", null, {
+	return declare("dojox.form.manager._ClassMixin", null, {
 		// summary:
 		//		Form manager's mixin for testing/assigning/removing
 		//		classes of controlled elements.
@@ -28,15 +21,15 @@ dojo.require("dojox.form.manager._Mixin");
 		gatherClassState: function(className, names){
 			// summary:
 			//		Gather the presence of a certain class in all controlled elements.
-			// className: String:
+			// className: String
 			//		The class name to test for.
-			// names: Object?:
+			// names: Object?
 			//		If it is an array, it is a list of names to be processed.
 			//		If it is an object, dictionary keys are names to be processed.
 			//		If it is omitted, all known form elements are to be processed.
 
 			var result = this.inspect(ia(function(name, node){
-				return dojo.hasClass(node, className);
+				return domClass.contains(node, className);
 			}), names);
 
 			return result;	// Object
@@ -45,15 +38,15 @@ dojo.require("dojox.form.manager._Mixin");
 		addClass: function(className, names){
 			// summary:
 			//		Add a class to nodes according to the supplied set of names
-			// className: String:
+			// className: String
 			//		Class name to add.
-			// names: Object?:
+			// names: Object?
 			//		If it is an array, it is a list of names to be processed.
 			//		If it is an object, dictionary keys are names to be processed.
 			//		If it is omitted, all known form elements are to be processed.
 
 			this.inspect(aa(function(name, node){
-				dojo.addClass(node, className);
+				domClass.add(node, className);
 			}), names);
 
 			return this;	// self
@@ -62,20 +55,18 @@ dojo.require("dojox.form.manager._Mixin");
 		removeClass: function(className, names){
 			// summary:
 			//		Remove a class from nodes according to the supplied set of names
-			// className: String:
+			// className: String
 			//		Class name to remove.
-			// names: Object?:
+			// names: Object?
 			//		If it is an array, it is a list of names to be processed.
 			//		If it is an object, dictionary keys are names to be processed.
 			//		If it is omitted, all known form elements are to be processed.
 
 			this.inspect(aa(function(name, node){
-				dojo.removeClass(node, className);
+				domClass.remove(node, className);
 			}), names);
 
 			return this;	// self
 		}
 	});
-})();
-
-}
+});

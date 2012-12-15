@@ -1,21 +1,14 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/charting/plot2d/Areas", ["dojo/_base/declare", "./Default"], 
+  function(declare, Default){
 
-
-if(!dojo._hasResource["dojox.charting.plot2d.Areas"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.charting.plot2d.Areas"] = true;
-dojo.provide("dojox.charting.plot2d.Areas");
-
-dojo.require("dojox.charting.plot2d.Default");
-
-dojo.declare("dojox.charting.plot2d.Areas", dojox.charting.plot2d.Default, {
-	constructor: function(){
-		this.opt.lines = true;
-		this.opt.areas = true;
-	}
+	return declare("dojox.charting.plot2d.Areas", Default, {
+		// summary:
+		//		Represents an area chart.  See dojox/charting/plot2d/Default for details.
+		constructor: function(){
+			// summary:
+			//		The constructor for an Area chart.
+			this.opt.lines = true;
+			this.opt.areas = true;
+		}
+	});
 });
-
-}

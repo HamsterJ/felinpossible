@@ -1,46 +1,75 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/gfx/vml", ["dojo/_base/lang", "dojo/_base/declare", "dojo/_base/array", "dojo/_base/Color", "dojo/_base/sniff",
+		"dojo/_base/config", "dojo/dom", "dojo/dom-geometry", "dojo/_base/kernel",
+		"./_base", "./shape", "./path", "./arc", "./gradient", "./matrix"],
+function(lang, declare, arr, Color, has, config, dom, domGeom, kernel, g, gs, pathLib, arcLib, gradient, m){
+	var vml = g.vml = {
+		// summary:
+		//		This the default graphics rendering bridge for IE6-7.
+		//		This renderer is very slow.  For best performance on IE6-8, use Silverlight plugin.
+		//		IE9+ defaults to the standard W3C SVG renderer.
 
+		// TODO: Everything exported from this file should be inside these braces.
+		// For now, I'll just put the declarations needed for documentation.
 
-if(!dojo._hasResource["dojox.gfx.vml"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.gfx.vml"] = true;
-dojo.provide("dojox.gfx.vml");
+		// xmlns: String
+		//		a VML's namespace
 
-dojo.require("dojox.gfx._base");
-dojo.require("dojox.gfx.shape");
-dojo.require("dojox.gfx.path");
-dojo.require("dojox.gfx.arc");
+		// text_alignment: Object
+		//		mapping from SVG alignment to VML alignment
+	};
 
-(function(){
-	var g = dojox.gfx, m = g.matrix, vml = g.vml, sh = g.shape;
-
-	// dojox.gfx.vml.xmlns: String: a VML's namespace
 	vml.xmlns = "urn:schemas-microsoft-com:vml";
 
-	// dojox.gfx.vml.text_alignment: Object: mapping from SVG alignment to VML alignment
+	document.namespaces.add("v", vml.xmlns);
+	var vmlElems = ["*", "group", "roundrect", "oval", "shape", "rect", "imagedata", "path", "textpath", "text"],
+		i = 0, l = 1, s = document.createStyleSheet();
+	if(has("ie") >= 8){
+		i = 1;
+		l = vmlElems.length;
+	}
+	for (; i < l; ++i) {
+		s.addRule("v\\:" + vmlElems[i], "behavior:url(#default#VML); display:inline-block");
+	}
+
 	vml.text_alignment = {start: "left", middle: "center", end: "right"};
 
 	vml._parseFloat = function(str) {
-		// summary: a helper function to parse VML-specific floating-point values
-		// str: String: a representation of a floating-point number
+		// summary:
+		//		a helper function to parse VML-specific floating-point values
+		// str: String
+		//		a representation of a floating-point number
 		return str.match(/^\d+f$/i) ? parseInt(str) / 65536 : parseFloat(str);	// Number
 	};
 
 	vml._bool = {"t": 1, "true": 1};
 
-	dojo.extend(g.Shape, {
-		// summary: VML-specific implementation of dojox.gfx.Shape methods
+	vml._reparentEvents = function(dst, src){
+		for(var name in src){
+			if(name.substr(0, 2).toLowerCase() == "on"){
+				dst[name] = src[name];
+				src[name] = null;
+			}
+		}
+	};
+
+	vml.Shape = declare("dojox.gfx.vml.Shape", gs.Shape, {
+		// summary:
+		//		VML-specific implementation of dojox/gfx/shape.Shape methods
+
+		destroy: function(){
+			this.rawNode = null;
+			gs.Shape.prototype.destroy.apply(this, arguments);
+		},
 
 		setFill: function(fill){
-			// summary: sets a fill object (VML)
-			// fill: Object: a fill object
-			//	(see dojox.gfx.defaultLinearGradient,
-			//	dojox.gfx.defaultRadialGradient,
-			//	dojox.gfx.defaultPattern,
-			//	or dojo.Color)
+			// summary:
+			//		sets a fill object (VML)
+			// fill: Object
+			//		a fill object
+			//		(see dojox/gfx.defaultLinearGradient,
+			//		dojox/gfx.defaultRadialGradient,
+			//		dojox/gfx.defaultPattern,
+			//		or dojo/_base/Color)
 
 			if(!fill){
 				// don't fill
@@ -53,31 +82,32 @@ dojo.require("dojox.gfx.arc");
 				// gradient
 				switch(fill.type){
 					case "linear":
-						var matrix = this._getRealMatrix();
+						var matrix = this._getRealMatrix(), bbox = this.getBoundingBox(),
+							tbbox = this._getRealBBox ? this._getRealBBox() : this.getTransformedBoundingBox();
 						s = [];
-						f = g.makeParameters(g.defaultLinearGradient, fill);
+						if(this.fillStyle !== fill){
+							this.fillStyle = g.makeParameters(g.defaultLinearGradient, fill);
+						}
+						f = g.gradient.project(matrix, this.fillStyle,
+								{x: bbox.x, y: bbox.y},
+								{x: bbox.x + bbox.width, y: bbox.y + bbox.height},
+								tbbox[0], tbbox[2]);
 						a = f.colors;
-						this.fillStyle = f;
-						dojo.forEach(a, function(v, i, a){
-							a[i].color = g.normalizeColor(v.color);
-						});
-						if(a[0].offset > 0){
-							s.push("0 " + a[0].color.toHex());
+						if(a[0].offset.toFixed(5) != "0.00000"){
+							s.push("0 " + g.normalizeColor(a[0].color).toHex());
 						}
 						for(i = 0; i < a.length; ++i){
-							s.push(a[i].offset.toFixed(8) + " " + a[i].color.toHex());
+							s.push(a[i].offset.toFixed(5) + " " + g.normalizeColor(a[i].color).toHex());
 						}
 						i = a.length - 1;
-						if(a[i].offset < 1){
-							s.push("1 " + a[i].color.toHex());
+						if(a[i].offset.toFixed(5) != "1.00000"){
+							s.push("1 " + g.normalizeColor(a[i].color).toHex());
 						}
 						fo = this.rawNode.fill;
 						fo.colors.value = s.join(";");
 						fo.method = "sigma";
 						fo.type = "gradient";
-						var fc1 = matrix ? m.multiplyPoint(matrix, f.x1, f.y1) : {x: f.x1, y: f.y1},
-							fc2 = matrix ? m.multiplyPoint(matrix, f.x2, f.y2) : {x: f.x2, y: f.y2};
-						fo.angle = (m._radToDeg(Math.atan2(fc2.x - fc1.x, fc2.y - fc1.y)) + 180) % 360;
+						fo.angle = (270 - m._radToDeg(f.angle)) % 360;
 						fo.on = true;
 						break;
 					case "radial":
@@ -94,7 +124,7 @@ dojo.require("dojox.gfx.arc");
 							a.push({offset: 1, color: g.normalizeColor(f.colors[0].color)});
 						}
 						// massage colors
-						dojo.forEach(f.colors, function(v, i){
+						arr.forEach(f.colors, function(v, i){
 							a.push({offset: 1 - v.offset * c, color: g.normalizeColor(v.color)});
 						});
 						i = a.length - 1;
@@ -102,7 +132,7 @@ dojo.require("dojox.gfx.arc");
 						if(i < a.length - 1){
 							// correct excessive colors
 							var q = a[i], p = a[i + 1];
-							p.color = dojo.blendColors(q.color, p.color, q.offset / (q.offset - p.offset));
+							p.color = Color.blendColors(q.color, p.color, q.offset / (q.offset - p.offset));
 							p.offset = 0;
 							while(a.length - i > 2) a.pop();
 						}
@@ -112,7 +142,7 @@ dojo.require("dojox.gfx.arc");
 							s.push("0 " + a[i].color.toHex());
 						}
 						for(; i >= 0; --i){
-							s.push(a[i].offset.toFixed(8) + " " + a[i].color.toHex());
+							s.push(a[i].offset.toFixed(5) + " " + a[i].color.toHex());
 						}
 						fo = this.rawNode.fill;
 						fo.colors.value = s.join(";");
@@ -121,7 +151,7 @@ dojo.require("dojox.gfx.arc");
 						if(isNaN(w) || isNaN(h) || isNaN(l) || isNaN(t)){
 							fo.focusposition = "0.5 0.5";
 						}else{
-							fo.focusposition = ((f.cx - l) / w).toFixed(8) + " " + ((f.cy - t) / h).toFixed(8);
+							fo.focusposition = ((f.cx - l) / w).toFixed(5) + " " + ((f.cy - t) / h).toFixed(5);
 						}
 						fo.focussize = "0 0";
 						fo.on = true;
@@ -157,15 +187,21 @@ dojo.require("dojox.gfx.arc");
 			fo.method = "any";
 			fo.type = "solid";
 			fo.opacity = this.fillStyle.a;
+			var alphaFilter = this.rawNode.filters["DXImageTransform.Microsoft.Alpha"];
+			if(alphaFilter){
+				alphaFilter.opacity = Math.round(this.fillStyle.a * 100);
+			}
 			this.rawNode.fillcolor = this.fillStyle.toHex();
 			this.rawNode.filled = true;
 			return this;	// self
 		},
 
 		setStroke: function(stroke){
-			// summary: sets a stroke object (VML)
-			// stroke: Object: a stroke object
-			//	(see dojox.gfx.defaultStroke)
+			// summary:
+			//		sets a stroke object (VML)
+			// stroke: Object
+			//		a stroke object
+			//		(see dojox/gfx.defaultStroke)
 
 			if(!stroke){
 				// don't stroke
@@ -174,7 +210,7 @@ dojo.require("dojox.gfx.arc");
 				return this;
 			}
 			// normalize the stroke
-			if(typeof stroke == "string" || dojo.isArray(stroke) || stroke instanceof dojo.Color){
+			if(typeof stroke == "string" || lang.isArray(stroke) || stroke instanceof Color){
 				stroke = {color: stroke};
 			}
 			var s = this.strokeStyle = g.makeParameters(g.defaultStroke, stroke);
@@ -207,48 +243,55 @@ dojo.require("dojox.gfx.arc");
 		},
 
 		_applyTransform: function() {
+			var matrix = this._getRealMatrix();
+			if(matrix){
+				var skew = this.rawNode.skew;
+				if(typeof skew == "undefined"){
+					for(var i = 0; i < this.rawNode.childNodes.length; ++i){
+						if(this.rawNode.childNodes[i].tagName == "skew"){
+							skew = this.rawNode.childNodes[i];
+							break;
+						}
+					}
+				}
+				if(skew){
+					skew.on = "f";
+					var mt = matrix.xx.toFixed(8) + " " + matrix.xy.toFixed(8) + " " +
+						matrix.yx.toFixed(8) + " " + matrix.yy.toFixed(8) + " 0 0",
+						offset = Math.floor(matrix.dx).toFixed() + "px " + Math.floor(matrix.dy).toFixed() + "px",
+						s = this.rawNode.style,
+						l = parseFloat(s.left),
+						t = parseFloat(s.top),
+						w = parseFloat(s.width),
+						h = parseFloat(s.height);
+					if(isNaN(l)) l = 0;
+					if(isNaN(t)) t = 0;
+					if(isNaN(w) || !w) w = 1;
+					if(isNaN(h) || !h) h = 1;
+					var origin = (-l / w - 0.5).toFixed(8) + " " + (-t / h - 0.5).toFixed(8);
+					skew.matrix =  mt;
+					skew.origin = origin;
+					skew.offset = offset;
+					skew.on = true;
+				}
+			}
 			if(this.fillStyle && this.fillStyle.type == "linear"){
 				this.setFill(this.fillStyle);
 			}
-			var matrix = this._getRealMatrix();
-			if(!matrix) return this;
-			var skew = this.rawNode.skew;
-			if(typeof skew == "undefined"){
-				for(var i = 0; i < this.rawNode.childNodes.length; ++i){
-					if(this.rawNode.childNodes[i].tagName == "skew"){
-						skew = this.rawNode.childNodes[i];
-						break;
-					}
-				}
-			}
-			if(skew){
-				skew.on = "f";
-				var mt = matrix.xx.toFixed(8) + " " + matrix.xy.toFixed(8) + " " +
-					matrix.yx.toFixed(8) + " " + matrix.yy.toFixed(8) + " 0 0",
-					offset = Math.floor(matrix.dx).toFixed() + "px " + Math.floor(matrix.dy).toFixed() + "px",
-					s = this.rawNode.style,
-					l = parseFloat(s.left),
-					t = parseFloat(s.top),
-					w = parseFloat(s.width),
-					h = parseFloat(s.height);
-				if(isNaN(l)) l = 0;
-				if(isNaN(t)) t = 0;
-				if(isNaN(w)) w = 1;
-				if(isNaN(h)) h = 1;
-				var origin = (-l / w - 0.5).toFixed(8) + " " + (-t / h - 0.5).toFixed(8);
-				skew.matrix =  mt;
-				skew.origin = origin;
-				skew.offset = offset;
-				skew.on = true;
+			if(this.clip){
+				this.setClip(this.clip);
 			}
 			return this;
 		},
 
 		_setDimensions: function(width, height){
-			// summary: sets the width and height of the rawNode,
-			//	if the surface sixe has been changed
-			// width: String: width in pixels
-			// height: String: height in pixels
+			// summary:
+			//		sets the width and height of the rawNode,
+			//		if the surface size has been changed
+			// width: String
+			//		width in pixels
+			// height: String
+			//		height in pixels
 
 			// default implementation does nothing
 			return this; // self
@@ -256,23 +299,26 @@ dojo.require("dojox.gfx.arc");
 
 		setRawNode: function(rawNode){
 			// summary:
-			//	assigns and clears the underlying node that will represent this
-			//	shape. Once set, transforms, gradients, etc, can be applied.
-			//	(no fill & stroke by default)
+			//		assigns and clears the underlying node that will represent this
+			//		shape. Once set, transforms, gradients, etc, can be applied.
+			//		(no fill & stroke by default)
 			rawNode.stroked = "f";
 			rawNode.filled  = "f";
 			this.rawNode = rawNode;
+			this.rawNode.__gfxObject__ = this.getUID();
 		},
 
 		// move family
 
 		_moveToFront: function(){
-			// summary: moves a shape to front of its parent's list of shapes (VML)
+			// summary:
+			//		moves a shape to front of its parent's list of shapes (VML)
 			this.rawNode.parentNode.appendChild(this.rawNode);
 			return this;
 		},
 		_moveToBack: function(){
-			// summary: moves a shape to back of its parent's list of shapes (VML)
+			// summary:
+			//		moves a shape to back of its parent's list of shapes (VML)
 			var r = this.rawNode, p = r.parentNode, n = p.firstChild;
 			p.insertBefore(r, n);
 			if(n.tagName == "rect"){
@@ -283,32 +329,72 @@ dojo.require("dojox.gfx.arc");
 		},
 
 		_getRealMatrix: function(){
-			// summary: returns the cumulative ("real") transformation matrix
-			//	by combining the shape's matrix with its parent's matrix
-			return this.parentMatrix ? new g.Matrix2D([this.parentMatrix, this.matrix]) : this.matrix;	// dojox.gfx.Matrix2D
-		}
+			// summary:
+			//		returns the cumulative ("real") transformation matrix
+			//		by combining the shape's matrix with its parent's matrix
+			return this.parentMatrix ? new m.Matrix2D([this.parentMatrix, this.matrix]) : this.matrix;	// dojox/gfx/matrix.Matrix2D
+		},
+		
+		setClip: function(clip){
+			// summary:
+			//		sets the clipping area of this shape.
+			// description:
+			//		This method overrides the dojox/gfx/shape.Shape.setClip() method. Only rectangular geometry is supported.
+			// clip: Object
+			//		an object that defines the clipping geometry, or null to remove clip.
+			this.inherited(arguments);
+			var nodeStyle = this.rawNode.style;
+			if(!clip){
+				// remove clip
+				nodeStyle.position = "absolute";
+			    nodeStyle.clip = "rect(0px "+nodeStyle.width+" "+nodeStyle.height+" 0px)";
+			}else{
+				if("width" in clip){
+					var matrix = this._getRealMatrix(),
+						l = parseFloat(nodeStyle.left),
+						t = parseFloat(nodeStyle.top);
+					if(isNaN(l)) l = 0;
+					if(isNaN(t)) t = 0;
+					// transform the clip with the shape transform to compute the correct w/h (e.g. after a scale)
+					var clipt = m.multiplyRectangle(matrix, clip);
+					var pt = m.multiplyPoint(matrix, {x:l,y:t});
+					// clip property is relative to the elt border box
+					nodeStyle.clip = "rect(" + Math.round(clipt.y-pt.y) + "px " + Math.round(clipt.x-pt.x + clipt.width ) + "px " + 
+											Math.round(clipt.y-pt.y + clipt.height ) + "px " + Math.round(clipt.x -pt.x) + "px)";
+				}
+			}
+			return this;
+ 		}
 	});
 
-	dojo.declare("dojox.gfx.Group", dojox.gfx.Shape, {
-		// summary: a group shape (VML), which can be used
-		//	to logically group shapes (e.g, to propagate matricies)
+	  vml.Group = declare("dojox.gfx.vml.Group", vml.Shape, {
+		// summary:
+		//		a group shape (VML), which can be used
+		//		to logically group shapes (e.g, to propagate matricies)
 		constructor: function(){
-			vml.Container._init.call(this);
+			gs.Container._init.call(this);
 		},
 		// apply transformation
 		_applyTransform: function(){
-			// summary: applies a transformation matrix to a group
+			// summary:
+			//		applies a transformation matrix to a group
 			var matrix = this._getRealMatrix();
 			for(var i = 0; i < this.children.length; ++i){
 				this.children[i]._updateParentMatrix(matrix);
 			}
+			if(this.clip){
+				this.setClip(this.clip);
+			}
 			return this;	// self
 		},
 		_setDimensions: function(width, height){
-			// summary: sets the width and height of the rawNode,
-			//	if the surface sixe has been changed
-			// width: String: width in pixels
-			// height: String: height in pixels
+			// summary:
+			//		sets the width and height of the rawNode,
+			//		if the surface size has been changed
+			// width: String
+			//		width in pixels
+			// height: String
+			//		height in pixels
 			var r = this.rawNode, rs = r.style,
 				bs = this.bgNode.style;
 			rs.width = width;
@@ -320,15 +406,59 @@ dojo.require("dojox.gfx.arc");
 				this.children[i]._setDimensions(width, height);
 			}
 			return this; // self
+		},
+		setClip: function(clip){
+			// summary:
+			//		sets the clipping area of this shape.
+			// description:
+			//		This method overrides the dojox/gfx/shape.Shape.setClip() method.
+			// clip: Object
+			//		an object that defines the clipping geometry, or null to remove clip.
+
+			this.clip = clip;
+			var nodeStyle = this.rawNode.style;
+			if(!clip){
+				// remove clip
+				nodeStyle.position = "absolute";
+			    nodeStyle.clip = "rect(0px "+nodeStyle.width+" "+nodeStyle.height+" 0px)";
+			}else if("width" in clip){
+				var matrix = this._getRealMatrix();
+				// transform the clip with group transform
+				var clipt = m.multiplyRectangle(matrix, clip);
+				// vml feature :-( ): if the group rawNode bbox x/y are < 0,
+				// need to adjust clip accordingly
+				var bbox = this.getBoundingBox();
+				bbox = bbox ? m.multiplyRectangle(matrix, bbox) : null;
+				var offx = bbox && bbox.x < 0 ? bbox.x : 0,
+					offy = bbox && bbox.y < 0 ? bbox.y : 0;
+				nodeStyle.position = "absolute";
+				nodeStyle.clip = "rect(" + 
+					Math.round(clipt.y - offy) + "px " + 
+					Math.round(clipt.x + clipt.width - offx) + "px " + 
+					Math.round(clipt.y + clipt.height - offy)  + "px " + 
+					Math.round(clipt.x - offx) + "px)";
+			}
+			return this;
+ 		},
+		destroy: function(){
+			// summary:
+			//		Releases all internal resources owned by this shape. Once this method has been called,
+			//		the instance is considered disposed and should not be used anymore.
+			this.clear(true);
+			// avoid this.inherited
+			vml.Shape.prototype.destroy.apply(this, arguments);
 		}
 	});
-	g.Group.nodeType = "group";
+	vml.Group.nodeType = "group";
 
-	dojo.declare("dojox.gfx.Rect", dojox.gfx.shape.Rect, {
-		// summary: a rectangle shape (VML)
+	  vml.Rect = declare("dojox.gfx.vml.Rect", [vml.Shape, gs.Rect], {
+		// summary:
+		//		a rectangle shape (VML)
 		setShape: function(newShape){
-			// summary: sets a rectangle shape object (VML)
-			// newShape: Object: a rectangle shape object
+			// summary:
+			//		sets a rectangle shape object (VML)
+			// newShape: Object
+			//		a rectangle shape object
 			var shape = this.shape = g.makeParameters(this.shape, newShape);
 			this.bbox = null;
 			var r = Math.min(1, (shape.r / Math.min(parseFloat(shape.width), parseFloat(shape.height)))).toFixed(8);
@@ -345,11 +475,13 @@ dojo.require("dojox.gfx.arc");
 				}
 				parent.removeChild(this.rawNode);
 			}
-			if(dojo.isIE > 7){
+			if(has("ie") > 7){
 				var node = this.rawNode.ownerDocument.createElement("v:roundrect");
 				node.arcsize = r;
 				node.style.display = "inline-block";
+				vml._reparentEvents(node, this.rawNode);
 				this.rawNode = node;
+				this.rawNode.__gfxObject__ = this.getUID();						
 			}else{
 				this.rawNode.arcsize = r;
 			}
@@ -363,20 +495,22 @@ dojo.require("dojox.gfx.arc");
 			var style = this.rawNode.style;
 			style.left   = shape.x.toFixed();
 			style.top    = shape.y.toFixed();
-			style.width  = (typeof shape.width == "string" && shape.width.indexOf("%") >= 0)  ? shape.width  : shape.width.toFixed();
-			style.height = (typeof shape.width == "string" && shape.height.indexOf("%") >= 0) ? shape.height : shape.height.toFixed();
+			style.width  = (typeof shape.width == "string" && shape.width.indexOf("%") >= 0)  ? shape.width  : Math.max(shape.width.toFixed(),0);
+			style.height = (typeof shape.height == "string" && shape.height.indexOf("%") >= 0) ? shape.height : Math.max(shape.height.toFixed(),0);
 			// set all necessary styles, which are lost by VML (yes, it's a VML's bug)
 			return this.setTransform(this.matrix).setFill(this.fillStyle).setStroke(this.strokeStyle);	// self
 		}
 	});
-	g.Rect.nodeType = "roundrect"; // use a roundrect so the stroke join type is respected
+	vml.Rect.nodeType = "roundrect"; // use a roundrect so the stroke join type is respected
 
-
-	dojo.declare("dojox.gfx.Ellipse", dojox.gfx.shape.Ellipse, {
-		// summary: an ellipse shape (VML)
+	vml.Ellipse = declare("dojox.gfx.vml.Ellipse", [vml.Shape, gs.Ellipse], {
+		// summary:
+		//		an ellipse shape (VML)
 		setShape: function(newShape){
-			// summary: sets an ellipse shape object (VML)
-			// newShape: Object: an ellipse shape object
+			// summary:
+			//		sets an ellipse shape object (VML)
+			// newShape: Object
+			//		an ellipse shape object
 			var shape = this.shape = g.makeParameters(this.shape, newShape);
 			this.bbox = null;
 			var style = this.rawNode.style;
@@ -387,13 +521,16 @@ dojo.require("dojox.gfx.arc");
 			return this.setTransform(this.matrix);	// self
 		}
 	});
-	g.Ellipse.nodeType = "oval";
+	vml.Ellipse.nodeType = "oval";
 
-	dojo.declare("dojox.gfx.Circle", dojox.gfx.shape.Circle, {
-		// summary: a circle shape (VML)
+	vml.Circle = declare("dojox.gfx.vml.Circle", [vml.Shape, gs.Circle], {
+		// summary:
+		//		a circle shape (VML)
 		setShape: function(newShape){
-			// summary: sets a circle shape object (VML)
-			// newShape: Object: a circle shape object
+			// summary:
+			//		sets a circle shape object (VML)
+			// newShape: Object
+			//		a circle shape object
 			var shape = this.shape = g.makeParameters(this.shape, newShape);
 			this.bbox = null;
 			var style = this.rawNode.style;
@@ -404,16 +541,19 @@ dojo.require("dojox.gfx.arc");
 			return this;	// self
 		}
 	});
-	g.Circle.nodeType = "oval";
+	vml.Circle.nodeType = "oval";
 
-	dojo.declare("dojox.gfx.Line", dojox.gfx.shape.Line, {
-		// summary: a line shape (VML)
+	vml.Line = declare("dojox.gfx.vml.Line", [vml.Shape, gs.Line], {
+		// summary:
+		//		a line shape (VML)
 		constructor: function(rawNode){
 			if(rawNode) rawNode.setAttribute("dojoGfxType", "line");
 		},
 		setShape: function(newShape){
-			// summary: sets a line shape object (VML)
-			// newShape: Object: a line shape object
+			// summary:
+			//		sets a line shape object (VML)
+			// newShape: Object
+			//		a line shape object
 			var shape = this.shape = g.makeParameters(this.shape, newShape);
 			this.bbox = null;
 			this.rawNode.path.v = "m" + shape.x1.toFixed() + " " + shape.y1.toFixed() +
@@ -421,47 +561,37 @@ dojo.require("dojox.gfx.arc");
 			return this.setTransform(this.matrix);	// self
 		}
 	});
-	g.Line.nodeType = "shape";
+	vml.Line.nodeType = "shape";
 
-	dojo.declare("dojox.gfx.Polyline", dojox.gfx.shape.Polyline, {
-		// summary: a polyline/polygon shape (VML)
+	vml.Polyline = declare("dojox.gfx.vml.Polyline", [vml.Shape, gs.Polyline], {
+		// summary:
+		//		a polyline/polygon shape (VML)
 		constructor: function(rawNode){
 			if(rawNode) rawNode.setAttribute("dojoGfxType", "polyline");
 		},
 		setShape: function(points, closed){
-			// summary: sets a polyline/polygon shape object (VML)
-			// points: Object: a polyline/polygon shape object
-			// closed: Boolean?: if true, close the polyline explicitely
+			// summary:
+			//		sets a polyline/polygon shape object (VML)
+			// points: Object|Array
+			//		a polyline/polygon shape object, or an array of points
+			// closed: Boolean?
+			//		if true, close the polyline explicitly
 			if(points && points instanceof Array){
-				// branch
-				// points: Array: an array of points
 				this.shape = g.makeParameters(this.shape, { points: points });
 				if(closed && this.shape.points.length) this.shape.points.push(this.shape.points[0]);
 			}else{
 				this.shape = g.makeParameters(this.shape, points);
 			}
 			this.bbox = null;
+			this._normalizePoints();
 			var attr = [], p = this.shape.points;
 			if(p.length > 0){
 				attr.push("m");
-				var k = 1;
-				if(typeof p[0] == "number"){
-					attr.push(p[0].toFixed());
-					attr.push(p[1].toFixed());
-					k = 2;
-				}else{
-					attr.push(p[0].x.toFixed());
-					attr.push(p[0].y.toFixed());
-				}
-				if(p.length > k){
+				attr.push(p[0].x.toFixed(), p[0].y.toFixed());
+				if(p.length > 1){
 					attr.push("l");
-					for(var i = k; i < p.length; ++i){
-						if(typeof p[i] == "number"){
-							attr.push(p[i].toFixed());
-						}else{
-							attr.push(p[i].x.toFixed());
-							attr.push(p[i].y.toFixed());
-						}
+					for(var i = 1; i < p.length; ++i){
+						attr.push(p[i].x.toFixed(), p[i].y.toFixed());
 					}
 				}
 			}
@@ -470,13 +600,16 @@ dojo.require("dojox.gfx.arc");
 			return this.setTransform(this.matrix);	// self
 		}
 	});
-	g.Polyline.nodeType = "shape";
+	vml.Polyline.nodeType = "shape";
 
-	dojo.declare("dojox.gfx.Image", dojox.gfx.shape.Image, {
-		// summary: an image (VML)
+	vml.Image = declare("dojox.gfx.vml.Image", [vml.Shape, gs.Image], {
+		// summary:
+		//		an image (VML)
 		setShape: function(newShape){
-			// summary: sets an image shape object (VML)
-			// newShape: Object: an image shape object
+			// summary:
+			//		sets an image shape object (VML)
+			// newShape: Object
+			//		an image shape object
 			var shape = this.shape = g.makeParameters(this.shape, newShape);
 			this.bbox = null;
 			this.rawNode.firstChild.src = shape.src;
@@ -524,10 +657,13 @@ dojo.require("dojox.gfx.arc");
 			return this; // self
 		},
 		_setDimensions: function(width, height){
-			// summary: sets the width and height of the rawNode,
-			//	if the surface sixe has been changed
-			// width: String: width in pixels
-			// height: String: height in pixels
+			// summary:
+			//		sets the width and height of the rawNode,
+			//		if the surface size has been changed
+			// width: String
+			//		width in pixels
+			// height: String
+			//		height in pixels
 
 			var r = this.rawNode, f = r.filters["DXImageTransform.Microsoft.Matrix"];
 			if(f){
@@ -539,18 +675,21 @@ dojo.require("dojox.gfx.arc");
 			return this;	// self
 		}
 	});
-	g.Image.nodeType = "rect";
+	vml.Image.nodeType = "rect";
 
-	dojo.declare("dojox.gfx.Text", dojox.gfx.shape.Text, {
-		// summary: an anchored text (VML)
+	vml.Text = declare("dojox.gfx.vml.Text", [vml.Shape, gs.Text], {
+		// summary:
+		//		an anchored text (VML)
 		constructor: function(rawNode){
 			if(rawNode){rawNode.setAttribute("dojoGfxType", "text");}
 			this.fontStyle = null;
 		},
 		_alignment: {start: "left", middle: "center", end: "right"},
 		setShape: function(newShape){
-			// summary: sets a text shape object (VML)
-			// newShape: Object: a text shape object
+			// summary:
+			//		sets a text shape object (VML)
+			// newShape: Object
+			//		a text shape object
 			this.shape = g.makeParameters(this.shape, newShape);
 			this.bbox = null;
 			var r = this.rawNode, s = this.shape, x = s.x, y = s.y.toFixed(), path;
@@ -595,7 +734,8 @@ dojo.require("dojox.gfx.arc");
 			return this.setTransform(this.matrix);	// self
 		},
 		_setFont: function(){
-			// summary: sets a font object (VML)
+			// summary:
+			//		sets a font object (VML)
 			var f = this.fontStyle, c = this.rawNode.childNodes;
 			for(var i = 0; i < c.length; ++i){
 				if(c[i].tagName == "textpath"){
@@ -606,10 +746,11 @@ dojo.require("dojox.gfx.arc");
 			this.setTransform(this.matrix);
 		},
 		_getRealMatrix: function(){
-			// summary: returns the cumulative ("real") transformation matrix
-			//	by combining the shape's matrix with its parent's matrix;
-			//	it makes a correction for a font size
-			var matrix = g.Shape.prototype._getRealMatrix.call(this);
+			// summary:
+			//		returns the cumulative ("real") transformation matrix
+			//		by combining the shape's matrix with its parent's matrix;
+			//		it makes a correction for a font size
+			var matrix = this.inherited(arguments);
 			// It appears that text is always aligned vertically at a middle of x-height (???).
 			// It is impossible to obtain these metrics from VML => I try to approximate it with
 			// more-or-less util value of 0.7 * FontSize, which is typical for European fonts.
@@ -617,10 +758,11 @@ dojo.require("dojox.gfx.arc");
 				matrix = m.multiply(matrix,
 					{dy: -g.normalizedLength(this.fontStyle ? this.fontStyle.size : "10pt") * 0.35});
 			}
-			return matrix;	// dojox.gfx.Matrix2D
+			return matrix;	// dojox/gfx/matrix.Matrix2D
 		},
 		getTextWidth: function(){
-			// summary: get the text width, in px
+			// summary:
+			//		get the text width, in px
 			var rawNode = this.rawNode, _display = rawNode.style.display;
 			rawNode.style.display = "inline";
 			var _width = g.pt2px(parseFloat(rawNode.currentStyle.width));
@@ -628,22 +770,11 @@ dojo.require("dojox.gfx.arc");
 			return _width;
 		}
 	});
-	g.Text.nodeType = "shape";
+	vml.Text.nodeType = "shape";
 
-	g.path._calcArc = function(alpha){
-		// return a start point, 1st and 2nd control points, and an end point
-		var cosa  = Math.cos(alpha), sina  = Math.sin(alpha),
-			p2 = {x: cosa + (4 / 3) * (1 - cosa), y: sina - (4 / 3) * cosa * (1 - cosa) / sina};
-		return {
-			s:  {x: cosa, y: -sina},
-			c1: {x: p2.x, y: -p2.y},
-			c2: p2,
-			e:  {x: cosa, y: sina}
-		};
-	};
-
-	dojo.declare("dojox.gfx.Path", dojox.gfx.path.Path, {
-		// summary: a path shape (VML)
+	vml.Path = declare("dojox.gfx.vml.Path", [vml.Shape, pathLib.Path], {
+		// summary:
+		//		a path shape (VML)
 		constructor: function(rawNode){
 			if(rawNode && !rawNode.getAttribute("dojoGfxType")){
 				rawNode.setAttribute("dojoGfxType", "path");
@@ -652,25 +783,30 @@ dojo.require("dojox.gfx.arc");
 			this.lastControl = {};
 		},
 		_updateWithSegment: function(segment){
-			// summary: updates the bounding box of path with new segment
-			// segment: Object: a segment
-			var last = dojo.clone(this.last);
-			g.Path.superclass._updateWithSegment.apply(this, arguments);
+			// summary:
+			//		updates the bounding box of path with new segment
+			// segment: Object
+			//		a segment
+			var last = lang.clone(this.last);
+			this.inherited(arguments);
+			if(arguments.length > 1){ return; } // skip transfomed bbox calculations
 			// add a VML path segment
 			var path = this[this.renderers[segment.action]](segment, last);
 			if(typeof this.vmlPath == "string"){
 				this.vmlPath += path.join("");
 				this.rawNode.path.v = this.vmlPath + " r0,0 e";
 			}else{
-				Array.prototype.push.apply(this.vmlPath, path);
+				Array.prototype.push.apply(this.vmlPath, path); //FIXME: why not push()?
 			}
 		},
 		setShape: function(newShape){
-			// summary: forms a path using a shape (VML)
-			// newShape: Object: an VML path string or a path object (see dojox.gfx.defaultPath)
+			// summary:
+			//		forms a path using a shape (VML)
+			// newShape: Object
+			//		a VML path string or a path object (see dojox/gfx.defaultPath)
 			this.vmlPath = [];
 			this.lastControl.type = "";	// no prior control point
-			g.Path.superclass.setShape.apply(this, arguments);
+			this.inherited(arguments);
 			this.vmlPath = this.vmlPath.join("");
 			this.rawNode.path.v = this.vmlPath + " r0,0 e";
 			return this;
@@ -869,7 +1005,7 @@ dojo.require("dojox.gfx.arc");
 					x1 += last.x;
 					y1 += last.y;
 				}
-				var result = g.arc.arcAsBezier(
+				var result = arcLib.arcAsBezier(
 					last, n[i], n[i + 1], n[i + 2],
 					n[i + 3] ? 1 : 0, n[i + 4] ? 1 : 0,
 					x1, y1
@@ -878,6 +1014,9 @@ dojo.require("dojox.gfx.arc");
 					p.push(" c");
 					var t = result[j];
 					this._addArgs(p, t, 0, t.length);
+					this._updateBBox(t[0], t[1]);
+					this._updateBBox(t[2], t[3]);
+					this._updateBBox(t[4], t[5]);
 				}
 				last.x = x1;
 				last.y = y1;
@@ -890,29 +1029,32 @@ dojo.require("dojox.gfx.arc");
 			return ["x"];
 		}
 	});
-	g.Path.nodeType = "shape";
+	vml.Path.nodeType = "shape";
 
-	dojo.declare("dojox.gfx.TextPath", dojox.gfx.Path, {
-		// summary: a textpath shape (VML)
+	vml.TextPath = declare("dojox.gfx.vml.TextPath", [vml.Path, pathLib.TextPath], {
+		// summary:
+		//		a textpath shape (VML)
 		constructor: function(rawNode){
 			if(rawNode){rawNode.setAttribute("dojoGfxType", "textpath");}
 			this.fontStyle = null;
 			if(!("text" in this)){
-				this.text = dojo.clone(g.defaultTextPath);
+				this.text = lang.clone(g.defaultTextPath);
 			}
 			if(!("fontStyle" in this)){
-				this.fontStyle = dojo.clone(g.defaultFont);
+				this.fontStyle = lang.clone(g.defaultFont);
 			}
 		},
 		setText: function(newText){
-			// summary: sets a text to be drawn along the path
+			// summary:
+			//		sets a text to be drawn along the path
 			this.text = g.makeParameters(this.text,
 				typeof newText == "string" ? {text: newText} : newText);
 			this._setText();
 			return this;	// self
 		},
 		setFont: function(newFont){
-			// summary: sets a font for text
+			// summary:
+			//		sets a font for text
 			this.fontStyle = typeof newFont == "string" ?
 				g.splitFontString(newFont) :
 				g.makeParameters(g.defaultFont, newFont);
@@ -921,7 +1063,8 @@ dojo.require("dojox.gfx.arc");
 		},
 
 		_setText: function(){
-			// summary: sets a text shape object (VML)
+			// summary:
+			//		sets a text shape object (VML)
 			this.bbox = null;
 			var r = this.rawNode, s = this.text,
 				// find path and text path
@@ -954,7 +1097,8 @@ dojo.require("dojox.gfx.arc");
 			t.string = s.text;
 		},
 		_setFont: function(){
-			// summary: sets a font object (VML)
+			// summary:
+			//		sets a font object (VML)
 			var f = this.fontStyle, c = this.rawNode.childNodes;
 			for(var i = 0; i < c.length; ++i){
 				if(c[i].tagName == "textpath"){
@@ -964,17 +1108,25 @@ dojo.require("dojox.gfx.arc");
 			}
 		}
 	});
-	g.TextPath.nodeType = "shape";
+	vml.TextPath.nodeType = "shape";
 
-	dojo.declare("dojox.gfx.Surface", dojox.gfx.shape.Surface, {
-		// summary: a surface object to be used for drawings (VML)
+	vml.Surface = declare("dojox.gfx.vml.Surface", gs.Surface, {
+		// summary:
+		//		a surface object to be used for drawings (VML)
 		constructor: function(){
-			vml.Container._init.call(this);
+			gs.Container._init.call(this);
+		},
+		destroy: function(){
+			this.clear(true); 
+			this.inherited(arguments);
 		},
 		setDimensions: function(width, height){
-			// summary: sets the width and height of the rawNode
-			// width: String: width of surface, e.g., "100px"
-			// height: String: height of surface, e.g., "100px"
+			// summary:
+			//		sets the width and height of the rawNode
+			// width: String
+			//		width of surface, e.g., "100px"
+			// height: String
+			//		height of surface, e.g., "100px"
 			this.width  = g.normalizedLength(width);	// in pixels
 			this.height = g.normalizedLength(height);	// in pixels
 			if(!this.rawNode) return this;
@@ -998,7 +1150,8 @@ dojo.require("dojox.gfx.arc");
 			return this;	// self
 		},
 		getDimensions: function(){
-			// summary: returns an object with properties "width" and "height"
+			// summary:
+			//		returns an object with properties "width" and "height"
 			var t = this.rawNode ? {
 				width:  g.normalizedLength(this.rawNode.style.width),
 				height: g.normalizedLength(this.rawNode.style.height)} : null;
@@ -1008,20 +1161,36 @@ dojo.require("dojox.gfx.arc");
 		}
 	});
 
-	dojox.gfx.createSurface = function(parentNode, width, height){
-		// summary: creates a surface (VML)
-		// parentNode: Node: a parent node
-		// width: String: width of surface, e.g., "100px"
-		// height: String: height of surface, e.g., "100px"
+	vml.createSurface = function(parentNode, width, height){
+		// summary:
+		//		creates a surface (VML)
+		// parentNode: Node
+		//		a parent node
+		// width: String|Number
+		//		width of surface, e.g., "100px" or 100
+		// height: String|NUmber
+		//		height of surface, e.g., "100px" or 100
+		// returns:
+		//     newly created surface
 
-		if(!width){ width = "100%"; }
-		if(!height){ height = "100%"; }
-		var s = new g.Surface(), p = dojo.byId(parentNode),
+		if(!width && !height){
+			var pos = domGeom.position(parentNode);
+			width  = width  || pos.w;
+			height = height || pos.h;
+		}
+		if(typeof width == "number"){
+			width = width + "px";
+		}
+		if(typeof height == "number"){
+			height = height + "px";
+		}
+
+		var s = new vml.Surface(), p = dom.byId(parentNode),
 			c = s.clipNode = p.ownerDocument.createElement("div"),
 			r = s.rawNode = p.ownerDocument.createElement("v:group"),
 			cs = c.style, rs = r.style;
 
-		if(dojo.isIE > 7){
+		if(has("ie") > 7){
 			rs.display = "inline-block";
 		}
 
@@ -1034,12 +1203,12 @@ dojo.require("dojox.gfx.arc");
 		cs.position = "absolute";
 		cs.width  = width;
 		cs.height = height;
-		cs.clip = "rect(0px " + width + "px " + height + "px 0px)";
+		cs.clip = "rect(0px " + width + " " + height + " 0px)";
 		rs.position = "absolute";
 		rs.width  = width;
 		rs.height = height;
-		r.coordsize = (width == "100%" ? width : parseFloat(width)) + " " +
-			(height == "100%" ? height : parseFloat(height));
+		r.coordsize = (width === "100%" ? width : parseFloat(width)) + " " +
+			(height === "100%" ? height : parseFloat(height));
 		r.coordorigin = "0 0";
 
 		// create a background rectangle, which is required to show all other shapes
@@ -1056,49 +1225,78 @@ dojo.require("dojox.gfx.arc");
 		s.width  = g.normalizedLength(width);	// in pixels
 		s.height = g.normalizedLength(height);	// in pixels
 
-
-		return s;	// dojox.gfx.Surface
+		return s;	// dojox/gfx/shape.Surface
 	};
 
 	// Extenders
+	
+	// copied from dojox/gfx/utils
+	function forEach(object, f, o){
+		o = o || kernel.global;
+		f.call(o, object);
+		if(object instanceof g.Surface || object instanceof g.Group){
+			arr.forEach(object.children, function(shape){
+				forEach(shape, f, o);
+			});
+		}
+	}
 
-
-	vml.Container = {
-		_init: function(){
-			sh.Container._init.call(this);
-		},
-		add: function(shape){
-			// summary: adds a shape to a group/surface
-			// shape: dojox.gfx.Shape: an VML shape object
-			if(this != shape.getParent()){
-				this.rawNode.appendChild(shape.rawNode);
-				if(!shape.getParent()){
-					// reapply visual attributes
-					shape.setFill(shape.getFill());
-					shape.setStroke(shape.getStroke());
+	var addPatch9624 = function(shape){
+		if(this != shape.getParent()){
+			// cleanup from old parent
+			var oldParent = shape.getParent();
+			if(oldParent) { oldParent.remove(shape); }
+			// then move the raw node
+			this.rawNode.appendChild(shape.rawNode);
+			C.add.apply(this, arguments);
+			// reapply visual attributes (slow..)
+			forEach(this, function(s){
+				if (typeof(s.getFont) == 'function'){ // text shapes need to be completely refreshed
+					s.setShape(s.getShape());
+					s.setFont(s.getFont());
 				}
-				//dojox.gfx.Group.superclass.add.apply(this, arguments);
-				//this.inherited(arguments);
-				sh.Container.add.apply(this, arguments);
-			}
-			return this;	// self
-		},
+				if (typeof(s.setFill) == 'function'){ // if setFill is available a setStroke should be safe to assume also
+					s.setFill(s.getFill());
+					s.setStroke(s.getStroke());
+				}
+			});
+		}
+		return this;	// self
+	};
+	
+	var add15 = function(shape){
+		if(this != shape.getParent()){
+			this.rawNode.appendChild(shape.rawNode);
+			if(!shape.getParent()){ 
+				// reapply visual attributes 
+				shape.setFill(shape.getFill()); 
+				shape.setStroke(shape.getStroke()); 
+			} 
+			C.add.apply(this, arguments);
+		}
+		return this;	// self
+	};
+
+	var C = gs.Container, Container = {
+		add: config.fixVmlAdd === true ? addPatch9624 : add15,
 		remove: function(shape, silently){
-			// summary: remove a shape from a group/surface
-			// shape: dojox.gfx.Shape: an VML shape object
-			// silently: Boolean?: if true, regenerate a picture
+			// summary:
+			//		remove a shape from a group/surface
+			// shape: dojox/gfx/shape.Shape
+			//		a VML shape object
+			// silently: Boolean?
+			//		if true, regenerate a picture
 			if(this == shape.getParent()){
 				if(this.rawNode == shape.rawNode.parentNode){
 					this.rawNode.removeChild(shape.rawNode);
 				}
-				//dojox.gfx.Group.superclass.remove.apply(this, arguments);
-				//this.inherited(arguments);
-				sh.Container.remove.apply(this, arguments);
+				C.remove.apply(this, arguments);
 			}
 			return this;	// self
 		},
 		clear: function(){
-			// summary: removes all shapes from a group/surface
+			// summary:
+			//		removes all shapes from a group/surface
 			var r = this.rawNode;
 			while(r.firstChild != r.lastChild){
 				if(r.firstChild != this.bgNode){
@@ -1108,18 +1306,20 @@ dojo.require("dojox.gfx.arc");
 					r.removeChild(r.lastChild);
 				}
 			}
-			//return this.inherited(arguments);	// self
-			return sh.Container.clear.apply(this, arguments);
+			return C.clear.apply(this, arguments);
 		},
-		_moveChildToFront: sh.Container._moveChildToFront,
-		_moveChildToBack:  sh.Container._moveChildToBack
+		getBoundingBox: C.getBoundingBox,
+		_moveChildToFront: C._moveChildToFront,
+		_moveChildToBack:  C._moveChildToBack
 	};
 
-	dojo.mixin(sh.Creator, {
-		// summary: VML shape creators
+	var Creator = {
+		// summary:
+		//		VML shape creators
 		createGroup: function(){
-			// summary: creates a VML group shape
-			var node = this.createObject(g.Group, null);	// dojox.gfx.Group
+			// summary:
+			//		creates a VML group shape
+			var node = this.createObject(vml.Group, null);	// dojox/gfx.Group
 			// create a background rectangle, which is required to show all other shapes
 			var r = node.rawNode.ownerDocument.createElement("v:rect");
 			r.style.left = r.style.top = 0;
@@ -1128,13 +1328,15 @@ dojo.require("dojox.gfx.arc");
 			r.filled = r.stroked = "f";
 			node.rawNode.appendChild(r);
 			node.bgNode = r;
-			return node;	// dojox.gfx.Group
+			return node;	// dojox/gfx.Group
 		},
 		createImage: function(image){
-			// summary: creates a VML image shape
-			// image: Object: an image object (see dojox.gfx.defaultImage)
+			// summary:
+			//		creates a VML image shape
+			// image: Object
+			//		an image object (see dojox/gfx.defaultImage)
 			if(!this.rawNode) return null;
-			var shape = new g.Image(),
+			var shape = new vml.Image(),
 				doc = this.rawNode.ownerDocument,
 				node = doc.createElement('v:rect');
 			node.stroked = "f";
@@ -1146,46 +1348,52 @@ dojo.require("dojox.gfx.arc");
 			this.rawNode.appendChild(node);
 			shape.setShape(image);
 			this.add(shape);
-			return shape;	// dojox.gfx.Image
+			return shape;	// dojox/gfx/shape.Image
 		},
 		createRect: function(rect){
-			// summary: creates a rectangle shape
-			// rect: Object: a path object (see dojox.gfx.defaultRect)
+			// summary:
+			//		creates a rectangle shape
+			// rect: Object
+			//		a path object (see dojox/gfx.defaultRect)
 			if(!this.rawNode) return null;
-			var shape = new g.Rect,
+			var shape = new vml.Rect,
 				node = this.rawNode.ownerDocument.createElement("v:roundrect");
-			if(dojo.isIE > 7){
+			if(has("ie") > 7){
 				node.style.display = "inline-block";
 			}
 			shape.setRawNode(node);
 			this.rawNode.appendChild(node);
 			shape.setShape(rect);
 			this.add(shape);
-			return shape;	// dojox.gfx.Rect
+			return shape;	// dojox/gfx.Rect
 		},
 		createObject: function(shapeType, rawShape) {
-			// summary: creates an instance of the passed shapeType class
-			// shapeType: Function: a class constructor to create an instance of
-			// rawShape: Object: properties to be passed in to the classes "setShape" method
-			// overrideSize: Boolean: set the size explicitly, if true
+			// summary:
+			//		creates an instance of the passed shapeType class
+			// shapeType: Function
+			//		a class constructor to create an instance of
+			// rawShape: Object
+			//		properties to be passed in to the classes "setShape" method
+			// overrideSize: Boolean
+			//		set the size explicitly, if true
 			if(!this.rawNode) return null;
 			var shape = new shapeType(),
 				node = this.rawNode.ownerDocument.createElement('v:' + shapeType.nodeType);
 			shape.setRawNode(node);
 			this.rawNode.appendChild(node);
 			switch(shapeType){
-				case g.Group:
-				case g.Line:
-				case g.Polyline:
-				case g.Image:
-				case g.Text:
-				case g.Path:
-				case g.TextPath:
+				case vml.Group:
+				case vml.Line:
+				case vml.Polyline:
+				case vml.Image:
+				case vml.Text:
+				case vml.Path:
+				case vml.TextPath:
 					this._overrideSize(node);
 			}
 			shape.setShape(rawShape);
 			this.add(shape);
-			return shape;	// dojox.gfx.Shape
+			return shape;	// dojox/gfx/shape.Shape
 		},
 		_overrideSize: function(node){
 			var s = this.rawNode.style, w = s.width, h = s.height;
@@ -1193,14 +1401,30 @@ dojo.require("dojox.gfx.arc");
 			node.style.height = h;
 			node.coordsize = parseInt(w) + " " + parseInt(h);
 		}
-	});
+	};
 
-	dojo.extend(g.Group, vml.Container);
-	dojo.extend(g.Group, sh.Creator);
+	lang.extend(vml.Group, Container);
+	lang.extend(vml.Group, gs.Creator);
+	lang.extend(vml.Group, Creator);
 
-	dojo.extend(g.Surface, vml.Container);
-	dojo.extend(g.Surface, sh.Creator);
+	lang.extend(vml.Surface, Container);
+	lang.extend(vml.Surface, gs.Creator);
+	lang.extend(vml.Surface, Creator);
 
-})();
-
-}
+	// Mouse/Touch event
+	vml.fixTarget = function(event, gfxElement){
+		// summary:
+		//		Adds the gfxElement to event.gfxTarget if none exists. This new
+		//		property will carry the GFX element associated with this event.
+		// event: Object 
+		//		The current input event (MouseEvent or TouchEvent)
+		// gfxElement: Object
+		//		The GFX target element
+		if (!event.gfxTarget) {
+			event.gfxTarget = gs.byId(event.target.__gfxObject__);
+		}
+		return true;
+	};
+	
+	return vml;
+});

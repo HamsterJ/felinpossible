@@ -1,17 +1,8 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/data/ClientFilter", ["dojo/_base/declare", "dojo/_base/lang", "dojo/_base/array", "dojo/_base/Deferred", "dojo/data/util/filter"], 
+  function(declare, lang, array, Deferred, filter) {
 
+// This is an abstract data store module for adding updatable result set functionality to an existing data store class
 
-if(!dojo._hasResource["dojox.data.ClientFilter"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.data.ClientFilter"] = true;
-dojo.provide("dojox.data.ClientFilter");
-dojo.require("dojo.data.util.filter"); 
-// This is an abstract data store module for adding updateable result set functionality to an existing data store class
-(function(){
-	var cf;
 	var addUpdate = function(store,create,remove){
 		// create a handler that adds to the list of notifications
 		return function(item){
@@ -19,42 +10,41 @@ dojo.require("dojo.data.util.filter");
 					create:create && item,
 					remove:remove && item
 				});
-			cf.onUpdate();
+			ClientFilter.onUpdate();
 		}
 	};
-	cf = dojo.declare("dojox.data.ClientFilter",
-		null,
-		{
+	var ClientFilter = declare("dojox.data.ClientFilter", null, {
+			cacheByDefault: false,
 			constructor: function(){
 				// summary:
 				//		This is an abstract class that data stores can extend to add updateable result set functionality
-				// 		as well as client side querying capabilities. This enables
+				//		as well as client side querying capabilities. This enables
 				//		widgets to be aware of how active results change in response to the modifications/notifications.
-				//
-				//	description:
+				// description:
 				//		To a update a result set after a notification (onNew, onSet, and onDelete),
-				// 		widgets can call the updateResultSet method. Widgets can use the updated
+				//		widgets can call the updateResultSet method. Widgets can use the updated
 				//		result sets to determine how to react to notifications, and how to update their displayed results
 				//		based on changes.
 				//
-				// 		This module will use the best available information to update result sets, using query attribute
-				// 		objects to determine if items are in a result set, and using the sort arrays to maintain sort
-				// 		information. However, queries can be opaque strings, and this module can not update
-				// 		results by itself in this case. In this situations, data stores can provide a isUpdateable(request) function
-				// 		and matchesQuery(item,request) function. If a data store can handle a query, it can return true from
-				// 		isUpdateable and if an item matches a query, it can return true from matchesQuery. Here is 
-				//		definition of isUpdateable and matchesQuery
-				// 		isUpdateable(request)  - request is the keywords arguments as is passed to the fetch function.
-				// 		matchesQuery(item,request) - item is the item to test, and request is the value arguments object
-				//				for the fetch function.
+				//		This module will use the best available information to update result sets, using query attribute
+				//		objects to determine if items are in a result set, and using the sort arrays to maintain sort
+				//		information. However, queries can be opaque strings, and this module can not update
+				//		results by itself in this case. In this situations, data stores can provide a isUpdateable(request) function
+				//		and matchesQuery(item,request) function. If a data store can handle a query, it can return true from
+				//		isUpdateable and if an item matches a query, it can return true from matchesQuery. Here is
+				//		definition of isUpdateable and matchesQuery:
 				//
-				//		You can define a property on this object instance "cacheByDefault" to a value of true that will 
-				// 		cause all queries to be cached by default unless the cache queryOption is explicitly set to false.
-				// 		This can be defined in the constructor options for ServiceStore/JsonRestStore and subtypes. 
+				//		- isUpdateable(request)  - request is the keywords arguments as is passed to the fetch function.
+				//		- matchesQuery(item,request) - item is the item to test, and request is the value arguments object
+				//		for the fetch function.
+				//
+				//		You can define a property on this object instance "cacheByDefault" to a value of true that will
+				//		cause all queries to be cached by default unless the cache queryOption is explicitly set to false.
+				//		This can be defined in the constructor options for ServiceStore/JsonRestStore and subtypes.
 				//
 				// example:
 				//		to make a updated-result-set data store from an existing data store:
-				//	|	dojo.declare("dojox.data.MyLiveDataStore",
+				//	|	declare("dojox.data.MyLiveDataStore",
 				//	|		dojox.data.MyDataStore,dojox.data.ClientFilter], // subclass LiveResultSets if available
 				//	|		{}
 				//	|	);
@@ -62,38 +52,44 @@ dojo.require("dojo.data.util.filter");
 				this.onNew = addUpdate(this,true,false);
 				this.onDelete = addUpdate(this,false,true);
 				this._updates= [];
-				this._fetchCache = [];				
+				this._fetchCache = [];
+			},
+			clearCache: function(){
+				// summary:
+				//		Clears the cache of client side queries
+				this._fetchCache = [];
 			},
 			updateResultSet: function(/*Array*/ resultSet, /*Object*/ request){
-				//	summary:
+				// summary:
 				//		Attempts to update the given result set based on previous notifications
-				//	resultSet:				
+				// resultSet:
 				//		The result set array that should be updated
-				//	request:
-				//		This object follows the same meaning as the keywordArgs passed to a dojo.data.api.Read.fetch.
-				//	description:
-				// 		This will attempt to update the provide result based on previous notification, adding new items 
-				// 		from onNew calls, removing deleted items, and updating modified items, and properly removing
-				//  	and adding items as required by the query and sort parameters. This function will return:
-				//		0: Indicates it could not successfully update the result set
-				//		1: Indicates it could successfully handle all the notifications, but no changes were made to the result set
-				//		2: Indicates it successfully handled all the notifications and result set has been updated.
+				// request:
+				//		This object follows the same meaning as the keywordArgs passed to a dojo/data/api/Read.fetch.
+				// description:
+				//		This will attempt to update the provide result based on previous notification, adding new items
+				//		from onNew calls, removing deleted items, and updating modified items, and properly removing
+				//		and adding items as required by the query and sort parameters.
+				// returns:
+				//		- 0: Indicates it could not successfully update the result set
+				//		- 1: Indicates it could successfully handle all the notifications, but no changes were made to the result set
+				//		- 2: Indicates it successfully handled all the notifications and result set has been updated.
 				if(this.isUpdateable(request)){
-					// we try to avoid rerunning notification updates more than once on the same object for performance 
+					// we try to avoid rerunning notification updates more than once on the same object for performance
 					for(var i = request._version || 0; i < this._updates.length;i++){
 						// for each notification,we will update the result set
 						var create = this._updates[i].create;
 						var remove = this._updates[i].remove;
 						if(remove){
 							for(var j = 0; j < resultSet.length;j++){
-								if(resultSet[j]==remove){
+								if(this.getIdentity(resultSet[j]) == this.getIdentity(remove)){
 									resultSet.splice(j--,1);
 									var updated = true;
 								}
 							}
 						}
-						if(create && this.matchesQuery(create,request) && // if there is a new/replacement item and it matches the query 
-								dojo.indexOf(resultSet,create) == -1){ // and it doesn't already exist in query
+						if(create && this.matchesQuery(create,request) && // if there is a new/replacement item and it matches the query
+								array.indexOf(resultSet,create) == -1){ // and it doesn't already exist in query
 							resultSet.push(create); // should this go at the beginning by default instead?
 							updated = true;
 						}
@@ -102,10 +98,11 @@ dojo.require("dojo.data.util.filter");
 						// do the sort if needed
 						resultSet.sort(this.makeComparator(request.sort.concat()));
 					}
-					if(request.count && updated){
+					resultSet._fullLength = resultSet.length;
+					if(request.count && updated && request.count !== Infinity){
 						// do we really need to do this?
 						// make sure we still find within the defined paging set
-						resultSet.splice(request.count,resultSet.length);
+						resultSet.splice(request.count, resultSet.length);
 					}
 					request._version = this._updates.length;
 					return updated ? 2 : 1;
@@ -113,12 +110,12 @@ dojo.require("dojo.data.util.filter");
 				return 0;
 			},
 			querySuperSet: function(argsSuper, argsSub){
-				//	summary:
+				// summary:
 				//		Determines whether the provided arguments are super/sub sets of each other
 				// argsSuper:
-				// 		Dojo Data Fetch arguments 
+				//		Dojo Data Fetch arguments
 				// argsSub:
-				// 		Dojo Data Fetch arguments
+				//		Dojo Data Fetch arguments
 				if(argsSuper.query == argsSub.query){
 					return {};
 				}
@@ -127,14 +124,14 @@ dojo.require("dojo.data.util.filter");
 						(!argsSuper.query || typeof argsSuper.query == 'object'))){
 					return false;
 				}
-				var clientQuery = dojo.mixin({},argsSub.query);
+				var clientQuery = lang.mixin({},argsSub.query);
 				for(var i in argsSuper.query){
 					if(clientQuery[i] == argsSuper.query[i]){
 						delete clientQuery[i];
-					}else if(!(typeof argsSuper.query[i] == 'string' && 
-							// if it is a pattern, we can test to see if it is a sub-pattern 
+					}else if(!(typeof argsSuper.query[i] == 'string' &&
+							// if it is a pattern, we can test to see if it is a sub-pattern
 							// FIXME: This is not technically correct, but it will work for the majority of cases
-							dojo.data.util.filter.patternToRegExp(argsSuper.query[i]).test(clientQuery[i]))){  
+							filter.patternToRegExp(argsSuper.query[i]).test(clientQuery[i]))){
 						return false;
 					}
 				}
@@ -152,33 +149,40 @@ dojo.require("dojo.data.util.filter");
 					if(clientQuery !== false){
 						var defResult = cachedArgs._loading;
 						if(!defResult){
-							defResult = new dojo.Deferred();
+							defResult = new Deferred();
 							defResult.callback(cachedArgs.cacheResults);
 						}
 						defResult.addCallback(function(results){
-							results = self.clientSideFetch({query:clientQuery,sort:args.sort,start:args.start,count:args.count}, results);
+							results = self.clientSideFetch(lang.mixin(lang.mixin({}, args),{query:clientQuery}), results);
 							defResult.fullLength = results._fullLength;
 							return results;
 						});
+						args._version = cachedArgs._version;
+						break;
 					}
 				}
 				if(!defResult){
-					var serverArgs = dojo.mixin({}, args);
+					var serverArgs = lang.mixin({}, args);
 					var putInCache = (args.queryOptions || 0).cache;
+					var fetchCache = this._fetchCache;
 					if(putInCache === undefined ? this.cacheByDefault : putInCache){
 						// we are caching this request, so we want to get all the data, and page on the client side
 						if(args.start || args.count){
 							delete serverArgs.start;
 							delete serverArgs.count;
-							args.clientQuery = dojo.mixin(args.clientQuery || {}, {
+							args.clientQuery = lang.mixin(args.clientQuery || {}, {
 								start: args.start,
 								count: args.count
 							});
 						}
 						args = serverArgs;
-						this._fetchCache.push(args);
+						fetchCache.push(args);
 					}
 					defResult= args._loading = this._doQuery(args);
+
+					defResult.addErrback(function(){
+						fetchCache.splice(array.indexOf(fetchCache, args), 1);
+					});
 				}
 				var version = this.serverVersion;
 				
@@ -186,31 +190,35 @@ dojo.require("dojo.data.util.filter");
 					delete args._loading;
 					// update the result set in case anything changed while we were waiting for the fetch
 					if(results){
-						args._version = version;
+						args._version = typeof args._version == "number" ? args._version : version;
 						self.updateResultSet(results,args);
 						args.cacheResults = results;
+						if(!args.count || results.length < args.count){
+							defResult.fullLength = ((args.start)?args.start:0) + results.length;
+						}
 					}
 					return results;
 				});
 				return defResult;
 			},
 			isUpdateable: function(/*Object*/ request){
-				//	summary:
+				// summary:
 				//		Returns whether the provide fetch arguments can be used to update an existing list
-				//	request:
-				//		See dojo.data.api.Read.fetch request
+				// request:
+				//		See dojo/data/api/Read.fetch request
 				
-				return typeof request.query == "object";
+				return !request.query || typeof request.query == "object";
 			},
 			clientSideFetch: function(/*Object*/ request,/*Array*/ baseResults){
 				// summary:
 				//		Performs a query on the client side and returns the results as an array
-				//
-				//	request:
-				//		See dojo.data.api.Read.fetch request
-				//		
-				//	baseResults:
+				// request:
+				//		See dojo/data/api/Read.fetch request
+				// baseResults:
 				//		This provides the result set to start with for client side querying
+				if(request.queryOptions && request.queryOptions.results){
+					baseResults = request.queryOptions.results;
+				}
 				if(request.query){
 					// filter by the query
 					var results = [];
@@ -233,32 +241,34 @@ dojo.require("dojo.data.util.filter");
 				var start = request.start || 0;
 				var finalResults = (start || request.count) ? baseResults.slice(start,start + (request.count || baseResults.length)) : baseResults;
 				finalResults._fullLength = baseResults.length;
-				return finalResults; 
+				return finalResults;
 			},
 			matchesQuery: function(item,request){
-				var query = request.query; 
+				var query = request.query;
 				var ignoreCase = request.queryOptions && request.queryOptions.ignoreCase;
 				for(var i in query){
 					// if anything doesn't match, than this should be in the query
 					var match = query[i];
 					var value = this.getValue(item,i);
 					if((typeof match == 'string' && (match.match(/[\*\.]/) || ignoreCase)) ?
-						!dojo.data.util.filter.patternToRegExp(match, ignoreCase).test(value) :
-						value != match){	  
+						!filter.patternToRegExp(match, ignoreCase).test(value) :
+						value != match){
 						return false;
 					}
 				}
 				return true;
 			},
 			makeComparator: function(sort){
-				//	summary:
-				// 		returns a comparator function for the given sort order array
-				//	sort:
+				// summary:
+				//		returns a comparator function for the given sort order array
+				// sort:
 				//		See dojox.data.api.Read.fetch
 				var current = sort.shift();
 				if(!current){
 					// sort order for ties and no sort orders
-					return function(){}; // keep the order unchanged
+					return function(){
+						return 0;// keep the order unchanged
+					};
 				}
 				var attribute = current.attribute;
 				var descending = !!current.descending;
@@ -270,12 +280,12 @@ dojo.require("dojo.data.util.filter");
 					if(av != bv){
 						return av < bv == descending ? 1 : -1;
 					}
-					return next(a,b); 
-				}; 
+					return next(a,b);
+				};
 			}
 		}
 	);
-	cf.onUpdate = function(){};
-})();
+	ClientFilter.onUpdate = function(){};
 
-}
+	return ClientFilter;
+});

@@ -1,1 +1,8 @@
-({"buttonOk":"אישור","buttonCancel":"ביטול","buttonSave":"שמירה","itemClose":"סגירה"})
+define(
+"dijit/nls/he/common", ({
+	buttonOk: "אישור",
+	buttonCancel: "ביטול",
+	buttonSave: "שמירה",
+	itemClose: "סגירה"
+})
+);

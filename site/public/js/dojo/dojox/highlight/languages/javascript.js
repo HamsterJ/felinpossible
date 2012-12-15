@@ -1,18 +1,6 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/highlight/languages/javascript", ["../_base"], function(dh){
 
-
-if(!dojo._hasResource["dojox.highlight.languages.javascript"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.highlight.languages.javascript"] = true;
-dojo.provide("dojox.highlight.languages.javascript");
-
-dojo.require("dojox.highlight._base");
-
-(function(){
-	var dh = dojox.highlight, dhc = dh.constants;
+	var dhc = dh.constants;
 	dh.languages.javascript = {
 		defaultMode: {
 			lexems: [dhc.UNDERSCORE_IDENT_RE],
@@ -57,6 +45,6 @@ dojo.require("dojox.highlight._base");
 			}
 		]
 	};
-})();
 
-}
+	return dh.languages.javascript;
+});

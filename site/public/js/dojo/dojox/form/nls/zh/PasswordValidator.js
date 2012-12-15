@@ -1,1 +1,6 @@
-({"badPasswordMessage":"密码无效。","nomatchMessage":"密码不匹配。"})
+define(
+"dojox/form/nls/zh/PasswordValidator", ({
+        nomatchMessage: "密码不匹配。",
+	badPasswordMessage: "密码无效。"
+})
+);

@@ -1,22 +1,16 @@
-/*
-	Copyright (c) 2004-2009, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define("dojox/dtl/contrib/data", [
+	"dojo/_base/kernel",
+	"dojo/_base/lang",
+	"../_base",
+	"dojo/_base/array"
+], function(kernel,lang,dd,array){
 
+	lang.getObject("dojox.dtl.contrib.data", true);
 
-if(!dojo._hasResource["dojox.dtl.contrib.data"]){ //_hasResource checks added by build. Do not use _hasResource directly in your code.
-dojo._hasResource["dojox.dtl.contrib.data"] = true;
-dojo.provide("dojox.dtl.contrib.data");
-dojo.require("dojox.dtl._base");
-
-(function(){
-	var dd = dojox.dtl;
 	var ddcd = dd.contrib.data;
-
 	var first = true;
 
-	ddcd._BoundItem = dojo.extend(function(item, store){
+	ddcd._BoundItem = lang.extend(function(item, store){
 		this.item = item;
 		this.store = store;
 	},
@@ -39,7 +33,7 @@ dojo.require("dojox.dtl._base");
 					if(key.slice(-1) == "s"){
 						if(first){
 							first = false;
-							dojo.deprecated("You no longer need an extra s to call getValues, it can be figured out automatically");
+							kernel.deprecated("You no longer need an extra s to call getValues, it can be figured out automatically");
 						}
 						key = key.slice(0, -1);
 					}
@@ -52,12 +46,12 @@ dojo.require("dojox.dtl._base");
 				if(!values){
 					return;
 				}
-				if(!dojo.isArray(values)){
+				if(!lang.isArray(values)){
 					return new ddcd._BoundItem(values, store);
 				}
 
-				values = dojo.map(values, function(value){
-					if(dojo.isObject(value) && store.isItem(value)){
+				values = array.map(values, function(value){
+					if(lang.isObject(value) && store.isItem(value)){
 						return new ddcd._BoundItem(value, store);
 					}
 					return value;
@@ -69,7 +63,7 @@ dojo.require("dojox.dtl._base");
 	});
 	ddcd._BoundItem.prototype.get.safe = true;
 
-	ddcd.BindDataNode = dojo.extend(function(items, query, store, alias){
+	ddcd.BindDataNode = lang.extend(function(items, query, store, alias){
 		this.items = items && new dd._Filter(items);
 		this.query = query && new dd._Filter(query);
 		this.store = new dd._Filter(store);
@@ -121,17 +115,18 @@ dojo.require("dojox.dtl._base");
 		}
 	});
 
-	dojo.mixin(ddcd, {
+	lang.mixin(ddcd, {
 		_get: function(key){
 			if(this.length){
 				return (this[0] instanceof ddcd._BoundItem) ? this[0].get(key) : this[0][key];
 			}
 		},
 		bind_data: function(parser, token){
-			// summary: Turns a list of data store items into DTL compatible items
+			// summary:
+			//		Turns a list of data store items into DTL compatible items
 			// example:
-			//	`contextItems` and `contextStore` should be an item list
-			//	and a data store that get assigned to `newVariable`
+			//		`contextItems` and `contextStore` should be an item list
+			//		and a data store that get assigned to `newVariable`
 			//
 			//	|	{% bind_data contextItems to contextStore as newVariable %}
 			var parts = token.contents.split();
@@ -143,12 +138,13 @@ dojo.require("dojox.dtl._base");
 			return new ddcd.BindDataNode(parts[1], null, parts[3], parts[5]);
 		},
 		bind_query: function(parser, token){
-			// summary: Queries a data store and makes the returned items DTL compatible
+			// summary:
+			//		Queries a data store and makes the returned items DTL compatible
 			// example:
-			//	You can only use this with data stores that work in a synchronous
-			//	way (meaning that `onComplete` is fired during the `fetch` call).
-			//	A `sync` flag is sent to the fetch call so that stores that usually
-			//	work asynchronously make themselves syncrhonous if possible.
+			//		You can only use this with data stores that work in a synchronous
+			//		way (meaning that `onComplete` is fired during the `fetch` call).
+			//		A `sync` flag is sent to the fetch call so that stores that usually
+			//		work asynchronously make themselves syncrhonous if possible.
 			//	|	{% bind_query contextQuery to contextStore as newVariable %}
 			var parts = token.contents.split();
 
@@ -164,6 +160,5 @@ dojo.require("dojox.dtl._base");
 	dd.register.tags("dojox.dtl.contrib", {
 		"data": ["bind_data", "bind_query"]
 	});
-})();
-
-}
+	return dojox.dtl.contrib.data;
+});
