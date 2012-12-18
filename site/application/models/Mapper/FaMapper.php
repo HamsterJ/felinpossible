@@ -13,75 +13,80 @@ class FP_Model_Mapper_FaMapper extends FP_Model_Mapper_CommonMapper {
 	protected $idClassName = 'Fa';
 
 	protected $mappingDbToModel = array(
-	                 'id' => 'id',
-                     'nom' => 'nom',
-	                 'prenom' => 'prenom',
-	                 'adresse' => 'adresse',
-	                 'cp' => 'codePostal',
-	                 'ville' => 'ville',
-	                 'fixe' => 'telephoneFixe',
-	                 'portable' => 'telephonePortable',
-	                 'email' => 'email',
-	                 'idLogement' => 'idLogement',
-	                 'idDependance' => 'idDependance',
-	                 'chatiere' => 'hasChatiere',
-	                 'etage' => 'etage',
-	                 'personnes' => 'nbPersonnes',
-	                 'enfants' => 'nbEnfants',
-	                 'enfantsAge' => 'enfantsAge',
-	                 'animaux' => 'animauxAutres',
-	                 'chats' => 'chats',
-	                 'motivations' => 'motivations',
-	                 'securFenetre' => 'isSecurFenetres',
-	                 'survFenetre' => 'isSurvFenetres',
-	                 'veto' => 'contacterVeto',
-	                 'contact' => 'contacterAssociation',
-	                 'patience' => 'patienceAvecChat',
-	                 'jouer' => 'jouerAvecChat',
-	                 'croquette' => 'fournirCroquettes',
-	                 'mere' => 'accueillirMere',
-	                 'biberon' => 'biberonnerChatons',
-	                 'chatons' => 'accueillirChatons',
-	                 'fiv' => 'accueillirChatFiv',
-	                 'felv' => 'accueillirChatFelv',
-	                 'soins' => 'donnerSoins',
-	'quarantaine' => 'mettreChatQuarantaine',
-	'isoler' => 'isolerChat',
-	'idStatut' => 'statutId',
-	'notes' => 'notes',
-	'login' => 'login',
-	'dateSubmit' => 'dateSubmit',
-	'superficie' => 'superficie',
-	'dateContratFa' => 'dateContratFa'
-	);
-	
-	protected $filterKeyToDbKey = array('nom' => 'fa.nom',
+		'id' => 'id',
+		'nom' => 'nom',
+		'prenom' => 'prenom',
+		'adresse' => 'adresse',
+		'cp' => 'codePostal',
+		'ville' => 'ville',
+		'fixe' => 'telephoneFixe',
+		'portable' => 'telephonePortable',
+		'email' => 'email',
+		'idLogement' => 'idLogement',
+		'idDependance' => 'idDependance',
+		'chatiere' => 'hasChatiere',
+		'etage' => 'etage',
+		'personnes' => 'nbPersonnes',
+		'enfants' => 'nbEnfants',
+		'enfantsAge' => 'enfantsAge',
+		'animaux' => 'animauxAutres',
+		'chats' => 'chats',
+		'motivations' => 'motivations',
+		'securFenetre' => 'isSecurFenetres',
+		'survFenetre' => 'isSurvFenetres',
+		'veto' => 'contacterVeto',
+		'contact' => 'contacterAssociation',
+		'patience' => 'patienceAvecChat',
+		'jouer' => 'jouerAvecChat',
+		'croquette' => 'fournirCroquettes',
+		'mere' => 'accueillirMere',
+		'biberon' => 'biberonnerChatons',
+		'chatons' => 'accueillirChatons',
+		'fiv' => 'accueillirChatFiv',
+		'felv' => 'accueillirChatFelv',
+		'soins' => 'donnerSoins',
+		'quarantaine' => 'mettreChatQuarantaine',
+		'isoler' => 'isolerChat',
+		'idStatut' => 'statutId',
+		'notes' => 'notes',
+		'login' => 'login',
+		'dateSubmit' => 'dateSubmit',
+		'superficie' => 'superficie',
+		'dateContratFa' => 'dateContratFa'
+		);
+
+protected $filterKeyToDbKey = array('nom' => 'fa.nom',
 	'login' => 'fa.login',
 	'prenom' => 'fa.prenom',
 	'statut' => 'fa.idStatut',
 	'dateContratFa' => 'fa.dateContratFa');
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see site/application/models/Mapper/FP_Model_Mapper_CommonMapper#fetchAllToArray($sort, $order, $start, $count, $where)
 	 */
 	public function fetchAllToArray($sort, $order, $start, $count, $where = null)
 	{
-		$select = $this->getDbTable()->getAdapter()->select()
+		$subSelect = $this->getDbTable()->getAdapter()->select()
 		->from(array('fa' => 'fp_fa_fiche'))
 		->joinLeft(array('facat' => 'fp_fa_cat'), 'fa.id = facat.idFa or facat.idFa = null', array())
 		->joinLeft(array('cat' => 'fp_cat_fiche'), 'cat.id = facat.idChat or facat.idChat = null', array('chatsAccueil' => 'GROUP_CONCAT(cat.nom SEPARATOR \', \')'))
 		->join(array('st' => 'fp_fa_statut'), 'fa.idStatut = st.id', array('statutLib' => 'st.nom'))
 		->group('fa.id');
 
-		if ($count && $start) {
-		    $select->limit($count, $start);
-		}
 		if ($sort && $order) {
-			$select->order($sort." ".$order);
+			$subSelect->order($sort." ".$order);
 		}
 		if ($where) {
-			$select->where($where);
+			$subSelect->where($where);
+		}
+
+		if ($count != null && $start != null) {
+			$select = $this->getDbTable()->getAdapter()->select()
+			->from(array('subselect' => $subSelect))
+			->limit($count, $start);
+		} else {
+			$select = $subSelect;
 		}
 
 		$stmt = $select->query();
@@ -95,24 +100,24 @@ class FP_Model_Mapper_FaMapper extends FP_Model_Mapper_CommonMapper {
 	public function fetchAllToArrayForExport($where = null)
 	{
 		$columnsToExport = array('Identifiant' => 'fa.id',
-		'Nom' => 'fa.nom',
-		'Prénom' => 'fa.prenom',
-		'Statut' => 'st.nom',
-		'Date réception contrat FA' => 'fa.dateContratFa',
-		'Login' => 'login',
-		'Chats en accueil' => 'GROUP_CONCAT(cat.nom SEPARATOR \', \')',
-		'FIV' => 'ELT(fa.fiv + 1, \'Non\', \'Oui\')',
-		'FELV' => 'ELT(fa.felv + 1, \'Non\', \'Oui\')',
-		'Quarantaine' => 'ELT(fa.quarantaine + 1, \'Non\', \'Oui\')',
-		'Notes' => 'notes',
-		'Animmaux' => 'animaux',
-		'Chats' => 'chats',
-		'Code Postal' => 'fa.cp',
-		'Ville' => 'fa.ville',
-		'Tél. portable' => 'fa.portable',
-		'Tél. fixe' => 'fa.fixe',
-		'Email' => 'email'
-		);
+			'Nom' => 'fa.nom',
+			'Prénom' => 'fa.prenom',
+			'Statut' => 'st.nom',
+			'Date réception contrat FA' => 'fa.dateContratFa',
+			'Login' => 'login',
+			'Chats en accueil' => 'GROUP_CONCAT(cat.nom SEPARATOR \', \')',
+			'FIV' => 'ELT(fa.fiv + 1, \'Non\', \'Oui\')',
+			'FELV' => 'ELT(fa.felv + 1, \'Non\', \'Oui\')',
+			'Quarantaine' => 'ELT(fa.quarantaine + 1, \'Non\', \'Oui\')',
+			'Notes' => 'notes',
+			'Animmaux' => 'animaux',
+			'Chats' => 'chats',
+			'Code Postal' => 'fa.cp',
+			'Ville' => 'fa.ville',
+			'Tél. portable' => 'fa.portable',
+			'Tél. fixe' => 'fa.fixe',
+			'Email' => 'email'
+			);
 		
 		$select = $this->getDbTable()->getAdapter()->select()
 		->from(array('fa' => 'fp_fa_fiche'), $columnsToExport)

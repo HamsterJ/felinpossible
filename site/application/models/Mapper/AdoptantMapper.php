@@ -79,20 +79,25 @@ class FP_Model_Mapper_AdoptantMapper extends FP_Model_Mapper_CommonMapper {
 	 */
 	public function fetchAllToArray($sort, $order, $start, $count, $where = null)
 	{
-		$select = $this->getDbTable()->getAdapter()->select()
+		$subSelect = $this->getDbTable()->getAdapter()->select()
 		->from('fp_ad_fiche')
 		->joinLeft(array('adcat' => 'fp_ad_cat'), 'fp_ad_fiche.id = adcat.idAd or adcat.idAd = null', array())
 		->joinLeft(array('cat' => 'fp_cat_fiche'), 'cat.id = adcat.idChat or adcat.idChat = null', array('chatsAdoptes' => 'GROUP_CONCAT(cat.nom SEPARATOR \', \')'))
 		->group('fp_ad_fiche.id');
 
-		if ($count && $start) {
-			$select->limit($count, $start);
-		}
 		if ($sort && $order) {
-			$select->order($sort." ".$order);
+			$subSelect->order($sort." ".$order);
 		}
 		if ($where) {
-			$select->where($where);
+			$subSelect->where($where);
+		}
+
+		if ($count != null && $start != null) {
+			$select = $this->getDbTable()->getAdapter()->select()
+			->from(array('subselect' => $subSelect))
+			->limit($count, $start);
+		} else {
+			$select = $subSelect;
 		}
 
 		$stmt = $select->query();

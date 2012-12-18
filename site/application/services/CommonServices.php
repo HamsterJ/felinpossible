@@ -119,43 +119,42 @@ abstract class FP_Service_CommonServices {
 		foreach ($param as $key => $value ) {
 			switch ($key) {
 				case FP_Util_TriUtil::SORT_KEY :
-					$paramSort = FP_Util_TriUtil::computeSortParam($param[FP_Util_TriUtil::SORT_KEY]);
-					$sort = $paramSort[FP_Util_TriUtil::SORT_KEY];
-					$order = $paramSort[FP_Util_TriUtil::ORDER_KEY];
-					break;
+				$paramSort = FP_Util_TriUtil::computeSortParam($param[FP_Util_TriUtil::SORT_KEY]);
+				$sort = $paramSort[FP_Util_TriUtil::SORT_KEY];
+				$order = $paramSort[FP_Util_TriUtil::ORDER_KEY];
+				break;
 				case FP_Util_Constantes::WHERE_KEY :
-					$where = $mapper->getWhereClause($param[FP_Util_Constantes::WHERE_KEY]);
-					break;
+				$where = $mapper->getWhereClause($param[FP_Util_Constantes::WHERE_KEY]);
+				break;
 				case FP_Util_TriUtil::COUNT_KEY :
-					$count = $param[FP_Util_TriUtil::COUNT_KEY];
-					break;
+				$count = $param[FP_Util_TriUtil::COUNT_KEY];
+				break;
 				case FP_Util_TriUtil::START_KEY :
-					$start = $param[FP_Util_TriUtil::START_KEY];
-					break;
+				$start = $param[FP_Util_TriUtil::START_KEY];
+				break;
 				default :
-					$filterKeyToDbKey = $mapper->getFilterKeyToDbKey();
-					if (array_key_exists($key, $filterKeyToDbKey) && $value != '') {
-						$dbKey = $filterKeyToDbKey[$key];
-						if ($where) {
-							$where .= " and ";
-						} else {
-							$where = '';
-						}
-						
-						if ($value != 'is null') {
-							$pattern = addslashes($value);
-							$where .= " $dbKey like '$pattern%' ";
-						} else {
-							$where .= " $dbKey is null ";	
-						}
+				$filterKeyToDbKey = $mapper->getFilterKeyToDbKey();
+				if (array_key_exists($key, $filterKeyToDbKey) && $value != '') {
+					$dbKey = $filterKeyToDbKey[$key];
+					if ($where) {
+						$where .= " and ";
+					} else {
+						$where = '';
 					}
-					break;
+
+					if ($value != 'is null') {
+						$pattern = addslashes($value);
+						$where .= " $dbKey like '$pattern%' ";
+					} else {
+						$where .= " $dbKey is null ";	
+					}
+				}
+				break;
 			}
 		}
-
+		
 		$data = $mapper->fetchAllToArray($sort, $order, $start, $count, $where);
 		$nbElts = $mapper->count($where);
-
 		$dojoData= new Zend_Dojo_Data('id', $data, 'id');
 		$dojoData->setMetadata('numRows', $nbElts);
 

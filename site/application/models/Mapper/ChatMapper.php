@@ -13,54 +13,54 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 	protected $idClassName = 'Chat';
 
 	protected $mappingDbToModel = array(
-	                 'id' => 'id',
-                     'to_check' => 'aValider',
-                     'adopte' => 'adopte',
-	                 'caractere' => 'caractere',
-	                 'commentaires' => 'commentaires',
-	                 'date_adoption' => 'dateAdoption',
-	                 'date' => 'dateNaissance',
-	                 'dateApproximative' => 'dateApproximative',
-	                 'disparu' => 'disparu',
-	                 'idCouleur' => 'idCouleur',
-	                 'idSexe' => 'idSexe',
-	                 'topic' => 'lienTopic',
-	                 'miniature' => 'miniature',
-	                 'nom' => 'nom',
-	                 'renomme' => 'renomme',
-	                 'parrain' => 'parrain',
-	                 'post_id' => 'postId',
-	                 'race' => 'race',
-	                 'reserve' => 'reserve',
-	                 'tatouage' => 'tatouage',
-	                 'tests' => 'tests',
-	                 'topic_id' => 'topicId',
-	                 'vaccins' => 'vaccins',
-	                 'yeux' => 'yeux',
-	                 'libCouleur' => 'libelleCouleur',
-	                 'libSexe' => 'libelleSexe',
-	                 'dateRappelVaccins' => 'dateRappelVaccins',
-	                 'notesPrivees' => 'notesPrivees',
-	                 'datePriseEnCharge' => 'datePriseEnCharge',
-	                 'dateAntiPuces' => 'dateAntiPuces',
-                 	 'dateVermifuge' => 'dateVermifuge',
-	                 'statutVisite' => 'statutVisite',
-	'visitePostPar' => 'visitePostPar',
-	'dateTests' => 'dateTests',
-	'dateSterilisation' => 'dateSterilisation',
-	'declCession' => 'declarationCession',
-	'sterilise' => 'sterilise',
-	'dateEnvoiRappelVac' => 'dateEnvoiRappelVac',
-	'dateEnvoiRappelSte' => 'dateEnvoiRappelSte',
-	'dateContratAdoption' => 'dateContratAdoption',
-	'papierIdRecu' => 'papierIdRecu'
-	);
+		'id' => 'id',
+		'to_check' => 'aValider',
+		'adopte' => 'adopte',
+		'caractere' => 'caractere',
+		'commentaires' => 'commentaires',
+		'date_adoption' => 'dateAdoption',
+		'date' => 'dateNaissance',
+		'dateApproximative' => 'dateApproximative',
+		'disparu' => 'disparu',
+		'idCouleur' => 'idCouleur',
+		'idSexe' => 'idSexe',
+		'topic' => 'lienTopic',
+		'miniature' => 'miniature',
+		'nom' => 'nom',
+		'renomme' => 'renomme',
+		'parrain' => 'parrain',
+		'post_id' => 'postId',
+		'race' => 'race',
+		'reserve' => 'reserve',
+		'tatouage' => 'tatouage',
+		'tests' => 'tests',
+		'topic_id' => 'topicId',
+		'vaccins' => 'vaccins',
+		'yeux' => 'yeux',
+		'libCouleur' => 'libelleCouleur',
+		'libSexe' => 'libelleSexe',
+		'dateRappelVaccins' => 'dateRappelVaccins',
+		'notesPrivees' => 'notesPrivees',
+		'datePriseEnCharge' => 'datePriseEnCharge',
+		'dateAntiPuces' => 'dateAntiPuces',
+		'dateVermifuge' => 'dateVermifuge',
+		'statutVisite' => 'statutVisite',
+		'visitePostPar' => 'visitePostPar',
+		'dateTests' => 'dateTests',
+		'dateSterilisation' => 'dateSterilisation',
+		'declCession' => 'declarationCession',
+		'sterilise' => 'sterilise',
+		'dateEnvoiRappelVac' => 'dateEnvoiRappelVac',
+		'dateEnvoiRappelSte' => 'dateEnvoiRappelSte',
+		'dateContratAdoption' => 'dateContratAdoption',
+		'papierIdRecu' => 'papierIdRecu'
+		);
 
-	protected $excludeModelToDb = array('libelleCouleur' => 0,
-	                                    'libelleSexe' => 0,
-	                                    'fa' => 0);
+protected $excludeModelToDb = array('libelleCouleur' => 0,
+	'libelleSexe' => 0,
+	'fa' => 0);
 
-	protected $filterKeyToDbKey = array('nom' => 'cat.nom',
+protected $filterKeyToDbKey = array('nom' => 'cat.nom',
 	'aValider' => 'cat.to_check',
 	'adopte' => 'cat.adopte',
 	'reserve' => 'cat.reserve',
@@ -68,7 +68,7 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 	'disparu' => 'cat.disparu',
 	'dateContratAdoption' => 'cat.dateContratAdoption');
 
-	protected $clausesWhere = array(
+protected $clausesWhere = array(
 	FP_Util_Constantes::CHAT_FICHES_A_VALIDER => 'to_check = 1 and disparu = 0',
 	FP_Util_Constantes::CHAT_FICHES_A_ADOPTION => 'adopte = 0 and disparu = 0 and to_check = 0',
 	FP_Util_Constantes::CHAT_FICHES_ADOPTES => 'adopte = 1 and disparu = 0 and to_check = 0',
@@ -185,7 +185,7 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 	 */
 	public function fetchAllToArray($sort, $order, $start, $count, $where = null)
 	{
-		$select = $this->getDbTable()->getAdapter()->select()
+		$subSelect = $this->getDbTable()->getAdapter()->select()
 		->from(array('cat' => 'fp_cat_fiche'))
 		->joinLeft(array('facat' => 'fp_fa_cat'), 'cat.id = facat.idChat or facat.idChat = null', array())
 		->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = facat.idFa or facat.idFa = null', array('fa' => 'CONCAT(fa.prenom, \' \', fa.nom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))'))
@@ -194,14 +194,20 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 		->join(array('couleur' => 'fp_cat_color'), 'cat.idCouleur = couleur.id', array('libCouleur' => 'couleur.name'))
 		->join(array('sexe' => 'fp_cat_sex'), 'cat.idSexe = sexe.id', array('libSexe' => 'sexe.name'));
 
-		if ($count && $start) {
-		 $select->limit($count, $start);
-		}
+
 		if ($sort && $order) {
-			$select->order($sort." ".$order);
+			$subSelect->order($sort." ".$order);
 		}
 		if ($where) {
-			$select->where($where);
+			$subSelect->where($where);
+		}
+
+		if ($count != null && $start != null) {
+			$select = $this->getDbTable()->getAdapter()->select()
+			->from(array('subselect' => $subSelect))
+			->limit($count, $start);
+		} else {
+			$select = $subSelect;
 		}
 
 		$stmt = $select->query();
@@ -243,33 +249,33 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 	public function fetchAllToArrayForExport($where = null)
 	{
 		$columnsToExport = array('Identifiant' => 'cat.id',
-		'Nom' => 'cat.nom',
-		'Renommé' => 'cat.renomme',
-		'Sexe' => 'sexe.name',
-		'Couleur' => 'couleur.name',
-		'Identification' => 'cat.tatouage',
-		'Tests' => 'cat.tests',
-		'fa' => 'CONCAT(fa.prenom, \' \', fa.nom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))',
-		'Notes privées' => 'cat.notesPrivees',
-		'Date de naissance' => 'cat.date',
-		'Date de prise en charge' => 'cat.datePriseEnCharge',
-		'Date d\'adoption' => 'cat.date_adoption',
-		'Date contrat adoption' => 'cat.dateContratAdoption',
-		'Date de rappels des vaccins' => 'cat.dateRappelVaccins',
-		'Date des derniers tests' => 'cat.dateTests',
-		'Date stérilisation' => 'cat.dateSterilisation',
-		'Date anti-puces' => 'cat.dateAntiPuces',
-		'Date vermifuge' => 'cat.dateVermifuge',
-		'Déclaration de cession' => 'ELT(cat.declCession + 1, \'Non\', \'Oui\')',
-		'Visite post-adoption réalisée ?' => 'ELT(cat.statutVisite + 1, \'Non\', \'Oui\')',
-		'Visite réalisée par' => 'cat.visitePostPar',
-		'Adopté' => 'ELT(cat.adopte + 1, \'Non\', \'Oui\')',
-		'Réservé' => 'ELT(cat.reserve + 1, \'Non\', \'Oui\')',
-		'Parrain' => 'ELT(cat.parrain + 1, \'Non\', \'Oui\')',
-		'Disparu' => 'ELT(cat.disparu + 1, \'Non\', \'Oui\')',
-		'Date mail vaccins' => 'cat.dateEnvoiRappelVac',
-		'Date mail stéri' => 'cat.dateEnvoiRappelSte'
-		);
+			'Nom' => 'cat.nom',
+			'Renommé' => 'cat.renomme',
+			'Sexe' => 'sexe.name',
+			'Couleur' => 'couleur.name',
+			'Identification' => 'cat.tatouage',
+			'Tests' => 'cat.tests',
+			'fa' => 'CONCAT(fa.prenom, \' \', fa.nom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))',
+			'Notes privées' => 'cat.notesPrivees',
+			'Date de naissance' => 'cat.date',
+			'Date de prise en charge' => 'cat.datePriseEnCharge',
+			'Date d\'adoption' => 'cat.date_adoption',
+			'Date contrat adoption' => 'cat.dateContratAdoption',
+			'Date de rappels des vaccins' => 'cat.dateRappelVaccins',
+			'Date des derniers tests' => 'cat.dateTests',
+			'Date stérilisation' => 'cat.dateSterilisation',
+			'Date anti-puces' => 'cat.dateAntiPuces',
+			'Date vermifuge' => 'cat.dateVermifuge',
+			'Déclaration de cession' => 'ELT(cat.declCession + 1, \'Non\', \'Oui\')',
+			'Visite post-adoption réalisée ?' => 'ELT(cat.statutVisite + 1, \'Non\', \'Oui\')',
+			'Visite réalisée par' => 'cat.visitePostPar',
+			'Adopté' => 'ELT(cat.adopte + 1, \'Non\', \'Oui\')',
+			'Réservé' => 'ELT(cat.reserve + 1, \'Non\', \'Oui\')',
+			'Parrain' => 'ELT(cat.parrain + 1, \'Non\', \'Oui\')',
+			'Disparu' => 'ELT(cat.disparu + 1, \'Non\', \'Oui\')',
+			'Date mail vaccins' => 'cat.dateEnvoiRappelVac',
+			'Date mail stéri' => 'cat.dateEnvoiRappelSte'
+			);
 
 		$select = $this->getDbTable()->getAdapter()->select()
 		->from(array('cat' => 'fp_cat_fiche'), $columnsToExport)
