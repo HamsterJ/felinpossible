@@ -38,14 +38,6 @@ abstract class FP_Controller_SubFormController extends FP_Controller_CommonContr
 	 */
 	abstract protected function getService();
 
-	/**
-	 * (non-PHPdoc)
-	 * @see site/library/Zend/Controller/Zend_Controller_Action#init()
-	 */
-	public function init(){
-		$this->_helper->layout->disableLayout();
-	}
-
 	public function indexAction() {}
 	public function remerciementsAction() {}
 

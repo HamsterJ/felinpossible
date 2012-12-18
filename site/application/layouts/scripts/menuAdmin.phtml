@@ -1,19 +1,14 @@
 <div class="accordion well" id="accordionMenu">
   <!-- Admin -->
   <div class="accordion-group">
-    <div class="accordion-heading">
-      <a class="accordion-toggle btn btn-custom btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseAdmin">
-        <i class="icone-key pull-left"></i>Admin
-      </a>
-    </div>
-    <div id="collapseAdmin" class="accordion-body collapse">
-      <div class="accordion-inner">
-        <ul class="nav nav-pills nav-stacked">
-          <li class="active"><a href="#<?php echo $this->url(array('controller' => 'admin', 'action' => 'indexajax')) ?>" rel="ajax">Accueil</a></li>
-        </ul>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle btn btn-large btn-primary" href="/admin">
+          <i class="icone-key pull-left"></i>Admin
+        </a>
       </div>
     </div>
-  </div>
+  </div>     
 
   <!-- News -->
   <div class="accordion-group">

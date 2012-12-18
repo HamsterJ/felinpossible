@@ -5,16 +5,6 @@
  *
  */
 class NewsController extends FP_Controller_CommonController {
-
-	/**
-	 * (non-PHPdoc)
-	 * @see site/library/Zend/Controller/Zend_Controller_Action#init()
-	 */
-	public function init()
-	{
-		$this->_helper->layout->disableLayout();
-	}
-
 	/**
 	 * Retourne le service associé au controller.
 	 * @return FP_Service_NewsServices

@@ -12,6 +12,9 @@ class AdminController extends FP_Controller_CommonController
 	 */
 	public function init()
 	{
+		parent::init();
+		$this->_helper->layout->setLayout('admin');
+
 		$config = Zend_Registry::get(FP_Util_Constantes::CONFIG_ID);
 		$view = $this->view;
 		
@@ -33,23 +36,24 @@ class AdminController extends FP_Controller_CommonController
 	/**
 	 * Action pour la page d'index de l'administration.
 	 */
-	public function indexAction()
-	{
-		if ($this->checkIsLogged(true)) {
-			$this->indexajaxAction();
-			$this->_helper->layout->enableLayout();
-			$this->_helper->layout->setLayout('admin');
-			$this->render('indexajax');
-		}
-	}
+	public function indexAction() {
+		if ($this->checkIsLogged()) {
+			$serviceChat = FP_Service_ChatServices::getInstance();
+			$serviceFa = FP_Service_FaServices::getInstance();
 
-	/**
-	 * Action pour le login sans rechargement du layout.
-	 */
-	public function loginwithlayoutAction() {
-		$this->_helper->layout->setLayout('admin');
-		$this->loginAction();
-		$this->render('login');
+			$this->view->indicNbChatsAdoption = $serviceChat->getNbFiches(FP_Util_Constantes::CHAT_FICHES_A_ADOPTION);
+			$this->view->indicNbChatsRes = $serviceChat->getNbFiches(FP_Util_Constantes::CHAT_FICHES_RESERVES);
+			$this->view->indicNbFichesAValider = $serviceChat->getNbFiches(FP_Util_Constantes::CHAT_FICHES_A_VALIDER);
+
+			$this->view->indicNbFaActive = $serviceFa->getNbFaWithStatus(FP_Util_Constantes::FA_ACTIVE_STATUT);
+			$this->view->indicNbFaDispo = $serviceFa->getNbFaWithStatus(FP_Util_Constantes::FA_DISPONIBLE_STATUT);
+			
+			$this->view->urlExportChatUrl = $this->view->url(array('controller' => 'chat', 'action' => 'export'));
+			$this->view->urlTableauChatUrl = $this->view->url(array('controller' => 'chat', 'action' => 'tableauadoptes'));
+			$this->view->urlExportFaUrl = $this->view->url(array('controller' => 'fa', 'action' => 'export'));
+			$this->view->urlExportAdoptantUrl = $this->view->url(array('controller' => 'adoptant', 'action' => 'export'));
+			$this->view->urlExportContactUrl = $this->view->url(array('action' => 'exportcontacts'));
+		}
 	}
 
 	/**
@@ -82,32 +86,7 @@ class AdminController extends FP_Controller_CommonController
 		if ($auth->hasIdentity()) {
 			$auth->clearIdentity();
 		}
-		return $this->_helper->redirector('loginWithLayout');
-	}
-
-	/**
-	 * Affichage de la page d'accueil.
-	 */
-	public function indexajaxAction() {
-		$this->_helper->layout->disableLayout();
-		if ($this->checkIsLogged()) {
-
-			$serviceChat = FP_Service_ChatServices::getInstance();
-			$serviceFa = FP_Service_FaServices::getInstance();
-
-			$this->view->indicNbChatsAdoption = $serviceChat->getNbFiches(FP_Util_Constantes::CHAT_FICHES_A_ADOPTION);
-			$this->view->indicNbChatsRes = $serviceChat->getNbFiches(FP_Util_Constantes::CHAT_FICHES_RESERVES);
-			$this->view->indicNbFichesAValider = $serviceChat->getNbFiches(FP_Util_Constantes::CHAT_FICHES_A_VALIDER);
-
-			$this->view->indicNbFaActive = $serviceFa->getNbFaWithStatus(FP_Util_Constantes::FA_ACTIVE_STATUT);
-			$this->view->indicNbFaDispo = $serviceFa->getNbFaWithStatus(FP_Util_Constantes::FA_DISPONIBLE_STATUT);
-			
-			$this->view->urlExportChatUrl = $this->view->url(array('controller' => 'chat', 'action' => 'export'));
-			$this->view->urlTableauChatUrl = $this->view->url(array('controller' => 'chat', 'action' => 'tableauadoptes'));
-			$this->view->urlExportFaUrl = $this->view->url(array('controller' => 'fa', 'action' => 'export'));
-			$this->view->urlExportAdoptantUrl = $this->view->url(array('controller' => 'adoptant', 'action' => 'export'));
-			$this->view->urlExportContactUrl = $this->view->url(array('action' => 'exportcontacts'));
-		}
+		return $this->_helper->redirector('login');
 	}
 
 	/**

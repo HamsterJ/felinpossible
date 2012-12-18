@@ -6,16 +6,6 @@
  */
 class ChatController extends FP_Controller_CommonController
 {
-
-	/**
-	 * Initialisation des actions
-	 * @see site/library/Zend/Controller/Zend_Controller_Action#init()
-	 */
-	public function init()
-	{
-		$this->_helper->layout->disableLayout();
-	}
-
 	/**
 	 * Retourne le service associé au controller.
 	 * @return FP_Service_ChatServices
