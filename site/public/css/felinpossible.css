@@ -1044,7 +1044,7 @@ body{background:url("../img/background_light.png") repeat;background-attachment:
 .img-chat{height:120px;margin:2px;background-image:url('../img/logo_black_medium.png');background-repeat:no-repeat;background-position:center;}
 .header-chat{margin:0px auto 0px auto;text-align:center;}
 .popover{min-width:300px;width:28%;}
-.thumbnail-chat{text-align:center;}
+.thumbnail-chat{min-height:190px;text-align:center;}
 a.thumbnail-chat:hover{text-decoration:none;}
 .align-center{text-align:center;}
 .ajax{background-image:url(../img/ajax-loader.gif);background-repeat:no-repeat;height:32px;width:32px;display:none;margin:0 auto;}

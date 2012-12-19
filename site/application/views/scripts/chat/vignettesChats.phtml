@@ -14,17 +14,15 @@
         <span id="load<?php echo $entry->id ?>" class="ajax pull-right" style="display:none"></span>
         <img class="img-rounded img-chat" src="<?php echo $entry->miniature ?>" title="Cliquer ici pour plus d'infos sur <?php echo $entry->nom ?>"/>
         <h4> 
-          <?php echo $entry->nom; 
-          if ($entry->getReserve()) {
-            if ($entry->getIdSexe() == FP_Util_Constantes::ID_SEXE_MALE){
-              ?><span class="label label-success pull-right">Réservé</span></i><?php
-            } else {
-              ?><span class="label label-success pull-right">Réservée</span></i><?php
-            }
-          }
-          ?>
+          <?php echo $entry->nom;?>
         </h4>
-        
+        <?if ($entry->getReserve()) {
+          if ($entry->getIdSexe() == FP_Util_Constantes::ID_SEXE_MALE){
+            ?><span class="label label-success pull-right">Réservé</span></i><?php
+          } else {
+            ?><span class="label label-success pull-right">Réservée</span></i><?php
+          }
+        }?>
       </a>
     </li> 
     <?php 
