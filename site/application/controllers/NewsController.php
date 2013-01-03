@@ -82,7 +82,7 @@ class NewsController extends FP_Controller_CommonController {
 					return $this->_helper->redirector('indexadm');
 				}
 			}
-			$form->setAction('javascript:CallAjax("'.$this->view->url(array('action' => 'add')).'", null, null, "'.$form->getId().'")');
+			$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'add')).'", null, null, "'.$form->getId().'")');
 			// Assign the form to the view
 			$this->view->form = $form;
 		}
