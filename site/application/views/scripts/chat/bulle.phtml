@@ -1,3 +1,12 @@
+<div class="well-small">
+	<a class="pull-right" onClick="javascript:popoverClose(<?php echo $this->chat->id ?>)"><i class="icon-remove"></i></a>
+	<div class="btn-group">
+		<a class="btn btn-medium btn- btn-info" role="button" href="<?php echo $this->chat->lienTopic ?>"><i class="icon-comment icon-white"></i> Plus d'infos</a>
+		<?php if (!$this->chat->adopte && !$this->chat->disparu && !$this->chat->reserve) { ?>
+		<a class="btn btn-medium btn-primary" role="button" href="#<?php echo $this->url(array('controller' => 'adoptant', 'action' => 'process', 'id'=> null)) ?>" rel="ajax"><i class="icon-hand-up icon-white"></i> Adopter</a>
+		<?php }?>
+	</div>
+</div>
 <table class="table table-bordered table-striped table-condensed" onclick="javascript:popoverClose(<?php echo $this->chat->id ?>)">
 	<?php if ($this->chat->idSexe) { ?>
 	<tr>
@@ -76,8 +85,3 @@
 	</tr>
 	<?php }?>
 </table>
-<a class="btn btn-medium btn-info" role="button" href="<?php echo $this->chat->lienTopic ?>"><i class="icon-comment icon-white"></i> Forum</a>
-<?php if (!$this->chat->adopte && !$this->chat->disparu && !$this->chat->reserve) { ?>
-<a class="btn btn-medium btn-primary" role="button" href="#<?php echo $this->url(array('controller' => 'adoptant', 'action' => 'process', 'id'=> null)) ?>" rel="ajax"><i class="icon-hand-up icon-white"></i> Adopter</a>
-<?php }?>
-<a class="pull-right" onClick="javascript:popoverClose(<?php echo $this->chat->id ?>)"><i class="icon-remove"></i></a>
