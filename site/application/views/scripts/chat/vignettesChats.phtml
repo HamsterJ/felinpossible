@@ -16,7 +16,7 @@
         <h4> 
           <?php echo $entry->nom;?>
         </h4>
-        <?if ($entry->getReserve()) {
+        <?php if ($entry->getReserve()) {
           if ($entry->getIdSexe() == FP_Util_Constantes::ID_SEXE_MALE){
             ?><span class="label label-success pull-right">Réservé</span></i><?php
           } else {
