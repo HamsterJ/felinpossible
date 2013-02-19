@@ -64,7 +64,14 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	protected $libelleSexe;
 	/** @var string  */
 	protected $libelleCouleur;
-
+    /** @var int  */
+	protected $okChats;
+    /** @var int  */
+	protected $okChiens;
+    /** @var int  */
+	protected $okApparts;
+    /** @var int  */
+	protected $okEnfants;
 	/**
 	 * Date de rappel des vaccins
 	 * @var string
@@ -908,5 +915,64 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	  $this->papierIdRecu = $papierIdRecu;
 	}
 	
+	/**
+	 * Gets the okChats field.
+	 * @return the field value.
+	 */
+	public function getOkChats() {
+	  return $this->okChats;
+	}
+	
+	/**
+	 * Sets the okChats field.
+	 */
+	public function setOkChats($okChats) {
+	  $this->okChats = $okChats;
+	}
+        
+        /**
+	 * Gets the okChiens field.
+	 * @return the field value.
+	 */
+	public function getOkChiens() {
+	  return $this->okChiens;
+	}
+	
+	/**
+	 * Sets the okChiens field.
+	 */
+	public function setOkChiens($okChiens) {
+	  $this->okChiens = $okChiens;
+	}
+        
+        /**
+	 * Gets the okApparts field.
+	 * @return the field value.
+	 */
+	public function getOkApparts() {
+	  return $this->okApparts;
+	}
+	
+	/**
+	 * Sets the okApparts field.
+	 */
+	public function setOkApparts($okApparts) {
+	  $this->okApparts = $okApparts;
+	}
+        
+        /**
+	 * Gets the okEnfants field.
+	 * @return the field value.
+	 */
+	public function getOkEnfants() {
+	  return $this->okEnfants;
+	}
+	
+	/**
+	 * Sets the okEnfants field.
+	 */
+	public function setOkEnfants($okEnfants) {
+	  $this->okEnfants = $okEnfants;
+	}
 	
 }

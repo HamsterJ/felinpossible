@@ -403,4 +403,15 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 			
 		unset($phpLiveDocx);
 	}
+        
+     /**
+	 * Retourne le tableau des chats à l'adoption, non réservés et correspondant aux critères du formulaire de recherche.
+	 * @param array $arrFiltres : Ensemble de filtres à appliquer
+     * @param String $mode : 'match' (correspondent exactement à la recherche) ou 'maybe' (On a '0' en base pour certains critères - cad qu'on a pas testé le chat sur ce critere)
+     * @return array
+	 */
+         public function getChatsAdoptionNonReservesFiltres($arrFiltres,$mode) {
+		return $this->getMapper()->getChatsAdoptionNonReservesFiltres($arrFiltres,$mode);
+	}
+        
 }

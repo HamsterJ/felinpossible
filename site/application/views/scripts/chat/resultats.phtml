@@ -1,0 +1,70 @@
+<div class="centre_principal">
+	<em><a href="../chat/chercher">Retour à la recherche</a>
+	</em>
+</div>
+<?php if ($this->entries[0] != null): ?>
+    <div class="centre_principal"><h4>Ils correspondent à vos critères</h4></br>
+    <ul class="thumbnails">         
+<?php
+    foreach ($this->entries[0] as $entry): ?>
+        <li class="span3" style="margin-left:10px">
+            <a id="<?php echo $entry->id ?>" 
+            class="thumbnail thumbnail-chat" 
+            href="javascript:popoverAction('<?php echo $entry->id ?>', '<?php echo $this->url(array('action' => 'bulle', 'id' => $entry->id)) ?>')" 
+            rel="popover"
+            data-animate="true"
+            data-trigger="manual"
+            data-placement="bottom"
+            data-html="true">
+            <span id="load<?php echo $entry->id ?>" class="ajax pull-right" style="display:none"></span>
+            <img class="img-rounded img-chat" src="<?php echo $entry->miniature ?>" title="Cliquer ici pour plus d'infos sur <?php echo $entry->nom ?>"/>
+            <h4><?php echo $entry->nom ;?></h4>
+            <div style='height: 60px'>
+                <b> 
+                    <font size='1'><?php  echo substr($entry->caractere,0,70).'...';?></font>
+                </b>
+            </div>
+            </a>
+    </li> 
+    <?php endforeach; ?>
+    </ul>
+       
+ <?php else: ?>
+        <H5>Désolé, nous n'avons pas de chat répondant à ces critères</H5></br></br>
+ <?php endif; ?>
+      
+ <?php if ($this->entries[1] != null): ?>
+    <h4>Ils pourraient également vous plaire</h4>
+    <i>Certains chats n'ont pas subi de test aux chiens, aux chats ou aux enfants, peut-être que le vôtre se trouve parmi eux</i>
+    </br></br> 
+    <ul class="thumbnails">
+         
+    <?php foreach ($this->entries[1] as $entry): ?>
+        <li class="span3" style="margin-left:10px">
+        <a id="<?php echo $entry->id ?>" 
+        class="thumbnail thumbnail-chat" 
+        href="javascript:popoverAction('<?php echo $entry->id ?>', '<?php echo $this->url(array('action' => 'bulle', 'id' => $entry->id)) ?>')" 
+        rel="popover"
+        data-animate="true"
+        data-trigger="manual"
+        data-placement="bottom"
+        data-html="true">
+        <span id="load<?php echo $entry->id ?>" class="ajax pull-right" style="display:none"></span>
+        <img class="img-rounded img-chat" src="<?php echo $entry->miniature ?>" title="Cliquer ici pour plus d'infos sur <?php echo $entry->nom ?>"/>
+        <h4><?php echo $entry->nom ;?></h4>
+        <div style='height: 60px'>
+            <b> 
+                <font size='1'><?php  echo substr($entry->caractere,0,70).'...';?></font>
+            </b>
+        </div>
+      </a>
+    </li> 
+    <?php endforeach;?>
+    </ul>
+    </div>
+    <br>
+<?php endif; ?>
+<div class="centre_principal">
+	<em><a href="../chat/chercher">Retour à la recherche</a>
+	</em>
+</div>

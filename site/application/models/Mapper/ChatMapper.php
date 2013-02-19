@@ -53,7 +53,11 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 		'dateEnvoiRappelVac' => 'dateEnvoiRappelVac',
 		'dateEnvoiRappelSte' => 'dateEnvoiRappelSte',
 		'dateContratAdoption' => 'dateContratAdoption',
-		'papierIdRecu' => 'papierIdRecu'
+		'papierIdRecu' => 'papierIdRecu',
+        'okChats' => 'okChats',
+        'okChiens' => 'okChiens',
+        'okApparts' => 'okApparts',
+        'okEnfants' => 'okEnfants'
 		);
 
 protected $excludeModelToDb = array('libelleCouleur' => 0,
@@ -333,6 +337,40 @@ protected $clausesWhere = array(
 	 */
 	public function updateDateRappelSter($idChat) {
 		$this->getDbTable()->update(array('dateEnvoiRappelSte' => new Zend_Db_Expr('CURDATE()')), "id = $idChat");
+	}
+        
+    /**
+	 * Retourne les chats à l'adoption, non réservés et filtrés.
+	 * @return array : l'ensemble des chats à l'adoption, non réservés, repondant aux criteres de recherche
+	 */
+	public function getChatsAdoptionNonReservesFiltres($arrFiltres,$mode) {
+                
+            $where = $this->clausesWhere[FP_Util_Constantes::CHAT_FICHES_A_ADOPTION_NON_RES] ;
+                    
+            if ($mode === 'match'){
+                    foreach ($arrFiltres as $crit=>$val)
+                    {
+                        if ($val != '0' && $crit != 'submit')
+                        {
+                            $where =  $where.' and '.$crit.' = '.$val;
+                        }
+                        
+                    }
+            }
+            else
+            {
+                $test = 0;
+                foreach ($arrFiltres as $crit=>$val)
+                    {
+                        if ($val != '0' && $crit != 'submit')
+                        {
+                            $where =  $where.' and '.$crit.' = 0'; //on prend les chats pour lesquels on a pas l'info
+                            $test = 1; //on retient qu'au moin un critere était saisi, sinon il faut rien afficher dans la partie "Ils peuvent aussi..."
+                        }
+                    }
+                    if ($test === 0){$where =  $where.' and 1=0';}
+            }
+            return $this->select(array('id', 'nom', 'miniature', 'topic', 'reserve', 'idSexe','okChats','okChiens','okApparts','okEnfants','caractere'), $where, "nom");
 	}
 
 }

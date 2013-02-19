@@ -346,5 +346,29 @@ class ChatController extends FP_Controller_CommonController
 		$this->view->entries = $this->getService()->getChatsAdoptionNonReserves();
 		$this->view->nbChatsParLigne = 5;
 	}
-}
+        
+        
+   	/**
+	* Affichage du formulaire de recherche des chats à adopter.
+	*/ 
+        public function chercherAction() {
+                $form = new FP_Form_chat_ChercherForm();
+                $form->setAction($this->view->url(array('action' => 'resultats')));
+                $this->view->form = $form;
+        } 
+        
 
+   	/**
+	* Affichage des résultats de recherche des chats à adopter.
+	*/ 
+        public function resultatsAction() {
+             $request = $this->getRequest();
+             $form = new FP_Form_chat_ChercherForm();
+             if ($form->isValid($request->getPost())) {
+                                        $t = array();
+                                        $t[0]=$this->getService()->getChatsAdoptionNonReservesFiltres($request->getPost(),'match');
+                                        $t[1]=$this->getService()->getChatsAdoptionNonReservesFiltres($request->getPost(),'maybe');
+					$this->view->entries = $t;
+				}
+         }
+}
