@@ -150,3 +150,11 @@ ALTER TABLE fp_cat_fiche ADD (papierIdRecu int default 0);
 
 -- Date de naissance plus obligatoire
 ALTER TABLE fp_cat_fiche CHANGE date date date NULL;
+
+-- Ajout champs pour filtres
+ALTER TABLE fp_cat_fiche ADD (
+  okChats tinyint(1) NOT NULL DEFAULT 0,
+  okChiens tinyint(1) NOT NULL DEFAULT 0,
+  okApparts tinyint(1) NOT NULL DEFAULT 0,
+  okEnfants tinyint(1) NOT NULL DEFAULT 0
+  );
