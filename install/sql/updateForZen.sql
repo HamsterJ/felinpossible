@@ -158,3 +158,8 @@ ALTER TABLE fp_cat_fiche ADD (
   okApparts tinyint(1) NOT NULL DEFAULT 0,
   okEnfants tinyint(1) NOT NULL DEFAULT 0
   );
+
+-- Ajout site internet véto
+ALTER TABLE fp_veto_fiche ADD (
+  siteInternet text
+);

@@ -19,6 +19,7 @@ class FP_Model_Bean_Veto extends FP_Model_Bean_Common
 	protected $telephoneFixe;
 	protected $telephonePortable;
 	protected $email;
+	protected $siteInternet;
 
 	/**
 	 * Retrieve id
@@ -172,4 +173,21 @@ class FP_Model_Bean_Veto extends FP_Model_Bean_Common
 		$this->email = $email;
 	}
 
+	/**
+	 * Retrieve siteInternet
+	 *
+	 * @return la valeur de siteInternet
+	 */
+	public function getSiteInternet() {
+		return $this->siteInternet;
+	}
+
+	/**
+	 * Set entry siteInternet
+	 *
+	 * @param siteInternet
+	 */
+	public function setSiteInternet($siteInternet) {
+		$this->siteInternet = $siteInternet;
+	}
 }

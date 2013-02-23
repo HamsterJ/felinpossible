@@ -20,7 +20,8 @@ class FP_Model_Mapper_VetoMapper extends FP_Model_Mapper_CommonMapper {
 	                 'ville' => 'ville',
 	                 'fixe' => 'telephoneFixe',
 	                 'portable' => 'telephonePortable',
-	                 'email' => 'email'
+	                 'email' => 'email',
+	                 'siteInternet' => 'siteInternet'
 	);
 
 	protected $filterKeyToDbKey = array('raison' => 'fp_veto_fiche.raison',
