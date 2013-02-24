@@ -8,7 +8,8 @@ function get_forum_contents()
   
     try{
         $arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"); 
-        $pdo = new PDO('mysql:host=localhost;dbname=felinpossible', 'fpuser', 'fppass', $arrExtraParam); 
+		$appliParams = parse_ini_file("../site/application/configs/application.ini"); 
+        $pdo = new PDO('mysql:host=localhost;dbname='.$appliParams['resources.db.params.dbname'], $appliParams['resources.db.params.username'], $appliParams['resources.db.params.password'], $arrExtraParam); 
 
         // on crée la requête SQL 
         $sql = "SELECT topic_id FROM phpbb_topics WHERE forum_id=10 AND topic_type=0"; 
