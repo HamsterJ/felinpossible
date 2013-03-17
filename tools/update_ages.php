@@ -7,7 +7,7 @@
     </head>
     <body></br>
         <div id="main-content">
-            </br><h5>Mise à jour des ages effectuées...</h5></br>
+            </br><h5>Mise à jour des ages à effectuer MANUELLEMENT POUR LE MOMENT...</h5></br>
             
             <table cellpadding="5" cellspacing="2" bgcolor="#EEEEEE">
             <tr bgcolor="#CCCCCC" align="center"><th>Nom</th><th>Date naissance</th><th>Titre initial</th><th>Nouveau titre</th></tr>
@@ -30,6 +30,7 @@
                         WHERE 	t.topic_id  = ch.topic_id
                         AND	ch.idCouleur = co.id
                         AND	ch.adopte   = 0 
+						AND 	ch.reserve  = 0
                         AND 	ch.disparu  = 0
                         ORDER BY ch.nom"; 
 
@@ -71,9 +72,11 @@
                                     :($arr[0].'-'.$arr[1].'- '.$age.' -'.$arr[3]);                  
                         
                             // on update et affiche si mis à jour
-                            if($nv_titre!==$data['titre'])
+                            if(strtoupper($nv_titre)!==strtoupper($data['titre']))
                            { 
-                                $q = $pdo->prepare("UPDATE phpbb_topics SET topic_title = ? WHERE topic_id = ?");  
+								//PAS DE MAJ AUTO POUR LE MOMENT
+								
+                                //$q = $pdo->prepare("UPDATE phpbb_topics SET topic_title = ? WHERE topic_id = ?");  
                                 //$q->execute(array($nv_titre,$data['topic_id']));  
 
                                 echo '<tr><td><b><a href="http://felinpossible.fr/forum/viewtopic.php?t='.$data['topic_id'].'">'.$data['nom'].'</a>'
@@ -88,7 +91,7 @@
                            echo '<tr><td><b><a href="http://felinpossible.fr/forum/viewtopic.php?t='.$data['topic_id'].'">'.$data['nom'].'</a>'
                                     .'</td><td>'.$data['dateNaissance']
                                     .'</b></td><td>'.$data['titre']
-                                    .'</td><td>'.'<b><font color="red">MISE A JOUR AUTO IMPOSSIBLE</font></b>'
+                                    .'</td><td>'.'<b><font color="red">PROBLEME DANS LES INFOS - pas de génération auto possible</font></b>'
                                     .'</td></tr>'; 
                         }
                     } 
