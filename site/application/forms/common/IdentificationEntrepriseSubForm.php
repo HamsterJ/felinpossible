@@ -69,6 +69,11 @@ class FP_Form_common_IdentificationEntrepriseSubForm extends FP_Form_common_SubF
             'filters'    => array('StringTrim'),
             'validators' => array('EmailAddress')
 		)),
+		new Zend_Form_Element_Text('siteInternet', array(
+            'label'      => 'Site internet',
+		    'size' => 50,
+            'filters'    => array('StringTrim')
+		)),
 
 		new Zend_Form_Element_Hidden('id'),
 		));
