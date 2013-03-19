@@ -61,8 +61,9 @@ class FP_site_photos {
         if ($photo['dateNaissance'] === $chat_forum['dateNaissance'])   
             $chat = $chat.$photo['dateNaissance']."</br>";
          else
-            {$chat = $chat."<font color='orange'>".$photo['dateNaissance']."</font></br>";} 
+            {$chat = $chat."<font color='orange'>".$photo['dateNaissance']."</font></br></br>";} 
 
+         $chat = $chat.substr($photo['caractere'],0,120)."</br>";
          $chat = $chat."</p></td>";
                 
         return $chat;

@@ -6,9 +6,9 @@
         <title>Les chats à l'adoption</title>
     </head>
     <body>
-	<div id="main-content" class="span12">
+	<div class="span12">
             <div><h1>Chats à l'adoption</h1></div></br>
-            <table class="thumbnail">
+            <table cellpadding="20">
                 <?php
                 
                     include 'FPUtils.php';
@@ -30,14 +30,15 @@
                         echo "<tr bgcolor=\"EEEEEE\" height=\"250\" valign=\"top\"><td align='middle'>".$nom_chat_forum."</td>";
                         
                         //forum
-                         echo "<td border-width='1' align='middle'><a href=\"http://felinpossible.fr/forum/viewtopic.php?f=10&t=".$photos_forum[$nom_chat_forum]['topic_id']."\"><img class='img-chat' src='"
+                         echo "<td border='1' align='middle'><a href=\"http://felinpossible.fr/forum/viewtopic.php?f=10&t=".$photos_forum[$nom_chat_forum]['topic_id']."\"><img class='img-chat' src='"
                             .$photos_forum[$nom_chat_forum]['pic']
                             ."' alt=".$nom_chat_forum." height=\"100\"/></a>"
                                     ."</br><p style='font-size:10px'><b>Edit:".$photos_forum[$nom_chat_forum]['edit_time']."</b></br>"
                                             .$photos_forum[$nom_chat_forum]['identif']."</br>"
                                             .$photos_forum[$nom_chat_forum]['tests']."</br>"
                                             .$photos_forum[$nom_chat_forum]['vaccin']."</br>"
-                                            .$photos_forum[$nom_chat_forum]['dateNaissance']."</br>"                    
+                                            .$photos_forum[$nom_chat_forum]['dateNaissance']."</br></br>"
+                                            .$photos_forum[$nom_chat_forum]['caractere']."</br></br>"
                                     ."</p></td>";
 
                         //site

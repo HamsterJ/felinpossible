@@ -361,7 +361,10 @@ protected $clausesWhere = array(
             {
                 $test = 0;
                 // on ajoute les critères à la requête de base
-                $where =  $where.' and idSexe = '.$arrFiltres['idSexe'].' and (';
+                if ($arrFiltres['idSexe'] != 0)
+					{$where =  $where.' and idSexe = '.$arrFiltres['idSexe'];}
+				
+				$where =  $where.' and (';
                 
                 foreach ($arrFiltres as $crit=>$val)
                     {
