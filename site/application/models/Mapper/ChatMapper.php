@@ -360,17 +360,23 @@ protected $clausesWhere = array(
             else
             {
                 $test = 0;
+                // on ajoute les critères à la requête de base
+                $where =  $where.' and (';
                 foreach ($arrFiltres as $crit=>$val)
                     {
-                        if ($val != '0' && $crit != 'submit')
+                        if ($val != '0' && $crit != 'submit' && $crit != 'idSexe')
                         {
-                            $where =  $where.' and '.$crit.' = 0'; //on prend les chats pour lesquels on a pas l'info
-                            $test = 1; //on retient qu'au moin un critere était saisi, sinon il faut rien afficher dans la partie "Ils peuvent aussi..."
+                            //on prend les chats pour lesquels on a pas l'info
+                            if ($test === 1){$where =  $where.' or ';}
+                            $where =  $where.' '.$crit.' = 0';
+                            $test = 1; //on retient qu'au moins un critere était saisi, sinon il faut rien afficher dans la partie "Ils peuvent aussi..."
                         }
                     }
-                    if ($test === 0){$where =  $where.' and 1=0';}
+                    if ($test === 0){$where =  $where.' 1=0';}
+                    
+                $where =  $where.')';
             }
-            return $this->select(array('id', 'nom', 'miniature', 'topic', 'reserve', 'idSexe','okChats','okChiens','okApparts','okEnfants','caractere'), $where, "nom");
+            return $this->select(array('id', 'nom', 'miniature', 'topic', 'reserve', 'idSexe','okChats','okChiens','okApparts','okEnfants','caractere'), $where, "rand()");
 	}
 
 }

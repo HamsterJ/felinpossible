@@ -87,7 +87,7 @@ class FP_Util_ChatUtil {
 	 * @param string $info
 	 * @return string la valeur associés à $info de $postText
 	 */
-	private static function getInfosFromText ($postText, $info) {
+	public static function getInfosFromText ($postText, $info) {
 		$pattern = '/\][ ]*'.$info.'.*:?\[.*\][ ]*:?(.*)/i';
 		preg_match($pattern, $postText, $matches);
 

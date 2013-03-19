@@ -151,6 +151,30 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 		$notesPrivees->setAttrib('cols', '60');
 		$notesPrivees->setAttrib('rows', '5');
 
+        $okChats = new Zend_Form_Element_Select('okChats');
+		$okChats->setLabel('OK chats');
+		$okChats->addMultiOptions(array(   '0' => 'Indéterminé',
+                                                    '1' => 'Oui',
+                                                    '2' => 'Non'));
+                
+        $okChiens = new Zend_Form_Element_Select('okChiens');
+		$okChiens->setLabel('OK chiens');
+		$okChiens->addMultiOptions(array(   '0' => 'Indéterminé',
+                                                    '1' => 'Oui',
+                                                    '2' => 'Non'));
+               
+        $okApparts = new Zend_Form_Element_Select('okApparts');
+		$okApparts->setLabel('OK appart');
+		$okApparts->addMultiOptions(array(   '0' => 'Indéterminé',
+                                                    '1' => 'Oui',
+                                                    '2' => 'Non'));
+                
+        $okEnfants = new Zend_Form_Element_Select('okEnfants');
+		$okEnfants->setLabel('OK enfants');
+		$okEnfants->addMultiOptions(array(   '0' => 'Indéterminé',
+                                                    '1' => 'Oui',
+                                                    '2' => 'Non'));
+                
 		$postId = new Zend_Form_Element_Hidden('postId');
 		
 		$topicId = new Zend_Form_Element_Hidden('topicId');
@@ -179,6 +203,10 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 		$this->addElement($tatouage);
 		$this->addElement($caractere);
 		$this->addElement($commentaires);
+        $this->addElement($okChats);
+        $this->addElement($okChiens);
+        $this->addElement($okApparts);
+        $this->addElement($okEnfants);
 		$this->addElement($lienTopic);
 		$this->addElement($miniature);
 		$this->addElement($adopte);
