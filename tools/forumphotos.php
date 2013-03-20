@@ -26,6 +26,7 @@ function get_forum_contents()
                  $identif=FP_Util_ChatUtil::getInfosFromText($data2["post_text"],'Identification');
                  $tests=FP_Util_ChatUtil::getInfosFromText($data2["post_text"],'Tests');
                  $vaccins=FP_Util_ChatUtil::getInfosFromText($data2["post_text"],'Vaccin');
+                 $caractere=FP_Util_ChatUtil::getInfosFromText($data2["post_text"],'Caractère');
                  $naiss=FP_Util_ChatUtil::getInfosFromText($data2["post_text"],'Né[e]? le');
                  if($naiss==="")
                  {
@@ -52,7 +53,7 @@ function get_forum_contents()
                         $chats_forum[FPUtils::getNomSansAccentsHTML($forum_contents[1][0])]['vaccin']=$vaccins;
                         $chats_forum[FPUtils::getNomSansAccentsHTML($forum_contents[1][0])]['dateNaissance']=$naiss; 
                         $chats_forum[FPUtils::getNomSansAccentsHTML($forum_contents[1][0])]['topic_id']=  $data2["topic_id"];
-                        
+                        $chats_forum[FPUtils::getNomSansAccentsHTML($forum_contents[1][0])]['caractere']=substr($caractere,0,120); 
                     }
             }
             

@@ -21,8 +21,9 @@ class FP_fb_photos {
         for ($i=0;$i<count($fql_query_data);$i++)
         {
                 $nom = explode (' ',utf8_decode($fql_query_data[$i]["caption"]));           
-                $chats_photos_fb[FPUtils::getNomSansAccentsHTML($nom[0])][0] = $fql_query_data[$i]["src"];
-                $chats_photos_fb[FPUtils::getNomSansAccentsHTML($nom[0])][1] = date('d/m/Y', $fql_query_data[$i]["created"]);
+                $chats_photos_fb[FPUtils::getNomSansAccentsHTML($nom[0])]['src'] = $fql_query_data[$i]["src"];
+                $chats_photos_fb[FPUtils::getNomSansAccentsHTML($nom[0])]['dateM'] = date('d/m/Y', $fql_query_data[$i]["created"]);
+                $chats_photos_fb[FPUtils::getNomSansAccentsHTML($nom[0])]['desc'] = substr($fql_query_data[$i]["caption"],0,120);
         }
 
         //on trie par nom de chat
@@ -35,11 +36,11 @@ class FP_fb_photos {
     function print_fb_contents($photo,$nom_chat)    
     {
         return "<td align='middle' border-width='1'>
-                <a href='".str_replace("_s.jpg", "_n.jpg", $photo[0])
-                ."'><img class='img-chat' src='".$photo[0]
+                <a href='".str_replace("_s.jpg", "_n.jpg", $photo['src'])
+                ."'><img class='img-chat' src='".$photo['src']
                 ."' alt='".$nom_chat
-                ."' height=\"100\"/></a></br><b><font size='1'>Edit:"
-                .$photo[1]."</font></b></td>";
+                ."' height=\"100\"/></a></br><font size='1'><b>Edit:"
+                .$photo['dateM']."</b></br></br></br></br></br>".$photo['desc']."</font></td>";
     }
 }
 ?>
