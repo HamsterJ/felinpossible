@@ -101,6 +101,7 @@ class ChatController extends FP_Controller_CommonController
 			$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
 			$this->view->filterPath = 'chat/filterchat.phtml';
 			$this->view->gridName = "commonGrid";
+			$this->view->initFilter = "{adopte : 0, disparu : 0}";
 
 			$this->view->nbElements = $this->getService()->getNbElementsForGrid();
 
