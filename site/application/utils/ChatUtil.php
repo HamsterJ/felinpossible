@@ -148,7 +148,8 @@ class FP_Util_ChatUtil {
 			if ($dateNaissance != ""){
 				$date = explode('/',$dateNaissance);
 				if (count($date) > 2) {
-					$dateNaissance = $date[2].'-'.$date[1].'-'.$date[0];
+                                    $yearWithComments = explode(' ',$date[2]);
+                                    $dateNaissance =$yearWithComments[0].'-'.$date[1].'-'.$date[0];
 				}
 			}
 			else {
@@ -156,7 +157,8 @@ class FP_Util_ChatUtil {
 				if ($dateNaissance != ""){
 					$date = explode('/',$dateNaissance);
 					if (count($date) > 2) {
-						$dateNaissance = $date[2].'-'.$date[1].'-'.$date[0];
+                                             $yearWithComments = explode(' ',$date[2]);
+                                             $dateNaissance = $yearWithComments[0].'-'.$date[1].'-'.$date[0];
 					}
 				}
 			}
