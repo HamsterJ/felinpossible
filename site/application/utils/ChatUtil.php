@@ -17,8 +17,10 @@ class FP_Util_ChatUtil {
 	const COMMENT_POST_TAG = "Notes";
 	const ORIGINE_POST_TAG = "Origine";
 	const COULEUR_POST_TAG = "Couleur";
+	const ROBE_POST_TAG = "Robe";
 	const AGE_POST_TAG = "[Â|A]ge";
 	const NE_POST_TAG = "Né[e]? le";
+	const NE2_POST_TAG = "Date de naissance";
 
 	/**
 	 * Met à jour la fiche du chat à partir des information de son post.
@@ -116,6 +118,17 @@ class FP_Util_ChatUtil {
 				return $couleursMatch[0]->getId();
 			}
 		}
+		else
+		{
+			$couleur = self::getInfosFromText ($postText, self::ROBE_POST_TAG);
+			if ($couleur != "") {
+				$couleurMapper = FP_Model_Mapper_MapperFactory::getInstance()->couleurMapper;
+				$couleursMatch = $couleurMapper->select('id', "match(name, key_words) against('".$couleur."')");
+				if (count($couleursMatch) > 0) {
+					return $couleursMatch[0]->getId();
+				}
+			}
+		}
 		return null;
 	}
 
@@ -135,7 +148,18 @@ class FP_Util_ChatUtil {
 			if ($dateNaissance != ""){
 				$date = explode('/',$dateNaissance);
 				if (count($date) > 2) {
-					$dateNaissance = $date[2].'-'.$date[1].'-'.$date[0];
+                                    $yearWithComments = explode(' ',$date[2]);
+                                    $dateNaissance =$yearWithComments[0].'-'.$date[1].'-'.$date[0];
+				}
+			}
+			else {
+				$dateNaissance = self::getInfosFromText($postText, self::NE2_POST_TAG);
+				if ($dateNaissance != ""){
+					$date = explode('/',$dateNaissance);
+					if (count($date) > 2) {
+                                             $yearWithComments = explode(' ',$date[2]);
+                                             $dateNaissance = $yearWithComments[0].'-'.$date[1].'-'.$date[0];
+					}
 				}
 			}
 		}

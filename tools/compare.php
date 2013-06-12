@@ -6,130 +6,78 @@
         <title>Les chats à l'adoption</title>
     </head>
     <body>
-	<div id="main-content" class="span12">
-            <div><h1>Chats à l'adoption</h1></div></br>
-            <div id="corps">
-                <table>
-                    <th width="220"><div><h3>Facebook</h3></div></th>
-                    <th width="220"><div><h3>Forum</h3></div></th>
-                    <tr>
-                        <td valign="top">
-                            <div class="centre_principal">
-                            <?php
-                                    include 'FPUtils.php';
-                                    include 'forum.php'; 
-                                    include 'facebook.php'; 
-                                    
-                                    $chats_adopt_forum=get_forum_contents("10","200");// On récupère les chats à l'adoption du forum
-                                    $chats_soins_forum=get_forum_contents("108","40"); // On récupère les chats en cours de soin du forum
-                                    $chats_adopt_fb=get_facebook_contents("44926746491_56236"); // On récupère les chats à l'adoption du facebook
-                                    
-                                    echo "<div><b>Adopt. Facebook : ".count($chats_adopt_fb)."</b></div></br>";
-                                    
-                                    for ($j=0;$j<count($chats_adopt_fb);$j++)
-                                    {
-                                        //Pour chaque chat facebook, on regarde s'il existe sur le forum, si NON, on met le nom en gras
-                                        if (in_array($chats_adopt_fb[$j],$chats_adopt_forum)||in_array($chats_adopt_fb[$j],$chats_soins_forum))
-                                        {
-                                            echo $chats_adopt_fb[$j]."</br>";
-                                        }
-                                        else
-                                        {
-                                            echo "<b>".$chats_adopt_fb[$j]."</b></br>";
-                                        }
-                                    }
-                            ?>
-                            </div>
-                        </td>
-                        <td valign="top">
-                            <div class="centre_principal"> 
-                            	<?php  // chats du forum
-                                
-                                    $nb =  count($chats_adopt_forum)+count($chats_soins_forum);                              
-                                    echo "<div><b>Adopt. Forum : ".$nb."</b></div></br>";
-                                    
-                                    foreach ($chats_adopt_forum as $id_chat_af=>$chat_af)//chats à l'adoption
-                                    {
-                                        
-                                        if (in_array($chat_af,$chats_adopt_fb))
-                                        {
-                                            echo "<a href=\"http://felinpossible.fr/forum/viewtopic.php?f=10&t=".$id_chat_af."\">".$chat_af."</a></br>";
-                                        }
-                                        else
-                                        {
-                                           echo "<b><a href=\"http://felinpossible.fr/forum/viewtopic.php?f=10&t=".$id_chat_af."\">".$chat_af."</a></b></br>"; 
-                                        }
-                                    }
-                                    echo '---------</br>';
-                                    foreach ($chats_soins_forum as $id_chat_sf=>$chat_sf)//chats en cours de soin
-                                    {
-                                        
-                                        if (in_array($chat_sf,$chats_adopt_fb))
-                                        {
-                                            echo "<a href=\"http://felinpossible.fr/forum/viewtopic.php?f=108&t=".$id_chat_sf."\">".$chat_sf."</a></br>";
-                                        }
-                                        else
-                                        {
-                                           echo "<b><a href=\"http://felinpossible.fr/forum/viewtopic.php?f=108&t=".$id_chat_sf."\">".$chat_sf."</a></b></br>"; 
-                                        }
-                                    }
-                                ?>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                <table>
-                    <th width="220"><div><h3>Facebook</h3></div></th>
-                    <th width="220"><div><h3>Forum</h3></div></th>
-                    <tr>
-                        <td valign="top">
-                            <div class="centre_principal">                         
-                                <?php //Chats réservés facebook
-                                
-                                    $chats_resa_fb=get_facebook_contents("44926746491_440397"); // Chats réservés facebook
-                                    $chats_resa_forum=get_forum_contents("54","44"); // Chats réservés forum
-                                  
-                                    echo "<div><b>Rés. Facebook : ".count($chats_resa_fb)."</b></div></br>";
+<?php
+  function compute($forum_ad,$forum_soins,$fb,$site,$res_fb,$res_forum)    
+    {
+        $computed = array();
+        
+        foreach ($forum_ad as $id_post=>$nom_chat)
+        {
+            $n = explode(' ',$nom_chat);
+            $computed[$n[0]]['forum'] = 'A'.$id_post;
+        }
+        
+        foreach ($forum_soins as $id_post=>$nom_chat)
+        {
+            $n = explode(' ',$nom_chat);
+            $computed[$n[0]]['forum'] = 'S'.$id_post;
+        }
+        
+        foreach ($res_forum as $id_post=>$nom_chat)
+        {
+            $n = explode(' ',$nom_chat);
+            $computed[$n[0]]['forum'] = 'R'.$id_post;
+        }
+      
+        foreach ($site as $nom_chat=>$c)
+        {
+            $n = explode(' ',$nom_chat);
+            $computed[$n[0]]['site'] = 1;
+        }
+        
+        foreach ($fb as $id=>$nom_chat)
+        {
+            $n = explode(' ',$nom_chat);
+            $computed[$n[0]]['fb'] = 'A';
+        }
+        
+        foreach ($res_fb as $id=>$nom_chat)
+        {
+            $n = explode(' ',$nom_chat);
+            $computed[$n[0]]['fb'] = 'R';
+        }
+        
+        ksort($computed);        
+        
+        return $computed;
+    }
+    
+    include 'FPUtils.php';
+    include 'forum.php'; 
+    include 'facebook.php'; 
+    include 'sitephotos.php';
 
-                                    for ($j=0;$j<count($chats_resa_fb);$j++)// Parcours des réservés facebook, et mise en gras s'il n'existe pas dans les réservés forum
-                                    {
-                                        if (in_array($chats_resa_fb[$j],$chats_resa_forum))
-                                        {
-                                            echo $chats_resa_fb[$j]."</br>";
-                                        }
-                                        else
-                                        {
-                                            echo "<b>".$chats_resa_fb[$j]."</b></br>";
-                                        }
-                                   }
-                                  ?>
+    $chats_adopt_forum=get_forum_contents("10","200");// On récupère les chats à l'adoption du forum
+    $chats_soins_forum=get_forum_contents("108","40"); // On récupère les chats en cours de soin du forum
+    $chats_adopt_fb=get_facebook_contents("44926746491_56236"); // On récupère les chats à l'adoption du facebook
+    $chats_site=FP_site_photos::get_site_contents();
+    $chats_resa_fb=get_facebook_contents("44926746491_440397"); // Chats réservés facebook
+    $chats_resa_forum=get_forum_contents("54","44"); // Chats réservés forum
+    
+    $computed = compute($chats_adopt_forum,$chats_soins_forum,$chats_adopt_fb,$chats_site,$chats_resa_fb,$chats_resa_forum);
 
-                           </div>  
+    echo '</br><table align="center"><th width="220">Nom chat</th><th width="180">Forum</th><th width="180">Site</th><th width="180">Facebook</th>';
 
-                        </td>
-                        <td valign="top">
-                            <div class="centre_principal">
-                                <?php //Chats réservés forum
-                                    echo "<div><b>Rés. Forum : ".count($chats_resa_forum)."</b></div></br>";
+    foreach ($computed as $key=>$value)
+    {
+        echo "<tr><td class='centre_principal'>".$key
+                ."</td><td class='centre_principal' align = 'center'>".($value['forum']?"<a href=\"http://felinpossible.fr/forum/viewtopic.php?t=".substr($value["forum"],1)."\">Voir fiche".(substr($value["forum"],0,1)=='A'?'':(substr($value["forum"],0,1)=='R'?' (Réservé)':' (Soins)'))."</a>":'')
+                ."</td><td class='centre_principal' align = 'center'>".($value['site']?'OK':'')
+                ."</td><td class='centre_principal' align = 'center'>".($value['fb']?($value['fb']=='A'?'OK':'Réservé'):'')
+            ."</td></tr>";
+    }
 
-                                    foreach ($chats_resa_forum as $id_chat_af=>$chat_af)
-                                    {
-                                        if (in_array($chat_af,$chats_resa_forum))
-                                        {
-                                            echo "<a href=\"http://felinpossible.fr/forum/viewtopic.php?f=54&t=".$id_chat_af."\">".$chat_af."</a></br>";
-                                        }
-                                        else
-                                        {
-                                           echo "<b><a href=\"http://felinpossible.fr/forum/viewtopic.php?f=54&t=".$id_chat_af."\">".$chat_af."</a></b></br>"; 
-                                        }
-                                    }
-                                ?>
-                            </div>
-                        </td>
-                    </tr>
-                </table> 
-          </div>
+    echo "</div></table></br></br>";
+?>
     </body>
 </html>
-
-  
