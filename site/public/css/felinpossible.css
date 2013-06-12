@@ -1029,8 +1029,9 @@ textarea{width:98%;}
 .submit{float:right;}
 .required{font-weight:bold;}
 @font-face{font-family:'felinpossible';src:url('../fonts/kabel-webfont.eot');src:url('../fonts/kabel-webfont.eot?#iefix') format('embedded-opentype'),url('../fonts/kabel-webfont.woff') format('woff'),url('../fonts/kabel-webfont.ttf') format('truetype'),url('../fonts/kabel-webfont.svg#kabel_lightlight') format('svg');font-weight:normal;font-style:normal;}.font-fp{font-family:"felinpossible";}
-#title-container{font-family:"felinpossible";font-size:70pt;color:#999999;margin-top:70px;height:160px;width:100%;}
-.title-main{padding-top:50px;text-align:center;margin-left:10%;line-height:60px;}
+#title-container{font-family:"felinpossible";color:#999999;margin-top:70px;height:200px;width:100%;}
+.title-main{font-size:70pt;padding-top:50px;text-align:center;margin-left:10%;line-height:60px;}
+.title-other{font-size:15pt;margin-right:5%;}
 .logo{background:url("../img/logo_img_black.png") no-repeat;display:inline-block;*margin-right:.3em;vertical-align:text-top;margin-top:1px;height:130px;width:280px;line-height:130px;}
 .footer{background-color:whiteSmoke;margin-top:10px;width:100%;filter:alpha(opacity=80);opacity:0.8;}
 body{background:url("../img/background_light.png") repeat;background-attachment:fixed;}
@@ -1068,3 +1069,4 @@ a.thumbnail-chat:hover{text-decoration:none;}
 .icone-pen{background:url("../img/iconbeast-lite/pen.png") no-repeat;display:inline-block;*margin-right:.3em;vertical-align:text-top;margin-top:1px;height:30px;width:30px;line-height:30px;}
 .icone-power{background:url("../img/iconbeast-lite/power-button.png") no-repeat;display:inline-block;*margin-right:.3em;vertical-align:text-top;margin-top:1px;height:30px;width:30px;line-height:30px;margin-top:15px;}
 .icone-paypal{background:url("../img/paypal.png") no-repeat;display:inline-block;*margin-right:.3em;vertical-align:text-top;margin-top:1px;height:20px;width:60px;line-height:20px;}
+.icone-kikazh{background:url("../img/kikazh.jpg") no-repeat;display:inline-block;*margin-right:.3em;vertical-align:text-top;margin-top:1px;height:50px;width:70px;line-height:50px;}
