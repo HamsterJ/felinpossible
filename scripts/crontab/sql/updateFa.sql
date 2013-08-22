@@ -1,8 +1,8 @@
 -- Suppression des chats adoptés ou disparus des FA.
-DELETE fp_fa_cat facat 
-  FROM fp_fa_cat facat, fp_cat_fiche chat
-  WHERE chat.id = facat.idChat 
-        AND (chat.adopte = 1 OR chat.disparu = 1)
+DELETE fp_fa_cat  
+  FROM fp_fa_cat, fp_cat_fiche
+  WHERE fp_cat_fiche.id = fp_fa_cat.idChat 
+        AND (fp_cat_fiche.adopte = 1 OR fp_cat_fiche.disparu = 1)
 ;
   
 -- Statut active
