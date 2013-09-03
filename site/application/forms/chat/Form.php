@@ -176,7 +176,7 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
                                                     '2' => 'Non'));
         
         $chgtProprio = new Zend_Form_Element_Checkbox('chgtProprio');
-		$chgtProprio->setLabel('Changement propriétaire fait ?');
+		$chgtProprio->setLabel('Changement de propriétaire fait ?');
 		
 		$postId = new Zend_Form_Element_Hidden('postId');
 		
