@@ -174,7 +174,10 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 		$okEnfants->addMultiOptions(array(   '0' => 'Indéterminé',
                                                     '1' => 'Oui',
                                                     '2' => 'Non'));
-                
+        
+        $chgtProprio = new Zend_Form_Element_Checkbox('chgtProprio');
+		$chgtProprio->setLabel('Changement propriétaire fait ?');
+		
 		$postId = new Zend_Form_Element_Hidden('postId');
 		
 		$topicId = new Zend_Form_Element_Hidden('topicId');
@@ -217,6 +220,7 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 		$this->addElement($statutPostAdoption);
 		$this->addElement($realiseePar);
 		$this->addElement($declarationCession);
+		$this->addElement($chgtProprio);
 		$this->addElement($papierIdRecu);
 		$this->addElement($notesPrivees);
 		$this->addElement($postId);

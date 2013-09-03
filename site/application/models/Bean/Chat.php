@@ -72,6 +72,9 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	protected $okApparts;
     /** @var int  */
 	protected $okEnfants;
+	/** @var int  */
+	protected $chgtProprio;
+
 	/**
 	 * Date de rappel des vaccins
 	 * @var string
@@ -960,7 +963,7 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	  $this->okApparts = $okApparts;
 	}
         
-        /**
+    /**
 	 * Gets the okEnfants field.
 	 * @return the field value.
 	 */
@@ -974,5 +977,19 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	public function setOkEnfants($okEnfants) {
 	  $this->okEnfants = $okEnfants;
 	}
+
+	    /**
+	 * Gets the chgtProprio field.
+	 * @return the field value.
+	 */
+	public function getChgtProprio() {
+	  return $this->chgtProprio;
+	}
 	
+	/**
+	 * Sets the okEnfants field.
+	 */
+	public function setChgtProprio($chgtProprio) {
+	  $this->chgtProprio = $chgtProprio;
+	}
 }
