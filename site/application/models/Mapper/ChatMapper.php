@@ -84,6 +84,7 @@ protected $clausesWhere = array(
 	FP_Util_Constantes::CHAT_FICHES_A_PLACER =>  'adopte = 0 and disparu = 0',
 	FP_Util_Constantes::CHAT_A_STERILISER =>  'disparu = 0 and sterilise = 0',
 	FP_Util_Constantes::CHAT_FICHES_A_ADOPTION_NON_RES => 'adopte = 0 and disparu = 0 and reserve = 0 and to_check = 0',
+	FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE => 'chgtProprio = 0 and adopte = 1 and disparu = 0 and to_check = 0'
 	);
 
 
