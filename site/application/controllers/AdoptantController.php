@@ -92,6 +92,10 @@ class AdoptantController extends FP_Controller_SubFormController
 			$this->view->redefineButtons = "adoptant/gridactions.phtml";
 			$this->view->urlChatAdItem = $this->view->url(array('action' => 'chat'));
 
+			$ficheId = $this->getRequest()->getParam('id', null);
+			$this->view->urlEnvoiMail = $this->view->url(array('action' => 'envoimail', 'id' => $ficheId, 'idChat' => null));
+
+
 			$this->render("indexgrid");
 		}
 	}
@@ -201,6 +205,21 @@ class AdoptantController extends FP_Controller_SubFormController
 				$this->view->titre = "Sélectionner un adoptant pour ".$chat->getNom();
 				$this->view->urlRetourListeChat = $this->view->url(array('controller' => 'chat', 'action' => $callbackChat));
 
+			}
+		}
+	}
+
+	/**
+	* Envoi du mail avec le contenu de l'adoptant.
+	*/
+	public function envoimailAction() {
+		if ($this->checkIsLogged()) {
+			$ficheId = $this->getRequest()->getParam('id', null);
+			if ($ficheId) {
+				$data = $this->getService()->getData($ficheId);
+				$this->getForm()->populate($data);
+				FP_Service_MailServices::getInstance()->envoiMailAsso($this->getEmailSubject(), $this->getForm()->toHtml());
+				$this->_helper->redirector();
 			}
 		}
 	}
