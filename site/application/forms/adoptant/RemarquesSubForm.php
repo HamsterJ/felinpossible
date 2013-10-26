@@ -23,7 +23,7 @@ class FP_Form_adoptant_RemarquesSubForm extends FP_Form_common_SubForm
 		$remarques->setAttrib('cols', '60');
 		$remarques->setAttrib('rows', '10');
 
-		$connaissanceAsso = new Zend_Form_Element_Select('idConnaissanceAsso');
+		$connaissanceAsso = new Zend_Form_Element_Select('idConnaissanceAsso', array('onchange' => 'connaissanceAsso();'));
 		$connaissanceAsso->setLabel('Question subsidiaire : comment avez vous connu notre association ?');
 		$connaissanceAsso->setRequired(true);
 		$connaissanceAsso->addMultiOptions(FP_Model_Mapper_MapperFactory::getInstance()->connaissanceAssoMapper->buildArrayForForm());
@@ -32,8 +32,13 @@ class FP_Form_adoptant_RemarquesSubForm extends FP_Form_common_SubForm
 		$heureJoignable->setLabel('Quelle est l\'heure maximum à laquelle nous pouvons vous rappeler en soirée sans vous déranger ?');
 		$heureJoignable->setFilters(array('StringTrim'));
 		
+		$connaissanceAssoDetail = new Zend_Form_Element_Text('connaissanceAssoDetail');
+		$connaissanceAssoDetail->setLabel('Lequel ?');
+		$connaissanceAssoDetail->setFilters(array('StringTrim'));
+		
 		$this->addElement($remarques);
 		$this->addElement($connaissanceAsso);
+		$this->addElement($connaissanceAssoDetail);
 		$this->addElement($heureJoignable);
 	}
 
