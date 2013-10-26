@@ -144,6 +144,7 @@ class FP_Util_Constantes {
 	const MAIL_PARRAINER_SUJET = 'Formulaire de parrainage';
 	const MAIL_ADOPTER_SUJET = 'Formulaire d\'adoption';
 	const MAIL_BE_FA_SUJET = 'Formulaire Famille d\'accueil';
+	const MAIL_VETO = 'Formulaire vétérinaire';
 	const MAIL_RAPPEL_VACCINS_SUJET = 'Rappels de vaccins de ';
 	const MAIL_RAPPEL_STERILISATION_SUJET = 'Rappel pour la stérilisation de ';
 	
