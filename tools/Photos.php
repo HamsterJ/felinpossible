@@ -12,12 +12,13 @@
                 <?php
                 
                     include 'FPUtils.php';
+                    include 'ChatUtil.php';
                     include 'fbphotos.php'; 
                     include 'sitephotos.php';
                     include 'forumphotos.php';
 
                     $photos_fb=FP_fb_photos::get_facebook_photos("44926746491_56236");
-                    $photos_site=FP_site_photos::get_site_contents();
+                    $photos_site=get_site_contents();
                     $photos_forum=get_forum_contents();
                
                     foreach ($photos_forum as $nom_chat_forum=>$photo_forum)
@@ -44,11 +45,11 @@
                         //site
                         if (array_key_exists($nom_chat_forum,$photos_site))
                         {
-                            echo FP_site_photos::print_site_contents($photos_site[$nom_chat_forum],$nom_chat_forum,$photos_forum[$nom_chat_forum]);
+                            echo print_site_contents($photos_site[$nom_chat_forum],$nom_chat_forum,$photos_forum[$nom_chat_forum]);
                         } 
                         else if (array_key_exists($nom_chat_forum.' 2',$photos_site))
                         {
-                            echo FP_site_photos::print_site_contents($photos_site[$nom_chat_forum.' 2'],$nom_chat_forum.' 2',$photos_forum[$nom_chat_forum]);
+                            echo print_site_contents($photos_site[$nom_chat_forum.' 2'],$nom_chat_forum.' 2',$photos_forum[$nom_chat_forum]);
                         } 
                         else
                         {

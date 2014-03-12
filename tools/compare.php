@@ -7,32 +7,26 @@
     </head>
     <body>
 <?php
-  function compute($forum_ad,$forum_soins,$fb,$site,$res_fb,$res_forum)    
+include '../site/application/utils/ChatUtil.php';
+
+  function compute($forum,$fb,$site,$res_fb)    
     {
         $computed = array();
         
-        foreach ($forum_ad as $id_post=>$nom_chat)
+        foreach ($forum as $nom_chat=>$c)
         {
-            $n = explode(' ',$nom_chat);
-            $computed[$n[0]]['forum'] = 'A'.$id_post;
-        }
-        
-        foreach ($forum_soins as $id_post=>$nom_chat)
-        {
-            $n = explode(' ',$nom_chat);
-            $computed[$n[0]]['forum'] = 'S'.$id_post;
-        }
-        
-        foreach ($res_forum as $id_post=>$nom_chat)
-        {
-            $n = explode(' ',$nom_chat);
-            $computed[$n[0]]['forum'] = 'R'.$id_post;
+            if ($c['forum_id'] =='10')
+            {$computed[$nom_chat]['forum'] = 'A'.$c['topic_id'];}
+            elseif ($c['forum_id'] =='54')
+            {$computed[$nom_chat]['forum'] = 'R'.$c['topic_id'];}
+            elseif ($c['forum_id'] =='108')
+            {$computed[$nom_chat]['forum'] = 'S'.$c['topic_id'];}
         }
       
         foreach ($site as $nom_chat=>$c)
         {
             $n = explode(' ',$nom_chat);
-            $computed[$n[0]]['site'] = 1;
+            $computed[$n[0]]['site'] = $c['reserve'];
         }
         
         foreach ($fb as $id=>$nom_chat)
@@ -53,27 +47,29 @@
     }
     
     include 'FPUtils.php';
-    include 'forum.php'; 
     include 'facebook.php'; 
+    include 'forumphotos.php'; 
     include 'sitephotos.php';
 
-    $chats_adopt_forum=get_forum_contents("10","200");// On récupère les chats à l'adoption du forum
-    $chats_soins_forum=get_forum_contents("108","40"); // On récupère les chats en cours de soin du forum
+    $chats_forum=get_forum_contents();// On récupère les chats à l'adoption du forum
     $chats_adopt_fb=get_facebook_contents("44926746491_56236"); // On récupère les chats à l'adoption du facebook
-    $chats_site=FP_site_photos::get_site_contents();
     $chats_resa_fb=get_facebook_contents("44926746491_440397"); // Chats réservés facebook
-    $chats_resa_forum=get_forum_contents("54","44"); // Chats réservés forum
-    
-    $computed = compute($chats_adopt_forum,$chats_soins_forum,$chats_adopt_fb,$chats_site,$chats_resa_fb,$chats_resa_forum);
+    $chats_site=get_site_contents();
+
+    $computed = compute($chats_forum,$chats_adopt_fb,$chats_site,$chats_resa_fb);
 
     echo '</br><table align="center"><th width="220">Nom chat</th><th width="180">Forum</th><th width="180">Site</th><th width="180">Facebook</th>';
 
     foreach ($computed as $key=>$value)
     {
         echo "<tr><td class='centre_principal'>".$key
-                ."</td><td class='centre_principal' align = 'center'>".($value['forum']?"<a href=\"http://felinpossible.fr/forum/viewtopic.php?t=".substr($value["forum"],1)."\">Voir fiche".(substr($value["forum"],0,1)=='A'?'':(substr($value["forum"],0,1)=='R'?' (Réservé)':' (Soins)'))."</a>":'')
-                ."</td><td class='centre_principal' align = 'center'>".($value['site']?'OK':'')
-                ."</td><td class='centre_principal' align = 'center'>".($value['fb']?($value['fb']=='A'?'OK':'Réservé'):'')
+                ."</td><td class='centre_principal' align = 'center'>".(isset($value['forum'])?"<a href=\"http://felinpossible.fr/forum/viewtopic.php?t=".substr($value["forum"],1)."\">Voir fiche".(substr($value["forum"],0,1)=='A'?'':(substr($value["forum"],0,1)=='R'?' (Réservé)':' (Soins)'))."</a>":'')
+                ."</td><td class='centre_principal' align = 'center'>".(isset($value['site'])?($value['site']=='0'?'Ad.':'Réservé'):'')
+                ."</td><td class='centre_principal' align = 'center'>".(isset($value['fb'])?($value['fb']=='A'
+                                                                                                ?(isset($value["forum"])?(substr($value["forum"],0,1)!='R'?'Ad.':'<b>Ad.</b>'):'Ad')
+                                                                                                :(isset($value["forum"])?(substr($value["forum"],0,1)=='A'?'<b>Réservé</b>':'Réservé'):'Réservé')
+                                  )
+                                :'')
             ."</td></tr>";
     }
 
