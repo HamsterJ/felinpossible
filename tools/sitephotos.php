@@ -1,6 +1,4 @@
 <?php
-
-class FP_site_photos {
     
     function get_site_contents()    
     {
@@ -13,7 +11,7 @@ class FP_site_photos {
 
 
             // on crée la requête SQL 
-            $sql = "SELECT id,nom,miniature,DATE_FORMAT(date,'%d/%m/%Y') date,tests,vaccins,tatouage,caractere,topic_id,okChats,okChiens,okApparts,okEnfants FROM fp_cat_fiche WHERE adopte=0 and reserve=0 and disparu=0 and to_check=0"; 
+            $sql = "SELECT id,nom,miniature,DATE_FORMAT(date,'%d/%m/%Y') date,tests,vaccins,tatouage,caractere,topic_id,okChats,okChiens,okApparts,okEnfants,reserve FROM fp_cat_fiche WHERE adopte=0 and disparu=0 and to_check=0"; 
 
             // on fait une boucle qui va faire un tour pour chaque enregistrement 
             foreach  ($pdo->query($sql) as $data) 
@@ -30,6 +28,7 @@ class FP_site_photos {
                  $chats_site[FPUtils::getNomSansAccentsHTML($data["nom"])]['okApparts']=  $data["okApparts"];
                  $chats_site[FPUtils::getNomSansAccentsHTML($data["nom"])]['okEnfants']=  $data["okEnfants"];
                  $chats_site[FPUtils::getNomSansAccentsHTML($data["nom"])]['id']=  $data["id"];
+                 $chats_site[FPUtils::getNomSansAccentsHTML($data["nom"])]['reserve']=  $data["reserve"];
             } 
             }
             catch (PDOException $e) {
@@ -73,5 +72,5 @@ class FP_site_photos {
                 
         return $chat;
     }
-}
+
 ?>

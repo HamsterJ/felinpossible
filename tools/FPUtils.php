@@ -11,9 +11,9 @@ class FPUtils {
                         ,"&Igrave;","&Iacute;","&Icirc;","&Iuml;"
                         ,"&Ograve;","&Oacute;","&Ocirc;","&Otilde;","&Ouml;"
                         ,"&Ugrave;","&Uacute;","&Ucirc;"
-                        ,"&Ntilde;","&Ccedil;",);
+                        ,"&Ntilde;","&Ccedil;","&nbsp;");
         
-        $replace = array("A","A","A","A","A","E","E","E","E","I","I","I","I","O","O","O","O","O","U","U","U","N","C");
+        $replace = array("A","A","A","A","A","E","E","E","E","I","I","I","I","O","O","O","O","O","U","U","U","N","C","");
         $st_ss_acc = str_replace($carspe, $replace, $st);
         
         return $st_ss_acc;

@@ -2,7 +2,7 @@
 
 class FP_fb_photos {
 
-    function get_facebook_photos($id_album)    
+    static function get_facebook_photos($id_album)    
     {
         $chats_photos_fb=array();
 
