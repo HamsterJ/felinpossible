@@ -65,6 +65,7 @@ class FP_Model_Bean_Adoptant extends FP_Model_Bean_Common
 	protected $login;
 	protected $dateSubmit;
 	protected $superficie;
+	protected $connaissanceAssoDetail;
 
 	/**
 	 * Retrieve id
@@ -1093,5 +1094,24 @@ class FP_Model_Bean_Adoptant extends FP_Model_Bean_Common
 	 */
 	public function setSuperficie($superficie) {
 		$this->superficie = $superficie;
+	}
+
+    /**
+	 * Retrieve connaissanceAssoDetail
+	 *
+	 * @param  connaissanceAssoDetail
+	 * @return la valeur de connaissanceAssoDetail
+	 */
+	public function getConnaissanceAssoDetail() {
+		return $this->connaissanceAssoDetail;
+	}
+
+	/**
+	 * Set entry connaissanceAssoDetail
+	 *
+	 * @param connaissanceAssoDetail
+	 */
+	public function setConnaissanceAssoDetail($connaissanceAssoDetail) {
+		$this->connaissanceAssoDetail = $connaissanceAssoDetail;
 	}
 }

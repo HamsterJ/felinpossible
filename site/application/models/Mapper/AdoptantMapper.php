@@ -66,7 +66,8 @@ class FP_Model_Mapper_AdoptantMapper extends FP_Model_Mapper_CommonMapper {
     'heureJoignable' => 'heureJoignable',
 	'login' => 'login',
 	'dateSubmit' => 'dateSubmit',
-	'superficie' => 'superficie'
+	'superficie' => 'superficie',
+	'connaissanceAssoDetail' => 'connaissanceAssoDetail'
 	);
 
 	protected $filterKeyToDbKey = array('nom' => 'fp_ad_fiche.nom',

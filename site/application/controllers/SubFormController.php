@@ -112,6 +112,8 @@ abstract class FP_Controller_SubFormController extends FP_Controller_CommonContr
 		$this->view->urlEditItem = $this->view->url(array('action' => 'postuler', 'admin' => true));
 		$this->view->urlDeleteItem = $this->view->url(array('action' => 'delete'));
 		$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
+		$this->view->urlEnvoiMail = $this->view->url(array('action' => 'envoimail'));
+
 		$this->view->filterPath = $this->getFilterPath();
 		$this->view->gridName = "commonGrid";
 		
@@ -166,24 +168,24 @@ abstract class FP_Controller_SubFormController extends FP_Controller_CommonContr
 			$this->getRequest()->getPost())
 			|| ($form = $this->getNextSubForm())) {
 			$form->setAction($this->getFormAction($form->getId()));
-			$this->view->form = $this->getForm()->prepareSubForm($form);
-			return $this->render('postuler');
-		}
+		$this->view->form = $this->getForm()->prepareSubForm($form);
+		return $this->render('postuler');
+	}
 
-		if (!$this->formIsValid()) {
-			$form = $this->getNextSubForm();
-			$form->setAction($this->getFormAction($form->getId()));
-			$this->view->form = $this->getForm()->prepareSubForm($form);
-			return $this->render('postuler');
-		}
+	if (!$this->formIsValid()) {
+		$form = $this->getNextSubForm();
+		$form->setAction($this->getFormAction($form->getId()));
+		$this->view->form = $this->getForm()->prepareSubForm($form);
+		return $this->render('postuler');
+	}
 
 		// All subForms have been processed.
-		if ($this->view->admin) {
-			$this->handleAdminFormCompleted();
-		} else {
-			$this->handleFormCompleted();
-		}
+	if ($this->view->admin) {
+		$this->handleAdminFormCompleted();
+	} else {
+		$this->handleFormCompleted();
 	}
+}
 
 	/**
 	 * Getter pour le formulaire courant.
@@ -352,5 +354,20 @@ abstract class FP_Controller_SubFormController extends FP_Controller_CommonContr
 		}
 
 		return $this->getForm()->isValid($data);
+	}
+
+	/**
+	* Envoi du mail avec le contenu de l'adoptant.
+	*/
+	public function envoimailAction() {
+		if ($this->checkIsLogged()) {
+			$ficheId = $this->getRequest()->getParam('id', null);
+			if ($ficheId) {
+				$data = $this->getService()->getData($ficheId);
+				$this->getForm()->populate($data);
+				FP_Service_MailServices::getInstance()->envoiMailAsso($this->getEmailSubject(), $this->getForm()->toHtml());
+				$this->_helper->redirector();
+			}
+		}
 	}
 }
