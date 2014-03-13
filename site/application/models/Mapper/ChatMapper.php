@@ -57,7 +57,8 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
         'okChats' => 'okChats',
         'okChiens' => 'okChiens',
         'okApparts' => 'okApparts',
-        'okEnfants' => 'okEnfants'
+        'okEnfants' => 'okEnfants',
+        'chgtProprio' => 'chgtProprio'
 		);
 
 protected $excludeModelToDb = array('libelleCouleur' => 0,
@@ -83,6 +84,7 @@ protected $clausesWhere = array(
 	FP_Util_Constantes::CHAT_FICHES_A_PLACER =>  'adopte = 0 and disparu = 0',
 	FP_Util_Constantes::CHAT_A_STERILISER =>  'disparu = 0 and sterilise = 0',
 	FP_Util_Constantes::CHAT_FICHES_A_ADOPTION_NON_RES => 'adopte = 0 and disparu = 0 and reserve = 0 and to_check = 0',
+	FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE => 'chgtProprio = 0 and adopte = 1 and disparu = 0 and to_check = 0'
 	);
 
 
@@ -278,7 +280,8 @@ protected $clausesWhere = array(
 			'Parrain' => 'ELT(cat.parrain + 1, \'Non\', \'Oui\')',
 			'Disparu' => 'ELT(cat.disparu + 1, \'Non\', \'Oui\')',
 			'Date mail vaccins' => 'cat.dateEnvoiRappelVac',
-			'Date mail stéri' => 'cat.dateEnvoiRappelSte'
+			'Date mail stéri' => 'cat.dateEnvoiRappelSte',
+			'Chgt propriétaire' => 'ELT(cat.chgtProprio + 1, \'Non\', \'Oui\')'
 			);
 
 		$select = $this->getDbTable()->getAdapter()->select()

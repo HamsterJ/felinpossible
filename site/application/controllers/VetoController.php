@@ -51,7 +51,7 @@ class VetoController extends FP_Controller_SubFormController {
 	 * @see site/application/controllers/FP_Controller_SubFormController#getEmailSubject()
 	 */
 	protected function getEmailSubject() {
-		return FP_Util_Constantes::MAIL_ADOPTER_SUJET;
+		return FP_Util_Constantes::MAIL_VETO;
 	}
 
 	/**

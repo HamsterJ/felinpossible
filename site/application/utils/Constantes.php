@@ -134,6 +134,7 @@ class FP_Util_Constantes {
 	const CHAT_FICHES_A_PLACER = 8;
 	const CHAT_A_STERILISER = 9;
 	const CHAT_FICHES_A_ADOPTION_NON_RES = 10;
+	const CHAT_CHGT_PROPRIETAIRE = 11;
 	
 	/** Templates pour les mails. */
 	const MAIL_TEMPLATE_VACCINS_FA = 'rappelsVaccins.phtml';
@@ -143,6 +144,7 @@ class FP_Util_Constantes {
 	const MAIL_PARRAINER_SUJET = 'Formulaire de parrainage';
 	const MAIL_ADOPTER_SUJET = 'Formulaire d\'adoption';
 	const MAIL_BE_FA_SUJET = 'Formulaire Famille d\'accueil';
+	const MAIL_VETO = 'Formulaire vétérinaire';
 	const MAIL_RAPPEL_VACCINS_SUJET = 'Rappels de vaccins de ';
 	const MAIL_RAPPEL_STERILISATION_SUJET = 'Rappel pour la stérilisation de ';
 	

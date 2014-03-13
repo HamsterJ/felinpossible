@@ -163,3 +163,8 @@ ALTER TABLE fp_cat_fiche ADD (
 ALTER TABLE fp_veto_fiche ADD (
   siteInternet text
 );
+
+-- Ajout changement propriétaire
+ALTER TABLE fp_cat_fiche ADD (chgtProprio int default 0);
+
+ALTER TABLE fp_ad_fiche ADD (connaissanceAssoDetail text NULL);

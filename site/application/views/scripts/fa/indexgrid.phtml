@@ -1,3 +1,7 @@
 <div class="centre_principal">
-<?php echo $this->render("admin/indexgrid.phtml"); ?>
+	<?php echo $this->render("admin/indexgrid.phtml"); ?>
+	<button class="btn btn-action" onclick="addItem('<?php echo $this->urlAddItem ?>')"><i class="icon-plus"></i> Ajouter</button>
+	<button class="btn btn-action" onclick="editItem('<?php echo $this->urlEditItem ?>', 'commonGrid')"><i class="icon-pencil"></i> Editer</button>
+	<button class="btn btn-action" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid')"><i class="icon-trash"></i> Supprimer</button>
+	<button class="btn btn-action" onclick="updateItem('<?php echo $this->urlEnvoiMail ?>', 'commonGrid')"><i class="icon-envelope"></i> Mail formulaire</button>
 </div>

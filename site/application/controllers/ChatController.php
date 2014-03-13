@@ -226,6 +226,24 @@ class ChatController extends FP_Controller_CommonController
 		}
 	}
 
+    /**
+	 * Affiche les changements de priopriétaires à faire.
+	 */
+	public function proprietaireAction() {
+		if ($this->checkIsLogged()) {
+			$this->initUrlForAdmin();
+
+			$this->view->titre = "Changement de propriétaire à faire";
+			$this->view->defaultSort = -8;
+
+			$this->view->headerPath = "chat/headerproprietaire.phtml";
+			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE));
+			$this->view->nbElements = $this->getService()->getNbFiches(FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE);
+			$this->view->filterPath = 'chat/filterchat.phtml';
+			$this->view->gridName = "commonGrid";
+		}
+	}
+
 	/**
 	 * Affichage du formulaire d'envoi
 	 */

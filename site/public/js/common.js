@@ -335,3 +335,44 @@ function submit_chatFA()
 	
 	window.opener.document.getElementById("foyerForm-chats").value = sChaine;	 
 }
+
+/**
+* Gestion précision connaissance asso.
+*/
+function connaissanceAsso()
+{
+	var idLabel = '#remarquesForm-connaissanceAssoDetail-label';
+	var idElt = '#remarquesForm-connaissanceAssoDetail';
+	var selected = parseInt($( "#remarquesForm-idConnaissanceAsso" ).val());
+
+	switch (selected) {
+		case 1 :
+			// Commerce/véto
+			$(idLabel).find('label').text('Lequel ?');
+			$(idLabel).show();
+			$(idElt).show();
+			break;
+		case 2:
+			// Annonce internet
+			$(idLabel).find('label').text('Sur quel site ?');
+			$(idLabel).show();
+			$(idElt).show();
+		break;
+		case 6:
+			// Autres
+			$(idLabel).find('label').text('Précisez ');
+			$(idLabel).show();
+			$(idElt).show();
+		break;
+		case 4:
+			// Autre forum
+			$(idLabel).find('label').text('Lequel ?');
+			$(idLabel).show();
+			$(idElt).show();
+			break;
+		default:
+			$(idLabel).hide();
+			$(idElt).hide();
+	}
+}
+

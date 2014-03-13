@@ -82,6 +82,18 @@ class FaController extends FP_Controller_SubFormController
 	}
 	
 	/**
+	 * Index de la partie admin pour les fiches des adoptants.
+	 */
+	public function indexadmAction() {
+		if ($this->checkIsLogged()) {
+			$this->initGridParam();
+			$this->view->redefineButtons = "admin/gridactions.phtml";
+
+			$this->render("indexgrid");
+		}
+	}
+
+	/**
 	 * Action pour l'affichage de la page de gestion des FA.
 	 */
 	public function indexgestionAction() {

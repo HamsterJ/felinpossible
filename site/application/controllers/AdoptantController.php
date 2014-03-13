@@ -87,7 +87,6 @@ class AdoptantController extends FP_Controller_SubFormController
 	 */
 	public function indexadmAction() {
 		if ($this->checkIsLogged()) {
-
 			$this->initGridParam();
 			$this->view->redefineButtons = "adoptant/gridactions.phtml";
 			$this->view->urlChatAdItem = $this->view->url(array('action' => 'chat'));
@@ -204,5 +203,6 @@ class AdoptantController extends FP_Controller_SubFormController
 			}
 		}
 	}
+
 }
 
