@@ -317,7 +317,7 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 	}
 
 	/**
-	 * Génère la fiche de soins pour le chat sélectionné.
+	 * Génère la fiche de soins pour le chat sélectionné avec Livedocx. DEPRECATED !
 	 * @param FP_Form_chat_FicheSoinsForm $ficheSoinForm
 	 */
 	public function generateFicheSoins($ficheSoinForm) {
@@ -403,6 +403,18 @@ class FP_Service_ChatServices extends FP_Service_CommonServices {
 			
 		unset($phpLiveDocx);
 	}
+        
+        
+        /**
+	 * Génère la fiche de soins pour le chat sélectionné.
+	 * @param FP_Form_chat_FicheSoinsForm $ficheSoinForm
+	 */
+	public function generateFicheSoinsFPDF($ficheSoinForm) {
+                include('../application/utils/FPDF/Soins.php');           
+                print_pdf($ficheSoinForm);		
+	}
+
+        
         
      /**
 	 * Retourne le tableau des chats à l'adoption, non réservés et correspondant aux critères du formulaire de recherche.
