@@ -1,7 +1,19 @@
 <?php
-
+/**
+ * Utilitaires pour l'impression PDF des fiches de soins depuis l'admin
+ * @author FlickFlack2104
+ *
+ */
+ 
 require('fpdf17/fpdf.php');
 
+/**
+ * Imprime une information de chat sous la forme "<info>(gras/souligné) : <valeur>" 
+ * @param $pdf : le document pdf
+ * @param $nom : Nom de l'information à imprimer
+ * @param $valeur : Valeur de l'information à imprimer	 
+ * @param $x,$y : Position de l'information à imprimer	 
+ */
 function print_tag($pdf,$nom,$valeur,$x,$y)
 {
     $pdf->SetFont('Arial','BU',12);
@@ -13,6 +25,10 @@ function print_tag($pdf,$nom,$valeur,$x,$y)
     $pdf->Cell(10,10,utf8_decode($valeur));
 }
 
+/**
+ * Imprime le pdf de fiche de soin à partir du formulaire web 
+ * @param $ficheSoinForm : Formulaire web PHP contenant les infos à imprimer
+ */
 function print_pdf(FP_Form_chat_FicheSoinsForm $ficheSoinForm)
 {
     
@@ -150,6 +166,7 @@ function print_pdf(FP_Form_chat_FicheSoinsForm $ficheSoinForm)
     $pdf->setXY(20,225+$pos_nom_soin);
     $pdf->MultiCell(180,5,utf8_decode("- Merci de nous contacter au 06 28 19 73 84 pour tout acte à réaliser, non-indiqué sur cette fiche, ou toute question concernant le chat, le tarif ou l'association."));
     
+	//Pied de page
     $pdf->SetTextColor(0,0,0);
     $pdf->SetFont('Arial','I',12);
     $pdf->setXY(20,272); 
@@ -167,6 +184,7 @@ function print_pdf(FP_Form_chat_FicheSoinsForm $ficheSoinForm)
     $pdf->SetTextColor(100,100,100);
     $pdf->MultiCell(180,3, utf8_decode("Association FELIN POSSIBLE - Chez Mlle CANTIN - Sèvegrand - 35520 LA CHAPELLE DES FOUGERETZ - 06.28.19.73.84 - asso@felinpossible.fr - www.felinpossible.fr"));
     
+	//Impression du pdf
     $pdf->Output('Soins_'.$ficheSoinForm->nomChat->getValue().'_'.date('dmY', time()).'.pdf','D');
 }
 
