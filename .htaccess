@@ -7,5 +7,5 @@ RewriteCond %{REQUEST_URI} !^/forum.*
 RewriteCond %{REQUEST_URI} !^/favicon.*
 RewriteCond %{REQUEST_URI} !^/robots.*
 RewriteCond %{REQUEST_URI} !^/tools.*
-RewriteCond %{REQUEST_URI} !^/index.*php$
+RewriteCond %{THE_REQUEST} !^/index.*php$
 RewriteRule ^(.*)$ /site/public/index.php/$1 [NC,L]
