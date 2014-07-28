@@ -31,6 +31,22 @@ function formatDate(inDatum) {
 	}
 }
 
+function formatDateMySql(inDatum) {
+	try {
+	  if (inDatum == "" || inDatum == null) {
+		return "";
+	  }
+	  return dojo.date.locale.format(new Date(dojo.date.stamp.fromISOString(inDatum)), {
+		datePattern : "yyyy-MM-dd",
+		selector : "date"
+	  });
+	} catch(e) {
+		console.error("Unable to format date ", inDatum, "error: ", e);
+		return inDatum;
+	}
+}
+
+
 /**
  * Formate la date, en rouge si dans le passé.
  * 
@@ -542,11 +558,23 @@ function filterChat(gridName) {
 	  obj['adopte'] =  1;
 	  obj['disparu'] =  0;
   }
-  
+
+  if(dijit.byId('filterChatDateAdDebut') != "") {
+	  var startDateTmp = formatDateMySql(dijit.byId('filterChatDateAdDebut'));
+	  var endDateTmp = '9999-12-31'
+	  
+	  if (dijit.byId('filterChatDateAdFin') != "") {
+	  	endDateTmp = formatDateMySql(dijit.byId('filterChatDateAdFin'));	
+	  }
+
+	  obj['dateAdoption'] = 'between "' + startDateTmp+ '" and "' + endDateTmp + '"';
+  }
+
   var grid = dijit.byId(gridName);
   grid.filter(obj);
   grid.showMessage(grid.loadingMessage);
 }
+
 /**
  * Désactive les filtres.
  */

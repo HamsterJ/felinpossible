@@ -71,7 +71,8 @@ protected $filterKeyToDbKey = array('nom' => 'cat.nom',
 	'reserve' => 'cat.reserve',
 	'aParrainer' => 'cat.parrain',
 	'disparu' => 'cat.disparu',
-	'dateContratAdoption' => 'cat.dateContratAdoption');
+	'dateContratAdoption' => 'cat.dateContratAdoption',
+	'dateAdoption' => 'cat.date_adoption');
 
 protected $clausesWhere = array(
 	FP_Util_Constantes::CHAT_FICHES_A_VALIDER => 'to_check = 1 and disparu = 0',
