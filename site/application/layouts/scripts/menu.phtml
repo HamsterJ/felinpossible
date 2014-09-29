@@ -1,3 +1,7 @@
+<div class="visible-desktop">
+  <?php echo $this->partial("index/reference.phtml"); ?>
+</div>
+
 <div class="accordion well" id="accordionMenu">
   <!-- Association -->
   <div class="accordion-group">
@@ -33,6 +37,7 @@
           <li><a href="#<?php echo $this->url(array('controller' => 'index', 'action' => 'parrainer')) ?>" rel="ajax" >Parrainer un chat</a></li>
           <li><a href="#<?php echo $this->url(array('controller' => 'index', 'action' => 'benevole')) ?>" rel="ajax">Devenir bénévole</a></li>
           <li><a href="#<?php echo $this->url(array('controller' => 'fa', 'action' => 'index')) ?>" rel="ajax">Etre Famille d'Accueil</a></li>
+          <li><a href="#<?php echo $this->url(array('controller' => 'index', 'action' => 'don')) ?>" rel="ajax">Faire un don</a></li>
         </ul>
       </div>
     </div>
@@ -115,8 +120,4 @@
       </a>
     </div>
   </div>        
-</div>
-
-<div class="visible-desktop">
-  <?php echo $this->partial("index/reference.phtml"); ?>
 </div>
