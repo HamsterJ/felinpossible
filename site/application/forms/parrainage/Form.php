@@ -55,6 +55,12 @@ class FP_Form_parrainage_Form extends FP_Form_common_Form {
                 'filters'    => array('StringTrim')
         )),
         
+        new Zend_Form_Element_Text('loginForum', array(
+                'required'   => false,
+                'label'      => 'Login Forum',
+                'filters'    => array('StringTrim')
+        )),    
+            
         new Zend_Form_Element_Text('adresse', array(
                 'required'   => true,
                 'label'      => 'Adresse',

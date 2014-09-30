@@ -351,7 +351,7 @@ class ChatController extends FP_Controller_CommonController
 			$form = new FP_Form_chat_FicheSoinsForm();
 			if ($request->isPost()) {
 				if ($form->isValid($request->getPost())) {
-					$this->getService()->generateFicheSoins($form);
+					$this->getService()->generateFicheSoinsFPDF($form);
 				}
 			}
 		}

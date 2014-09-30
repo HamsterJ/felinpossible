@@ -12,7 +12,7 @@
                 <?php
                 
                     include 'FPUtils.php';
-                    include 'ChatUtil.php';
+                    include '../site/application/utils/ChatUtil.php';
                     include 'fbphotos.php'; 
                     include 'sitephotos.php';
                     include 'forumphotos.php';

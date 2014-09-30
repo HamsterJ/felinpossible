@@ -52,9 +52,11 @@ class FP_Util_Constantes {
 	 * Dons possibles pour le parrainage.
 	 * @var array
 	 */
-	public static $LISTE_DONS = array('15' => '15 €',
-	                         '20' => '20 €',
-	                         '0' => 'Autres');
+	public static $LISTE_DONS = array('5' => '5€',
+                                    '10' => '10€',
+                                    '15' => '15 €',
+                                    '20' => '20 €',
+                                    '0' => 'Autres');
 
 	/**
 	 * Oui/Non pour les formulaires.
