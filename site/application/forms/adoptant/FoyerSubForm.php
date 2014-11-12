@@ -31,7 +31,6 @@ class FP_Form_adoptant_FoyerSubForm extends FP_Form_common_FoyerSubForm
 		
 		$habitudeChat = new Zend_Form_Element_Radio('habitudeChat', array(
                 'label'      => 'Vos animaux ont-ils l\'habitude des chats ?',
-		        'required' => true,
                 'multiOptions' => FP_Util_Constantes::$LISTE_OUI_NON
 		));
 		$habitudeChat->setOrder(55);
