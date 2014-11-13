@@ -72,7 +72,7 @@ class FP_Service_MailServices {
                   'auth' => 'plain',
                   'username' => $config->email->smtp->login,
                   'password' => $config->email->smtp->password,
-                  'ssl' => 'ssl',
+                  'ssl' => 'tls',
                   'port' => ($config->email->smtp->port)?$config->email->smtp->port:'25'
 		);          
 		$transport = new Zend_Mail_Transport_Smtp($config->email->smtp->hostname , $configSmtp);
