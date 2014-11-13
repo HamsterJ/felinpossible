@@ -78,7 +78,7 @@ class FP_Model_Mapper_AdoptantMapper extends FP_Model_Mapper_CommonMapper {
 	 * (non-PHPdoc)
 	 * @see site/application/models/Mapper/FP_Model_Mapper_CommonMapper#fetchAllToArray($sort, $order, $start, $count, $where)
 	 */
-	public function fetchAllToArray($sort, $order, $start, $count, $where = null)
+	public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
 	{
 		$subSelect = $this->getDbTable()->getAdapter()->select()
 		->from('fp_ad_fiche')

@@ -54,38 +54,39 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 		'dateEnvoiRappelSte' => 'dateEnvoiRappelSte',
 		'dateContratAdoption' => 'dateContratAdoption',
 		'papierIdRecu' => 'papierIdRecu',
-        'okChats' => 'okChats',
-        'okChiens' => 'okChiens',
-        'okApparts' => 'okApparts',
-        'okEnfants' => 'okEnfants',
-        'chgtProprio' => 'chgtProprio'
+                'okChats' => 'okChats',
+                'okChiens' => 'okChiens',
+                'okApparts' => 'okApparts',
+                'okEnfants' => 'okEnfants',
+                'chgtProprio' => 'chgtProprio'
 		);
 
-protected $excludeModelToDb = array('libelleCouleur' => 0,
-	'libelleSexe' => 0,
-	'fa' => 0);
+        protected $excludeModelToDb = array('libelleCouleur' => 0,
+            'libelleSexe' => 0,
+            'fa' => 0);
 
-protected $filterKeyToDbKey = array('nom' => 'cat.nom',
-	'aValider' => 'cat.to_check',
-	'adopte' => 'cat.adopte',
-	'reserve' => 'cat.reserve',
-	'aParrainer' => 'cat.parrain',
-	'disparu' => 'cat.disparu',
-	'dateContratAdoption' => 'cat.dateContratAdoption');
+        protected $filterKeyToDbKey = array('nom' => 'cat.nom',
+            'aValider' => 'cat.to_check',
+            'adopte' => 'cat.adopte',
+            'reserve' => 'cat.reserve',
+            'aParrainer' => 'cat.parrain',
+            'disparu' => 'cat.disparu',
+			'dateContratAdoption' => 'cat.dateContratAdoption',
+			'dateAdoption' => 'cat.date_adoption');
 
-protected $clausesWhere = array(
-	FP_Util_Constantes::CHAT_FICHES_A_VALIDER => 'to_check = 1 and disparu = 0',
-	FP_Util_Constantes::CHAT_FICHES_A_ADOPTION => 'adopte = 0 and disparu = 0 and to_check = 0',
-	FP_Util_Constantes::CHAT_FICHES_ADOPTES => 'adopte = 1 and disparu = 0 and to_check = 0',
-	FP_Util_Constantes::CHAT_FICHES_DISPARUS => 'disparu = 1 and to_check = 0',
-	FP_Util_Constantes::CHAT_FICHES_A_PARRAINER => 'parrain = 1 and disparu = 0 and to_check = 0',
-	FP_Util_Constantes::CHAT_FICHES_RESERVES => 'reserve = 1 and to_check = 0',
-	FP_Util_Constantes::CHAT_AVEC_DATE_VACCINS => 'adopte = 0 and disparu = 0',
-	FP_Util_Constantes::CHAT_FICHES_A_PLACER =>  'adopte = 0 and disparu = 0',
-	FP_Util_Constantes::CHAT_A_STERILISER =>  'disparu = 0 and sterilise = 0',
-	FP_Util_Constantes::CHAT_FICHES_A_ADOPTION_NON_RES => 'adopte = 0 and disparu = 0 and reserve = 0 and to_check = 0',
-	FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE => 'chgtProprio = 0 and adopte = 1 and disparu = 0 and to_check = 0'
-	);
+        protected $clausesWhere = array(
+            FP_Util_Constantes::CHAT_FICHES_A_VALIDER => 'to_check = 1 and disparu = 0',
+            FP_Util_Constantes::CHAT_FICHES_A_ADOPTION => 'adopte = 0 and disparu = 0 and to_check = 0',
+            FP_Util_Constantes::CHAT_FICHES_ADOPTES => 'adopte = 1 and disparu = 0 and to_check = 0',
+            FP_Util_Constantes::CHAT_FICHES_DISPARUS => 'disparu = 1 and to_check = 0',
+            FP_Util_Constantes::CHAT_FICHES_A_PARRAINER => 'parrain = 1 and disparu = 0 and to_check = 0',
+            FP_Util_Constantes::CHAT_FICHES_RESERVES => 'reserve = 1 and to_check = 0',
+            FP_Util_Constantes::CHAT_AVEC_DATE_VACCINS => 'adopte = 0 and disparu = 0',
+            FP_Util_Constantes::CHAT_FICHES_A_PLACER =>  'adopte = 0 and disparu = 0',
+            FP_Util_Constantes::CHAT_A_STERILISER =>  'disparu = 0 and sterilise = 0',
+            FP_Util_Constantes::CHAT_FICHES_A_ADOPTION_NON_RES => 'adopte = 0 and disparu = 0 and reserve = 0 and to_check = 0',
+            FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE => 'chgtProprio = 0 and adopte = 1 and disparu = 0 and to_check = 0'
+            );
 
 
 	/**
@@ -189,7 +190,7 @@ protected $clausesWhere = array(
 	 * (non-PHPdoc)
 	 * @see site/application/models/Mapper/FP_Model_Mapper_CommonMapper#fetchAllToArray($sort, $order, $start, $count, $where)
 	 */
-	public function fetchAllToArray($sort, $order, $start, $count, $where = null)
+	public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
 	{
 		$subSelect = $this->getDbTable()->getAdapter()->select()
 		->from(array('cat' => 'fp_cat_fiche'))
