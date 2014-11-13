@@ -49,6 +49,7 @@ class IndexController extends FP_Controller_CommonController
 	public function sterilisationAction() {}
 	public function tarifsAction() {}
 	public function chargeAction() {}
+	public function donAction() {}
 	
 	/**
 	 * Action pour le formulaire de parrainage.

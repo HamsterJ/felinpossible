@@ -89,7 +89,7 @@ class FP_Form_fa_ConditionsSubForm extends FP_Form_common_SubForm
 		        'required' => true
 		)),
 		new Zend_Form_Element_Radio('mettreChatQuarantaine', array(
-                'label'      => 'Mettre le chat en quarantaine pendant une semaine à son arrivée ?',
+                'label'      => 'Mettre le chat en quarantaine pendant deux semaines à son arrivée ?',
 		        'multiOptions' => FP_Util_Constantes::$LISTE_OUI_NON,
 		        'required' => true
 		)),

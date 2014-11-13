@@ -142,7 +142,9 @@ abstract class FP_Service_CommonServices {
 						$where = '';
 					}
 
-					if ($value != 'is null') {
+					if (substr_count($value, 'between') > 0) {
+						$where .= " $dbKey $value ";
+					} else if ($value != 'is null') {
 						$pattern = addslashes($value);
 						$where .= " $dbKey like '$pattern%' ";
 					} else {
