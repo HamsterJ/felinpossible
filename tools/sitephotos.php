@@ -11,7 +11,7 @@
 
 
             // on crée la requête SQL 
-            $sql = "SELECT id,nom,miniature,DATE_FORMAT(date,'%d/%m/%Y') date,tests,vaccins,tatouage,caractere,topic_id,okChats,okChiens,okApparts,okEnfants,reserve FROM fp_cat_fiche WHERE adopte=0 and disparu=0 and to_check=0"; 
+            $sql = "SELECT id,nom,miniature,DATE_FORMAT(date,'%d/%m/%Y') date,tests,vaccins,tatouage,caractere,topic_id,okChats,okChiens,okApparts,okEnfants,reserve,idSexe FROM fp_cat_fiche WHERE adopte=0 and disparu=0 and to_check=0"; 
 
             // on fait une boucle qui va faire un tour pour chaque enregistrement 
             foreach  ($pdo->query($sql) as $data) 
@@ -29,6 +29,7 @@
                  $chats_site[FPUtils::getNomSansAccentsHTML($data["nom"])]['okEnfants']=  $data["okEnfants"];
                  $chats_site[FPUtils::getNomSansAccentsHTML($data["nom"])]['id']=  $data["id"];
                  $chats_site[FPUtils::getNomSansAccentsHTML($data["nom"])]['reserve']=  $data["reserve"];
+                 $chats_site[FPUtils::getNomSansAccentsHTML($data["nom"])]['idSexe']=  $data["idSexe"];
             } 
             }
             catch (PDOException $e) {
@@ -46,7 +47,7 @@
     {
          $chat = "<td align='middle'><img class='img-chat' src='";
          $chat = $chat.$photo['pic']."' alt='".$nom_chat."' height=\"100\"/></br><p style='font-size:10px'></br>";
-         
+         $chat = $chat.($photo['idSexe']==1?'<b>mâle</b>':'<b>femelle</b>')."</br>";
          if ($photo['identif'] === $chat_forum['identif'])
             {$chat = $chat.$photo['identif']."</br>";}
          else
@@ -66,7 +67,7 @@
             $chat = $chat.$photo['dateNaissance']."</br>";
          else
             {$chat = $chat."<font color='orange'>".$photo['dateNaissance']."</font></br></br>";} 
-
+           
          $chat = $chat.substr($photo['caractere'],0,120)."</br>";
          $chat = $chat."</p></td>";
                 

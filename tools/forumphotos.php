@@ -8,7 +8,7 @@ function get_forum_contents()
   
     try{
         $arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"); 
-		$appliParams = parse_ini_file("../site/application/configs/application.ini"); 
+	$appliParams = parse_ini_file("../site/application/configs/application.ini"); 
         $pdo = new PDO('mysql:host=localhost;dbname='.$appliParams['resources.db.params.dbname'], $appliParams['resources.db.params.username'], $appliParams['resources.db.params.password'], $arrExtraParam); 
 
         // on crée la requète SQL 
@@ -53,7 +53,7 @@ function get_forum_contents()
                 $chats_forum[FPUtils::getNomSansAccentsHTML($name)]['vaccin']=$vaccins;
                 $chats_forum[FPUtils::getNomSansAccentsHTML($name)]['dateNaissance']=$naiss; 
                 $chats_forum[FPUtils::getNomSansAccentsHTML($name)]['topic_id']=  $data2["topic_id"];
-                $chats_forum[FPUtils::getNomSansAccentsHTML($name)]['caractere']=substr($caractere,0,120); 
+                $chats_forum[FPUtils::getNomSansAccentsHTML($name)]['caractere']=substr(preg_replace('#<!-- s:.*: -->#i','',$caractere),0,120); //suppression des smilies qui font chi**
                 $chats_forum[FPUtils::getNomSansAccentsHTML($name)]['forum_id']=$data2["forum_id"];
             }
         } 
@@ -62,7 +62,7 @@ function get_forum_contents()
             print "Error!: " . $e->getMessage() . "<br/>";
             die();
         }
-        catch (Exception $e){echo 'rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr';}
+        catch (Exception $e){echo 'Unexpected error ^^';}
        
     //on trie par nom de chat
     ksort($chats_forum);
