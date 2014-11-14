@@ -57,8 +57,9 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
 	 * @param form $token : Clef de demande de fiche
         */
         public function getDemandeParToken($token ) {
-            return $this->getMapper()->select('*','token="'.$token.'"','dateDemande desc');
-            
+            $tok = str_replace('"', '', $token); //supression des " pour éviter les emmerdes
+            $replace_sql = " REPLACE(token,'\"','')";
+            return $this->getMapper()->select('*',$replace_sql.'="'.$tok.'"','dateDemande desc');
 	}
      
         /*
@@ -66,7 +67,6 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
         */
         public function getDataDemandeSoins($id) {
             return $this->getMapper()->select('*','id="'.$id.'"','dateDemande desc');
-            
 	}
         
         /*
@@ -79,21 +79,23 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
             $elements = array();
             $elements['token'] = $demande->getToken();
             
-            if ($demande->getLogin())// Si on a le login de la FA, on récupère toutes ses infos
+            if ($demande->getLogin())// Si on a le login de la FA (on ne fait pas attention aux accents), on récupère toutes ses infos
             {
                 $fs = FP_Service_FaServices::getInstance();
-                $fa = $fs->getMapper()->select(null,'upper(login)=upper("'.$demande->getLogin().'")',null);
+                $fa = $fs->getMapper()->select(null,'upper(login)=upper("'.$demande->getLogin().'") COLLATE utf8_general_ci',null);
             }
             
-            if ($fa == null) // login mal tapé, ou pas de login (cas où c'est une nouvelle FA ou pour un chat hors asso)
+            if ($fa == null) // login mal tapé, ou pas de login renseigné dans la base FA (cas où c'est une nouvelle FA ou pour un chat hors asso)
             {
-                //on cherche à partir du nom/prenom, mais bon il faut que ca soit exact, c'est pas gagné !
+                //on cherche à partir du nom/prenom (on ne fait pas attention aux accents), mais bon il faut que ca soit exact, c'est pas gagné !
                 $nom = str_replace(' ','',$demande->getNom());//on enleve les espaces dans le nom entré par la FA
                 $fs = FP_Service_FaServices::getInstance();
                 $fa = $fs->getMapper()
-                        ->select(null,'upper(nom)=upper("'.$nom.'") 
-                                       OR CONCAT(upper(nom),upper(prenom))=upper("'.$nom.'")
-                                       OR CONCAT(upper(prenom),upper(nom))=upper("'.$nom.'")',null);
+                        ->select(null
+                                ,'upper(nom)=upper("'.$nom.'" COLLATE utf8_general_ci) 
+                                  OR CONCAT(upper(nom),upper(prenom))=upper("'.$nom.'" COLLATE utf8_general_ci)
+                                  OR CONCAT(upper(prenom),upper(nom))=upper("'.$nom.'" COLLATE utf8_general_ci)'
+                                ,null);
             }
            
             if ($fa){//on a trouvé quelque chose en base avec les infos FA qu'on avait dans la demande
@@ -112,7 +114,7 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
             if ($demande->getNomChat())
             {
                 $cs = FP_Service_ChatServices::getInstance();
-                $infosChat = $cs->getMapper()->select(null,'upper(nom)=upper("'.$demande->getNomChat().'")',null);
+                $infosChat = $cs->getMapper()->select(null,'upper(nom)=upper("'.$demande->getNomChat().'"  COLLATE utf8_general_ci)',null);
                 
                 if ($infosChat){//Si on a un nom de chat précis (et pas "les 3 chatons noirs"), on récupère les infos
                     $coulMapper = FP_Model_Mapper_MapperFactory::getInstance()->couleurMapper;

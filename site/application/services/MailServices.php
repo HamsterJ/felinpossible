@@ -72,7 +72,7 @@ class FP_Service_MailServices {
                   'auth' => 'plain',
                   'username' => $config->email->smtp->login,
                   'password' => $config->email->smtp->password,
-                  'ssl' => 'tls',
+                  'ssl' => ($config->email->smtp->mode)?$config->email->smtp->mode:'tls',
                   'port' => ($config->email->smtp->port)?$config->email->smtp->port:'25'
 		);          
 		$transport = new Zend_Mail_Transport_Smtp($config->email->smtp->hostname , $configSmtp);
@@ -171,7 +171,7 @@ class FP_Service_MailServices {
 	public function envoiMailDemandeFicheSoins($form) {
 		
                 $data= array();
-                $data['sujet']='Nouvelle demande de fiche de soins de '.$form['nom'];
+                $data['sujet']='Demande de fiche véto de '.$form['login'];
                 $config = Zend_Registry::get(FP_Util_Constantes::CONFIG_ID);
                 $data['destinataire']=$config->email->address;
                 $pageTraitement = $config->ficheSoins->path;

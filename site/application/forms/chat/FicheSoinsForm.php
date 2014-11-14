@@ -68,16 +68,16 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
         $sexe->setFilters(array('StringTrim'));
 
         $soinPuce = new Zend_Form_Element_Checkbox('soinPuce');
-        $soinPuce->setLabel('Identification (puce) à faire');
+        $soinPuce->setLabel('Identification (puce)');
 
         $soinTatouage = new Zend_Form_Element_Checkbox('soinTatouage');
-        $soinTatouage->setLabel('Identification (tatouage) à faire');
+        $soinTatouage->setLabel('Identification (tatouage)');
 
         $soinVaccins = new Zend_Form_Element_Checkbox('soinVaccins');
-        $soinVaccins->setLabel('Vaccins TCL à faire');
+        $soinVaccins->setLabel('Vaccins TCL');
 
         $soinTests = new Zend_Form_Element_Checkbox('soinTests');
-        $soinTests->setLabel('Tests FIV/FELV à faire');
+        $soinTests->setLabel('Tests FIV/FELV');
 
         $soinAntiParasites = new Zend_Form_Element_Checkbox('soinAntiParasites');
         $soinAntiParasites->setLabel('Anti-parasitaire externe');
