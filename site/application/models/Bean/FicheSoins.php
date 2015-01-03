@@ -12,6 +12,8 @@ class FP_Model_Bean_FicheSoins extends FP_Model_Bean_Common
 {
 	/** @var int  */
 	protected $id;
+	/** @var date  */
+	protected $dateDemande;
 	/** @var string  */
 	protected $nom;
 	/** @var string  */
@@ -58,14 +60,29 @@ class FP_Model_Bean_FicheSoins extends FP_Model_Bean_Common
 	 *
 	 * @return null|int
 	 */
-	public function getId()
-	{
+	public function getId() {
 		return $this->id;
 	}
 
+        /**
+	 * Retrieve dateDemande
+	 * @param  dateDemande
+	 * @return la valeur de dateDemande
+	 */
+	public function getDateDemande() {
+		return $this->dateDemande;
+	}
+
+	/**
+	 * Set entry dateDemande
+	 * @param dateDemande
+	 */
+	public function setDateDemande($dateDemande) {
+		$this->dateDemande = $dateDemande;
+	}
+        
 	/**
 	 * Retrieve nom
-	 *
 	 * @param  string nom
 	 * @return la valeur de nom
 	 */

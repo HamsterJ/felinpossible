@@ -157,8 +157,9 @@ class FP_Util_Constantes {
 	 * Stérilisations possibles.
 	 */
 	public static $LISTE_STERILISATION =  array(0 => 'Aucune',
-	1 => 'Ovariectomie à faire',
-	2 => 'Ovario-hystérectomie à faire',
-	3 => 'Castration à faire');
+	1 => 'Ovariectomie',
+	2 => 'Ovario-hystérectomie',
+	3 => 'Castration',
+        4 => 'Stérilisation');
 	
 }

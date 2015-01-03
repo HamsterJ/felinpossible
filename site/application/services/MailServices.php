@@ -72,9 +72,9 @@ class FP_Service_MailServices {
                   'auth' => 'plain',
                   'username' => $config->email->smtp->login,
                   'password' => $config->email->smtp->password,
-                  'ssl' => 'tls',
-                  'port' => 25
-		);
+                  'ssl' => ($config->email->smtp->mode)?$config->email->smtp->mode:'tls',
+                  'port' => ($config->email->smtp->port)?$config->email->smtp->port:'25'
+		);          
 		$transport = new Zend_Mail_Transport_Smtp($config->email->smtp->hostname , $configSmtp);
 
 		$mail->setSubject(utf8_decode($subject));
@@ -161,6 +161,45 @@ class FP_Service_MailServices {
 	 */
 	public function envoiMail($data) {
 		$args = $this->buildMailParam(null, $data['sujet'], $data['destinataire'], $data['contenu'], null, $data['copy']);
+		$this->sendMail($args);
+	}
+        
+        /**
+	 * Envoi un mail à l'asso lors de la soumission d'une demande de fiche de soins
+	 * @param array $data
+	 */
+	public function envoiMailDemandeFicheSoins($form) {
+		
+                $data= array();
+                $data['sujet']='Demande de fiche véto de '.$form['login'];
+                $config = Zend_Registry::get(FP_Util_Constantes::CONFIG_ID);
+                $data['destinataire']=$config->email->address;
+                $pageTraitement = $config->ficheSoins->path;
+                
+                $beanVeto = FP_Model_Mapper_MapperFactory::getInstance()->vetoMapper->find($form['idVeto']);
+                $veto = ($beanVeto)?($beanVeto->getRaison()):'';
+    
+                $data['contenu'] = '<table><th width="100px"></th><th></th>
+                                    <tr><td colspan="2">Bonjour,</td></tr>
+                                    <tr><td colspan="2">Une nouvelle demande de fiche de soins est arrivée.</td></tr>
+                                    <tr><td colspan="2">Voici le résumé de la demande : </td></tr>
+                                    <tr><td></td><td></td></tr>
+                                    <tr><td>Demandeur : </td><td>'       .$form['nom'].($form['login']?' ('.$form['login'].')':'').'</td></tr>
+                                    <tr><td>Chat : </td><td>'            .$form['nomChat'].'</td></tr>
+                                    <tr><td>Date de visite : </td><td>'  .$form['dateVisite'].'</td></tr>
+                                    <tr><td>Vétérinaire : </td><td>'     .$veto.($form['vetoCompl']?('   '.$form['vetoCompl']):'').'</td></tr>  
+                                    <tr><td>Identification : </td><td>'  .($form['soinIdent']?'<b>OUI</b>':'Non')        .'</td></tr>
+                                    <tr><td>Tests Fiv/Felv : </td><td>'  .($form['soinTests']?'<b>OUI</b>':'Non')        .'</td></tr>
+                                    <tr><td>Vaccins : </td><td>'         .($form['soinVaccins']?'<b>OUI</b>':'Non')      .'</td></tr>
+                                    <tr><td>Stérilisation : </td><td>'   .($form['soinSterilisation']?'<b>OUI</b>':'Non').'</td></tr>
+                                    <tr><td>Vermifuge : </td><td>'       .($form['soinVermifuge']?'<b>OUI</b>':'Non')    .'</td></tr>
+                                    <tr><td>Anti-puces : </td><td>'      .($form['soinAntiParasites']?'<b>OUI</b>':'Non').'</td></tr>
+                                    <tr><td>Commentaires : </td><td>'    .($form['soinAutre']?$form['soinAutre']:'Non')        .'</td></tr>
+                                    <tr><td></td><td></td></tr>
+                                    <tr><td colspan="2">Pour la traiter, merci de cliquer ici : <a href="'.$pageTraitement.'?token='.$form['token'].'">'.$pageTraitement.'?token='.$form['token'].'</a></td></tr>
+                                    </table>';
+            
+                $args = $this->buildMailParam(null, $data['sujet'], $data['destinataire'], $data['contenu'], null, null);
 		$this->sendMail($args);
 	}
 

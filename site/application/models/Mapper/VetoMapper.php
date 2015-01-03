@@ -57,7 +57,13 @@ class FP_Model_Mapper_VetoMapper extends FP_Model_Mapper_CommonMapper {
 	 * (non-PHPdoc)
 	 * @see site/application/models/Mapper/FP_Model_Mapper_CommonMapper#buildArrayForForm($idColumnName, $valueColumnName)
 	 */
-	public function buildArrayForForm($idColumnName = 'id', $valueColumnName = 'name') {
-		return parent::buildArrayForForm('id', 'raison', 'ville', true);
+	public function buildArrayForForm($idColumnName = 'id', $valueColumnName = 'name', $otherColumn = null, $emptyValue = false) {
+				
+		$listev = parent::buildArrayForForm('id', 'raison', 'ville', true);
+		
+		$listev[-99] = "AUTRE VETERINAIRE";
+		
+		return $listev;
+		
 	}
 }
