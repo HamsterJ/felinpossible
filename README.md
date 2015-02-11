@@ -12,7 +12,7 @@ Partie forum basée sur phpBb.
 
 Installation
 -------------------
-TODO.
+See associated docker image https://github.com/bboutier/docker-fp
 
 License
 -------------------
