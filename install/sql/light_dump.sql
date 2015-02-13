@@ -556,6 +556,10 @@ CREATE TABLE IF NOT EXISTS `phpbb_users` (
   KEY `user_type` (`user_type`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3197 ;
 
+
+INSERT INTO `phpbb_users` (`user_id`, `user_type`, `group_id`, `user_permissions`, `user_perm_from`, `user_ip`, `user_regdate`, `username`, `username_clean`, `user_password`, `user_passchg`, `user_pass_convert`, `user_email`, `user_email_hash`, `user_birthday`, `user_lastvisit`, `user_lastmark`, `user_lastpost_time`, `user_lastpage`, `user_last_confirm_key`, `user_last_search`, `user_warnings`, `user_last_warning`, `user_login_attempts`, `user_inactive_reason`, `user_inactive_time`, `user_posts`, `user_lang`, `user_timezone`, `user_dst`, `user_dateformat`, `user_style`, `user_rank`, `user_colour`, `user_new_privmsg`, `user_unread_privmsg`, `user_last_privmsg`, `user_message_rules`, `user_full_folder`, `user_emailtime`, `user_topic_show_days`, `user_topic_sortby_type`, `user_topic_sortby_dir`, `user_post_show_days`, `user_post_sortby_type`, `user_post_sortby_dir`, `user_notify`, `user_notify_pm`, `user_notify_type`, `user_allow_pm`, `user_allow_viewonline`, `user_allow_viewemail`, `user_allow_massemail`, `user_options`, `user_avatar`, `user_avatar_type`, `user_avatar_width`, `user_avatar_height`, `user_sig`, `user_sig_bbcode_uid`, `user_sig_bbcode_bitfield`, `user_from`, `user_icq`, `user_aim`, `user_yim`, `user_msnm`, `user_jabber`, `user_website`, `user_occ`, `user_interests`, `user_actkey`, `user_newpasswd`, `user_form_salt`, `user_new`, `user_reminded`, `user_reminded_time`) VALUES
+(1, 3, 4, 'zi8sfzzik0zjzik0zjhra0hs\nzik0zi000000\nzik0zjzhb2tc\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\nzik0zi000000\nzik0zjzhb2tc\n\nzik0zi000000\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zi000000\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\n\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\nzik0zjzhb2tc\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\n\nzik0zi000000\nzik0zi000000\nzik0zjzhb2tc\nzik0zjzhb2tc\n\n\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc\nzik0zjzhb2tc', 0, '1.1.1.1', 1215284669, 'user_test', 'user_test', '$H$9m6b54WJZiV5dcUT.CZX5DgOzlZ7Td.', 1339966656, 0, 'test.test@test.com', 66286524526, '1- 1-1970', 1417030962, 1215284669, 1417011151, '', '', 1395487508, 0, 0, 0, 0, 0, 1514, 'fr', 1.00, 0, 'd M Y, H:i', 2, 20, '990099', 0, 0, 1417015839, 0, -3, 1267296232, 0, 't', 'd', 0, 't', 'a', 0, 1, 2, 1, 1, 1, 1, 230271, '', 1, 128, 95, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '65901f0e4345ad56', 0, 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -572,6 +576,18 @@ CREATE TABLE IF NOT EXISTS `phpbb_user_group` (
   KEY `group_leader` (`group_leader`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+
+INSERT INTO `phpbb_user_group` (`group_id`, `user_id`, `group_leader`, `user_pending`) VALUES
+(2, 1, 0, 0),
+(7, 1, 0, 0),
+(4, 1, 0, 0),
+(5, 1, 1, 0),
+(11, 1, 0, 0),
+(14, 1, 1, 0),
+(15, 1, 1, 0),
+(17, 1, 0, 0);
+
+commit;
 --
 -- Contraintes pour la table `fp_ad_cat`
 --
