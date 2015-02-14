@@ -12,7 +12,13 @@ Partie forum basée sur phpBb.
 
 Installation
 -------------------
-See associated docker image https://github.com/bboutier/docker-fp
+
+
+```
+git clone https://github.com/bboutier/felinpossible.git
+````
+
+And then run docker image on your downloaded sources (see docker image https://github.com/bboutier/docker-fp).
 
 License
 -------------------
