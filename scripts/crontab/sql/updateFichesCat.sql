@@ -48,7 +48,7 @@ insert into fp_cat_fiche (nom, idSexe, race, idCouleur, yeux, tests, vaccins, ta
     FROM phpbb_posts post, phpbb_topics topic
     LEFT JOIN fp_cat_fiche fiche ON fiche.topic_id = topic.topic_id
     WHERE fiche.id IS NULL
-      AND (topic.forum_id = 10 or topic.forum_id = 54 or topic.forum_id = 108 or topic.forum_id = 66)
+      AND (topic.forum_id = 10 or topic.forum_id = 54 or topic.forum_id = 108 or topic.forum_id = 152)
       AND post.topic_id = topic.topic_id
       AND topic.topic_type = 0
     ORDER BY post.post_id
