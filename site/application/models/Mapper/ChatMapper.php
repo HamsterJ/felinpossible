@@ -54,11 +54,11 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 		'dateEnvoiRappelSte' => 'dateEnvoiRappelSte',
 		'dateContratAdoption' => 'dateContratAdoption',
 		'papierIdRecu' => 'papierIdRecu',
-        'okChats' => 'okChats',
-        'okChiens' => 'okChiens',
-        'okApparts' => 'okApparts',
-        'okEnfants' => 'okEnfants',
-        'chgtProprio' => 'chgtProprio'
+                'okChats' => 'okChats',
+                'okChiens' => 'okChiens',
+                'okApparts' => 'okApparts',
+                'okEnfants' => 'okEnfants',
+                'chgtProprio' => 'chgtProprio'
 		);
 
         protected $excludeModelToDb = array('libelleCouleur' => 0,
@@ -71,8 +71,8 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
             'reserve' => 'cat.reserve',
             'aParrainer' => 'cat.parrain',
             'disparu' => 'cat.disparu',
-		    'dateContratAdoption' => 'cat.dateContratAdoption',
-		    'dateAdoption' => 'cat.date_adoption');
+			      'dateContratAdoption' => 'cat.dateContratAdoption',
+			      'dateAdoption' => 'cat.date_adoption');
 
         protected $clausesWhere = array(
             FP_Util_Constantes::CHAT_FICHES_A_VALIDER => 'to_check = 1 and disparu = 0 and adopte = 0',
