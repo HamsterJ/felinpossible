@@ -17,6 +17,8 @@ include '../site/application/utils/ChatUtil.php';
         {
             if ($c['forum_id'] =='10')
             {$computed[$nom_chat]['forum'] = 'A'.$c['topic_id'];}
+			elseif ($c['forum_id'] =='152')
+           {$computed[$nom_chat]['forum'] = 'A'.$c['topic_id'];} //bientôt à l'adoption
             elseif ($c['forum_id'] =='54')
             {$computed[$nom_chat]['forum'] = 'R'.$c['topic_id'];}
             elseif ($c['forum_id'] =='108')
