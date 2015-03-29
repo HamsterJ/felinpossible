@@ -171,6 +171,7 @@ class FP_Service_MailServices {
 	public function envoiMailDemandeFicheSoins($form) {
 		
                 $data= array();
+                $fa_mail ='';
                 $data['sujet']='Demande de fiche véto de '.$form['login'];
                 $config = Zend_Registry::get(FP_Util_Constantes::CONFIG_ID);
                 $data['destinataire']=$config->email->address;
@@ -178,14 +179,27 @@ class FP_Service_MailServices {
                 
                 $beanVeto = FP_Model_Mapper_MapperFactory::getInstance()->vetoMapper->find($form['idVeto']);
                 $veto = ($beanVeto)?($beanVeto->getRaison()):'';
+                
+                if ($form['login'])// Si on a le login de la FA
+                {
+                    $fs = FP_Model_Mapper_MapperFactory::getInstance()->faMapper;
+                    $fa = $fs->select(null,'upper(login)=upper("'.$form['login'].'") COLLATE utf8_general_ci',null);
+                    
+                    if ($fa){
+                    $fa_mail = ($fa[0]->email); 
+                    }
+                }
     
                 $data['contenu'] = '<table><th width="100px"></th><th></th>
                                     <tr><td colspan="2">Bonjour,</td></tr>
                                     <tr><td colspan="2">Une nouvelle demande de fiche de soins est arrivée.</td></tr>
                                     <tr><td colspan="2">Voici le résumé de la demande : </td></tr>
                                     <tr><td></td><td></td></tr>
-                                    <tr><td>Demandeur : </td><td>'       .$form['nom'].($form['login']?' ('.$form['login'].')':'').'</td></tr>
-                                    <tr><td>Chat : </td><td>'            .$form['nomChat'].'</td></tr>
+                                    <tr><td>Demandeur : </td><td>'       .$form['nom']
+                                                                         .($form['login']?' ('.$form['login'].')':'')
+                                                                         .($fa_mail?' - mail : <a href="mailto:'.$fa_mail.'">'.$fa_mail.'</a>':'')
+                                                                         .'</td></tr>
+                                    <tr><td>Chat : </td><td>'                .$form['nomChat'].'</td></tr>
                                     <tr><td>Date de visite : </td><td>'  .$form['dateVisite'].'</td></tr>
                                     <tr><td>Vétérinaire : </td><td>'     .$veto.($form['vetoCompl']?('   '.$form['vetoCompl']):'').'</td></tr>  
                                     <tr><td>Identification : </td><td>'  .($form['soinIdent']?'<b>OUI</b>':'Non')        .'</td></tr>
