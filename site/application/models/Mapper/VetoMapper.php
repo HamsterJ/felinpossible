@@ -39,7 +39,8 @@ class FP_Model_Mapper_VetoMapper extends FP_Model_Mapper_CommonMapper {
 		'Code Postal' => 'veto.cp',
 		'Ville' => 'veto.ville',
 		'Tél. portable' => 'veto.portable',
-		'Tél. fixe' => 'veto.fixe'
+		'Tél. fixe' => 'veto.fixe',
+		'Email' => 'veto.email'
 		);
 
 		$select = $this->getDbTable()->getAdapter()->select()

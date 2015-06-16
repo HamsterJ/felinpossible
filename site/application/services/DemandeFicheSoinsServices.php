@@ -126,7 +126,7 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
                     $elements['nomChat']            = $infosChat[0]->nom; 
                     $elements['couleur']            = $couleur->libelleCouleur; 
                     $elements['identification']     = $infosChat[0]->tatouage; 
-                    $elements['dateNaissance']      = DateTime::createFromFormat('Y-m-d', $infosChat[0]->dateNaissance)->format('d/m/Y'); 
+                    $elements['dateNaissance']      = ($infosChat[0]->dateNaissance)?(DateTime::createFromFormat('Y-m-d', $infosChat[0]->dateNaissance)->format('d/m/Y')):''; 
                     $elements['dateApprox']         = $infosChat[0]->dateApproximative; 
                     $elements['sexe']               = $sexe->libelle; 
                 }
