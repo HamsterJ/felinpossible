@@ -116,7 +116,6 @@ class ChatController extends FP_Controller_CommonController
 		if ($this->checkIsLogged()) {
 			$request = $this->getRequest();
 			$form = new FP_Form_chat_Form();
-
 			// Check to see if this action has been POST'ed to.
 			if ($request->isPost()) {
 				if ($form->isValid($request->getPost())) {
@@ -173,7 +172,6 @@ class ChatController extends FP_Controller_CommonController
 			$request = $this->getRequest();
 			$form = new FP_Form_chat_Form();
 			$chatId = $request->getParam('id', null);
-
 			if ($chatId) {
 				$data = $this->getService()->getInfosFromPostId($chatId);
 				$form->populate($data);

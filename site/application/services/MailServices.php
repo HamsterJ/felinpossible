@@ -208,7 +208,9 @@ class FP_Service_MailServices {
                                     <tr><td>Stérilisation : </td><td>'   .($form['soinSterilisation']?'<b>OUI</b>':'Non').'</td></tr>
                                     <tr><td>Vermifuge : </td><td>'       .($form['soinVermifuge']?'<b>OUI</b>':'Non')    .'</td></tr>
                                     <tr><td>Anti-puces : </td><td>'      .($form['soinAntiParasites']?'<b>OUI</b>':'Non').'</td></tr>
-                                    <tr><td>Commentaires : </td><td>'    .($form['soinAutre']?$form['soinAutre']:'Non')        .'</td></tr>
+                                    <tr><td>Commentaires : </td><td>'    .($form['soinAutre']?$form['soinAutre']:'Non')  .'</td></tr>
+                                    <tr><td></td><td></td></tr>
+                                    <tr><td>Fiche à envoyer </td><td>'.($form['envoiVeto']==1?' AU VETERINAIRE':'à la FA').'</td></tr>
                                     <tr><td></td><td></td></tr>
                                     <tr><td colspan="2">Pour la traiter, merci de cliquer ici : <a href="'.$pageTraitement.'?token='.$form['token'].'">'.$pageTraitement.'?token='.$form['token'].'</a></td></tr>
                                     </table>';

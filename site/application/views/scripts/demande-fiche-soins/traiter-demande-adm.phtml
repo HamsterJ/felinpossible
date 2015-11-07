@@ -9,6 +9,17 @@
             ?>
             
             <b><?php echo $this->form;?></b>
+            
+            <?php          
+             if ($this->envoiVeto == 1)
+             {
+                 echo '<div align="center"><b><font color="red" size="4">A envoyer directement au vétérinaire</font></b></div>';
+             }
+             else
+             {
+                 echo '<div align="center"><font color="green" size="3">A envoyer à la famille d\'accueil</font></div>';
+             }
+            ?>
         </p>
 </br> 
 </br>

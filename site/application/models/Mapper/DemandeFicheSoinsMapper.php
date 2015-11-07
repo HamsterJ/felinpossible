@@ -28,7 +28,8 @@ class FP_Model_Mapper_DemandeFicheSoinsMapper extends FP_Model_Mapper_CommonMapp
                                         'soinAntiParasites'=> 'soinAntiParasites', 
                                         'soinAutre'        => 'soinAutre',
                                         'token'            => 'token',
-                                        'ficheGeneree'     => 'ficheGeneree');
+                                        'ficheGeneree'     => 'ficheGeneree',
+                                        'envoiVeto'        => 'envoiVeto');
         
         
         /**
@@ -52,7 +53,9 @@ class FP_Model_Mapper_DemandeFicheSoinsMapper extends FP_Model_Mapper_CommonMapp
                         ,'IF(d.soinSterilisation>0,"Oui","") soinSterilisation'
                         ,'IF(d.soinVermifuge>0,"Oui","") soinVermifuge'
                         ,'IF(d.soinAntiParasites>0,"Oui","") soinAntiParasites'
-                        ,'IF(d.ficheGeneree>0,"Oui","NON") ficheGeneree'));
+                        ,'IF(d.ficheGeneree>0,"Oui","NON") ficheGeneree'
+                        ,'IF(d.envoiVeto>0,"OUI","Non") envoiVeto'
+                        ));
                 
             if ($sort && $order) {
                 $subSelect->order($sort." ".$order);

@@ -51,11 +51,15 @@ class FP_Form_chat_DemanderFicheForm extends FP_Form_common_Form {
         $soinAutre = new Zend_Form_Element_Textarea('soinAutre');
         $soinAutre->setLabel('Commentaires (précisions sur les soins, autre(s) soin(s) à faire etc)');
         $soinAutre->setAttrib('cols', '80');
-        $soinAutre->setAttrib('rows', '5');
+        $soinAutre->setAttrib('rows', '8');
+        $soinAutre->setAttrib('maxlength','1000');
         $soinAutre->setFilters(array('StringTrim'));
 
         $soinSterilisation = new Zend_Form_Element_Checkbox('soinSterilisation');
         $soinSterilisation->setLabel('Stérilisation');
+        
+        $envoiVeto = new Zend_Form_Element_Checkbox('envoiVeto');
+        $envoiVeto->setLabel('Envoyer directement au vétérinaire');
 
         $veto = new Zend_Form_Element_Select('idVeto');
         $veto->setLabel('Vétérinaire');
@@ -69,13 +73,14 @@ class FP_Form_chat_DemanderFicheForm extends FP_Form_common_Form {
 
         $dateDemande = new Zend_Form_Element_Hidden('dateDemande');
         $dateDemande->setValue(date('d-m-y H:i:s'));
-        
+               
         $ficheGeneree = new Zend_Form_Element_Hidden('ficheGeneree');
         $ficheGeneree->setValue(0);
-                	
+               	
         $this->addElement($nom);
         $this->addElement($login);
         $this->addElement($nomChat);
+        $this->addElement($dateDemande); 
         $this->addElement($dateVisite);
         $this->addElement($veto);
         $this->addElement($vetoCompl);
@@ -86,9 +91,10 @@ class FP_Form_chat_DemanderFicheForm extends FP_Form_common_Form {
         $this->addElement($soinVermifuge);
         $this->addElement($soinAntiParasites);
         $this->addElement($soinAutre);
-        $this->addElement($dateDemande);
+    
         $this->addElement($ficheGeneree);
-                
+        $this->addElement($envoiVeto); 
+        
 	// Add the submit button
         $this->addElement('submit', 'submit', array(
             'ignore'   => true,

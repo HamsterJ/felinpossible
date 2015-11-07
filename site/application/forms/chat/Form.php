@@ -206,10 +206,10 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 		$this->addElement($tatouage);
 		$this->addElement($caractere);
 		$this->addElement($commentaires);
-        $this->addElement($okChats);
-        $this->addElement($okChiens);
-        $this->addElement($okApparts);
-        $this->addElement($okEnfants);
+                $this->addElement($okChats);
+                $this->addElement($okChiens);
+                $this->addElement($okApparts);
+                $this->addElement($okEnfants);
 		$this->addElement($lienTopic);
 		$this->addElement($miniature);
 		$this->addElement($adopte);
@@ -229,9 +229,9 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 
 		// Add the submit button
 		$this->addElement('submit', 'submit', array(
-            'ignore'   => true,
-            'label'    => 'Valider',
-            'class'    => 'btn btn-primary'
+                                'ignore'   => true,
+                                'label'    => 'Valider',
+                                'class'    => 'btn btn-primary'
 		));
 	}
 	 

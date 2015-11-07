@@ -144,6 +144,7 @@ class DemandeFicheSoinsController extends FP_Controller_CommonController
                     $this->view->form = $fiche; 
                     $this->view->form->setAction($this->view->url(array('action' => 'genereFicheSoins')));
                     $this->view->demandeTraitee = $demande[0]->getFicheGeneree();
+                    $this->view->envoiVeto = $demande[0]->getEnvoiVeto();
                     $this->render('traiter-fiche-soins');
                     return;
                 }
@@ -177,6 +178,7 @@ class DemandeFicheSoinsController extends FP_Controller_CommonController
                 $form->setAction($this->view->url(array('action' => 'generefichesoins')));
                 $this->view->form = $form;
                 $this->view->demandeTraitee = $data[0]->getFicheGeneree();
+                $this->view->envoiVeto = $data[0]->getEnvoiVeto();
             }
 	}
          

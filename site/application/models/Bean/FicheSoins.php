@@ -42,6 +42,8 @@ class FP_Model_Bean_FicheSoins extends FP_Model_Bean_Common
 	protected $sexe;
 	/** @var string  */
 	protected $idVeto;
+        /** @var string  */
+	protected $envoiVeto;
 	
 	/**
 	 * Set entry id
@@ -298,5 +300,19 @@ class FP_Model_Bean_FicheSoins extends FP_Model_Bean_Common
 	  $this->dateNaissanceApprox = (boolean) $dateNaissanceApprox;
 	}
 	
+        /**
+	 * Sets the envoiVeto field.
+	 */
+        public function setEnvoiVeto($envoiVeto) {
+            $this->envoiVeto = $envoiVeto;
+        }
+        
+        /**
+	 * Gets the envoiVeto field.
+	 * @return the field value.
+	 */
+        public function getEnvoiVeto() {
+            return $this->envoiVeto;
+        }   
 	
 }

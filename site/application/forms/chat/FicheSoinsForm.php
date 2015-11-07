@@ -88,7 +88,8 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
         $soinAutre = new Zend_Form_Element_Textarea('soinAutre');
         $soinAutre->setLabel('Commentaires (précisions sur les soins, autre(s) soin(s) à faire etc)');
         $soinAutre->setAttrib('cols', '60');
-        $soinAutre->setAttrib('rows', '3');
+        $soinAutre->setAttrib('rows', '8');
+        $soinAutre->setAttrib('maxlength','1000');
         $soinAutre->setFilters(array('StringTrim'));
 
         $soinSterilisation = new Zend_Form_Element_Select('soinSterilisation');
@@ -98,11 +99,13 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
         $veto = new Zend_Form_Element_Select('idVeto');
         $veto->setLabel('Vétérinaire');
         $veto->addMultiOptions(FP_Model_Mapper_MapperFactory::getInstance()->vetoMapper->buildArrayForForm());
-
+       
         $idChat = new Zend_Form_Element_Hidden('id');
         
         $tokenDemande = new Zend_Form_Element_Hidden('token'); //Identifiant codé d'une demande de fiche de soins d'origine
-		
+        $envoiVeto = new Zend_Form_Element_Hidden('envoiVeto'); 
+        
+        $this->addElement($tokenDemande); 
         $this->addElement($nom);
         $this->addElement($qualite);
         $this->addElement($adresse);
@@ -110,6 +113,8 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
         $this->addElement($codePostal);
         $this->addElement($telFixe);
         $this->addElement($telMobile);
+        
+        $this->addElement($idChat);
         $this->addElement($nomChat);
         $this->addElement($couleurChat);
         $this->addElement($identification);
@@ -125,16 +130,14 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
         $this->addElement($soinVermifuge);
         $this->addElement($soinAntiParasites);
         $this->addElement($soinAutre);
-        $this->addElement($idChat);
-        $this->addElement($tokenDemande);      
+        $this->addElement($envoiVeto);   
         
-        
-		// Add the submit button
+        // Add the submit button
         $this->addElement('submit', 'submit', array(
             'ignore'   => true,
             'label'    => 'Générer la fiche',
             'class'    => 'btn btn-primary'
-        ));
+        )); 
     }
    
 }

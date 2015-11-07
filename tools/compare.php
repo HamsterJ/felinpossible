@@ -18,7 +18,7 @@ include '../site/application/utils/ChatUtil.php';
             if ($c['forum_id'] =='10')
             {$computed[$nom_chat]['forum'] = 'A'.$c['topic_id'];}
 			elseif ($c['forum_id'] =='152')
-           {$computed[$nom_chat]['forum'] = 'A'.$c['topic_id'];} //bientôt à l'adoption
+           {$computed[$nom_chat]['forum'] = 'B'.$c['topic_id'];} //bientôt à l'adoption
             elseif ($c['forum_id'] =='54')
             {$computed[$nom_chat]['forum'] = 'R'.$c['topic_id'];}
             elseif ($c['forum_id'] =='108')
@@ -65,7 +65,11 @@ include '../site/application/utils/ChatUtil.php';
     foreach ($computed as $key=>$value)
     {
         echo "<tr><td class='centre_principal'>".$key
-                ."</td><td class='centre_principal' align = 'center'>".(isset($value['forum'])?"<a href=\"http://felinpossible.fr/forum/viewtopic.php?t=".substr($value["forum"],1)."\">Voir fiche".(substr($value["forum"],0,1)=='A'?'':(substr($value["forum"],0,1)=='R'?' (Réservé)':' (Soins)'))."</a>":'')
+                ."</td><td class='centre_principal' align = 'center'>"
+												.(isset($value['forum'])?"<a href=\"http://felinpossible.fr/forum/viewtopic.php?t="
+																			.substr($value["forum"],1)."\">Voir fiche"
+																			.(substr($value["forum"],0,1)=='A'?'':(substr($value["forum"],0,1)=='R'?' (Réservé)':(substr($value["forum"],0,1)=='B'?' (Bientôt)': ' (Soins)') ))
+																		."</a>":'')
                 ."</td><td class='centre_principal' align = 'center'>".(isset($value['site'])?($value['site']=='0'?'Ad.':'Réservé'):'')
                 ."</td><td class='centre_principal' align = 'center'>".(isset($value['fb'])?($value['fb']=='A'
                                                                                                 ?(isset($value["forum"])?(substr($value["forum"],0,1)!='R'?'Ad.':'<b>Ad.</b>'):'Ad')

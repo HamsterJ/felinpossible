@@ -81,6 +81,7 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	 */
 	protected $dateRappelVaccins;
 
+
 	protected $notesPrivees;
 	protected $datePriseEnCharge;
 	protected $dateAntiPuces;
@@ -992,4 +993,5 @@ class FP_Model_Bean_Chat extends FP_Model_Bean_Common
 	public function setChgtProprio($chgtProprio) {
 	  $this->chgtProprio = $chgtProprio;
 	}
+
 }

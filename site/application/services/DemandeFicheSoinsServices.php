@@ -82,7 +82,7 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
             if ($demande->getLogin())// Si on a le login de la FA (on ne fait pas attention aux accents), on récupère toutes ses infos
             {
                 $fs = FP_Service_FaServices::getInstance();
-                $fa = $fs->getMapper()->select(null,'upper(login)=upper("'.$demande->getLogin().'") COLLATE utf8_general_ci',null);
+                $fa = $fs->getMapper()->select(null,'upper(login)=upper("'.str_replace('"','',$demande->getLogin()).'") COLLATE utf8_general_ci','dateSubmit desc');
             }
             
             if ($fa == null) // login mal tapé, ou pas de login renseigné dans la base FA (cas où c'est une nouvelle FA ou pour un chat hors asso)
@@ -114,7 +114,7 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
             if ($demande->getNomChat())
             {
                 $cs = FP_Service_ChatServices::getInstance();
-                $infosChat = $cs->getMapper()->select(null,'upper(nom)=upper("'.$demande->getNomChat().'"  COLLATE utf8_general_ci)',null);
+                $infosChat = $cs->getMapper()->select(null,'replace(upper(nom),"\"","")=upper("'.str_replace('"','',$demande->getNomChat()).'"  COLLATE utf8_general_ci)',null);
                 
                 if ($infosChat){//Si on a un nom de chat précis (et pas "les 3 chatons noirs"), on récupère les infos
                     $coulMapper = FP_Model_Mapper_MapperFactory::getInstance()->couleurMapper;
@@ -138,13 +138,12 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
 
             $elements['qualite']                = "Famille d'accueil"; 
             $elements['idVeto']                 = $demande->getIdVeto();
-            $elements['soinPuce']               = $demande->getSoinIdent();
-            $elements['soinTatouage']           = $demande->getSoinIdent();
+            $elements['soinPuce']               = $demande->getSoinIdent(); // On ne remplit pas la case 'tatouage'
             $elements['soinTests']              = $demande->getSoinTests();
             $elements['soinVaccins']            = $demande->getSoinVaccins();
             $elements['soinVermifuge']          = $demande->getSoinVermifuge();
             $elements['soinAntiParasites']      = $demande->getSoinAntiParasites();
-            //$elements['soinAutre']              = $demande->getSoinAutre();
+            $elements['envoiVeto']              = $demande->getEnvoiVeto();
             
             if ($infosChat){
             //Petite bidouille pour dire si c'est ovario ou castration (en fonction du sexe)

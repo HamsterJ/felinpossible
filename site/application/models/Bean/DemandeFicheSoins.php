@@ -45,6 +45,8 @@ class FP_Model_Bean_DemandeFicheSoins extends FP_Model_Bean_Common
 	protected $token;  
         /** @var int  */
 	protected $ficheGeneree; 
+        /** @var int  */
+	protected $envoiVeto; 
         /** @var string  */
 	protected $submit;
 
@@ -191,4 +193,11 @@ class FP_Model_Bean_DemandeFicheSoins extends FP_Model_Bean_Common
         public function getToken() {
             return $this->token;
         }
+        
+        public function setEnvoiVeto($envoiVeto) {
+            $this->envoiVeto = $envoiVeto;
+        }
+        public function getEnvoiVeto() {
+            return $this->envoiVeto;
+        }   
 }
