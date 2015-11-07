@@ -58,7 +58,7 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
                 'okChiens' => 'okChiens',
                 'okApparts' => 'okApparts',
                 'okEnfants' => 'okEnfants',
-                'chgtProprio' => 'chgtProprio',
+                'chgtProprio' => 'chgtProprio'
 		);
 
         protected $excludeModelToDb = array('libelleCouleur' => 0,
