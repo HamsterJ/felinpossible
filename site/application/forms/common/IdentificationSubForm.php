@@ -19,14 +19,14 @@ class FP_Form_common_IdentificationSubForm extends FP_Form_common_SubForm
 
 		// Elément téléphone fixe
 		$telFixe = new FP_Form_common_ElementText('telephoneFixe');
-		$telFixe->setLabel('Téléphone fixe');
+		$telFixe->setLabel('Téléphone principal');
 		$telFixe->setFilters(array('StringTrim'));
 		$telFixe->setRequired(true);
 		$telFixe->addValidator(FP_Util_ValidatorUtil::getTelephoneValidator());
 
 		// Elément téléphone portable
 		$telPortable = new FP_Form_common_ElementText('telephonePortable');
-		$telPortable->setLabel('Téléphone portable');
+		$telPortable->setLabel('Téléphone secondaire');
 		$telPortable->setFilters(array('StringTrim'));
 		$telPortable->addValidator(FP_Util_ValidatorUtil::getTelephoneValidator());
 
@@ -46,7 +46,14 @@ class FP_Form_common_IdentificationSubForm extends FP_Form_common_SubForm
                 'label'      => 'Prénom',
                 'filters'    => array('StringTrim')
 		)),
-
+                    
+                new Zend_Form_Element_Text('dateNaissance', array(
+                'required'   => false,
+                'label'      => 'Date de naissance (format JJ/MM/AAAA)',
+                'filters'    => array('StringTrim'),                  
+                'validators'  => array (array('date', false, array('DD/MM/YYYY')))
+		)),      
+                    
 		new Zend_Form_Element_Text('login', array(
                 'label'      => 'Login sur le forum (si vous êtes déjà inscrit)',
                 'filters'    => array('StringTrim')

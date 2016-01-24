@@ -29,7 +29,7 @@ class FP_Form_adoptant_RemarquesSubForm extends FP_Form_common_SubForm
 		$connaissanceAsso->addMultiOptions(FP_Model_Mapper_MapperFactory::getInstance()->connaissanceAssoMapper->buildArrayForForm());
 		
 		$heureJoignable = new Zend_Form_Element_Text('heureJoignable');
-		$heureJoignable->setLabel('Quelle est l\'heure maximum à laquelle nous pouvons vous rappeler en soirée sans vous déranger ?');
+		$heureJoignable->setLabel('A quelle(s) tranche(s) horaire(s) pouvons-nous vous rappeler sans vous déranger ?');
 		$heureJoignable->setFilters(array('StringTrim'));
 		
 		$connaissanceAssoDetail = new Zend_Form_Element_Text('connaissanceAssoDetail');

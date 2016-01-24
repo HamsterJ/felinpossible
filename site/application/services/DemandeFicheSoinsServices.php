@@ -100,6 +100,7 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
            
             if ($fa){//on a trouvé quelque chose en base avec les infos FA qu'on avait dans la demande
                 $elements['nom']                = ($fa[0]->nom).' '.($fa[0]->prenom); 
+                $elements['login']               = ($demande->getLogin()?$demande->getLogin():($fa[0]->login)); 
                 $elements['qualite']            = "Famille d'accueil"; 
                 $elements['adresse']            = $fa[0]->adresse; 
                 $elements['codePostal']         = $fa[0]->codePostal; 

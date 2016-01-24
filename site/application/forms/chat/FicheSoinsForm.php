@@ -15,10 +15,14 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
         $this->setMethod('post');
         $this->setName('ficheSoins');
         $this->setAttrib('class', 'formOrange');
-        
+      
         $nom = new Zend_Form_Element_Text('nom');
         $nom->setLabel('Nom');
         $nom->setFilters(array('StringTrim'));
+        
+        $login = new Zend_Form_Element_Text('login');
+        $login->setLabel('Login');
+        $login->setFilters(array('StringTrim'));
 
         $qualite = new Zend_Form_Element_Text('qualite');
         $qualite->setLabel('Qualité');
@@ -107,6 +111,7 @@ class FP_Form_chat_FicheSoinsForm extends FP_Form_common_Form {
         
         $this->addElement($tokenDemande); 
         $this->addElement($nom);
+        $this->addElement($login);
         $this->addElement($qualite);
         $this->addElement($adresse);
         $this->addElement($ville);

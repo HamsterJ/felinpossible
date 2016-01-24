@@ -1070,3 +1070,5 @@ a.thumbnail-chat:hover{text-decoration:none;}
 .icone-power{background:url("../img/iconbeast-lite/power-button.png") no-repeat;display:inline-block;*margin-right:.3em;vertical-align:text-top;margin-top:1px;height:30px;width:30px;line-height:30px;margin-top:15px;}
 .icone-paypal{background:url("../img/paypal.png") no-repeat;display:inline-block;*margin-right:.3em;vertical-align:text-top;margin-top:1px;height:20px;width:60px;line-height:20px;}
 .icone-kikazh{background:url("../img/kikazh.jpg") no-repeat;display:inline-block;*margin-right:.3em;vertical-align:text-top;margin-top:1px;height:80px;width:140px;line-height:80px;vertical-align:text-bottom;}
+
+.tarifs{background-color:#ffffff;border:2px solid #ffcccc;margin:2px;border-collapse:separate;padding-right:20px;padding-left:20px;width:80%;text-align:center;}

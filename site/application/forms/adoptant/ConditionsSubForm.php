@@ -80,7 +80,7 @@ class FP_Form_adoptant_ConditionsSubForm extends FP_Form_common_SubForm
 		        'required' => true
 		)),
 		new Zend_Form_Element_Radio('accepterVisite', array(
-                'label'      => 'Accepter une ou plusieurs visites de l\'association dans le cadre du suivi post-adoption \'Félin Possible\' ?',
+                'label'      => 'Accepter d\'être contacté par l\'association dans le cadre du suivi post-adoption ?',
 		        'multiOptions' => FP_Util_Constantes::$LISTE_OUI_NON,
 		        'required' => true
 		)),
