@@ -14,6 +14,7 @@ class FP_Model_Bean_Fa extends FP_Model_Bean_Common
 	protected $id;
 	protected $nom;
 	protected $prenom;
+        protected $dateNaissance;
 	protected $adresse;
 	protected $codePostal;
 	protected $ville;
@@ -821,5 +822,27 @@ class FP_Model_Bean_Fa extends FP_Model_Bean_Common
 	 */
 	public function setDateContratFa($dateContratFa) {
 		$this->dateContratFa = $dateContratFa;
+	}
+        
+        	/**
+	 * Retrieve dateNaissance
+	 *
+	 * @param  dateNaissance
+	 * @return la valeur de dateNaissance
+	 */
+	public function getDateNaissance() {
+		if ($this->dateNaissance == '') {
+			return null;
+		}
+		return $this->dateNaissance;
+	}
+
+	/**
+	 * Set entry dateNaissance
+	 *
+	 * @param dateNaissance
+	 */
+	public function setDateNaissance($dateNaissance) {
+		$this->dateNaissance = $dateNaissance;
 	}
 }

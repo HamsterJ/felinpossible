@@ -16,6 +16,7 @@ class FP_Model_Mapper_AdoptantMapper extends FP_Model_Mapper_CommonMapper {
 	                 'id' => 'id',
                      'nom' => 'nom',
 	                 'prenom' => 'prenom',
+                          'dateNaissance' => 'dateNaissance',  
 	                 'adresse' => 'adresse',
 	                 'cp' => 'codePostal',
 	                 'ville' => 'ville',
