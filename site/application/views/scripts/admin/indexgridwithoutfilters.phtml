@@ -1,0 +1,35 @@
+<div class="align-center">
+  <h3><?php echo $this->titre ?></h3>
+
+  <h4><span id="nbElements"><?php echo $this->nbElements?></span> élément(s)</h4>
+</div>
+<div>
+  <div id="commonGridStore" data-dojo-type="dojox/data/QueryReadStore" clientSort="true" jsId="commonGridStore" url="<?php echo $this->urlListeJson ?>" requestMethod="post">
+  </div>
+
+  <div data-dojo-type="dijit/Menu" jsid="gridMenu" style="display: none;">
+    <div data-dojo-type="dojox/widget/PlaceholderMenuItem" label="GridColumns"></div>
+  </div>
+  <div style="text-align:left">
+    <div class="grid">
+      <div id="loadGrid" class="ajax" style="display:block"></div>
+      <table id="commonGrid" 
+      rowsPerPage="13" 
+      columnReordering="true"
+      sortInfo="<?php echo $this->defaultSort ?>"  
+      jsId="commonGrid" 
+      data-dojo-type="dojox/grid/DataGrid" 
+      store="commonGridStore" 
+      selectable="true" 
+      noDataMessage="Pas de données."
+      headerMenu="gridMenu">
+
+      <script type="dojo/connect" event="_onFetchBegin" args="event">initGrid(this.id);</script> 
+      <script type="dojo/connect" event="_onFetchComplete" args="event">endGrid(this.id);</script>
+
+      <?php echo $this->partial($this->headerPath) ?>
+      <?php echo $this->render('admin/gridactionslight.phtml');?>
+  </table>
+</div>
+</div>
+

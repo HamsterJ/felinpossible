@@ -137,6 +137,7 @@ class FP_Util_Constantes {
 	const CHAT_A_STERILISER = 9;
 	const CHAT_FICHES_A_ADOPTION_NON_RES = 10;
 	const CHAT_CHGT_PROPRIETAIRE = 11;
+        const CHAT_VPA_A_FAIRE = 12;
 	
 	/** Templates pour les mails. */
 	const MAIL_TEMPLATE_VACCINS_FA = 'rappelsVaccins.phtml';

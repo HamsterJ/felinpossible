@@ -85,8 +85,9 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
             FP_Util_Constantes::CHAT_FICHES_A_PLACER =>  'adopte = 0 and disparu = 0',
             FP_Util_Constantes::CHAT_A_STERILISER =>  'disparu = 0 and sterilise = 0',
             FP_Util_Constantes::CHAT_FICHES_A_ADOPTION_NON_RES => 'adopte = 0 and disparu = 0 and reserve = 0 and to_check = 0',
-            FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE => 'chgtProprio = 0 and adopte = 1 and disparu = 0 and to_check = 0'
-            );
+            FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE => 'chgtProprio = 0 and adopte = 1 and disparu = 0 and to_check = 0',
+            FP_Util_Constantes::CHAT_VPA_A_FAIRE => 'statutVisite = 0 and adopte = 1 and disparu = 0 and to_check = 0'
+                );
 
 	/**
 	 * Retourne les chats suivant la clause where.
@@ -196,7 +197,7 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 		->joinLeft(array('facat' => 'fp_fa_cat'), 'cat.id = facat.idChat or facat.idChat = null', array())
 		->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = facat.idFa or facat.idFa = null', array('fa' => 'CONCAT(fa.prenom, \' \', fa.nom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))'))
 		->joinLeft(array('adcat' => 'fp_ad_cat'), 'cat.id = adcat.idChat or adcat.idChat = null', array())
-		->joinLeft(array('ad' => 'fp_ad_fiche'), 'ad.id = adcat.idAd or adcat.idAd = null', array('adoptant' => 'CONCAT(ad.prenom, \' \', ad.nom, COALESCE(CONCAT(\' (\', ad.login, \')\'), \'\'))'))
+		->joinLeft(array('ad' => 'fp_ad_fiche'), 'ad.id = adcat.idAd or adcat.idAd = null', array('adoptant' => 'CONCAT(ad.prenom, \' \', ad.nom, COALESCE(CONCAT(\' (\', ad.login, \')\'), \'\'),\' à \',ad.ville)'))
 		->join(array('couleur' => 'fp_cat_color'), 'cat.idCouleur = couleur.id', array('libCouleur' => 'couleur.name'))
 		->join(array('sexe' => 'fp_cat_sex'), 'cat.idSexe = sexe.id', array('libSexe' => 'sexe.name'));
 

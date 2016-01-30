@@ -83,6 +83,8 @@ class ChatController extends FP_Controller_CommonController
 		$this->view->urlDeleteAd = $this->view->url(array('controller' => 'adoptant', 'action' => 'deletechat'));
 		$this->view->urlGenererFicheSoins = $this->view->url(array('action' => 'fichesoins'));
 
+                $this->view->urlEditLightItem = $this->view->url(array('action' => 'editLight', 'callback' => $action));
+		
 		$this->view->defaultSort = 3;
 
 		$this->view->headerPath = "chat/headeradm.phtml";
@@ -164,6 +166,54 @@ class ChatController extends FP_Controller_CommonController
 		}
 	}
 
+        	/**
+	 * Action pour éditer une fiche.
+	 */
+	public function editlightAction() {
+		if ($this->checkIsLogged()) {
+			$request = $this->getRequest();
+                        include_once(realpath(APPLICATION_PATH . '/forms/chat/LightForm.php')) ;
+			$form = new FP_Form_chat_lightForm();
+			$chatId = $request->getParam('id', null);
+
+			if ($chatId) {
+				$data = $this->getService()->getData($chatId);
+				$form->populate($data);
+				$form->setAction('javascript:callAjax("'.$this->view->url(array('controller' => 'chat', 'action' => 'addlight')).'", null, null,"'.$form->getId().'")');
+				$this->view->form = $form;
+				//$this->view->urlMaj = $this->view->url(array('action' => 'maj', 'id' => $chatId));
+				$this->render("add");
+				return;
+			}
+			exit;
+		}
+	}
+        
+        
+        	/**
+	 * Action pour ajouter une nouvelle fiche.
+	 */
+	public function addlightAction() {
+		if ($this->checkIsLogged()) {
+			$request = $this->getRequest();
+                        include_once(realpath(APPLICATION_PATH . '/forms/chat/LightForm.php')) ;
+			$form = new FP_Form_chat_lightForm();
+			// Check to see if this action has been POST'ed to.
+			if ($request->isPost()) {
+				if ($form->isValid($request->getPost())) {
+					$this->getService()->save($form->getValues());
+					$callback = 'vpa';//$request->getParam('callback', 'indexadm');
+					return $this->_helper->redirector($callback);
+				}
+			}
+
+			//$this->view->urlMaj = $this->view->url(array('action' => 'maj', 'id' => $form->id->getValue()));
+			$form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'addlight')).'", null, null,"'.$form->getId().'")');
+			$this->view->form = $form;
+		}
+	}
+        
+        
 	/**
 	 * Action pour la maj d'une fiche à partir du forum.
 	 */
@@ -184,7 +234,7 @@ class ChatController extends FP_Controller_CommonController
 			exit;
 		}
 	}
-
+       
 	/**
 	 * Affiche la table de rappels de vaccins à venir
 	 */
@@ -194,7 +244,6 @@ class ChatController extends FP_Controller_CommonController
 
 			$this->view->titre = "Rappels de vaccins à venir";
 			$this->view->defaultSort = 8;
-
 			$this->view->headerPath = "chat/headervaccins.phtml";
 			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_AVEC_DATE_VACCINS));
 			$this->view->urlEnvoiMailItem = $this->view->url(array('action' => 'mailvaccins'));
@@ -242,6 +291,21 @@ class ChatController extends FP_Controller_CommonController
 		}
 	}
 
+            /**
+	 * Affiche les vpa à faire.
+	 */
+	public function vpaAction() {
+		if ($this->checkIsLogged()) {
+			$this->initUrlForAdmin();
+			$this->view->titre = "VPA à faire";
+			$this->view->defaultSort = 6;
+			$this->view->headerPath = "chat/headervpa.phtml";
+			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_VPA_A_FAIRE));
+			$this->view->nbElements = $this->getService()->getNbFiches(FP_Util_Constantes::CHAT_VPA_A_FAIRE);
+			$this->view->gridName = "commonGrid";
+		}
+	}
+        
 	/**
 	 * Affichage du formulaire d'envoi
 	 */
