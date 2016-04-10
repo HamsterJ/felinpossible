@@ -93,6 +93,17 @@ class FP_Util_Constantes {
 	        'stringLengthTooShort' => "'%value%' fait moins de %min% caractères.",
 	        'stringLengthTooLong' => "'%value%' fait plus de %max% caractères."
 	);
+        
+        	/**
+	 * Statuts des visites post-adoption.
+	 * @var array
+	 */
+	public static $STATUT_VISITES = array(
+                                    '-2' => 'Sans réponse',
+                                    '-1' => 'Abandonnée',
+                                    '0' => 'Non-faite',
+                                    '1' => 'Faite',
+                                    '2' => 'Affectée');
 
 	/** Constantes pour les formulaires. */
 	const IDENTIFICATION_FORM_ID = 'identificationForm';

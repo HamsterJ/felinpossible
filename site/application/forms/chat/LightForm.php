@@ -92,8 +92,15 @@ class FP_Form_chat_lightForm extends FP_Form_common_Form {
 		
 		$papierIdRecu = new Zend_Form_Element_Hidden('papierIdRecu');
 		
-		$statutPostAdoption = new Zend_Form_Element_Checkbox('statutVisite');
+		/*$statutPostAdoption = new Zend_Form_Element_Checkbox('statutVisite');
+		$statutPostAdoption->setLabel('Visite post-adoption');*/
+                
+                $statutPostAdoption = new Zend_Form_Element_Select('statutVisite');
 		$statutPostAdoption->setLabel('Visite post-adoption');
+		$statutPostAdoption->addMultiOptions(FP_Util_Constantes::$STATUT_VISITES);
+
+                
+                
 
 		$realiseePar = new Zend_Form_Element_Text('visitePostPar');
 		$realiseePar->setLabel('Visite post-adoption réalisée par');

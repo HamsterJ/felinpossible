@@ -228,6 +228,9 @@ function formatStatutFa(idStatut) {
 	case 7:
 		className = "faCandidature";
 		break;
+        case 8:
+		className = "faArchive";
+		break;
 	default:
 		return idStatut;
 		break;
@@ -259,6 +262,38 @@ function formatStatutIndispo(idStatut) {
 	}
 	return "<div class='" + className + "'/>"; 
 }
+
+/**
+ * Ajoute la classe css correspondant au statut de l'indispo.
+ * 
+ * @param idStatut
+ * @return la div avec la bonne classe css.
+ */
+function formatStatutVPA(idStatut) {
+	var className;
+	switch (idStatut) {
+	case 1:
+		className = "booleanVrai";
+		break;
+	case 0:
+		className = "booleanFaux";
+		break;
+	case 2:
+		className = "VPAAffecté";
+		break;
+        case -1:
+		className = "VPAKO";
+		break;
+        case -2:
+		className = "VPAKO";
+		break;
+	default:
+		return idStatut;
+		break;
+	}
+	return "<div class='" + className + "'/>"; 
+}
+
 
 /**
  * Affichage de l'icone correspondant au sexe.

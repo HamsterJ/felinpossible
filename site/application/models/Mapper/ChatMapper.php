@@ -86,7 +86,7 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
             FP_Util_Constantes::CHAT_A_STERILISER =>  'disparu = 0 and sterilise = 0',
             FP_Util_Constantes::CHAT_FICHES_A_ADOPTION_NON_RES => 'adopte = 0 and disparu = 0 and reserve = 0 and to_check = 0',
             FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE => 'chgtProprio = 0 and adopte = 1 and disparu = 0 and to_check = 0',
-            FP_Util_Constantes::CHAT_VPA_A_FAIRE => 'statutVisite = 0 and adopte = 1 and disparu = 0 and to_check = 0'
+            FP_Util_Constantes::CHAT_VPA_A_FAIRE => 'statutVisite in (0,2) and adopte = 1 and disparu = 0 and to_check = 0'  // Statut VPA = 'Non faite' ou 'Affectée'
                 );
 
 	/**

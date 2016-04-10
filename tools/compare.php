@@ -15,7 +15,7 @@ include '../site/application/utils/ChatUtil.php';
         
         foreach ($forum as $nom_chat=>$c)
         {
-            if ($c['forum_id'] =='10')
+            if ($c['forum_id'] =='10' || $c['forum_id'] =='161')
             {$computed[$nom_chat]['forum'] = 'A'.$c['topic_id'];}
 			elseif ($c['forum_id'] =='152')
            {$computed[$nom_chat]['forum'] = 'B'.$c['topic_id'];} //bientôt à l'adoption

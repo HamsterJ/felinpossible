@@ -138,9 +138,10 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 
 		$papierIdRecu = new Zend_Form_Element_Checkbox('papierIdRecu');
 		$papierIdRecu->setLabel('Papier d\'identification reçu ?');
-
-		$statutPostAdoption = new Zend_Form_Element_Checkbox('statutVisite');
+                
+                $statutPostAdoption = new Zend_Form_Element_Select('statutVisite');
 		$statutPostAdoption->setLabel('Visite post-adoption');
+		$statutPostAdoption->addMultiOptions(FP_Util_Constantes::$STATUT_VISITES);
 
 		$realiseePar = new Zend_Form_Element_Text('visitePostPar');
 		$realiseePar->setLabel('Visite post-adoption réalisée par');
@@ -151,31 +152,31 @@ class FP_Form_chat_Form extends FP_Form_common_Form {
 		$notesPrivees->setAttrib('cols', '60');
 		$notesPrivees->setAttrib('rows', '5');
 
-        $okChats = new Zend_Form_Element_Select('okChats');
+                $okChats = new Zend_Form_Element_Select('okChats');
 		$okChats->setLabel('OK chats');
 		$okChats->addMultiOptions(array(   '0' => 'Indéterminé',
                                                     '1' => 'Oui',
                                                     '2' => 'Non'));
                 
-        $okChiens = new Zend_Form_Element_Select('okChiens');
+                $okChiens = new Zend_Form_Element_Select('okChiens');
 		$okChiens->setLabel('OK chiens');
 		$okChiens->addMultiOptions(array(   '0' => 'Indéterminé',
                                                     '1' => 'Oui',
                                                     '2' => 'Non'));
                
-        $okApparts = new Zend_Form_Element_Select('okApparts');
+                $okApparts = new Zend_Form_Element_Select('okApparts');
 		$okApparts->setLabel('OK appart');
 		$okApparts->addMultiOptions(array(   '0' => 'Indéterminé',
                                                     '1' => 'Oui',
                                                     '2' => 'Non'));
                 
-        $okEnfants = new Zend_Form_Element_Select('okEnfants');
+                $okEnfants = new Zend_Form_Element_Select('okEnfants');
 		$okEnfants->setLabel('OK enfants');
 		$okEnfants->addMultiOptions(array(   '0' => 'Indéterminé',
                                                     '1' => 'Oui',
                                                     '2' => 'Non'));
         
-        $chgtProprio = new Zend_Form_Element_Checkbox('chgtProprio');
+                $chgtProprio = new Zend_Form_Element_Checkbox('chgtProprio');
 		$chgtProprio->setLabel('Changement de propriétaire fait ?');
 		
 		$postId = new Zend_Form_Element_Hidden('postId');

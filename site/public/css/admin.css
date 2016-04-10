@@ -14,9 +14,11 @@
 .faVacances{background-image:url("image/fa/enVacances.png");height:16px;width:16px;}
 .faIndesirable{background-image:url("image/fa/indesirable.png");height:16px;width:16px;}
 .faCandidature{background-image:url("image/fa/candidature.png");height:16px;width:16px;}
-.faArchive{background-image:url("image/fa/inactive.png");height:16px;width:16px;}
+.faArchive{background-image:url("image/fa/enVacances.png");height:16px;width:16px;}
 .booleanVrai{background-image:url("image/common/booleanVrai.png");height:16px;width:16px;}
 .booleanFaux{background-image:url("image/common/booleanFaux.png");height:16px;width:16px;}
+.VPAAffecté{background-image:url("image/common/mail.png");height:16px;width:16px;}
+.VPAKO{background-image:url("image/common/ficheSupprimer.png");height:16px;width:16px;}
 .sexeMale{background-image:url("image/common/sexeMale.png");height:16px;width:16px;}
 .sexeFemelle{background-image:url("image/common/sexeFemelle.png");height:16px;width:16px;}
 .indispoAvenir{background-image:url("image/indispo/avenir.png");height:16px;width:16px;}

@@ -12,7 +12,7 @@ function get_forum_contents()
         $pdo = new PDO('mysql:host=localhost;dbname='.$appliParams['resources.db.params.dbname'], $appliParams['resources.db.params.username'], $appliParams['resources.db.params.password'], $arrExtraParam); 
 
         // on crée la requète SQL 
-        $sql = "SELECT topic_id FROM phpbb_topics WHERE forum_id in (10,108,54,152) AND topic_type=0"; 
+        $sql = "SELECT topic_id FROM phpbb_topics WHERE forum_id in (10,108,54,152,161) AND topic_type=0"; 
 
 
         // on fait une boucle qui va faire un tour pour chaque enregistrement 
