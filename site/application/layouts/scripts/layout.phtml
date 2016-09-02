@@ -10,7 +10,7 @@
   <?php echo $this->headLink() ?>
   <?php echo $this->headStyle() ?>
 </head>
-<body onload="init()">
+<body onload="init()"  class="tundra">
 
   <!-- Header -->
   <div class="row-fluid">
@@ -51,6 +51,23 @@
   } catch(err) {}
   </script>
 
+
   <?php echo $this->headScript() ?>
+
+<script type="text/javascript">
+//<![CDATA[
+    var djConfig = {"parseOnLoad":true};
+//]]>
+</script>
+<script src="/site/public/js/dojo/dojo/dojo.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+dojo.require("dojo.date.locale");
+    dojo.require("dijit.Tooltip");
+//]]>
+</script>
+<script src="/site/public/js/admin-common.min.js" type="text/javascript"></script>
+
 </body>
 </html>

@@ -79,15 +79,16 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
             FP_Util_Constantes::CHAT_FICHES_A_ADOPTION => 'adopte = 0 and disparu = 0 and to_check = 0',
             FP_Util_Constantes::CHAT_FICHES_ADOPTES => 'adopte = 1 and disparu = 0 and to_check = 0',
             FP_Util_Constantes::CHAT_FICHES_DISPARUS => 'disparu = 1 and to_check = 0',
-            FP_Util_Constantes::CHAT_FICHES_A_PARRAINER => 'parrain = 1 and disparu = 0 and to_check = 0',
+            FP_Util_Constantes::CHAT_FICHES_A_PARRAINER => 'parrain = 1 and disparu = 0',
             FP_Util_Constantes::CHAT_FICHES_RESERVES => 'reserve = 1 and to_check = 0',
             FP_Util_Constantes::CHAT_AVEC_DATE_VACCINS => 'adopte = 0 and disparu = 0',
             FP_Util_Constantes::CHAT_FICHES_A_PLACER =>  'adopte = 0 and disparu = 0',
             FP_Util_Constantes::CHAT_A_STERILISER =>  'disparu = 0 and sterilise = 0',
             FP_Util_Constantes::CHAT_FICHES_A_ADOPTION_NON_RES => 'adopte = 0 and disparu = 0 and reserve = 0 and to_check = 0',
             FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE => 'chgtProprio = 0 and adopte = 1 and disparu = 0 and to_check = 0',
-            FP_Util_Constantes::CHAT_VPA_A_FAIRE => 'statutVisite in (0,2) and adopte = 1 and disparu = 0 and to_check = 0'  // Statut VPA = 'Non faite' ou 'Affectée'
-                );
+            FP_Util_Constantes::CHAT_VPA_A_FAIRE => 'statutVisite in (0,2) and adopte = 1 and disparu = 0 and to_check = 0 ',  // Statut VPA = 'Non faite' ou 'Affectée'   -- and date_adoption < DATE_SUB(NOW(),INTERVAL 1 MONTH)
+            FP_Util_Constantes::CHAT_VPA_NON_AFFECTEES => 'statutVisite = 0 and adopte = 1 and disparu = 0 and to_check = 0 '  // Statut VPA = 'Non faite' uniquement    -- and date_adoption < DATE_SUB(NOW(),INTERVAL 1 MONTH)
+            );
 
 	/**
 	 * Retourne les chats suivant la clause where.

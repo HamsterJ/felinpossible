@@ -219,4 +219,41 @@ class FP_Service_MailServices {
 		$this->sendMail($args);
 	}
 
+        
+        /**
+	 * Envoi un mail à l'asso lors de la soumission d'une demande de fiche de soins
+	 * @param array $data
+	 */
+	public function envoiMailDemandeMateriel($idDemande) { 
+            
+            
+            $mapperD = FP_Model_Mapper_MapperFactory::getInstance()->StockDemandeMapper;
+            $mapperM = FP_Model_Mapper_MapperFactory::getInstance()->StockMaterielsDemandeMapper;
+            
+            $demande = $mapperD->fetchAllToArray('idDemandeMateriel', 'asc', null, 1,'idDemandeMateriel='.$idDemande);
+            $matos = $mapperM->fetchAllToArray('id', 'asc', null, null,'idDemandeMateriel='.$idDemande);
+            
+            $data= array();
+            $fa_mail ='';
+            $data['sujet']='Demande de matériel de '.$demande[0]['login'];
+            $config = Zend_Registry::get(FP_Util_Constantes::CONFIG_ID);
+            $data['destinataire']=$config->email->address;
+            
+            $data['contenu'] = '<table><th width="500px"></th><th></th>
+                                    <tr><td>Bonjour,</td></tr>
+                                    <tr><td>Une nouvelle demande de matériel de '.$demande[0]['login'].' est arrivée.</td></tr>
+                                    <tr><td>Voici les matériels demandés : </td></tr>
+                                    <tr><td></td></tr>';
+            
+            foreach ($matos as $key => $value)
+            {
+                $data['contenu'] .= '<tr><td> => '.$value['descriptionMateriel'].'</td></tr>';
+            }
+ 
+            $data['contenu'] .='</table>';
+            
+            $args = $this->buildMailParam(null, $data['sujet'], $data['destinataire'], $data['contenu'], null, null);
+            $this->sendMail($args);     
+                
+        }
 }

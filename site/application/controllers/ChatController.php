@@ -302,6 +302,7 @@ class ChatController extends FP_Controller_CommonController
 			$this->view->headerPath = "chat/headervpa.phtml";
 			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_VPA_A_FAIRE));
 			$this->view->nbElements = $this->getService()->getNbFiches(FP_Util_Constantes::CHAT_VPA_A_FAIRE);
+			$this->view->nbVpasNonAff = $this->getService()->getNbFiches(FP_Util_Constantes::CHAT_VPA_NON_AFFECTEES);
 			$this->view->gridName = "commonGrid";
 		}
 	}

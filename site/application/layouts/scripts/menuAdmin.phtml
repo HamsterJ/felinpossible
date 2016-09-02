@@ -61,7 +61,25 @@
       </div>
     </div>
   </div>
-
+  
+    <!-- Stock -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-custom btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseStock">
+        <i class="icone-caddie pull-left"></i>Stock
+      </a>
+    </div>
+    <div id="collapseStock" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
+                    <li><a href="#<?php echo $this->url(array('controller' => 'stock', 'action' => 'gestionadm')) ?>" rel="ajax">Gestion du stock</a></li>
+                    <li><a href="#<?php echo $this->url(array('controller' => 'stock', 'action' => 'demandematerielAdm')) ?>" rel="ajax">Demandes de matériel</a></li>
+                    <li><a href="#<?php echo $this->url(array('controller' => 'stock', 'action' => 'empruntsadm')) ?>" rel="ajax">Prêts en cours</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
   <!-- Vétérinaires -->
   <div class="accordion-group">
     <div class="accordion-heading">

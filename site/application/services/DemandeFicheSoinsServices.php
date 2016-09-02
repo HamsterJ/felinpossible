@@ -72,7 +72,7 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
         /*
 	 * Pré-remplissage du formulaire de génération de fiches de soins à partir de la demande saisie par la FA
 	 * @param form $demande : Demande de la FA sous form de FP_Model_Bean_DemandeFicheSoins
-         * @return FP_Form_chat_DemanderFicheForm
+         * @return FP_Form_chat_FicheSoinsForm
          */
         public function getFormPrerempli($demande) {
         

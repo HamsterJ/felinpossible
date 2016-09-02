@@ -4,6 +4,7 @@
 .dojoxGrid table{margin:0;}
 .dojoxGridSortNode{cursor:default;}
 .grid{width:100%;height:400px;margin-left:auto;margin-right:auto;}
+.gridmat{width:100%;height:210px;margin-left:auto;margin-right:auto;}
 .chatFaGrid{width:100%;height:200px;margin-left:auto;margin-right:auto;}
 .chatFaAjoutGrid{width:100%;height:300px;margin-left:auto;margin-right:auto;}
 .indispoFaGrid{width:100%;height:200px;margin-left:auto;margin-right:auto;}

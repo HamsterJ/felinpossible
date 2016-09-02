@@ -1,0 +1,20 @@
+
+<div class="centre_principal">
+	<p> <h5>Demande de matériel</h5></p>
+</br>
+	<p>
+            L'association met à disposition des familles d'accueil l'équipement nécessaire à l'accueil de ses petits protégés (bac à litière, arbre à chat, jouets,... ).
+            </br></br>
+        </p>
+         <p>   Merci de formuler vos demandes minimum 24h à l'avance. Les retraits se font de 10h30 à 13h et de 14h à 19h du mardi au samedi
+            
+            </br></br>
+            Avant de demander vos premiers équipements, assurez-vous d'être inscrit(e) sur le <a href='/forum/ucp.php?mode=register'>forum</a> et d'avoir déposé une <a href='/fa/process'>candidature</a> pour être famille d'accueil.
+        </p></br></br>
+	<?php	echo $this->form;
+        if ($this->errorMessage)// Si message d'erreur car login inconnu
+            {echo '<b><span style="color: red;">'.$this->errorMessage.'</span></b>';}
+        ?>
+</div>
+
+

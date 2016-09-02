@@ -189,4 +189,5 @@ protected $filterKeyToDbKey = array('nom' => 'fa.nom',
 
 		return $db->fetchOne($query);
 	}
+
 }

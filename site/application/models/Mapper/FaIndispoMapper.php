@@ -17,8 +17,9 @@ class FP_Model_Mapper_FaIndispoMapper extends FP_Model_Mapper_CommonMapper {
 	                 'idFa' => 'idFa',
                      'dateDeb' => 'dateDebut',
 	                 'dateFin' => 'dateFin',
-	                 'comment' => 'commentaires',
-	                 'idStatut' => 'idStatut');
+	               'comment' => 'commentaires',
+	                 'idStatut' => 'idStatut'
+                         );
 	
 	protected $filterKeyToDbKey = array('statutIndispo' => 'indispo.idStatut',
 	'id' => 'indispo.idFa');
@@ -27,7 +28,7 @@ class FP_Model_Mapper_FaIndispoMapper extends FP_Model_Mapper_CommonMapper {
 	 * (non-PHPdoc)
 	 * @see site/application/models/Mapper/FP_Model_Mapper_CommonMapper#fetchAllToArray($sort, $order, $start, $count, $where)
 	 */
-	public function fetchAllToArray($sort, $order, $start, $count, $where = null)
+	public function fetchAllToArray($sort = NULL, $order = 'asc', $start = NULL, $count = NULL, $where = NULL)
 	{
 		$select = $this->getDbTable()->getAdapter()->select()
 		->from(array('indispo' => 'fp_fa_indispo'))

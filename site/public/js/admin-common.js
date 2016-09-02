@@ -563,6 +563,28 @@ function filterVeto(gridName) {
 }
 
 /**
+ * Filtre pour les matériels.
+ */
+function filtermateriel(gridName) {
+  var obj = new Object();
+  obj['DescriptionMateriel'] = dijit.byId('filterDescriptionMateriel').getValue();
+  var grid = dijit.byId(gridName);
+  grid.filter(obj);
+  grid.showMessage(grid.loadingMessage);
+}
+
+/**
+ * Filtre pour les demandes de matériels.
+ */
+function filterLogin(gridName) {
+  var obj = new Object();
+  obj['login'] = dijit.byId('filterLogin').getValue();
+  var grid = dijit.byId(gridName);
+  grid.filter(obj);
+  grid.showMessage(grid.loadingMessage);
+}
+
+/**
  * Filtre pour les chats.
  */
 function filterChat(gridName) {
@@ -604,6 +626,18 @@ function filterChat(gridName) {
 
 	  obj['dateAdoption'] = 'between "' + startDateTmp+ '" and "' + endDateTmp + '"';
   }
+
+  var grid = dijit.byId(gridName);
+  grid.filter(obj);
+  grid.showMessage(grid.loadingMessage);
+}
+
+/**
+ * Filtre pour les vpa.
+ */
+function filtervpa(gridName) {
+  var obj = new Object();
+  obj['nom'] = dijit.byId('filterChatNom').getValue();
 
   var grid = dijit.byId(gridName);
   grid.filter(obj);

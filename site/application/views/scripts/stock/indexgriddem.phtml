@@ -1,0 +1,50 @@
+<div class="align-center">
+  <h3><?php echo $this->titre ?></h3>
+  <h4><span id="nbElements"><?php echo $this->nbElements?></span> élément(s)</h4>
+</div>
+<div>
+  <div id="commonGridStore" data-dojo-type="dojox/data/QueryReadStore" clientSort="true" jsId="commonGridStore" url="<?php echo $this->urlListeJson ?>" requestMethod="post">
+  </div>
+
+  <?php echo $this->render('admin/filter.phtml'); ?>
+    
+  <div data-dojo-type="dijit/Menu" jsid="gridMenu" style="display: none;">
+    <div data-dojo-type="dojox/widget/PlaceholderMenuItem" label="GridColumns"></div>
+  </div>
+  <div style="text-align:left">
+    <div class="grid">
+        <div id="loadGrid" class="ajax" style="display:block"></div>
+        <table id="commonGrid" 
+            rowsPerPage="13" 
+            columnReordering="true"
+            sortInfo="<?php echo $this->defaultSort ?>" 
+            jsId="commonGrid" 
+            data-dojo-type="dojox/grid/DataGrid" 
+            store="commonGridStore" 
+            selectable="true" 
+            noDataMessage="Pas de données."
+            headerMenu="gridMenu"
+            >
+
+            <script type="dojo/connect" event="_onFetchBegin" args="event">initGrid(this.id);</script> 
+            <script type="dojo/connect" event="_onFetchComplete" args="event">endGrid(this.id);</script>
+
+            <?php 
+                echo $this->partial($this->headerPath) ;
+                echo $this->render('admin/gridactions.phtml');
+            ?>
+
+        </table>
+    </div>
+</div>
+<div>
+
+    <button class="btn btn-action" onclick="editItem('<?php echo  $this->urlEditItem ?>', 'commonGrid')">Voir matériels</button>
+    <button class="btn btn-action" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid','id')"><i class="icon-trash"></i> Supprimer</button>
+</div>
+
+
+
+
+
+

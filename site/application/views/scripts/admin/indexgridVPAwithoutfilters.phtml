@@ -1,12 +1,14 @@
 <div class="align-center">
   <h3><?php echo $this->titre ?></h3>
 
-  <h4><span id="nbElements"><?php echo $this->nbElements?></span> élément(s)</h4>
+  <h4><span id="nbElements"><?php echo $this->nbElements?></span> VPA (<?php echo $this->nbVpasNonAff?> non affectées au total)</h4>
 </div>
 <div>
   <div id="commonGridStore" data-dojo-type="dojox/data/QueryReadStore" clientSort="true" jsId="commonGridStore" url="<?php echo $this->urlListeJson ?>" requestMethod="post">
   </div>
 
+      <?php echo $this->render('chat/filtervpa.phtml'); ?>
+    
   <div data-dojo-type="dijit/Menu" jsid="gridMenu" style="display: none;">
     <div data-dojo-type="dojox/widget/PlaceholderMenuItem" label="GridColumns"></div>
   </div>

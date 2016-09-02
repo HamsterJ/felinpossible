@@ -105,6 +105,15 @@ class FP_Util_Constantes {
                                     '1' => 'Faite',
                                     '2' => 'Affectée');
 
+        /**
+	 * Etats materiels
+	 * @var array
+	 */
+	public static $ETAT_MATERIEL = array(
+                                    'Bon' => 'Bon',
+                                    'Moyen' => 'Moyen',
+                                    'Mauvais' => 'Mauvais');
+        
 	/** Constantes pour les formulaires. */
 	const IDENTIFICATION_FORM_ID = 'identificationForm';
 	const LOGEMENT_FORM_ID = 'logementForm';
@@ -149,6 +158,7 @@ class FP_Util_Constantes {
 	const CHAT_FICHES_A_ADOPTION_NON_RES = 10;
 	const CHAT_CHGT_PROPRIETAIRE = 11;
         const CHAT_VPA_A_FAIRE = 12;
+        const CHAT_VPA_NON_AFFECTEES = 13;
 	
 	/** Templates pour les mails. */
 	const MAIL_TEMPLATE_VACCINS_FA = 'rappelsVaccins.phtml';
