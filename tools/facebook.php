@@ -1,28 +1,64 @@
 <?php
-function get_facebook_contents($id_album)    
+function get_facebook_flow($id_album)    
 {
+    require_once __DIR__.'/FACEBOOK/src/Facebook/autoload.php';
+    
+    $fb = new Facebook\Facebook([
+      'app_id' => '166998373734276', // Replace {app-id} with your app id
+      'app_secret' => '2ed0bc5e469d3374194dc73922656000',
+      'default_graph_version' => 'v2.7',
+      ]);
+
+    $at =  new Facebook\Authentication\AccessToken('166998373734276|2ed0bc5e469d3374194dc73922656000');
+
+    $request = $fb->request('GET', $id_album.'/photos',array(),$at); //10153511024966492
+    $response = $fb->getClient()->sendRequest($request);
+
+    $contents =  $response->getDecodedBody();
+
+    return $contents['data'];
+}
+
+function get_facebook_contents($id_album)    
+{   
     $chats_adopt_fb=array();
     $nb_chats_adopt_fb=0;
- 
-    // lancement de la requete FQL
-    $fql_query_url = 'http://graph.facebook.com/fql?q=SELECT+caption+FROM+photo+WHERE+aid+=+%22'.$id_album.'%22+ORDER+BY+caption+limit+500';
-
-    //On récupère le résultat et le décode (json)
-    $fql_query_result = file_get_contents($fql_query_url);
-    $fql_query_obj = json_decode($fql_query_result, true);
 
     //On récupère l'élément "data"
-    $fql_query_data = $fql_query_obj["data"];
+    $query_data = get_facebook_flow($id_album);
     
     // On garde chaque premier mot des éléments de DATA
-    for ($i=0;$i<count($fql_query_data);$i++)
+    for ($i=0;$i<count($query_data);$i++)
     {
-            $nom = explode (' ',utf8_decode($fql_query_data[$i]["caption"]));
-            $chats_adopt_fb[$nb_chats_adopt_fb++] = FPUtils::getNomSansAccentsHTML($nom[0]);        
+            //$nom = explode (' ',utf8_decode($fql_query_data[$i]["caption"]));
+            $nom = explode (' ',utf8_decode($query_data[$i]["name"]));
+            $chats_adopt_fb[$nb_chats_adopt_fb++] = FPUtils::getNomSansAccentsHTML($nom[0]); 
+            //get_facebook_photo('10152622755866492');
     }
 
     //on trie par nom de chat (by value)
     asort($chats_adopt_fb);
     return $chats_adopt_fb;
 }  
+
+    function get_facebook_photo($id_photo)    
+    {
+    
+require_once __DIR__.'/FACEBOOK/src/Facebook/autoload.php';
+    
+    $fb = new Facebook\Facebook([
+      'app_id' => '166998373734276', // Replace {app-id} with your app id
+      'app_secret' => '2ed0bc5e469d3374194dc73922656000',
+      'default_graph_version' => 'v2.7',
+      ]);
+
+    $at =  new Facebook\Authentication\AccessToken('166998373734276|2ed0bc5e469d3374194dc73922656000');
+
+    $request = $fb->request('GET', '/'.$id_photo,array(),$at); 
+    $response = $fb->getClient()->sendRequest($request);
+
+    $contents =  $response->getDecodedBody();
+    
+    }
+
 ?>

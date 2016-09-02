@@ -54,8 +54,8 @@ include '../site/application/utils/ChatUtil.php';
     include 'sitephotos.php';
 
     $chats_forum=get_forum_contents();// On récupère les chats à l'adoption du forum
-    $chats_adopt_fb=get_facebook_contents("44926746491_56236"); // On récupère les chats à l'adoption du facebook
-    $chats_resa_fb=get_facebook_contents("44926746491_1073741831"); // Chats réservés facebook
+    $chats_adopt_fb=get_facebook_contents("44928446491"); 
+    $chats_resa_fb=get_facebook_contents("10152249802471492"); 
     $chats_site=get_site_contents();
 
     $computed = compute($chats_forum,$chats_adopt_fb,$chats_site,$chats_resa_fb);
