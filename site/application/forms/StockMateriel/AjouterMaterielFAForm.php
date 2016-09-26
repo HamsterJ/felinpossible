@@ -8,11 +8,11 @@
 class FP_Form_AjouterMaterielFA_Form extends FP_Form_common_Form {
    
     	public function __construct($loginFA = null)
-	{
-                                
-               $this->setAttrib('loginFA', $loginFA);
-                parent::__construct();
-  
+	{         
+            if ($loginFA != null)
+            {$this->setAttrib('loginFA', $loginFA);}
+                    
+            parent::__construct();
         }
     
     /**
@@ -29,19 +29,25 @@ class FP_Form_AjouterMaterielFA_Form extends FP_Form_common_Form {
         $materiel = new Zend_Form_Element_Select('materiel');
         $materiel->setLabel('Materiel');
         $materiel->setMultiOptions(FP_Model_Mapper_MapperFactory::getInstance()->StockMaterielMapper->buildArrayForForm());
-                
-        $etat = new Zend_Form_Element_Select('etat');
-        $etat->setLabel('État');
-        $etat->addMultiOptions((FP_Util_Constantes::$ETAT_MATERIEL));
+        
+        $etat = new Zend_Form_Element_Text('etat', array(           'label'     => 'État',
+                                                                    'required'  => false,
+                                                                    'filters'   => array('StringTrim')));
+        $etat->setValue('Bon'); 
+        
 
         $quantite = new Zend_Form_Element_Text('quantite', array(
                                                                     'label'     => 'Quantité',
                                                                     'required'  => true,
                                                                     'filters'   => array('StringTrim')));
-        $quantite->addValidator(new Zend_Validate_Float('en_US'));
+        $quantite->addValidator(new Zend_Validate_Regex('/[0-9]+[,\.]{0,1}[0-9]*/'));
         $quantite->setValue('1'); 
+               
+        $loginFA = new Zend_Form_Element_Text('loginFA', array(
+                                                'label'     => 'Login FA',
+                                                'required'  => true,
+                                                'filters'   => array('StringTrim')));
         
-        $loginFA = new Zend_Form_Element_Hidden('loginFA');
         $loginFA->setValue($this->getAttrib('loginFA'));
         
         $this->addElement($loginFA);  
@@ -56,5 +62,4 @@ class FP_Form_AjouterMaterielFA_Form extends FP_Form_common_Form {
             'class'    => 'btn btn-primary'
         ));
     }
-   
 }

@@ -237,7 +237,8 @@ class FP_Service_MailServices {
             $fa_mail ='';
             $data['sujet']='Demande de matériel de '.$demande[0]['login'];
             $config = Zend_Registry::get(FP_Util_Constantes::CONFIG_ID);
-            $data['destinataire']=$config->email->address;
+            $data['destinataire']=$config->email->addressNotifMateriel;
+            $data['cc']=$config->email->address;
             
             $data['contenu'] = '<table><th width="500px"></th><th></th>
                                     <tr><td>Bonjour,</td></tr>
@@ -250,9 +251,12 @@ class FP_Service_MailServices {
                 $data['contenu'] .= '<tr><td> => '.$value['descriptionMateriel'].'</td></tr>';
             }
  
+            $data['contenu'] .='<tr><td></td></tr>'
+                            . '<tr><td>Commentaires : '.$demande[0]['commentaire'].'</td></tr>';  
+            
             $data['contenu'] .='</table>';
             
-            $args = $this->buildMailParam(null, $data['sujet'], $data['destinataire'], $data['contenu'], null, null);
+            $args = $this->buildMailParam(null, $data['sujet'], $data['destinataire'], $data['contenu'], null, $data['cc']);
             $this->sendMail($args);     
                 
         }

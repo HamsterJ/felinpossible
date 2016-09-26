@@ -446,7 +446,103 @@ CREATE TABLE IF NOT EXISTS `fp_soins_fiche` (
   `ficheGeneree` int(11) NOT NULL,
   `envoiVeto` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=218 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fp_stock_categorie_materiel`
+--
+CREATE TABLE IF NOT EXISTS `fp_stock_categorie_materiel` (
+  `id` int(11) NOT NULL,
+  `libelle` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `fp_stock_categorie_materiel`
+--
+
+INSERT INTO `fp_stock_categorie_materiel` (`id`, `libelle`) VALUES
+(0, '_autres'),
+(1, 'jouets'),
+(2, 'Equipements'),
+(3, 'alimentation'),
+(4, 'medicaments');
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fp_stock_demande`
+--
+
+CREATE TABLE IF NOT EXISTS `fp_stock_demande` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idDemandeMateriel` varchar(50) DEFAULT NULL,
+  `login` varchar(50) NOT NULL,
+  `idFA` int(11) NOT NULL,
+  `dateDemande` varchar(20) NOT NULL,
+  `token` varchar(50) NOT NULL,
+  `submitted` tinyint(1) DEFAULT NULL,
+  `traitee` tinyint(4) NOT NULL,
+  `commentaire` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fp_stock_materiel`
+--
+
+CREATE TABLE IF NOT EXISTS `fp_stock_materiel` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `DescriptionMateriel` varchar(200) NOT NULL,
+  `StockEnPret` varchar(20) NOT NULL,
+  `StockRestant` varchar(20) NOT NULL,
+  `Unite` varchar(50) NOT NULL,
+  `Categorie` varchar(50) NOT NULL DEFAULT '0',
+  `SuiviPrets` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fp_stock_materiels_demande`
+--
+
+CREATE TABLE IF NOT EXISTS `fp_stock_materiels_demande` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idDemandeMateriel` varchar(25) DEFAULT NULL,
+  `materiel` varchar(100) DEFAULT NULL,
+  `quantite` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fp_stock_materiel_fa`
+--
+
+CREATE TABLE IF NOT EXISTS `fp_stock_materiel_fa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idFa` int(11) NOT NULL,
+  `login` varchar(100) NOT NULL,
+  `idMateriel` int(11) NOT NULL,
+  `quantite` varchar(20) NOT NULL,
+  `idDemandeMateriel` varchar(50) NOT NULL,
+  `etat` varchar(500) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
 
 -- --------------------------------------------------------
 

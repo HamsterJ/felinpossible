@@ -16,6 +16,8 @@ class FP_Model_Bean_StockMaterielsDemande extends FP_Model_Bean_Common
 	protected $materiel;
         /** @var int  */
 	protected $idDemandeMateriel;
+        /** @var string  */
+	protected $quantite;
 	
 	public function getId() {
 	    return (int) $this->id;
@@ -39,5 +41,13 @@ class FP_Model_Bean_StockMaterielsDemande extends FP_Model_Bean_Common
 	
 	public function setMateriel($materiel) {
 	    $this->materiel =  $materiel;
+	}
+        
+        public function getQuantite() {
+	    return  $this->quantite;
+	}
+	
+	public function setQuantite($quantite) {
+	    $this->quantite =  $quantite;
 	}
 }

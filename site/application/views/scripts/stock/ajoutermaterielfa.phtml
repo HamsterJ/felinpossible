@@ -2,5 +2,9 @@
 	<p>
 		Choisissez un matériel dans la liste ci-dessous et cliquez sur "Ajouter" :
 	</p>
-	<?php	echo $this->form;?>
+	<?php	echo $this->form;
+                if ($this->errorMessage)// Si message d'erreur car login inconnu
+            {echo '<b><span style="color: red;">'.$this->errorMessage.'</span></b>';}
+        ?>
+        
 </div>

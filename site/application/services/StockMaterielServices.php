@@ -100,19 +100,25 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
         return $this->getStockMaterielsDemandeMapper()->getNbMaterielsPourDemande($idDemande);
     }
     
-        //Contrôle qu'on a tous les éléments et enregistrement de la demande
-    public function  controlerEtEnregistrerDemande ($form)
+    //retourne les infos connues (tous les formulaires remplis) de la FA à partir de son login
+    public function  getFAFromLogin ($login)       
     {
-        $login = $form['login'];
-        $idDemande = $form['idDemandeMateriel'];
-        $fa = null;
-        $idFA = null;
-        
         if ($login)// on ne fait pas attention aux accents, on récupère  les infos FA
             {
                 $fs = FP_Service_FaServices::getInstance();
                 $fa = $fs->getMapper()->select(null,'upper(login)=upper("'.str_replace('"','',$login).'") COLLATE utf8_general_ci','dateSubmit desc');
             }
+        return $fa;    
+    }
+    
+    
+    //Contrôle qu'on a tous les éléments et enregistrement de la demande
+    public function  controlerEtEnregistrerDemande ($form)
+    {
+        $login = $form['login'];
+        $idDemande = $form['idDemandeMateriel'];
+        $fa = $this->getFAFromLogin($login);
+        $idFA = null;
         
         if ($fa){
             $idFA = $fa[0]->id; //le dernier formulaire FA connu s'il y en a plusieurs
@@ -183,15 +189,15 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
 /*** Admin des prets ***/ 
 
     //Suppression du matériel (toutes instances) de la FA
-     public function deleteMatFA($idAff) {
+     public function deleteMatFA($idAff,$retour) {
         $mapper = $this->getStockMaterielFAMapper();
         $aff = $mapper->findMatosFA('e.id='.$idAff)[0];
         $mapper->supprimerMaterielDeFA($idAff);
         
         //MAJ de la table de stock
-        $this->updateStock($aff['idMateriel'],$aff[quantite],'+',1/*suiviPrets*/);
+        $this->updateStock($aff['idMateriel'],$aff[quantite],'+',1/*suiviPrets*/,$retour);
     }
-   
+    
    //Affecter un matériel à une FA
    public function affectMatos ($idMateriel = null,$login = null,$idDemandeMateriel = null,$etat = null,$quantite=null)
    {
@@ -212,11 +218,11 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
             $this->updateAffectsFromLogin($login);//MAJ de la table des affectations pour mettre le bon idFA en fonction du login (même sur les anciennes affect)  
              }
         //MAJ de la table de stock
-        $this->updateStock($idMateriel,$q,'-',$m['SuiviPrets']);
+        $this->updateStock($idMateriel,$q,'-',$m['SuiviPrets'] /*impact prets*/,1 /*impact stock*/);
    }
    
-   //Mise à jour du stock suite à un prêt ou un retour
-   public function updateStock ($idMateriel = null,$quantite=null,$sens = null,$suiviPrets)
+   //Mise à jour du stock suite à un prêt ou un retour  (impactPrets : incrémente/décrémente la quantité prétée, impactStock : incrémente/décrémente le stock restant)
+   public function updateStock ($idMateriel = null,$quantite=null,$sens = null,$impactPrets,$impactStock)
    {      
         //nouveau stock restant
         $sr = new Zend_Db_Expr('ROUND(`StockRestant`'.$sens.$quantite.',3)');
@@ -225,13 +231,20 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
         $sp = new Zend_Db_Expr('ROUND(`StockEnPret`'.($sens=='-'?'+':'-').$quantite.',3)');
        
         //lancement de la MAJ
-        $a = array('StockRestant'=>$sr);
+        $a = array();
         
-        if($suiviPrets == 1)
+        if($impactStock == 1)
+        {$a['StockRestant'] = $sr;}
+        
+        
+        if($impactPrets == 1)
         {$a['StockEnPret'] = $sp;}
         
-        $mapper = $this->getMapper();
-        $mapper->updateStock($a,'id='.$idMateriel);
+        if(sizeof($a) > 0)  // si on a quelque chose à updater
+        {
+            $mapper = $this->getMapper();
+            $mapper->updateStock($a,'id='.$idMateriel);
+        }
    }
    
    

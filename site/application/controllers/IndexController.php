@@ -48,6 +48,7 @@ class IndexController extends FP_Controller_CommonController
 	public function statutsAction() {}
 	public function sterilisationAction() {}
 	public function tarifsAction() {}
+        public function demandesfaAction() {}
 	public function chargeAction() {}
 	public function donAction() {}
 	

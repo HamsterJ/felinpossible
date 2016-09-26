@@ -82,8 +82,8 @@ class FP_Model_Mapper_StockDemandeMapper extends FP_Model_Mapper_CommonMapper {
                 $this->getDbTable()->update(array('submitted' => 1,'commentaire'=>$commentaires), "idDemandeMateriel = ".$idDemandeMateriel);}
             else if ($statut == 'traitee'){
                 $this->getDbTable()->update(array('traitee' => 1), "idDemandeMateriel = ".$idDemandeMateriel);}
-            
-            
+            else 
+                {$this->getDbTable()->update(array('commentaire'=>$commentaires), "idDemandeMateriel = ".$idDemandeMateriel);}
         }
         
         /** Retourne le nombre de demandes (pour admin). **/

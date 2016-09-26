@@ -15,7 +15,8 @@ class FP_Model_Mapper_StockMaterielsDemandeMapper extends FP_Model_Mapper_Common
 	protected $mappingDbToModel = array(
                                         'id'                => 'id',
                                         'idDemandeMateriel' => 'idDemandeMateriel',
-                                        'materiel'          => 'materiel');
+                                        'materiel'          => 'materiel',
+                                        'quantite'          => 'quantite');
 	
 	/** Retourne le nombre de materiels dans la demande. **/
 	public function getNbMaterielsPourDemande($idDemandeMateriel) {
@@ -39,8 +40,9 @@ class FP_Model_Mapper_StockMaterielsDemandeMapper extends FP_Model_Mapper_Common
             ->from( array('m' => 'fp_stock_materiels_demande'), 
                     array('m.id'
                         ,'m.idDemandeMateriel'
-                        ,'m.materiel'))
-            ->join(array('sm' => 'fp_stock_materiel'), 'sm.id = m.materiel', array('descriptionMateriel' => 'sm.descriptionMateriel','unite' => 'unite'));
+                        ,'m.materiel'
+                        ,'m.quantite'))
+            ->join(array('sm' => 'fp_stock_materiel'), 'sm.id = m.materiel', array('descriptionMateriel' => 'sm.descriptionMateriel','unite' => 'unite','StockRestant' => 'sm.StockRestant'));
                 
             if ($sort && $order) {
                 $subSelect->order($sort." ".$order);

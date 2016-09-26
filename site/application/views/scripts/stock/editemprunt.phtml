@@ -1,5 +1,7 @@
 <div class="centre_principal">
     <?php echo $this->render("stock/indexgridmat.phtml"); ?>
+    <button style="min-width:130px;" class="btn btn-action" onclick="deleteItem('<?php echo $this->urlNonRetourItem ?>', 'commonGrid')"><i class="icon-trash"></i> Non-Retour </button> 
+    <!--<button style="min-width:130px;" class="btn btn-action" onclick="deleteItem('<?php //echo $this->urlTransfertItem ?>', 'commonGrid')"><i class="icon-arrow-right"></i> Transférer </button>-->
 </div>
 
 

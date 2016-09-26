@@ -33,8 +33,17 @@ class FP_Form_AjouterMateriel_Form extends FP_Form_common_Form {
         $idDemandeMateriel = new Zend_Form_Element_Hidden('idDemandeMateriel');
         $idDemandeMateriel->setValue($this->getAttrib('idd'));
         
+        $quantite = new Zend_Form_Element_Text('quantite', array(
+                                                                    'label'     => 'Quantité',
+                                                                    'required'  => true,
+                                                                    'filters'   => array('StringTrim')));
+        //$quantite->addValidator(new Zend_Validate_Regex('/[0-9]+[,\.]{0,1}[0-9]*/')); 
+        //on ne valide pas le format entré car on n'affiche pas l'unité en live donc on peut tout saisir :(
+        $quantite->setValue('1');
+        
         $this->addElement($idDemandeMateriel);  
         $this->addElement($materiel);
+        $this->addElement($quantite);
 
 	// Add the submit button
         $this->addElement('submit', 'submit', array(

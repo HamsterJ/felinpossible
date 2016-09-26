@@ -104,4 +104,11 @@ class FP_Model_Mapper_StockMaterielFAMapper extends FP_Model_Mapper_CommonMapper
     public function supprimerMaterielDeFA($id) {
             $this->delete("id = ".$id);
     }
+    
+    //changer l'id FA d'une affectation
+    public function transfererMatFA($idAffectation,$toFA) {
+        $a = array();
+        $a['idFa']=$toFA;
+        $this->getDbTable()->update($a,'id='.$idAffectation);
+    }  
 }

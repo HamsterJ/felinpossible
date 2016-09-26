@@ -25,14 +25,14 @@ class FP_Form_StockMateriel_Form extends FP_Form_common_Form {
                                                                     'label'     => 'Stock Prêté',
                                                                     'required'  => true,
                                                                     'filters'   => array('StringTrim')));
-        $StockEnPret->addValidator(new Zend_Validate_Float('en_US'));
+        $StockEnPret->addValidator(new Zend_Validate_Regex('/[0-9]+[,\.]{0,1}[0-9]*/'));
         $StockEnPret->setValue(''); 
         
         $StockRestant = new Zend_Form_Element_Text('Stock Restant', array(
                                                                     'label'     => 'Stock Restant',
                                                                     'required'  => true,
                                                                     'filters'   => array('StringTrim')));
-        $StockRestant->addValidator(new Zend_Validate_Float('en_US'));
+        $StockRestant->addValidator(new Zend_Validate_Regex('/[0-9]+[,\.]{0,1}[0-9]*/'));
         $StockRestant->setValue('');       
         
         $Unite = new Zend_Form_Element_Text('Unite', array(

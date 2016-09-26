@@ -40,25 +40,29 @@ class FP_Form_stockMateriel_DemanderForm extends FP_Form_common_Form {
             $result .='<input type="hidden" name="idDemandeMateriel" value="'.$data['demande'][0]['idDemandeMateriel'].'">';
             $result .='<input type="hidden" name="login" value="'.$data['demande'][0]['login'].'">';
             $result .='<b><u>Matériels</u> : </b></br></br><table class ="table-condensed">';
-            $result .='<tr style="text-align:left;border-bottom-width:1px;border-bottom-color:grey;border-bottom-style:solid;"><th></th><th>Matériel</th><th>État</th><th>Quantité</th></tr>';
+            $result .='<tr style="text-align:left;border-bottom-width:1px;border-bottom-color:grey;border-bottom-style:solid;">'
+                    . '<th width="3%"></th><th width="43%">Matériel</th><th width="22%">État</th><th width="10%">Qté</th><th width="8%"></th><th></th></tr>';
             //construction d'un tableau de matériels (case à cocher - libellé - liste déroulante 'etat'
             foreach($data['mats'] as $pos => $mat){
                 $result .= '<tr>'
-                            . '<td width="40px"><input style="vertical-align:baseline;" type="checkbox" name="c'.$mat['materiel'].'"  checked/></td>'
-                            . '<td width="250px"> '.$mat['descriptionMateriel'].'</td>'
-                            . '<td width="120px"> <select name="l'.$mat['materiel'].'" style="width:100px;height:25px;margin-bottom:0px;padding:2px;vertical-align:middle;">';
-                
-                foreach(FP_Util_Constantes::$ETAT_MATERIEL as $key=>$value)
-                    {$result .='<option>'.$value;} //<option>Bon<option>Moyen<option>Mauvais
-                            
-                $result .= '</select></td>'
-                            . '<td width="100px"> <input type="text" name="q'.$mat['materiel'].'" style="width:50px;height:15px;margin-bottom:0px;" value="1"></td>'
-                        . '<td width="100px">'.$mat['unite'].'</td>'
+                        . '<input type="hidden" name="n'.$mat['id'].'" value="'.$mat['materiel'].'"/><td width="3%">'
+                        . '<input style="vertical-align:baseline;" type="checkbox" name="c'.$mat['id'].'"  checked/></td>'
+                        . '<td width="43%"> '.$mat['descriptionMateriel'].'</td>'
+                        . '<td width="22%"> <input type="text" name="l'.$mat['id'].'" style="width:150px;height:15px;margin-bottom:0px;" value="Bon">'
+                        ;
+                $result .= '</td>'
+                        . '<td width="10%"> <input type="text" name="q'.$mat['id'].'" style="width:50px;height:15px;margin-bottom:0px;" value="'.$mat['quantite'].'"></td>'
+                        . '<td width="8%"><span style="font-size:80%;">'.$mat['unite'].'</span></td>'
+                        . '<td><i><span style="color: grey;font-size:80%;">Stock restant : '.$mat['StockRestant'].'</span></i></td>'
                         . '</tr>'; 
             }
-            $result .= '<tr><td>&nbsp;</td><td id="submit-element"><input name="submit" class="btn btn-primary" id="submit" type="submit" value="Traiter"></td><td>&nbsp;</td></tr>';
+            //$result .= '</tr></tr><tr><td colspan="6"><b>Commentaires :</b> '.$data['demande'][0]['commentaire'].'</td></tr>';
+            //$result .= '<tr><td>&nbsp;</td><td id="submit-element"><input name="submit" class="btn btn-primary" id="submit" type="submit" value="Traiter"></td><td>&nbsp;</td></tr>';
         
-            
+            $result .= '</table><hr><b>Commentaires :</b> '.$data['demande'][0]['commentaire'].'</br><hr></br>';
+            $result .= '<input name="submit" class="btn btn-primary" id="submit" type="submit" value="Traiter">';
+        
+ 
             return $result; // retourne le tableau de matériels
         }
         return '';// la demande n'est pas trouvée : n'affiche rien

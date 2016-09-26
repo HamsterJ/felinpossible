@@ -1,7 +1,7 @@
 
 <div class="centre_principal">
     <p>
-        Ajoutez ci-dessous tous les matériels dont vous avez besoin (en cliquant sur 'ajouter') puis cliquez sur "envoyer" :</br></br>
+        Ajoutez dans le tableau ci-dessous tous les matériels dont vous avez besoin (en cliquant sur 'ajouter') puis cliquez sur "envoyer" en bas de la page pour soumettre votre demande :</br></br>
    </p>
 
   <div id="chargementMateriels" class="ajax" style="display:none"></div>
@@ -10,9 +10,13 @@
      
 <div>
 <form class="formOrange" id="DemandeMateriel" action="/stock/storedem/" enctype="application/x-www-form-urlencoded" method="post">
-   <!-- <dl class="zend_form">Commentaire : 
-        <textarea name="commentaires" rows="4" cols="50" ></textarea>-->
     <input type="hidden" name="idd" value="<?php echo $this->idd;?>">
+    <br/>
+    <hr><hr>
+    <br/>  
+    
+    Commentaires : <i><span style="color: OrangeRed;font-size:80%">Ajouter tous vos articles AVANT de saisir un commentaire</span></i>
+    <textarea name="commentaire" rows="3"></textarea>
     <dt id="submit-label">&nbsp;</dt><dd id="submit-element">
     <input name="submit" class="btn btn-primary" id="submit" type="submit" value="Envoyer"></dd></dl>
 </form>

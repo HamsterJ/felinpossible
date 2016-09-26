@@ -162,7 +162,7 @@ class StockController extends FP_Controller_CommonController {
         {
             if (substr ($key,0,1) == 'c')
             {
-                $this->getService()->affectMatos(substr($key,1),$login,$idDemande,$affectations['l'.substr($key,1)],  round(floatval(str_replace(',','.',$affectations['q'.substr($key,1)])),3)+0); 
+                $this->getService()->affectMatos($affectations['n'.substr($key,1)],$login,$idDemande,$affectations['l'.substr($key,1)],  round(floatval(str_replace(',','.',$affectations['q'.substr($key,1)])),3)+0); 
             }           
         }
         
@@ -177,7 +177,7 @@ class StockController extends FP_Controller_CommonController {
        if ($this->checkIsLogged()) {
            $this->view->urlListeJson = $this->view->url(array('controller' => 'stock','action' => 'listeemprunts'));
            $this->view->urlEditItem = $this->view->url(array('action' => 'editemprunt', 'id' => null));
-           $this->view->urlDeleteItem = $this->view->url(array('action' => 'deleteemprunt', 'id' => null));
+           $this->view->urlAddItem = $this->view->url(array('action' => 'ajoutermaterielfa'));
            $this->view->headerPath = "stock/headerempruntsadm.phtml";
            $this->view->class = "StockMaterielFA";
            $this->view->titre = "Matériels empruntés par les FA";
@@ -218,7 +218,8 @@ class StockController extends FP_Controller_CommonController {
                     
                     $this->view->urlListeJson = $this->view->url(array('controller' => 'stock','action' => 'listematerielsemprunt','idFA' =>$idFA));
                     $this->view->urlAddItem = $this->view->url(array('action' => 'ajoutermaterielfa',  'loginFA' => $loginFA));
-                    $this->view->urlDeleteItem = $this->view->url(array('action' => 'deletematerielfa', 'id' => null));
+                    $this->view->urlDeleteItem = $this->view->url(array('action' => 'deletematerielfa', 'id' => null,'ret'=>1));
+                    $this->view->urlNonRetourItem = $this->view->url(array('action' => 'deletematerielfa', 'id' => null,'ret'=>0));
                     $this->view->defaultSort = 1;
                     $this->view->headerPath = "stock/headermatFA.phtml";
                     $this->view->titre = "Liste des matériels";
@@ -228,16 +229,30 @@ class StockController extends FP_Controller_CommonController {
             }
         }
     }
-    
+       
         public function ajoutermaterielfaAction() {
         $request = $this->getRequest();
         $loginFA = null;
         if (isset($request->getParams()['loginFA']))
-            {$loginFA = $request->getParams()['loginFA'];}
+            {$loginFA = $request->getParams()['loginFA'];} // login FA récupéré de la request
         $form = new FP_Form_AjouterMaterielFA_Form($loginFA);
 
         if ($request->isPost()) {
             if ($form->isValid($request->getPost())) {
+                $this->view->errorMessage = null;
+                
+                $login = $form->getValue('loginFA'); // login FA saisi (ou récupéré de la request)
+                $fa = ($this->getService()->getFAFromLogin($login));
+                
+                if ($fa == null)
+                {
+                    $form->setAttrib('error', 1);
+                    $this->view->form = $form;
+                    $this->view->errorMessage = 'Nous ne trouvons pas ce login dans notre base des familles d\'accueil, veuillez le vérifier ou l\'ajouter dans l\'admin FA' ;
+                    $form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'ajoutermaterielfa')).'", null, null, "'.$form->getId().'")');
+                    $this->render('ajoutermaterielfa');
+                    return;
+                }    
                 $this->getService()->saveAjout($form->getValues());
                 return $this->_helper->redirector('empruntsadm', null, null, array('from'=>'addMaterielFA','loginFA'=>$loginFA));
             }
@@ -249,15 +264,16 @@ class StockController extends FP_Controller_CommonController {
     /* Suppression d'un matériel d'une FA (partie admin)*/
     public function deletematerielfaAction() {
         $affId = $this->getRequest()->getParams()['id'];
+        $ret = $this->getRequest()->getParams()['ret'];
 
         if ($affId)
             {
-                $this->getService()->deleteMatFA($affId);
+                $this->getService()->deleteMatFA($affId,$ret);
         }
         exit;	
     }  
     
-    
+      
 /*************  GESTION DEMANDES DE MATERIEL DES FA (PARTIE PUBLIQUE) **********************************************/
     
     private function getDemandeMaterielService() {
@@ -297,7 +313,7 @@ class StockController extends FP_Controller_CommonController {
             }      
         }   
         else {  //On vient donc du 2ème formulaire, on boucle pour l'ajout de plusieurs matériels   
-            $demandeMaterielId = $request->getParam('id');
+            $demandeMaterielId = $request->getParam('id');  
         }
         
         $this->view->urlListeJson = $this->view->url(array('controller' => 'stock','action' => 'listemateriel', 'id' => $demandeMaterielId));
@@ -319,7 +335,7 @@ class StockController extends FP_Controller_CommonController {
     /* Enregistrement d'une demande de matériel (partie publique)*/
     public function storedemAction() {     
         $request = $this->getRequest();
-        $this->getService()->validerDemande($request->getParam('idd'),$request->getParam('commentaires'));
+        $this->getService()->validerDemande($request->getParam('idd'),$request->getParam('commentaire'));
     } 
         
     /* Ajout d'une ligne de matériel dans une demande (partie publique FA)*/
@@ -329,7 +345,7 @@ class StockController extends FP_Controller_CommonController {
         if (isset($request->getParams()['id']))
             {$idd = $request->getParams()['id'];}
         $form = new FP_Form_AjouterMateriel_Form($idd);
-
+       
         if ($request->isPost()) {
             if ($form->isValid($request->getPost())) {
                 $this->getDemandeMaterielService()->save($form->getValues());
