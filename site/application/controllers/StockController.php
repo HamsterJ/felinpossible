@@ -15,8 +15,8 @@ class StockController extends FP_Controller_CommonController {
     
     private function getService() {
         return FP_Service_StockMaterielServices::getInstance();
-    }       
-        
+    }
+    
     /* Retourne la liste des catégories de matériels au format json */
     public function listeCategoriesAction() {
         if ($this->checkIsLogged()) {
@@ -44,8 +44,9 @@ class StockController extends FP_Controller_CommonController {
             $this->view->headerPath = "stock/headerstockadm.phtml";
             $this->view->class = "stockMateriel";
             $this->view->titre = "Stock";
-            //$this->view->filterPath = "stock/filtermat.phtml";
+            $this->view->filterPath = "stock/filtermat.phtml";
             $this->view->gridName = "commonGrid";
+            $this->view->class = "materiels";
             $this->view->defaultSort = 2;
             $this->view->nbElements = $this->getService()->getNbElementsForGrid();
             $this->render("indexgrid");
@@ -207,6 +208,7 @@ class StockController extends FP_Controller_CommonController {
         if ($this->checkIsLogged()) {
             $request = $this->getRequest();
             $idFA = $request->getParam('id', null);
+            $loginFA = '';
             
             if ($idFA) {
                 $data = $this->getService()->getEmpruntData($idFA);
@@ -214,8 +216,8 @@ class StockController extends FP_Controller_CommonController {
                     
                     $loginFA = $data[0]['login'];
                     $this->view->$loginFA = $loginFA;
-                    $this->view->data = $data;
-                    
+                    //  $this->view->data = $data;
+                }
                     $this->view->urlListeJson = $this->view->url(array('controller' => 'stock','action' => 'listematerielsemprunt','idFA' =>$idFA));
                     $this->view->urlAddItem = $this->view->url(array('action' => 'ajoutermaterielfa',  'loginFA' => $loginFA));
                     $this->view->urlDeleteItem = $this->view->url(array('action' => 'deletematerielfa', 'id' => null,'ret'=>1));
@@ -223,9 +225,8 @@ class StockController extends FP_Controller_CommonController {
                     $this->view->defaultSort = 1;
                     $this->view->headerPath = "stock/headermatFA.phtml";
                     $this->view->titre = "Liste des matériels";
-                    
                     $this->render("editemprunt");
-                }
+                
             }
         }
     }
@@ -358,7 +359,6 @@ class StockController extends FP_Controller_CommonController {
         
     /* Suppression d'un matériel d'une demande (partie publique FA)*/
     public function deletematerielAction() {
-       // $matId = filter_input(INPUT_GET, 'idm', FILTER_SANITIZE_STRING);
         $matId = $this->getRequest()->getParams()['id'];
         if ($matId) {
                 $this->getService()->deleteMat($matId);

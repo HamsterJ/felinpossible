@@ -565,7 +565,7 @@ function filterVeto(gridName) {
 /**
  * Filtre pour les matériels.
  */
-function filtermateriel(gridName) {
+function filterMateriel(gridName) {
   var obj = new Object();
   obj['DescriptionMateriel'] = dijit.byId('filterDescriptionMateriel').getValue();
   var grid = dijit.byId(gridName);

@@ -37,12 +37,29 @@
           <li><a href="#<?php echo $this->url(array('controller' => 'index', 'action' => 'benevole')) ?>" rel="ajax">Devenir bénévole</a></li>
           <li><a href="#<?php echo $this->url(array('controller' => 'fa', 'action' => 'index')) ?>" rel="ajax">Etre Famille d'Accueil</a></li>
           <li><a href="#<?php echo $this->url(array('controller' => 'index', 'action' => 'don')) ?>" rel="ajax">Faire un don</a></li>
-          <li><a href="#<?php echo $this->url(array('controller' => 'index', 'action' => 'demandesFA')) ?>" rel="ajax">FA : Faire une demande</a></li>
+
         </ul>
       </div>
     </div>
   </div>
 
+      <!-- FA -->
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle btn btn-custom btn-large btn-primary" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseFA">
+        <i class="icone-home pull-left"></i>Familles d'accueil
+      </a>
+    </div>
+    <div id="collapseFA" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <ul class="nav nav-pills nav-stacked">
+		  <li><a href="#<?php echo $this->url(array('controller' => 'fa', 'action' => 'index')) ?>" rel="ajax">Etre Famille d'Accueil</a></li>
+          <li><a href="#<?php echo $this->url(array('controller' => 'index', 'action' => 'demandesFA')) ?>" rel="ajax">Demande matériel/soins</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
   <!-- Les chats -->
   <div class="accordion-group">
     <div class="accordion-heading">

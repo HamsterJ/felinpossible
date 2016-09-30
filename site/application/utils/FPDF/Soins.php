@@ -202,7 +202,7 @@ function print_pdf(FP_Form_chat_FicheSoinsForm $ficheSoinForm)
     $pdf->setXY(20,285);
     $pdf->SetFont('Arial','B',8);
     $pdf->SetTextColor(100,100,100);
-    $pdf->MultiCell(180,3, utf8_decode("Association FELIN POSSIBLE - Chez Mme Véronique CHANU - 5 allée Roger Le Poullenec - 35000 RENNES - 06.28.19.73.84 - asso@felinpossible.fr - www.felinpossible.fr/"));
+    $pdf->MultiCell(180,3, utf8_decode("Association FELIN POSSIBLE - Chez Mme Véronique CHANU - 5 allée Roger Le Poulennec - 35000 RENNES - 06.28.19.73.84 - asso@felinpossible.fr - www.felinpossible.fr/"));
     
 	//Impression du pdf
     $pdf->Output('Soins_'.$ficheSoinForm->nomChat->getValue().'_'.date('dmY', time()).'.pdf','D');

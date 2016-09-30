@@ -16,7 +16,7 @@
     <div class="gridmat">
       <div id="loadGrid" class="ajax" style="display:block"></div>
       <table id="commonGrid" 
-      rowsPerPage="100" 
+      rowsPerPage="13" 
       columnReordering="true"
       sortInfo="<?php echo $this->defaultSort ?>" 
       jsId="commonGrid" 
@@ -24,8 +24,7 @@
       store="commonGridStore" 
       selectable="true" 
       noDataMessage="Pas de données."
-      headerMenu="gridMenu"
-      >
+      headerMenu="gridMenu">
 
       <script type="dojo/connect" event="_onFetchBegin" args="event">initGrid(this.id);</script> 
       <script type="dojo/connect" event="_onFetchComplete" args="event">endGrid(this.id);</script>
@@ -41,5 +40,5 @@ echo $this->partial($this->headerPath)
 
   <button  style="min-width:130px;" class="btn btn-action" onclick="addItem('<?php echo $this->urlAddItem ?>')"><i class="icon-plus"></i> Ajouter </button>
   <button style="min-width:130px;" class="btn btn-action" onclick="deleteItem('<?php echo $this->urlDeleteItem ?>', 'commonGrid')"><i class="icon-trash"></i> Supprimer </button>
- 
+
 </div>
