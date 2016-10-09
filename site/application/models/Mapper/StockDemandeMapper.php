@@ -23,6 +23,25 @@ class FP_Model_Mapper_StockDemandeMapper extends FP_Model_Mapper_CommonMapper {
                                                 'traitee'           => 'traitee',
                                                 'commentaire'       => 'commentaire');
     
+    protected $filterKeyToDbKey = array('login' => 'fa.login','nom' =>'fa.nom' ); 
+    
+    protected $clausesWhere = array('submitted' => 'submitted=1');
+    
+    	/**
+	 * Count number of rows in the table.
+	 * @param $where where clause.
+	 * @return int
+	 */
+	public function count($where = null)
+	{
+		$db = $this->getDbTable()->getAdapter();
+		$select = $this->getDbTable()->select();
+		$query = $select->from(array('m' => 'fp_stock_demande'), 'count(1)');
+
+		if ($where) {
+			$query = $select->where($where);
+		}	
+        }
     
 	public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
 	{
@@ -30,14 +49,13 @@ class FP_Model_Mapper_StockDemandeMapper extends FP_Model_Mapper_CommonMapper {
             ->from( array('m' => 'fp_stock_demande'), 
                     array('m.id'
                         ,'m.idDemandeMateriel'
-                        ,'m.login'
                         ,'m.idFA'
                         ,'m.dateDemande'
                         ,'m.token'
                         ,'IF(m.traitee>0,"Oui","NON") traitee'
                         ,'m.commentaire'
                         ))
-                    ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA', array('infoFA' => 'CONCAT(fa.prenom, \' \', fa.nom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))','email' => 'email'));
+                    ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA', array('infoFA' => 'CONCAT(UPPER(fa.nom), \' \', fa.prenom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))','fa.email' => 'email', 'login' => 'fa.login', 'nom' => 'fa.nom'));
                 
             if ($sort && $order) {
                 $subSelect->order($sort." ".$order);
@@ -85,12 +103,7 @@ class FP_Model_Mapper_StockDemandeMapper extends FP_Model_Mapper_CommonMapper {
             else 
                 {$this->getDbTable()->update(array('commentaire'=>$commentaires), "idDemandeMateriel = ".$idDemandeMateriel);}
         }
-        
-        /** Retourne le nombre de demandes (pour admin). **/
-	public function getNbDemandes() {
-		return $this->count();
-	}
-        
+       
         public function supprimerDemande($idDemandeMateriel) {
 		$this->delete("idDemandeMateriel = ".$idDemandeMateriel);
 	}

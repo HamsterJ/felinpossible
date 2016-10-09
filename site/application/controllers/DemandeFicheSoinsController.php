@@ -112,16 +112,25 @@ class DemandeFicheSoinsController extends FP_Controller_CommonController
         public function savedemandefichesoinsAction() {
              $request = $this->getRequest();
              $form = new FP_Form_chat_DemanderFicheForm();
-			 
-             if ($form->isValid($request->getPost())) {
-                $f=$request->getPost();
-		$this->getService()->saveDemandeFicheSoins($f);
-                $this->render('retour');
-                return;
+		
+            if ($form->isValid($request->getPost())) {
+               $f=$request->getPost();
+            $fa = $this->getService()->getFAFromLogin($f['login']);
+               
+               if (sizeof($fa) > 0) // On connait la FA
+                {
+                   $this->getService()->saveDemandeFicheSoins($f);
+                   $this->render('retour');
+                   return;
+                }
+               else 
+                {
+                   $this->view->errorMessage = 'Nous ne trouvons pas ce login dans notre base des familles d\'accueil, veuillez le vérifier ou vous inscrire <a href="/fa/process">ici </a>' ;
+                }
             }
-            
-            $this->view->form = $form;     
-            $this->render('demander-fiche-soins');
+             
+             $this->view->form = $form;     
+             $this->render('demander-fiche-soins');
          }   
          
          

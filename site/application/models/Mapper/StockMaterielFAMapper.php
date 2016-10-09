@@ -23,58 +23,50 @@ class FP_Model_Mapper_StockMaterielFAMapper extends FP_Model_Mapper_CommonMapper
                     'quantite'          => 'quantite'
         );
 
+        protected $filterKeyToDbKey = array('login' => 'fa.login','nom' =>'fa.nom' ); 
+    
+    	/**
+	 * Count number of rows in the table.
+	 * @param $where where clause.
+	 * @return int
+	 */
+	public function count($where = null)
+	{ 
+            $subSelect = $this->getDbTable()->getAdapter()->select()
+            ->from( array('m' => 'fp_stock_materiel_fa'), 
+                array('count(distinct idFA) compte'))
+            ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA',array());
+            
+            if ($where)
+                {
+                    $subSelect->where($where);
+                }
+            
+           // $subSelect->group('idFA');
+            $stmt = $subSelect->query();
+            
+            return $stmt->fetch()['compte'];
+	}
+    
     //Sauvegarde des affectations de matériels à une FA
     public function saveAffect($data)
     {
        $this->getDbTable()->insert($data);
     }
-    
-    //Recup de toute la liste des emprunts (pour l'admin)
-    public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
-    {
-        $subSelect = $this->getDbTable()->getAdapter()->select()
-        ->from( array('m' => 'fp_stock_materiel_fa'), 
-                array('m.id'
-                    ,'m.idFA'
-                    ,'m.login'
-                    ,'m.idMateriel'
-                    ,'m.idDemandeMateriel'
-                    ,'m.etat'
-                    ))
-                ->joinLeft(array('sm' => 'fp_stock_materiel'), 'sm.id = m.idMateriel', array('descriptionMateriel' => 'sm.descriptionMateriel'))
-                ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA', array('infoFA' => 'CONCAT(fa.prenom, \' \', fa.nom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))'))
-        ;
-
-        if ($sort && $order) {
-            $subSelect->order($sort." ".$order);
-        }
-
-        if ($where) {
-            $subSelect->where($where);
-        }
-
-        if ($count != null && $start != null) {
-            $select = $this->getDbTable()->getAdapter()->select()
-            ->from(array('subselect' => $subSelect))
-            ->limit($count, $start);
-        } else {
-            $select = $subSelect;
-        }
-
-        $stmt = $select->query();
-        return $stmt->fetchAll();
-    }
-    
+      
     //Recup du nombre de matériels en prêt dans chaque FA
-    public function fetchFAEmpruntsToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
+    public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
     {
         $subSelect = $this->getDbTable()->getAdapter()->select()
         ->from( array('m' => 'fp_stock_materiel_fa'), 
                 array('m.idFA AS id'
                     ,"CONCAT(count(1),' matériel(s)') nb"))
-        ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA', array('infoFA' => 'CONCAT(fa.prenom, \' \', fa.nom)', 'login' => 'fa.login'))
+        ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA', array('infoFA' => 'CONCAT(UPPER(fa.nom), \' \', fa.prenom)', 'login' => 'fa.login', 'nom' => 'fa.nom'))
         ;
-        
+        if ($where)
+        {
+            $subSelect->where($where);
+        }
         $subSelect->group('idFA');
 
         $stmt = $subSelect->query();
@@ -82,7 +74,7 @@ class FP_Model_Mapper_StockMaterielFAMapper extends FP_Model_Mapper_CommonMapper
     }
     
     //Récupération d'un prêt
-    public function findMatosFA($where)
+    public function findMatosFA($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
     {
         $subSelect = $this->getDbTable()->getAdapter()->select()
         ->from( array(  'e' => 'fp_stock_materiel_fa'), 

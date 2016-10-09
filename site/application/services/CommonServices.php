@@ -124,7 +124,11 @@ abstract class FP_Service_CommonServices {
 				$order = $paramSort[FP_Util_TriUtil::ORDER_KEY];
 				break;
 				case FP_Util_Constantes::WHERE_KEY :
-				$where = $mapper->getWhereClause($param[FP_Util_Constantes::WHERE_KEY]);
+				    if ($where) {
+					$where .= " and ".$mapper->getWhereClause($param[FP_Util_Constantes::WHERE_KEY]);;
+                                    } else {
+					$where = $mapper->getWhereClause($param[FP_Util_Constantes::WHERE_KEY]);;
+                                    }
 				break;
 				case FP_Util_TriUtil::COUNT_KEY :
 				$count = $param[FP_Util_TriUtil::COUNT_KEY];

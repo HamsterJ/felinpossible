@@ -6,6 +6,12 @@
 	</p>
 </br>
 	<?php
+        
+        
+    if ($this->errorMessage)// Si message d'erreur car login inconnu
+        {echo '<br><b><span style="color: red;">'.$this->errorMessage.'</span></b>';}
+
+        
 	echo $this->form;
 	?>
 

@@ -574,11 +574,12 @@ function filterMateriel(gridName) {
 }
 
 /**
- * Filtre pour les demandes de matériels.
+ * Filtre pour les matériels.
  */
-function filterLogin(gridName) {
+function filterDemande(gridName) {
   var obj = new Object();
   obj['login'] = dijit.byId('filterLogin').getValue();
+  obj['nom'] = dijit.byId('filterNom').getValue();
   var grid = dijit.byId(gridName);
   grid.filter(obj);
   grid.showMessage(grid.loadingMessage);

@@ -5,7 +5,8 @@
 <div>
   <div id="commonGridStore" data-dojo-type="dojox/data/QueryReadStore" clientSort="true" jsId="commonGridStore" url="<?php echo $this->urlListeJson ?>" requestMethod="post">
   </div>
-
+      <?php echo $this->render('admin/filter.phtml'); ?>
+    
   <div data-dojo-type="dijit/Menu" jsid="gridMenu" style="display: none;">
     <div data-dojo-type="dojox/widget/PlaceholderMenuItem" label="GridColumns"></div>
   </div>
@@ -13,7 +14,7 @@
     <div class="grid">
         <div id="loadGrid" class="ajax" style="display:block"></div>
         <table id="commonGrid" 
-            rowsPerPage="13" 
+            rowsPerPage="50" 
             columnReordering="true"
             sortInfo="<?php echo $this->defaultSort ?>" 
             jsId="commonGrid" 

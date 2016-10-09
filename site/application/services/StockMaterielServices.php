@@ -53,7 +53,7 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
         $dojoData= new Zend_Dojo_Data('id', $data, 'name');
         $dojoData->setMetadata('numRows', count($data));
 
-        return $dojoData->toJson();
+        return $dojoData->toJson();       
     }
     
     /** Retourne les catégories de matériel en JSON **/
@@ -66,27 +66,24 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
     }
 
     //Retourne les demandes de materiel des FA au format json.
-    public function getJsonDataDemandes() {
-        $mapper = $this->getStockDemandeMapper();
-        $data = $mapper->fetchAllToArray('id','desc',null,null,'submitted=1');
-        $dojoData= new Zend_Dojo_Data('id', $data, 'name');
-        $dojoData->setMetadata('numRows', count($data));
-        return $dojoData->toJson();
+    public function getJsonDataDemandes($params) {
+       $mapper = $this->getStockDemandeMapper();
+       $p = $params;
+       $p['where']='submitted';
+       return $this->getJsonData($p, $mapper);
+       
     }
 
     //Retourne les emprunts des FA au format json.
-    public function getJsonDataEmprunts() {
+    public function getJsonDataEmprunts($params) {
         $mapper = $this->getStockMaterielFAMapper();
-        $data = $mapper->fetchFAEmpruntsToArray('idFA','desc');
-        $dojoData= new Zend_Dojo_Data('id', $data, 'name');
-        $dojoData->setMetadata('numRows', count($data));
-        return $dojoData->toJson();
+        return $this->getJsonData($params, $mapper);
     }
        
     //Récupération des emprunts au format JSON pour affichage dans une liste admin
     public function getJsonDataMaterielsEmprunt($params) {
         $mapper = $this->getStockMaterielFAMapper();
-        $data = $this->getEmpruntData($params['idFA']);
+        $data = $this->getEmpruntData($params);
         $dojoData= new Zend_Dojo_Data('id', $data, 'name');
         $dojoData->setMetadata('numRows', count($data));
         return $dojoData->toJson();
@@ -145,10 +142,6 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
         FP_Service_MailServices::getInstance()->envoiMailDemandeMateriel($idDemande);
     }   
     
-    //Nombre de demandes
-    public function getNbDemandes() {
-       return $this->getStockDemandeMapper()->getNbDemandes();
-    }
     
     //Suppression d'une demande
     public function deleteDem($idDem) {
@@ -191,7 +184,7 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
     //Suppression du matériel (toutes instances) de la FA
      public function deleteMatFA($idAff,$retour) {
         $mapper = $this->getStockMaterielFAMapper();
-        $aff = $mapper->findMatosFA('e.id='.$idAff)[0];
+        $aff = $mapper->findMatosFA(null,null,null,null,'e.id='.$idAff)[0];
         $mapper->supprimerMaterielDeFA($idAff);
         
         //MAJ de la table de stock
@@ -267,9 +260,9 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
    }
    
    //Récupération des données de prets d'une FA
-   public function getEmpruntData($idFA)
+   public function getEmpruntData($params)
    {
-        $elements = $this->getStockMaterielFAMapper()->findMatosFA('idFA='.$idFA);
+        $elements = $this->getStockMaterielFAMapper()->findMatosFA($params['sort'],$params['order'],$params['start'],$params['count'],'idFa='.$params['id']);
 	if ($elements) {
             return $elements;
 	}

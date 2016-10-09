@@ -42,13 +42,11 @@ class StockController extends FP_Controller_CommonController {
             $this->view->urlEditItem = $this->view->url(array('action' => 'edit'));
             $this->view->urlDeleteItem = $this->view->url(array('action' => 'delete'));
             $this->view->headerPath = "stock/headerstockadm.phtml";
-            $this->view->class = "stockMateriel";
+            $this->view->class = "StockMateriel";
             $this->view->titre = "Stock";
             $this->view->filterPath = "stock/filtermat.phtml";
             $this->view->gridName = "commonGrid";
-            $this->view->class = "materiels";
             $this->view->defaultSort = 2;
-            $this->view->nbElements = $this->getService()->getNbElementsForGrid();
             $this->render("indexgrid");
         }
     }
@@ -106,13 +104,12 @@ class StockController extends FP_Controller_CommonController {
             $this->view->urlEditItem = $this->view->url(array('action' => 'editdem'));
             $this->view->urlDeleteItem = $this->view->url(array('action' => 'deleteDem'));
             $this->view->headerPath = "stock/headerdemandesadm.phtml";
-            //$this->view->filterPath = "stock/filterdem.phtml";
             $this->view->class = "stockDemande";
             $this->view->titre = "Demandes de matériel";
+            $this->view->filterPath = "stock/filterlogin.phtml";
             $this->view->gridName = "commonGrid";
             $this->view->defaultSort = -1;
-            $this->view->nbElements = $this->getService()->getNbDemandes();
-            $this->render("indexgriddem");
+            $this->render("indexgriddem");   
         }
     }
     
@@ -177,12 +174,13 @@ class StockController extends FP_Controller_CommonController {
     public function empruntsadmAction() {
        if ($this->checkIsLogged()) {
            $this->view->urlListeJson = $this->view->url(array('controller' => 'stock','action' => 'listeemprunts'));
-           $this->view->urlEditItem = $this->view->url(array('action' => 'editemprunt', 'id' => null));
+           $this->view->urlEditItem = $this->view->url(array('action' => 'editemprunt', 'id' => null,'sort' => 'id','order' => 'asc','count' => 13,'start' => 0));
            $this->view->urlAddItem = $this->view->url(array('action' => 'ajoutermaterielfa'));
            $this->view->headerPath = "stock/headerempruntsadm.phtml";
            $this->view->class = "StockMaterielFA";
            $this->view->titre = "Matériels empruntés par les FA";
            $this->view->gridName = "commonGrid";
+           $this->view->filterPath = "stock/filterlogin.phtml";
            $this->view->defaultSort = -1;
            $this->render("indexgridemprunt");
        }
@@ -211,14 +209,13 @@ class StockController extends FP_Controller_CommonController {
             $loginFA = '';
             
             if ($idFA) {
-                $data = $this->getService()->getEmpruntData($idFA);
+                $data = $this->getService()->getEmpruntData($request->getParams());
                 if ($data){
                     
                     $loginFA = $data[0]['login'];
                     $this->view->$loginFA = $loginFA;
-                    //  $this->view->data = $data;
                 }
-                    $this->view->urlListeJson = $this->view->url(array('controller' => 'stock','action' => 'listematerielsemprunt','idFA' =>$idFA));
+                    $this->view->urlListeJson = $this->view->url(array('controller' => 'stock','action' => 'listematerielsemprunt','id' =>$idFA));
                     $this->view->urlAddItem = $this->view->url(array('action' => 'ajoutermaterielfa',  'loginFA' => $loginFA));
                     $this->view->urlDeleteItem = $this->view->url(array('action' => 'deletematerielfa', 'id' => null,'ret'=>1));
                     $this->view->urlNonRetourItem = $this->view->url(array('action' => 'deletematerielfa', 'id' => null,'ret'=>0));

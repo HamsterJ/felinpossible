@@ -190,4 +190,15 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
                 }
             }    
 	}
+        
+            //retourne les infos connues (tous les formulaires remplis) de la FA à partir de son login
+        public function  getFAFromLogin ($login)       
+        {
+            if ($login)// on ne fait pas attention aux accents, on récupère  les infos FA
+                {
+                    $fs = FP_Service_FaServices::getInstance();
+                    $fa = $fs->getMapper()->select(null,'upper(login)=upper("'.str_replace('"','',$login).'") COLLATE utf8_general_ci','dateSubmit desc');
+                }
+            return $fa;    
+        }
 }
