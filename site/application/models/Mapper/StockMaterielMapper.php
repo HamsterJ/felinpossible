@@ -20,8 +20,8 @@ class FP_Model_Mapper_StockMaterielMapper extends FP_Model_Mapper_CommonMapper {
                                         'Categorie'            => 'Categorie',
                                         'SuiviPrets'            => 'SuiviPrets');
 
-    protected $filterKeyToDbKey = array('DescriptionMateriel' => 'DescriptionMateriel'); 
-    
+    protected $filterKeyToDbKey = array('DescriptionMateriel' => 'DescriptionMateriel');
+        
     //Recupération des données matériels pour la liste admin
     public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
     {
