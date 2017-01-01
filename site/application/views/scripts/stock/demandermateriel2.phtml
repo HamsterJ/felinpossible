@@ -11,11 +11,9 @@
 <div>
 <form class="formOrange" id="DemandeMateriel" action="/stock/storedem/" enctype="application/x-www-form-urlencoded" method="post">
     <input type="hidden" name="idd" value="<?php echo $this->idd;?>">
-    <br/>
     <hr><hr>
-    <br/>  
-    
-    Commentaires : <i><span style="color: OrangeRed;font-size:80%">Ajouter tous vos articles AVANT de saisir un commentaire</span></i>
+    <i><span style="color: OrangeRed;font-size:80%">Ajouter tous vos articles AVANT de saisir un commentaire</span></i><br/><br/> 
+    Commentaires (y compris date et créneau horaire où vous souhaiteriez passer) : 
     <textarea name="commentaire" rows="3"></textarea>
     <dt id="submit-label">&nbsp;</dt><dd id="submit-element">
     <input name="submit" class="btn btn-primary" id="submit" type="submit" value="Envoyer"></dd></dl>

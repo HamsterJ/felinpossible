@@ -239,16 +239,16 @@ class FP_Service_MailServices {
             $config = Zend_Registry::get(FP_Util_Constantes::CONFIG_ID);
             $data['destinataire']=$config->email->addressNotifMateriel;
             $data['cc']=$config->email->address;
-            
+                               
             $data['contenu'] = '<table><th width="500px"></th><th></th>
                                     <tr><td>Bonjour,</td></tr>
-                                    <tr><td>Une nouvelle demande de matériel de '.$demande[0]['login'].' est arrivée.</td></tr>
+                                    <tr><td>Une nouvelle demande de matériel de '.$demande[0]['login'].' ('.$demande[0]['fa.email'].') est arrivée.</td></tr>
                                     <tr><td>Voici les matériels demandés : </td></tr>
                                     <tr><td></td></tr>';
             
             foreach ($matos as $key => $value)
             {
-                $data['contenu'] .= '<tr><td> => '.$value['descriptionMateriel'].'</td></tr>';
+                $data['contenu'] .= '<tr><td> => '.$value['descriptionMateriel'].' [Quantité =  '.$value['quantite'].' ]</td></tr>';
             }
  
             $data['contenu'] .='<tr><td></td></tr>'

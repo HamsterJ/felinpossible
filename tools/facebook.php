@@ -11,7 +11,7 @@ function get_facebook_flow($id_album)
 
     $at =  new Facebook\Authentication\AccessToken('166998373734276|2ed0bc5e469d3374194dc73922656000');
 
-    $request = $fb->request('GET', $id_album.'/photos',array(),$at); //10153511024966492
+    $request = $fb->request('GET', $id_album.'/photos',array('limit' => 1000),$at); //10153511024966492
     $response = $fb->getClient()->sendRequest($request);
 
     $contents =  $response->getDecodedBody();
@@ -31,9 +31,8 @@ function get_facebook_contents($id_album)
     for ($i=0;$i<count($query_data);$i++)
     {
             //$nom = explode (' ',utf8_decode($fql_query_data[$i]["caption"]));
-            $nom = explode (' ',utf8_decode($query_data[$i]["name"]));
+            $nom = explode (' ',$query_data[$i]["name"]);
             $chats_adopt_fb[$nb_chats_adopt_fb++] = FPUtils::getNomSansAccentsHTML($nom[0]); 
-            //get_facebook_photo('10152622755866492');
     }
 
     //on trie par nom de chat (by value)
