@@ -262,7 +262,12 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
    //Récupération des données de prets d'une FA
    public function getEmpruntData($params)
    {
-        $elements = $this->getStockMaterielFAMapper()->findMatosFA($params['sort'],$params['order'],$params['start'],$params['count'],'idFa='.$params['id']);
+        $sort = isset($params['sort'])?$params['sort']:null;
+        $order = isset($params['order'])?$params['order']:null;
+        $start = isset($params['start'])?$params['start']:null;
+        $count = isset($params['count'])?$params['count']:null;      
+       
+        $elements = $this->getStockMaterielFAMapper()->findMatosFA($sort,$order,$start,$count,'idFa='.$params['id']);
 	if ($elements) {
             return $elements;
 	}

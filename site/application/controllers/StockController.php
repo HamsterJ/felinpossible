@@ -250,7 +250,7 @@ class StockController extends FP_Controller_CommonController {
                     $form->setAction('javascript:callAjax("'.$this->view->url(array('action' => 'ajoutermaterielfa')).'", null, null, "'.$form->getId().'")');
                     $this->render('ajoutermaterielfa');
                     return;
-                }    
+                }  
                 $this->getService()->saveAjout($form->getValues());
                 return $this->_helper->redirector('empruntsadm', null, null, array('from'=>'addMaterielFA','loginFA'=>$loginFA));
             }
