@@ -15,10 +15,10 @@ Installation
 
 
 ```
-git clone https://github.com/bboutier/felinpossible.git
+git clone https://github.com/FelinPossible/felinpossible.git
 ````
 
-And then run docker image on your downloaded sources (see docker image https://github.com/bboutier/docker-fp).
+And then run docker image on your downloaded sources (see docker image https://github.com/FelinPossible/docker-fp).
 
 License
 -------------------
