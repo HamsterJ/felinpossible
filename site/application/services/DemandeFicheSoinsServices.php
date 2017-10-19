@@ -46,7 +46,7 @@ class FP_Service_DemandeFicheSoinsServices extends FP_Service_CommonServices {
 	 * @param form $Fiche : Formulaire de demande de fiche
         */ 
         public function saveDemandeFicheSoins($fiche) {
-            $fiche['token'] = crypt($fiche['nomChat'].$fiche['dateDemande']);
+            $fiche['token'] = crypt($fiche['nomChat'].$fiche['dateDemande'],'unpeudesel');
             $this->save($fiche);
             // Envoi mail a l'asso avec lien pour traitement
             FP_Service_MailServices::getInstance()->envoiMailDemandeFicheSoins($fiche);

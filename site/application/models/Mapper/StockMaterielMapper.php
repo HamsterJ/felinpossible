@@ -29,10 +29,10 @@ class FP_Model_Mapper_StockMaterielMapper extends FP_Model_Mapper_CommonMapper {
         ->from( array('m' => 'fp_stock_materiel'), 
                 array('m.id'
                     ,'m.DescriptionMateriel'
-                    ,'IF(m.SuiviPrets>0,m.StockEnPret,"-") StockEnPret'
+                    ,'StockEnPret' => 'IF(m.SuiviPrets>0,m.StockEnPret,"-")'
                     ,'m.StockRestant'
                     ,'m.Unite'
-                    ,'IF(m.SuiviPrets>0,"O","N") SuiviPrets' 
+                    ,'SuiviPrets' => 'IF(m.SuiviPrets>0,"O","N")' 
                     ))
             ->joinLeft(array('c' => 'fp_stock_categorie_materiel'), 'c.id = m.Categorie', array('c.libelle'));
 

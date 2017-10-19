@@ -52,10 +52,10 @@ class FP_Model_Mapper_StockDemandeMapper extends FP_Model_Mapper_CommonMapper {
                         ,'m.idFA'
                         ,'m.dateDemande'
                         ,'m.token'
-                        ,'IF(m.traitee>0,"Oui","NON") traitee'
+                        ,'traitee'=>'IF(m.traitee>0,"Oui","NON")'
                         ,'m.commentaire'
                         ))
-                    ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA', array('infoFA' => 'CONCAT(UPPER(fa.nom), \' \', fa.prenom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))','fa.email' => 'email', 'login' => 'fa.login', 'nom' => 'fa.nom'));
+                    ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA', array('infoFA' => 'CONCAT(UPPER(fa.nom), \' \', fa.prenom, \' (\', fa.login, \')\', \'\')','fa.email' => 'email', 'login' => 'fa.login', 'nom' => 'fa.nom'));
                 
             if ($sort && $order) {
                 $subSelect->order($sort." ".$order);

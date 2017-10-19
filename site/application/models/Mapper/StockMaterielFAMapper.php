@@ -34,7 +34,7 @@ class FP_Model_Mapper_StockMaterielFAMapper extends FP_Model_Mapper_CommonMapper
 	{ 
             $subSelect = $this->getDbTable()->getAdapter()->select()
             ->from( array('m' => 'fp_stock_materiel_fa'), 
-                array('count(distinct idFA) compte'))
+                array('compte' => 'count(distinct idFA)'))
             ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA',array());
             
             if ($where)
@@ -60,7 +60,7 @@ class FP_Model_Mapper_StockMaterielFAMapper extends FP_Model_Mapper_CommonMapper
         $subSelect = $this->getDbTable()->getAdapter()->select()
         ->from( array('m' => 'fp_stock_materiel_fa'), 
                 array('m.idFA AS id'
-                    ,"CONCAT(count(1),' matériel(s)') nb"))
+                    ,"nb"=> "CONCAT(count(1),' matériel(s)')"))
         ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA', array('infoFA' => 'CONCAT(UPPER(fa.nom), \' \', fa.prenom)', 'login' => 'fa.login', 'nom' => 'fa.nom'))
         ;
         if ($where)

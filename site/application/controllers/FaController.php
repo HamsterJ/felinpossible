@@ -88,7 +88,6 @@ class FaController extends FP_Controller_SubFormController
 		if ($this->checkIsLogged()) {
 			$this->initGridParam();
 			$this->view->redefineButtons = "admin/gridactions.phtml";
-
 			$this->render("indexgrid");
 		}
 	}
@@ -103,7 +102,7 @@ class FaController extends FP_Controller_SubFormController
 			$this->view->urlAddItem = $this->view->url(array('action' => 'postuler', 'admin' => true));
 			$this->view->urlEditItem = $this->view->url(array('action' => 'gestion', 'admin' => true));
 			$this->view->urlDeleteItem = $this->view->url(array('action' => 'delete'));
-			$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
+			//$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
 			$this->view->filterPath = $this->getFilterPath();
 			$this->view->gridName = "commonGrid";
 

@@ -100,7 +100,7 @@ class ChatController extends FP_Controller_CommonController
 			$this->initUrlForAdmin();
 
 			$this->view->titre = "Fiches des chats";
-			$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
+			//$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
 			$this->view->filterPath = 'chat/filterchat.phtml';
 			$this->view->gridName = "commonGrid";
 			$this->view->initFilter = "{adopte : 0, disparu : 0}";
