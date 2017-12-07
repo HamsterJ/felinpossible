@@ -21,6 +21,7 @@ class FP_Util_ChatUtil {
 	const AGE_POST_TAG = "[Â|A]ge";
 	const NE_POST_TAG = "Né[e]? le";
 	const NE2_POST_TAG = "Date de naissance";
+        const SEXE = "Sexe";
 
 	/**
 	 * Met à jour la fiche du chat à partir des information de son post.
@@ -69,6 +70,11 @@ class FP_Util_ChatUtil {
 		$caractere = self::getInfosFromText($postText, self::CARACETERE_POST_TAG);
 		if ($caractere != "") {
 			$ficheUpdated->setCaractere($caractere);
+		}
+                
+                $sexe = self::getInfosFromText($postText, self::SEXE);
+		if ($sexe != "") {
+			$ficheUpdated->setIdSexe(strtoupper($sexe)=="FEMELLE"?2:1);
 		}
 
 		$comment = self::getInfosFromText($postText, self::COMMENT_POST_TAG);
