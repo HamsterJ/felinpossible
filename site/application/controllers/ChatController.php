@@ -100,11 +100,11 @@ class ChatController extends FP_Controller_CommonController
 			$this->initUrlForAdmin();
 
 			$this->view->titre = "Fiches des chats";
-			//$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
+			$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
 			$this->view->filterPath = 'chat/filterchat.phtml';
 			$this->view->gridName = "commonGrid";
 			$this->view->initFilter = "{adopte : 0, disparu : 0}";
-
+			$this->view->defaultSort = 3;
 			$this->view->nbElements = $this->getService()->getNbElementsForGrid();
 
 			$this->render("indexgrid");
@@ -245,7 +245,7 @@ class ChatController extends FP_Controller_CommonController
 			$this->view->titre = "Rappels de vaccins à venir";
 			$this->view->defaultSort = 8;
 			$this->view->headerPath = "chat/headervaccins.phtml";
-			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_AVEC_DATE_VACCINS));
+			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_AVEC_DATE_VACCINS, 'sort' => 'nom'));
 			$this->view->urlEnvoiMailItem = $this->view->url(array('action' => 'mailvaccins'));
 			$this->view->urlIncrDateItem =  $this->view->url(array('action' => 'incrdatevaccins'));
 			$this->view->nbElements = $this->getService()->getNbFiches(FP_Util_Constantes::CHAT_AVEC_DATE_VACCINS);
@@ -265,7 +265,7 @@ class ChatController extends FP_Controller_CommonController
 			$this->view->defaultSort = 9;
 
 			$this->view->headerPath = "chat/headersterilisation.phtml";
-			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_A_STERILISER));
+			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_A_STERILISER, 'sort' => 'nom'));
 			$this->view->urlEnvoiMailItem = $this->view->url(array('action' => 'mailsterilisation'));
 			$this->view->nbElements = $this->getService()->getNbFiches(FP_Util_Constantes::CHAT_A_STERILISER);
 			$this->view->filterPath = 'chat/filterchat.phtml';
@@ -284,7 +284,7 @@ class ChatController extends FP_Controller_CommonController
 			$this->view->defaultSort = -8;
 
 			$this->view->headerPath = "chat/headerproprietaire.phtml";
-			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE));
+			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE, 'sort' => 'nom'));
 			$this->view->nbElements = $this->getService()->getNbFiches(FP_Util_Constantes::CHAT_CHGT_PROPRIETAIRE);
 			$this->view->filterPath = 'chat/filterchat.phtml';
 			$this->view->gridName = "commonGrid";
@@ -300,7 +300,7 @@ class ChatController extends FP_Controller_CommonController
 			$this->view->titre = "VPA à faire";
 			$this->view->defaultSort = 6;
 			$this->view->headerPath = "chat/headervpa.phtml";
-			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_VPA_A_FAIRE));
+			$this->view->urlListeJson = $this->view->url(array('action' => 'liste', FP_Util_Constantes::WHERE_KEY => FP_Util_Constantes::CHAT_VPA_A_FAIRE,'order' => 'desc'));
 			$this->view->nbElements = $this->getService()->getNbFiches(FP_Util_Constantes::CHAT_VPA_A_FAIRE);
 			$this->view->nbVpasNonAff = $this->getService()->getNbFiches(FP_Util_Constantes::CHAT_VPA_NON_AFFECTEES);
 			$this->view->gridName = "commonGrid";

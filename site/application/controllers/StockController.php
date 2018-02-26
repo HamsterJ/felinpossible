@@ -173,9 +173,10 @@ class StockController extends FP_Controller_CommonController {
     /* Index de la gestion des materiels empruntés par les FA (partie admin) */
     public function empruntsadmAction() {
        if ($this->checkIsLogged()) {
-           $this->view->urlListeJson = $this->view->url(array('controller' => 'stock','action' => 'listeemprunts'));
+           $this->view->urlListeJson = $this->view->url(array('controller' => 'stock','action' => 'listeemprunts','sort' => 'infoFA'));
            $this->view->urlEditItem = $this->view->url(array('action' => 'editemprunt', 'id' => null,'sort' => 'id','order' => 'asc','count' => 13,'start' => 0));
            $this->view->urlAddItem = $this->view->url(array('action' => 'ajoutermaterielfa'));
+	   $this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
            $this->view->headerPath = "stock/headerempruntsadm.phtml";
            $this->view->class = "StockMaterielFA";
            $this->view->titre = "Matériels empruntés par les FA";
@@ -368,5 +369,16 @@ class StockController extends FP_Controller_CommonController {
         $request = $this->getRequest();
         echo $this->getService()->getJsonDataMateriel($request->getParams());
         exit;
-    }   
+    } 
+
+	/**
+	 * Export excel pour les chats à l'adoption.
+	 */
+	public function exportAction() {
+		if ($this->checkIsLogged()) {
+			$workbook = FP_Service_ExportServices::getInstance()->buildExcelMatos();
+			exit;
+		}
+	}
+	
 }

@@ -102,21 +102,32 @@ class FaController extends FP_Controller_SubFormController
 			$this->view->urlAddItem = $this->view->url(array('action' => 'postuler', 'admin' => true));
 			$this->view->urlEditItem = $this->view->url(array('action' => 'gestion', 'admin' => true));
 			$this->view->urlDeleteItem = $this->view->url(array('action' => 'delete'));
-			//$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
+			$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
 			$this->view->filterPath = $this->getFilterPath();
 			$this->view->gridName = "commonGrid";
-
+			$this->view->initFilter = "{Statut : 5}";
 			$this->view->headerPath = $this->getHeaderPath();
 			$this->view->class = $this->getStyleClass();
 			$this->view->titre = "Gestion des FA";
 
-			$this->view->defaultSort = -3;
+			$this->view->defaultSort = 4;
 			$this->view->nbElements = $this->getService()->getNbElementsForGrid();
 
 			$this->render("indexgrid");
 		}
 	}
 
+        	/**
+	 * Retourne la liste des fiches de fa pour l'admin au format json.
+	 */
+	public function listeAction () {
+		if ($this->checkIsLogged()) {
+			$request = $this->getRequest();
+			echo $this->getService()->getJsonData($request->getParams());
+			exit;
+		}
+	}
+        
 	/**
 	 * Gestion la partie "Infos" (init/update).
 	 * @param string $ficheId id. de la fiche de la FA.

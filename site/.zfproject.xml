@@ -30,6 +30,11 @@
         <controllerFile controllerName="Veto">
           <actionMethod actionName="index"/>
         </controllerFile>
+		
+        <controllerFile controllerName="demandefichesoins">
+          <actionMethod actionName="demanderfichesoins"/>
+        </controllerFile>
+
       </controllersDirectory>
       <layoutsDirectory enabled="false"/>
       <modelsDirectory/>
@@ -59,6 +64,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Veto">
             <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+		  <viewControllerScriptsDirectory forControllerName="demandefichesoins">
+            <viewScriptFile forActionName="demandefichesoins"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

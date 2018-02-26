@@ -1,10 +1,13 @@
 <?php
 /**
 *
-* @package phpBB3
-* @version $Id: functions_transfer.php 9822 2009-07-22 03:02:45Z bantu $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This file is part of the phpBB Forum Software package.
+*
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -18,7 +21,6 @@ if (!defined('IN_PHPBB'))
 
 /**
 * Transfer class, wrapper for ftp/sftp/ssh
-* @package phpBB3
 */
 class transfer
 {
@@ -235,7 +237,7 @@ class transfer
 	/**
 	* Determine methods able to be used
 	*/
-	function methods()
+	static public function methods()
 	{
 		$methods = array();
 		$disabled_functions = explode(',', @ini_get('disable_functions'));
@@ -256,7 +258,6 @@ class transfer
 
 /**
 * FTP transfer class
-* @package phpBB3
 */
 class ftp extends transfer
 {
@@ -280,7 +281,7 @@ class ftp extends transfer
 		}
 
 		// Init some needed values
-		transfer::transfer();
+		$this->transfer();
 
 		return;
 	}
@@ -288,7 +289,7 @@ class ftp extends transfer
 	/**
 	* Requests data
 	*/
-	function data()
+	static public function data()
 	{
 		global $user;
 
@@ -405,9 +406,6 @@ class ftp extends transfer
 	*/
 	function _put($from_file, $to_file)
 	{
-		// get the file extension
-		$file_extension = strtolower(substr(strrchr($to_file, '.'), 1));
-
 		// We only use the BINARY file mode to cicumvent rewrite actions from ftp server (mostly linefeeds being replaced)
 		$mode = FTP_BINARY;
 
@@ -506,9 +504,6 @@ class ftp extends transfer
 
 /**
 * FTP fsock transfer class
-*
-* @author wGEric
-* @package phpBB3
 */
 class ftp_fsock extends transfer
 {
@@ -534,7 +529,7 @@ class ftp_fsock extends transfer
 		}
 
 		// Init some needed values
-		transfer::transfer();
+		$this->transfer();
 
 		return;
 	}
@@ -542,7 +537,7 @@ class ftp_fsock extends transfer
 	/**
 	* Requests data
 	*/
-	function data()
+	static public function data()
 	{
 		global $user;
 
@@ -818,23 +813,23 @@ class ftp_fsock extends transfer
 		if (!isset($server_ip) || preg_match(get_preg_expression('ipv4'), $server_ip))
 		{
 			// Passive mode
-		$this->_send_command('PASV', '', false);
+			$this->_send_command('PASV', '', false);
 
-		if (!$ip_port = $this->_check_command(true))
-		{
-			return false;
-		}
+			if (!$ip_port = $this->_check_command(true))
+			{
+				return false;
+			}
 
-		// open the connection to start sending the file
-		if (!preg_match('#[0-9]{1,3},[0-9]{1,3},[0-9]{1,3},[0-9]{1,3},[0-9]+,[0-9]+#', $ip_port, $temp))
-		{
-			// bad ip and port
-			return false;
-		}
+			// open the connection to start sending the file
+			if (!preg_match('#[0-9]{1,3},[0-9]{1,3},[0-9]{1,3},[0-9]{1,3},[0-9]+,[0-9]+#', $ip_port, $temp))
+			{
+				// bad ip and port
+				return false;
+			}
 
-		$temp = explode(',', $temp[0]);
-		$server_ip = $temp[0] . '.' . $temp[1] . '.' . $temp[2] . '.' . $temp[3];
-		$server_port = $temp[4] * 256 + $temp[5];
+			$temp = explode(',', $temp[0]);
+			$server_ip = $temp[0] . '.' . $temp[1] . '.' . $temp[2] . '.' . $temp[3];
+			$server_port = $temp[4] * 256 + $temp[5];
 		}
 		else
 		{
@@ -902,5 +897,3 @@ class ftp_fsock extends transfer
 		return ($return) ? $response : true;
 	}
 }
-
-?>

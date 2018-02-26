@@ -1,0 +1,43 @@
+<div id="headerwrap" class="headerwrap">
+	<div class="wrap2">
+		<a id="top" class="top-anchor" accesskey="t"></a>
+		<div id="page-header">
+			<div class="headerbar" role="banner">
+			<!-- EVENT overall_header_headerbar_before -->
+				<div class="inner">
+					<div id="logodesc" width="100%">
+						<table width="100%" cellspacing="0">
+						<tr class="noblock">
+							<td id="headleft" align="left" class="noblock"><a href="./index.php"> <img width="100%" src="{T_THEME_PATH}/images/ban01.jpg" alt="banniere gauche"></a></td>
+							<td id="headright" align="right" class="noblock"><a href="./index.php"><img width="100%" src="{T_THEME_PATH}/images/ban02.jpg" alt="banniere droite"></a></td>	
+						</tr>
+						</table>
+						<p class="skiplink"><a href="#start_here">{L_SKIP}</a></p>
+					</div>
+
+					<!-- EVENT overall_header_searchbox_before -->
+					<!-- IF S_DISPLAY_SEARCH and not S_IN_SEARCH -->
+					<div id="search-box" class="search-box search-header" role="search">
+						<form action="{U_SEARCH}" method="get" id="search">
+						<fieldset>
+							<input name="keywords" id="keywords" type="search" maxlength="128" title="{L_SEARCH_KEYWORDS}" class="inputbox search tiny" size="20" value="{SEARCH_WORDS}" placeholder="{L_SEARCH_MINI}" />
+							<button class="button button-search" type="submit" title="{L_SEARCH}">
+								<i class="icon fa-search fa-fw" aria-hidden="true"></i><span class="sr-only">{L_SEARCH}</span>
+							</button><br>
+							{S_SEARCH_HIDDEN_FIELDS}
+						</fieldset>
+						</form>
+						<a href="{U_SEARCH}" class="ml-advsearch" title="{L_SEARCH_ADV}">
+							{L_SEARCH_ADV}
+						</a>
+					</div>
+					<!-- ENDIF -->
+					<!-- EVENT overall_header_searchbox_after -->
+
+				</div>
+				<!-- EVENT overall_header_headerbar_after -->
+			</div>
+			
+		</div>
+	</div>
+</div>

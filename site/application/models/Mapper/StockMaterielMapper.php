@@ -23,7 +23,7 @@ class FP_Model_Mapper_StockMaterielMapper extends FP_Model_Mapper_CommonMapper {
     protected $filterKeyToDbKey = array('DescriptionMateriel' => 'DescriptionMateriel');
         
     //Recupération des données matériels pour la liste admin
-    public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
+    public function fetchAllToArray($sort = 'DescriptionMateriel', $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
     {
         $subSelect = $this->getDbTable()->getAdapter()->select()
         ->from( array('m' => 'fp_stock_materiel'), 
@@ -51,6 +51,10 @@ class FP_Model_Mapper_StockMaterielMapper extends FP_Model_Mapper_CommonMapper {
         } else {
             $select = $subSelect;
         }
+        
+        if ($sort && $order) {
+            $select->order(array($sort." ".$order));       
+	}
 
         $stmt = $select->query();
         return $stmt->fetchAll();

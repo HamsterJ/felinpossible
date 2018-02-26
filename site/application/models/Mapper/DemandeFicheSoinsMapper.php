@@ -36,7 +36,7 @@ class FP_Model_Mapper_DemandeFicheSoinsMapper extends FP_Model_Mapper_CommonMapp
 	 * (non-PHPdoc) - Retourne les données de demandes de fiches de soins pour le tableau de l'admin
 	 * @see site/application/models/Mapper/FP_Model_Mapper_CommonMapper#fetchAllToArray($sort, $order, $start, $count, $where)
 	 */
-	public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
+	public function fetchAllToArray($sort = 'dateDemande', $order = FP_Util_TriUtil::ORDER_DESC_KEY, $start = null, $count = null, $where = null)
 	{
             $subSelect = $this->getDbTable()->getAdapter()->select()
             ->from( array('d' => 'fp_soins_fiche'), 
@@ -73,6 +73,10 @@ class FP_Model_Mapper_DemandeFicheSoinsMapper extends FP_Model_Mapper_CommonMapp
                 $select = $subSelect;
             }
 
+            if ($sort && $order) {
+            $select->order(array($sort." ".$order));       
+	}
+            
             $stmt = $select->query();
             return $stmt->fetchAll();
 	}

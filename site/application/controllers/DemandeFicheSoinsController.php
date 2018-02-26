@@ -180,14 +180,14 @@ class DemandeFicheSoinsController extends FP_Controller_CommonController
 
                 if ($id) {
                     $data = $this->getService()->getDataDemandeSoins($id);
-                }
-                    
-                //récupération d'un formulaire de génération de fiche de soins depuis la demande de la FA
-                $form = $this->getService()->getFormPrerempli($data[0]);
-                $form->setAction($this->view->url(array('action' => 'generefichesoins')));
-                $this->view->form = $form;
-                $this->view->demandeTraitee = $data[0]->getFicheGeneree();
-                $this->view->envoiVeto = $data[0]->getEnvoiVeto();
+                
+					//récupération d'un formulaire de génération de fiche de soins depuis la demande de la FA
+					$form = $this->getService()->getFormPrerempli($data[0]);
+					$form->setAction($this->view->url(array('action' => 'generefichesoins')));
+					$this->view->form = $form;
+					$this->view->demandeTraitee = $data[0]->getFicheGeneree();
+					$this->view->envoiVeto = $data[0]->getEnvoiVeto();
+				}
             }
 	}
          
