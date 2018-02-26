@@ -442,6 +442,7 @@ CREATE TABLE IF NOT EXISTS `fp_soins_fiche` (
   `soinAntiParasites` int(11) NOT NULL,
   `soinAutre` varchar(1000) NOT NULL,
   `token` varchar(255) NOT NULL,
+  `TraitementEnCoursPar` varchar(50) NOT NULL,
   `ficheGeneree` int(11) NOT NULL,
   `envoiVeto` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)

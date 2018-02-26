@@ -191,7 +191,7 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 	 * (non-PHPdoc)
 	 * @see site/application/models/Mapper/FP_Model_Mapper_CommonMapper#fetchAllToArray($sort, $order, $start, $count, $where)
 	 */
-	public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
+	public function fetchAllToArray($sort = 'nom', $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
 	{
 		$subSelect = $this->getDbTable()->getAdapter()->select()
 		->from(array('cat' => 'fp_cat_fiche'))
@@ -217,8 +217,15 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 		} else {
 			$select = $subSelect;
 		}
-
+                
+                if ($sort && $order) {
+			$select->order(array($sort." ".$order));
+                        //$select->order(array('nom ASC'));
+                    
+		}
+                
 		$stmt = $select->query();
+                //error_log($stmt->getSqlSplit());
 		return $stmt->fetchAll();
 	}
 

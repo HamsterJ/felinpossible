@@ -61,7 +61,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		$view = new Zend_View();
 		$view->doctype('XHTML1_STRICT');
 
-		$view->headTitle('Association Felin Possible - Bienvenue - Adoption de chats sur Rennes et l\'Ille et Vilaine');
+		$view->headTitle('Association Felin Possible RENNES - Adoption de chats sur Rennes et l\'Ille et Vilaine');
 
 		$view->headLink()->appendStylesheet($config->site->ressources->url . '/css/felinpossible.css');
 

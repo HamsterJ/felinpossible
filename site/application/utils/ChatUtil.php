@@ -96,7 +96,8 @@ class FP_Util_ChatUtil {
 	 * @return string la valeur associés à $info de $postText
 	 */
 	public static function getInfosFromText ($postText, $info) {
-		$pattern = '/\][ ]*'.$info.'.*:?\[.*\][ ]*:?(.*)/i';
+		//$pattern = '/\][ ]*'.$info.'.*:?\[.*\][ ]*:?(.*)/i';
+                $pattern = '/\]<\/s>[ ]*'.$info.'[ ]*<e>.*:?\[.*\]<\/e><\/U>[ ]*:[ ]*(.*)/i';
 		preg_match($pattern, $postText, $matches);
 
 		if (count($matches) > 1) {
@@ -104,7 +105,7 @@ class FP_Util_ChatUtil {
 			if (strlen($value) > 500) {
 				$value = substr($value, 0, 500)."[...]";
 			}
-			return ucfirst($value);
+			return ucfirst(str_replace('<br/>','',$value));
 		}
 		return "";
 	}

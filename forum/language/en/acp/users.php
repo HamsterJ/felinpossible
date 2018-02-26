@@ -1,12 +1,13 @@
 <?php
 /**
 *
-* acp_users [English]
+* This file is part of the phpBB Forum Software package.
 *
-* @package language
-* @version $Id: users.php 9767 2009-07-17 11:27:50Z toonarmy $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
@@ -52,14 +53,15 @@ $lang = array_merge($lang, array(
 	'CANNOT_FORCE_REACT_FOUNDER'	=> 'You are not allowed to force reactivation on founder accounts.',
 	'CANNOT_FORCE_REACT_YOURSELF'	=> 'You are not allowed to force reactivation of your own account.',
 	'CANNOT_REMOVE_ANONYMOUS'		=> 'You are not able to remove the guest user account.',
+	'CANNOT_REMOVE_FOUNDER'			=> 'You are not allowed to remove founder accounts.',
 	'CANNOT_REMOVE_YOURSELF'		=> 'You are not allowed to remove your own user account.',
 	'CANNOT_SET_FOUNDER_IGNORED'	=> 'You are not able to promote ignored users to be founders.',
 	'CANNOT_SET_FOUNDER_INACTIVE'	=> 'You need to activate users before you promote them to founders, only activated users are able to be promoted.',
-	'CONFIRM_EMAIL_EXPLAIN'			=> 'You only need to specify this if you are changing the users e-mail address.',
+	'CONFIRM_EMAIL_EXPLAIN'			=> 'You only need to specify this if you are changing the users email address.',
 
 	'DELETE_POSTS'			=> 'Delete posts',
 	'DELETE_USER'			=> 'Delete user',
-	'DELETE_USER_EXPLAIN'	=> 'Please note that deleting a user is final, they cannot be recovered.',
+	'DELETE_USER_EXPLAIN'	=> 'Please note that deleting a user is final, they cannot be recovered. Unread private messages sent by this user will be deleted and will not be available to their recipients.',
 
 	'FORCE_REACTIVATION_SUCCESS'	=> 'Successfully forced reactivation.',
 	'FOUNDER'						=> 'Founder',
@@ -94,8 +96,8 @@ $lang = array_merge($lang, array(
 	'USER_ADMIN_ACTIVATE'			=> 'Activate account',
 	'USER_ADMIN_ACTIVATED'			=> 'User activated successfully.',
 	'USER_ADMIN_AVATAR_REMOVED'		=> 'Successfully removed avatar from user account.',
-	'USER_ADMIN_BAN_EMAIL'			=> 'Ban by e-mail',
-	'USER_ADMIN_BAN_EMAIL_REASON'	=> 'E-mail address banned via user management',
+	'USER_ADMIN_BAN_EMAIL'			=> 'Ban by email',
+	'USER_ADMIN_BAN_EMAIL_REASON'	=> 'Email address banned via user management',
 	'USER_ADMIN_BAN_IP'				=> 'Ban by IP',
 	'USER_ADMIN_BAN_IP_REASON'		=> 'IP banned via user management',
 	'USER_ADMIN_BAN_NAME_REASON'	=> 'Username banned via user management',
@@ -124,6 +126,7 @@ $lang = array_merge($lang, array(
 	'USER_GROUP_SPECIAL'			=> 'Pre-defined groups user is a member of',
 	'USER_LIFTED_NR'				=> 'Successfully removed the user’s newly registered status.',
 	'USER_NO_ATTACHMENTS'			=> 'There are no attached files to display.',
+	'USER_NO_POSTS_TO_DELETE'			=> 'The user has no posts to retain or delete.',
 	'USER_OUTBOX_EMPTIED'			=> 'Successfully emptied user’s private message outbox.',
 	'USER_OUTBOX_EMPTY'				=> 'The user’s private message outbox was already empty.',
 	'USER_OVERVIEW_UPDATED'			=> 'User details updated.',
@@ -138,5 +141,3 @@ $lang = array_merge($lang, array(
 	'USER_WARNING_LOG_DELETED'		=> 'No information available. Possibly the log entry has been deleted.',
 	'USER_TOOLS'					=> 'Basic tools',
 ));
-
-?>

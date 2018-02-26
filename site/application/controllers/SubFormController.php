@@ -111,7 +111,7 @@ abstract class FP_Controller_SubFormController extends FP_Controller_CommonContr
 		$this->view->urlAddItem = $this->view->url(array('action' => 'postuler', 'admin' => true));
 		$this->view->urlEditItem = $this->view->url(array('action' => 'postuler', 'admin' => true));
 		$this->view->urlDeleteItem = $this->view->url(array('action' => 'delete'));
-		//$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
+		$this->view->urlExportUrl = $this->view->url(array('action' => 'export'));
 		$this->view->urlEnvoiMail = $this->view->url(array('action' => 'envoimail'));
 
 		$this->view->filterPath = $this->getFilterPath();

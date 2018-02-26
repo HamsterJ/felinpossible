@@ -18,7 +18,9 @@
       <table id="commonGrid" 
       rowsPerPage="13" 
       columnReordering="true"
-      sortInfo="<?php echo $this->defaultSort ?>" 
+      sortInfo="<?php 
+      echo $this->defaultSort; 
+              ?>" 
       jsId="commonGrid" 
       data-dojo-type="dojox/grid/DataGrid" 
       store="commonGridStore" 

@@ -1,35 +1,18 @@
 <?php
 /**
-*
-* This file is part of French phpBB translation.
-* Copyright (c) 2010 Maël Soucaze.
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; version 2 of the License.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License along
-* with this program; if not, write to the Free Software Foundation, Inc.,
-* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*
-* acp_email [French]
-*
-* @package   language
-* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
-* @copyright (c) 2005 phpBB Group
-* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
-* @version   $Id$
-*
-*/
+ * This file is part of the French language pack for the
+ * phpBB forum software.
+ *
+ * @copyright (c) phpBB Limited <https://www.phpbb.com>
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ * For more information about the language pack, please visit
+ * https://www.phpbb.com/customise/db/translation/french/
+ */
 
 /**
-* DO NOT CHANGE
-*/
+ * DO NOT CHANGE
+ */
 if (!defined('IN_PHPBB'))
 {
 	exit;
@@ -37,7 +20,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -53,32 +36,32 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 // Email settings
-$lang = array_merge($lang, array(
-	'ACP_MASS_EMAIL_EXPLAIN'		=> 'Vous pouvez envoyer ici un e-mail à tous vos utilisateurs ou aux groupes d’utilisateurs <strong>ayant activés la réception des e-mails de masse</strong>. Pour cela, un e-mail sera envoyé à l’adresse e-mail fournie par l’administrateur et une copie sera adressée à tous les destinataires. Le réglage par défaut n’inclut que 50 destinataires par e-mail car plus il y a de destinataires, plus le temps d’attente est important. Il est normal que l’envoi d’un e-mail de masse prenne du temps, vous serez averti lorsque l’opération sera terminée.',
-	'ALL_USERS'						=> 'Tous les utilisateurs',
+$lang = array_merge($lang, [
+	'ACP_MASS_EMAIL_EXPLAIN' => 'Depuis cette page, vous pouvez envoyer un courriel à la totalité des utilisateurs ou aux utilisateurs d’un groupe d’utilisateurs spécifique qui acceptent la réception de courriels de masse. Pour ce faire, un courriel sera envoyé à l’adresse de courriel renseignée par les administrateurs et une copie sera adressée à tous les destinataires. La configuration par défaut est limitée à 20 destinataires par courriel, mais si ce nombre est dépassé, des courriels supplémentaires seront envoyés. Sachez également que plus les destinataires sont nombreux, plus le délai d’exécution est important. Il est normal que l’envoi d’un courriel de masse prenne un certain temps, veillez à ne pas vous déplacer sur une autre page tant que l’opération n’est pas totalement terminée.',
+	'ALL_USERS'              => 'Tous les utilisateurs',
 
-	'COMPOSE'				=> 'Composer',
+	'COMPOSE' => 'Rédiger',
 
-	'EMAIL_SEND_ERROR'		=> 'Des erreurs sont survenues lors de l’envoi de l’e-mail. Pour plus d’informations, veuillez consulter l’%shistorique des erreurs%s.',
-	'EMAIL_SENT'			=> 'Ce message a été envoyé.',
-	'EMAIL_SENT_QUEUE'		=> 'Ce message a été placé en file d’attente.',
+	'EMAIL_SEND_ERROR' => 'Une ou plusieurs erreurs sont survenues lors de l’envoi du courriel. Pour plus d’informations, veuillez consulter l’%shistorique des erreurs%s.',
+	'EMAIL_SENT'       => 'Le message a été envoyé.',
+	'EMAIL_SENT_QUEUE' => 'Le message est en file d’attente et sera envoyé ultérieurement.',
 
-	'LOG_SESSION'			=> 'Historique de la session e-mail vers l’historique des erreurs critiques',
+	'LOG_SESSION' => 'Historique de la session de la messagerie électronique vers l’historique des erreurs critiques',
 
-	'SEND_IMMEDIATELY'		=> 'Envoyer immédiatement',
-	'SEND_TO_GROUP'			=> 'Envoyer au groupe',
-	'SEND_TO_USERS'			=> 'Envoyer aux utilisateurs',
-	'SEND_TO_USERS_EXPLAIN'	=> 'Les noms sélectionnés ici écraseront n’importe quel groupe sélectionné ci-dessus. Saisissez chaque nom d’utilisateur sur une nouvelle ligne.',
-	
-	'MAIL_HIGH_PRIORITY'	=> 'Élevée',
-	'MAIL_LOW_PRIORITY'		=> 'Faible',
-	'MAIL_NORMAL_PRIORITY'	=> 'Normale',
-	'MAIL_PRIORITY'			=> 'Priorité de l’e-mail',
-	'MASS_MESSAGE'			=> 'Votre message',
-	'MASS_MESSAGE_EXPLAIN'	=> 'Veuillez noter que vous ne devez saisir que du texte brut. Toutes les balises seront automatiquement supprimées lors de l’envoi.',
-	
-	'NO_EMAIL_MESSAGE'		=> 'Vous devez saisir un message.',
-	'NO_EMAIL_SUBJECT'		=> 'Vous devez spécifier le sujet de votre message.',
-));
+	'SEND_IMMEDIATELY'      => 'Envoyer en temps réel',
+	'SEND_TO_GROUP'         => 'Envoyer à un groupe d’utilisateurs',
+	'SEND_TO_USERS'         => 'Envoyer à des utilisateurs',
+	'SEND_TO_USERS_EXPLAIN' => 'Les noms d’utilisateurs spécifiés dans ce champ remplaceront le groupe d’utilisateurs sélectionné dans le menu déroulant ci-dessus. Veuillez saisir chaque nom d’utilisateur sur une nouvelle ligne.',
 
-?>
+	'MAIL_BANNED'          => 'Envoyer le courriel aux utilisateurs bannis',
+	'MAIL_BANNED_EXPLAIN'  => 'Les membres bannis d’un groupe d’utilisateurs destinataire d’un courriel de masse recevront également le courriel.',
+	'MAIL_HIGH_PRIORITY'   => 'Élevée',
+	'MAIL_LOW_PRIORITY'    => 'Faible',
+	'MAIL_NORMAL_PRIORITY' => 'Normale',
+	'MAIL_PRIORITY'        => 'Priorité du courriel',
+	'MASS_MESSAGE'         => 'Message',
+	'MASS_MESSAGE_EXPLAIN' => 'Le message ne doit contenir que du texte brut. Toutes les balises seront automatiquement supprimées.',
+
+	'NO_EMAIL_MESSAGE' => 'Vous devez saisir un message.',
+	'NO_EMAIL_SUBJECT' => 'Vous devez saisir le sujet de votre message.',
+]);
