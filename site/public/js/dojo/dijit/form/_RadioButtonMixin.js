@@ -1,71 +1,65 @@
-define("dijit/form/_RadioButtonMixin", [
-	"dojo/_base/array", // array.forEach
-	"dojo/_base/declare", // declare
-	"dojo/dom-attr", // domAttr.set
-	"dojo/_base/event", // event.stop
-	"dojo/_base/lang", // lang.hitch
-	"dojo/query", // query
-	"../registry"	// registry.getEnclosingWidget
-], function(array, declare, domAttr, event, lang, query, registry){
-
-	// module:
-	//		dijit/form/_RadioButtonMixin
-
-	return declare("dijit.form._RadioButtonMixin", null, {
-		// summary:
-		//		Mixin to provide widget functionality for an HTML radio button
-
-		// type: [private] String
-		//		type attribute on `<input>` node.
-		//		Users should not change this value.
-		type: "radio",
-
-		_getRelatedWidgets: function(){
-			// Private function needed to help iterate over all radio buttons in a group.
-			var ary = [];
-			query("input[type=radio]", this.focusNode.form || this.ownerDocument).forEach( // can't use name= since query doesn't support [] in the name
-				lang.hitch(this, function(inputNode){
-					if(inputNode.name == this.name && inputNode.form == this.focusNode.form){
-						var widget = registry.getEnclosingWidget(inputNode);
-						if(widget){
-							ary.push(widget);
-						}
-					}
-				})
-			);
-			return ary;
-		},
-
-		_setCheckedAttr: function(/*Boolean*/ value){
-			// If I am being checked then have to deselect currently checked radio button
-			this.inherited(arguments);
-			if(!this._created){ return; }
-			if(value){
-				array.forEach(this._getRelatedWidgets(), lang.hitch(this, function(widget){
-					if(widget != this && widget.checked){
-						widget.set('checked', false);
-					}
-				}));
-			}
-		},
-
-		_getSubmitValue: function(/*String*/ value){
-			return value === null ? "on" : value;
-		},
-
-		_onClick: function(/*Event*/ e){
-			if(this.checked || this.disabled){ // nothing to do
-				event.stop(e);
-				return false;
-			}
-			if(this.readOnly){ // ignored by some browsers so we have to resync the DOM elements with widget values
-				event.stop(e);
-				array.forEach(this._getRelatedWidgets(), lang.hitch(this, function(widget){
-					domAttr.set(this.focusNode || this.domNode, 'checked', widget.checked);
-				}));
-				return false;
-			}
-			return this.inherited(arguments);
-		}
-	});
+//>>built
+define("dijit/form/_RadioButtonMixin",["dojo/_base/array","dojo/_base/declare","dojo/dom-attr","dojo/_base/lang","dojo/query!css2","../registry"],function(_1,_2,_3,_4,_5,_6){
+return _2("dijit.form._RadioButtonMixin",null,{type:"radio",_getRelatedWidgets:function(){
+var _7=[];
+_5("input[type=radio]",this.focusNode.form||this.ownerDocument).forEach(_4.hitch(this,function(_8){
+if(_8.name==this.name&&_8.form==this.focusNode.form){
+var _9=_6.getEnclosingWidget(_8);
+if(_9){
+_7.push(_9);
+}
+}
+}));
+return _7;
+},_setCheckedAttr:function(_a){
+this.inherited(arguments);
+if(!this._created){
+return;
+}
+if(_a){
+_1.forEach(this._getRelatedWidgets(),_4.hitch(this,function(_b){
+if(_b!=this&&_b.checked){
+_b.set("checked",false);
+}
+}));
+}
+},_getSubmitValue:function(_c){
+return _c==null?"on":_c;
+},_onClick:function(e){
+if(this.checked||this.disabled){
+e.stopPropagation();
+e.preventDefault();
+return false;
+}
+if(this.readOnly){
+e.stopPropagation();
+e.preventDefault();
+_1.forEach(this._getRelatedWidgets(),_4.hitch(this,function(_d){
+_3.set(this.focusNode||this.domNode,"checked",_d.checked);
+}));
+return false;
+}
+var _e=false;
+var _f;
+_1.some(this._getRelatedWidgets(),function(_10){
+if(_10.checked){
+_f=_10;
+return true;
+}
+return false;
+});
+this.checked=true;
+_f&&(_f.checked=false);
+if(this.onClick(e)===false||e.defaultPrevented){
+_e=true;
+}
+this.checked=false;
+_f&&(_f.checked=true);
+if(_e){
+e.preventDefault();
+}else{
+this.set("checked",true);
+}
+return !_e;
+}});
 });

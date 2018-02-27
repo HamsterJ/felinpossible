@@ -1,74 +1,85 @@
-define("dojox/app/utils/simpleModel", ["dojo/_base/lang", "dojo/Deferred", "dojo/when", "dojo/_base/config",
-		"dojo/store/DataStore"],
-function(lang, Deferred, when, config, DataStore){
-	return function(/*Object*/config, /*Object*/params, /*String*/item){
-		// summary:
-		//		simpleModel is called for each simple model, to create the simple model from the DataStore 
-		//		based upon the store and query params.
-		//		It will also load models and return the either the loadedModels or a promise.
-		// description:
-		//		Called for each model with a modelLoader of "dojox/app/utils/simpleModel", it will
-		//		create the model based upon the store and query params set for the model in the config.
-		// config: Object
-		//		The models section of the config for this view or for the app.
-		// params: Object
-		//		The params set into the config for this model.
-		// item: String
-		//		The String with the name of this model
-		// returns: model 
-		//		 The model, of the store and query params specified in the config for this model.
-		var loadedModels = {};
-		var loadSimpleModelDeferred = new Deferred();
-
-		var options;
-		if(params.store){
-			if((params.store.params.data || params.store.params.store)){
-				options = {
-					"store": params.store.store,
-					"query": params.store.query ? params.store.query: {}
-				};
-			}else if(params.store.params.url){
-				options = {
-					"store": new DataStore({
-						store: params.store.store
-					}),
-					"query": params.store.query ? params.store.query: {}
-				};
-			}
-		}else if(params.data){
-			if(params.data && lang.isString(params.data)){
-				params.data = lang.getObject(params.data);
-			}
-			options = {"data": params.data, query: {}};
-		}
-		var createMvcPromise;
-		try{
-			if(options.store){
-				createMvcPromise = options.store.query();
-			}else{
-				createMvcPromise = options.data;
-			}
-		}catch(ex){
-			loadSimpleModelDeferred.reject("load mvc model error.");
-			return loadSimpleModelDeferred.promise;
-		}
-		if(createMvcPromise.then){
-			when(createMvcPromise, lang.hitch(this, function(newModel) {
-				// now the loadedModels[item].models is set.
-				//console.log("in simpleModel promise path, loadedModels = ", loadedModels);
-				loadedModels = newModel;
-				loadSimpleModelDeferred.resolve(loadedModels);
-				return loadedModels;
-			}), function(){
-				loadModelLoaderDeferred.reject("load model error.")
-			});
-		}else{ // query did not return a promise, so use newModel
-			loadedModels = createMvcPromise;
-			//console.log("in simpleModel else path, loadedModels = ",loadedModels);
-			loadSimpleModelDeferred.resolve(loadedModels);
-			return loadedModels;
-		}
-			
-		return loadSimpleModelDeferred;
-	}
+//>>built
+define("dojox/app/utils/simpleModel",["dojo/_base/lang","dojo/Deferred","dojo/when"],function(_1,_2,_3){
+return function(_4,_5,_6){
+var _7={};
+var _8=new _2();
+var _9=function(_a){
+var _b={};
+for(var _c in _a){
+if(_c.charAt(0)!=="_"){
+_b[_c]=_a[_c];
+}
+}
+return (_b);
+};
+var _d,_e;
+if(_5.store){
+if(!_5.store.params){
+throw new Error("Invalid store for model ["+_6+"]");
+}else{
+if((_5.store.params.data||_5.store.params.store)){
+_d={"store":_5.store.store,"query":_5.query?_9(_5.query):_5.store.query?_9(_5.store.query):{}};
+}else{
+if(_5.store.params.url){
+try{
+_e=require("dojo/store/DataStore");
+}
+catch(e){
+throw new Error("dojo/store/DataStore must be listed in the dependencies");
+}
+_d={"store":new _e({store:_5.store.store}),"query":_5.query?_9(_5.query):_5.store.query?_9(_5.store.query):{}};
+}else{
+if(_5.store.store){
+_d={"store":_5.store.store,"query":_5.query?_9(_5.query):_5.store.query?_9(_5.store.query):{}};
+}
+}
+}
+}
+}else{
+if(_5.datastore){
+try{
+_e=require("dojo/store/DataStore");
+}
+catch(e){
+throw new Error("When using datastore the dojo/store/DataStore module must be listed in the dependencies");
+}
+_d={"store":new _e({store:_5.datastore.store}),"query":_9(_5.query)};
+}else{
+if(_5.data){
+if(_5.data&&_1.isString(_5.data)){
+_5.data=_1.getObject(_5.data);
+}
+_d={"data":_5.data,query:{}};
+}else{
+console.warn("simpleModel: Missing parameters.");
+}
+}
+}
+var _f;
+try{
+if(_d.store){
+_f=_d.store.query();
+}else{
+_f=_d.data;
+}
+}
+catch(ex){
+_8.reject("load simple model error.");
+return _8.promise;
+}
+if(_f.then){
+_3(_f,_1.hitch(this,function(_10){
+_7=_10;
+_8.resolve(_7);
+return _7;
+}),function(){
+loadModelLoaderDeferred.reject("load model error.");
+});
+}else{
+_7=_f;
+_8.resolve(_7);
+return _7;
+}
+return _8;
+};
 });

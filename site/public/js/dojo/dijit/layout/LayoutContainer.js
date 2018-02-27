@@ -1,91 +1,50 @@
-define("dijit/layout/LayoutContainer", [
-	"dojo/_base/kernel", // kernel.deprecated
-	"dojo/_base/lang",
-	"dojo/_base/declare", // declare
-	"../_WidgetBase",
-	"./_LayoutWidget",
-	"./utils"		// layoutUtils.layoutChildren
-], function(kernel, lang, declare, _WidgetBase, _LayoutWidget, layoutUtils){
-
-// module:
-//		dijit/layout/LayoutContainer
-
-var LayoutContainer = declare("dijit.layout.LayoutContainer", _LayoutWidget, {
-	// summary:
-	//		Deprecated.  Use `dijit/layout/BorderContainer` instead.
-	// description:
-	//		Provides Delphi-style panel layout semantics.
-	//
-	//		A LayoutContainer is a box with a specified size (like style="width: 500px; height: 500px;"),
-	//		that contains children widgets marked with "layoutAlign" of "left", "right", "bottom", "top", and "client".
-	//		It takes it's children marked as left/top/bottom/right, and lays them out along the edges of the box,
-	//		and then it takes the child marked "client" and puts it into the remaining space in the middle.
-	//
-	//		Left/right positioning is similar to CSS's "float: left" and "float: right",
-	//		and top/bottom positioning would be similar to "float: top" and "float: bottom", if there were such
-	//		CSS.
-	//
-	//		Note that there can only be one client element, but there can be multiple left, right, top,
-	//		or bottom elements.
-	//
-	//		See `LayoutContainer.ChildWidgetProperties` for details on the properties that can be set on
-	//		children of a `LayoutContainer`.
-	//
-	// example:
-	// |	<style>
-	// |		html, body{ height: 100%; width: 100%; }
-	// |	</style>
-	// |	<div data-dojo-type="dijit/layout/LayoutContainer" style="width: 100%; height: 100%">
-	// |		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="layoutAlign: 'top'">header text</div>
-	// |		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="layoutAlign: 'left'" style="width: 200px;">table of contents</div>
-	// |		<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="layoutAlign: 'client'">client area</div>
-	// |	</div>
-	//
-	//		Lays out each child in the natural order the children occur in.
-	//		Basically each child is laid out into the "remaining space", where "remaining space" is initially
-	//		the content area of this widget, but is reduced to a smaller rectangle each time a child is added.
-	// tags:
-	//		deprecated
-
-	baseClass: "dijitLayoutContainer",
-
-	constructor: function(){
-		kernel.deprecated("dijit.layout.LayoutContainer is deprecated", "use BorderContainer instead", 2.0);
-	},
-
-	layout: function(){
-		layoutUtils.layoutChildren(this.domNode, this._contentBox, this.getChildren());
-	},
-
-	addChild: function(/*dijit/_WidgetBase*/ child, /*Integer?*/ insertIndex){
-		this.inherited(arguments);
-		if(this._started){
-			layoutUtils.layoutChildren(this.domNode, this._contentBox, this.getChildren());
-		}
-	},
-
-	removeChild: function(/*dijit/_WidgetBase*/ widget){
-		this.inherited(arguments);
-		if(this._started){
-			layoutUtils.layoutChildren(this.domNode, this._contentBox, this.getChildren());
-		}
-	}
+//>>built
+define("dijit/layout/LayoutContainer",["dojo/_base/array","dojo/_base/declare","dojo/dom-class","dojo/dom-style","dojo/_base/lang","../_WidgetBase","./_LayoutWidget","./utils"],function(_1,_2,_3,_4,_5,_6,_7,_8){
+var _9=_2("dijit.layout.LayoutContainer",_7,{design:"headline",baseClass:"dijitLayoutContainer",startup:function(){
+if(this._started){
+return;
+}
+_1.forEach(this.getChildren(),this._setupChild,this);
+this.inherited(arguments);
+},_setupChild:function(_a){
+this.inherited(arguments);
+var _b=_a.region;
+if(_b){
+_3.add(_a.domNode,this.baseClass+"Pane");
+}
+},_getOrderedChildren:function(){
+var _c=_1.map(this.getChildren(),function(_d,_e){
+return {pane:_d,weight:[_d.region=="center"?Infinity:0,_d.layoutPriority,(this.design=="sidebar"?1:-1)*(/top|bottom/.test(_d.region)?1:-1),_e]};
+},this);
+_c.sort(function(a,b){
+var aw=a.weight,bw=b.weight;
+for(var i=0;i<aw.length;i++){
+if(aw[i]!=bw[i]){
+return aw[i]-bw[i];
+}
+}
+return 0;
 });
-
-LayoutContainer.ChildWidgetProperties = {
-	// summary:
-	//		This property can be specified for the children of a LayoutContainer.
-
-	// layoutAlign: String
-	//		"none", "left", "right", "bottom", "top", and "client".
-	//		See the LayoutContainer description for details on this parameter.
-	layoutAlign: 'none'
-};
-
-// Since any widget can be specified as a LayoutContainer child, mix it
-// into the base widget class.  (This is a hack, but it's effective.)
-// This is for the benefit of the parser.   Remove for 2.0.  Also, hide from doc viewer.
-lang.extend(_WidgetBase, /*===== {} || =====*/ LayoutContainer.ChildWidgetProperties);
-
-return LayoutContainer;
+return _1.map(_c,function(w){
+return w.pane;
+});
+},layout:function(){
+_8.layoutChildren(this.domNode,this._contentBox,this._getOrderedChildren());
+},addChild:function(_f,_10){
+this.inherited(arguments);
+if(this._started){
+this.layout();
+}
+},removeChild:function(_11){
+this.inherited(arguments);
+if(this._started){
+this.layout();
+}
+_3.remove(_11.domNode,this.baseClass+"Pane");
+_4.set(_11.domNode,{top:"auto",bottom:"auto",left:"auto",right:"auto",position:"static"});
+_4.set(_11.domNode,/top|bottom/.test(_11.region)?"width":"height","auto");
+}});
+_9.ChildWidgetProperties={region:"",layoutAlign:"",layoutPriority:0};
+_5.extend(_6,_9.ChildWidgetProperties);
+return _9;
 });

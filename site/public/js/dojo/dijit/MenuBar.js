@@ -1,92 +1,34 @@
-require({cache:{
-'url:dijit/templates/MenuBar.html':"<div class=\"dijitMenuBar dijitMenuPassive\" data-dojo-attach-point=\"containerNode\"  role=\"menubar\" tabIndex=\"${tabIndex}\" data-dojo-attach-event=\"onkeypress: _onKeyPress\"></div>\n"}});
-define("dijit/MenuBar", [
-	"dojo/_base/declare", // declare
-	"dojo/_base/event", // event.stop
-	"dojo/keys", // keys.DOWN_ARROW
-	"./_MenuBase",
-	"dojo/text!./templates/MenuBar.html"
-], function(declare, event, keys, _MenuBase, template){
-
-// module:
-//		dijit/MenuBar
-
-return declare("dijit.MenuBar", _MenuBase, {
-	// summary:
-	//		A menu bar, listing menu choices horizontally, like the "File" menu in most desktop applications
-
-	templateString: template,
-
-	baseClass: "dijitMenuBar",
-
-	// _isMenuBar: [protected] Boolean
-	//		This is a MenuBar widget, not a (vertical) Menu widget.
-	_isMenuBar: true,
-
-	postCreate: function(){
-		this.inherited(arguments);
-		var l = this.isLeftToRight();
-		this.connectKeyNavHandlers(
-			l ? [keys.LEFT_ARROW] : [keys.RIGHT_ARROW],
-			l ? [keys.RIGHT_ARROW] : [keys.LEFT_ARROW]
-		);
-
-		// parameter to dijit.popup.open() about where to put popup (relative to this.domNode)
-		this._orient = ["below"];
-	},
-
-	_moveToPopup: function(/*Event*/ evt){
-		// summary:
-		//		This handles the down arrow key, opening a submenu if one exists.
-		//		Unlike _MenuBase._moveToPopup(), will never move to the next item in the MenuBar.
-		// tags:
-		//		private
-
-		if(this.focusedChild && this.focusedChild.popup && !this.focusedChild.disabled){
-			this.onItemClick(this.focusedChild, evt);
-		}
-	},
-
-	focusChild: function(item){
-		// overload focusChild so that whenever the focus is moved to a new item,
-		// check the previous focused whether it has its popup open, if so, after
-		// focusing the new item, open its submenu immediately
-		var prev_item = this.focusedChild,
-			showpopup = prev_item && prev_item.popup && prev_item.popup.isShowingNow;
-		this.inherited(arguments);
-		if(showpopup && item.popup && !item.disabled){
-			this._openPopup(true);		// TODO: on down arrow, _openPopup() is called here and in onItemClick()
-		}
-	},
-
-	_onKeyPress: function(/*Event*/ evt){
-		// summary:
-		//		Handle keyboard based menu navigation.
-		// tags:
-		//		protected
-
-		if(evt.ctrlKey || evt.altKey){ return; }
-
-		switch(evt.charOrCode){
-			case keys.DOWN_ARROW:
-				this._moveToPopup(evt);
-				event.stop(evt);
-		}
-	},
-
-	onItemClick: function(/*dijit/_WidgetBase*/ item, /*Event*/ evt){
-		// summary:
-		//		Handle clicks on an item.   Also called by _moveToPopup() due to a down-arrow key on the item.
-		//		Cancels a dropdown if already open and click is either mouse or space/enter.
-		//		Don't close dropdown due to down arrow.
-		// tags:
-		//		private
-		if(item.popup && item.popup.isShowingNow && (evt.type !== "keypress" || evt.keyCode !== keys.DOWN_ARROW)){
-			item.popup.onCancel();
-		}else{
-			this.inherited(arguments);
-		}
-	}
-});
-
+//>>built
+require({cache:{"url:dijit/templates/MenuBar.html":"<div class=\"dijitMenuBar dijitMenuPassive\" data-dojo-attach-point=\"containerNode\" role=\"menubar\" tabIndex=\"${tabIndex}\"\n\t ></div>\n"}});
+define("dijit/MenuBar",["dojo/_base/declare","dojo/keys","./_MenuBase","dojo/text!./templates/MenuBar.html"],function(_1,_2,_3,_4){
+return _1("dijit.MenuBar",_3,{templateString:_4,baseClass:"dijitMenuBar",popupDelay:0,_isMenuBar:true,_orient:["below"],_moveToPopup:function(_5){
+if(this.focusedChild&&this.focusedChild.popup&&!this.focusedChild.disabled){
+this.onItemClick(this.focusedChild,_5);
+}
+},focusChild:function(_6){
+this.inherited(arguments);
+if(this.activated&&_6.popup&&!_6.disabled){
+this._openItemPopup(_6,true);
+}
+},_onChildDeselect:function(_7){
+if(this.currentPopupItem==_7){
+this.currentPopupItem=null;
+_7._closePopup();
+}
+this.inherited(arguments);
+},_onLeftArrow:function(){
+this.focusPrev();
+},_onRightArrow:function(){
+this.focusNext();
+},_onDownArrow:function(_8){
+this._moveToPopup(_8);
+},_onUpArrow:function(){
+},onItemClick:function(_9,_a){
+if(_9.popup&&_9.popup.isShowingNow&&(!/^key/.test(_a.type)||_a.keyCode!==_2.DOWN_ARROW)){
+_9.focusNode.focus();
+this._cleanUp(true);
+}else{
+this.inherited(arguments);
+}
+}});
 });

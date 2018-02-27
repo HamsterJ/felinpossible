@@ -1,4 +1,4 @@
-/* dojox.mobile.RoundRectList */
+
 .dj_ff3 .mblRoundRectList {
   -moz-border-radius: 8px;
 }
@@ -10,7 +10,6 @@
   -moz-border-radius-bottomleft: 8px;
   -moz-border-radius-bottomright: 8px;
 }
-/* Round Corner */
 .dj_ie .mblRoundRectList {
   position: relative;
 }
@@ -20,14 +19,14 @@
   font-size: 1px;
   overflow: hidden;
   border-style: solid;
-  border-color: #cccccc;
+  border-color: #c0c0c0;
   border-width: 0 1px;
 }
 .dj_ie .mblRoundRectContainer {
   padding: 3px 8px;
   background-color: #ffffff;
   border-style: solid;
-  border-color: #cccccc;
+  border-color: #c0c0c0;
   border-width: 0 1px;
 }
 .dj_ie .mblRoundRectList .mblRoundRectContainer {
@@ -38,7 +37,7 @@
   height: 0;
 }
 .dj_ie .mblRoundCorner1T {
-  background-color: #cccccc;
+  background-color: #c0c0c0;
   margin: 0 5px;
 }
 .dj_ie .mblRoundCorner2T {
@@ -73,6 +72,6 @@
   border-width: 0 3px;
 }
 .dj_ie .mblRoundCorner5B {
-  background-color: #cccccc;
+  background-color: #c0c0c0;
   margin: 0 5px;
 }
