@@ -1,17 +1,5 @@
-define("dojox/mobile/RoundRectDataList", [
-	"dojo/_base/declare",
-	"./RoundRectList",
-	"./_DataListMixin"
-], function(declare, RoundRectList, DataListMixin){
-
-	// module:
-	//		dojox/mobile/RoundRectDataList
-
-	return declare("dojox.mobile.RoundRectDataList", [RoundRectList, DataListMixin], {
-		// summary:
-		//		A dojo/data-enabled version of RoundRectList.
-		// description:
-		//		RoundRectDataList is an enhanced version of RoundRectList. It
-		//		can generate ListItems according to the given dojo/data store.
-	});
+//>>built
+define("dojox/mobile/RoundRectDataList",["dojo/_base/kernel","dojo/_base/declare","./RoundRectList","./_DataListMixin"],function(_1,_2,_3,_4){
+_1.deprecated("dojox/mobile/RoundRectDataList","Use dojox/mobile/RoundRectStoreList instead","2.0");
+return _2("dojox.mobile.RoundRectDataList",[_3,_4],{});
 });

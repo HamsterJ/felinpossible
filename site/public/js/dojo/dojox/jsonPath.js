@@ -1,9 +1,5 @@
-define("dojox/jsonPath", ['./jsonPath/query'],function(){
-	/*=====
-	 return {
-	 // summary:
-	 //		Deprecated.  Should require dojox/jsonPath modules directly rather than trying to access them through
-	 //		this module.
-	 };
-	 =====*/
+//>>built
+define("dojox/jsonPath",["dojo/_base/kernel","./jsonPath/query"],function(_1,_2){
+_1.deprecated("dojox/jsonPath: The dojox/jsonPath root module is deprecated, use dojox/jsonPath/query","","2.0");
+return {query:_2};
 });

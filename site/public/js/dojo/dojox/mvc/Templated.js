@@ -1,29 +1,17 @@
-define("dojox/mvc/Templated", [
-	"dojo/_base/declare",
-	"dojo/_base/lang",
-	"dijit/_WidgetBase",
-	"dijit/_TemplatedMixin",
-	"dijit/_WidgetsInTemplateMixin",
-	"dojox/mvc/at"
-], function(declare, lang, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, at){
-	return declare("dojox.mvc.Templated", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
-		// summary:
-		//		A templated widget, mostly the same as dijit/_Templated, but without deprecated features in it.
-
-		// bindings: Object
-		//		The data binding declaration for child widgets.
-		bindings: null,
-
-		startup: function(){
-			this.inherited(arguments);
-			for(var s in this.bindings){
-				var w = this[s], props = this.bindings[s];
-				if(w){
-					for(var prop in props){
-						w.set(prop, props[prop]);
-					}
-				}
-			}
-		}
-	});
+//>>built
+define("dojox/mvc/Templated",["dojo/_base/declare","dojo/_base/lang","dijit/_WidgetBase","dijit/_TemplatedMixin","dijit/_WidgetsInTemplateMixin","./at"],function(_1,_2,_3,_4,_5){
+return _1("dojox.mvc.Templated",[_3,_4,_5],{bindings:null,startup:function(){
+var _6=_2.isFunction(this.bindings)&&this.bindings.call(this)||this.bindings;
+for(var s in _6){
+var w=this[s],_7=_6[s];
+if(w){
+for(var _8 in _7){
+w.set(_8,_7[_8]);
+}
+}else{
+console.warn("Widget with the following attach point was not found: "+s);
+}
+}
+this.inherited(arguments);
+}});
 });
