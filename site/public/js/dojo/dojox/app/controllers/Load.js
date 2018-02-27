@@ -1,144 +1,172 @@
-define("dojox/app/controllers/Load", ["dojo/_base/lang", "dojo/_base/declare", "dojo/on", "dojo/Deferred", "dojo/when", "../Controller", "../View"],
-function(lang, declare, on, Deferred, when, Controller, View){
-	// module:
-	//		dojox/app/controllers/Load
-	// summary:
-	//		Bind "load" event on dojox/app application's domNode.
-	//		Load child view and sub children at one time.
-
-	return declare("dojox.app.controllers.Load", Controller, {
-
-		constructor: function(app, events){
-			// summary:
-			//		bind "load" event on application's domNode.
-			//
-			// app:
-			//		dojox/app application instance.
-			// events:
-			//		{event : handler}
-			this.events = {
-				"load": this.load
-			};
-			this.inherited(arguments);
-		},
-
-		load: function(event){
-			// summary:
-			//		Response to dojox/app "load" event.
-			//
-			// example:
-			//		Use trigger() to trigger "load" event, and this function will response the event. For example:
-			//		|	this.trigger("load", {"parent":parent, "viewId":viewId, "callback":function(){...}});
-			//
-			// event: Object
-			//		Load event parameter. It should be like this: {"parent":parent, "viewId":viewId, "callback":function(){...}}
-			// returns:
-			//		A dojo/Deferred object.
-			//		The return value cannot return directly. 
-			//		If the caller need to use the return value, pass callback function in event parameter and process return value in callback function.
-
-			var parent = event.parent || this.app;
-			var viewId = event.viewId || "";
-			var parts = viewId.split(',');
-			var childId = parts.shift();
-			var subIds = parts.join(",");
-			var params = event.params || "";
-			
-			var def = this.loadChild(parent, childId, subIds, params);
-			// call Load event callback
-			if(event.callback){
-				when(def, event.callback);
-			}
-			return def;
-		},
-
-		createChild: function(parent, childId, subIds, params){
-			// summary:
-			//		Create dojox.app.view instance if it is not loaded.
-			//
-			// parent: Object
-			//		parent of the view.
-			// childId: String
-			//		view id need to be loaded.
-			// subIds: String
-			//		sub views' id of this view.
-			// returns:
-			//		If view exist, return the view object.
-			//		Otherwise, create the view and return a dojo.Deferred instance.
-
-			var id = parent.id + '_' + childId;
-			if(parent.children[id]){
-				return parent.children[id];
-			}
-			//create and start child. return Deferred
-			var newView = new View(lang.mixin({
-				"app": this.app,
-				"id": id,
-				"name": childId,
-				"parent": parent
-			},{"params": params}));
-			parent.children[id] = newView;
-			return newView.start();
-		},
-
-		loadChild: function(parent, childId, subIds, params){
-			// summary:
-			//		Load child and sub children views recursively.
-			//
-			// parent: Object
-			//		parent of this view.
-			// childId: String
-			//		view id need to be loaded.
-			// subIds: String
-			//		sub views' id of this view.
-			// params: Object
-			//		params of this view.
-			// returns:
-			//		A dojo/Deferred instance which will be resovled when all views loaded.
-
-			if(!parent){
-				throw Error("No parent for Child '" + childId + "'.");
-			}
-
-			if(!childId){
-				var parts = parent.defaultView ? parent.defaultView.split(",") : "default";
-				childId = parts.shift();
-				subIds = parts.join(',');
-			}
-
-			var loadChildDeferred = new Deferred();
-			var createPromise;
-			try{
-				createPromise = this.createChild(parent, childId, subIds, params);
-			}catch(ex){
-				loadChildDeferred.reject("load child '"+childId+"' error.");
-				return loadChildDeferred.promise;
-			}
-			when(createPromise, lang.hitch(this, function(child){
-				// if no subIds and current view has default view, load the default view.
-				if(!subIds && child.defaultView){
-					subIds = child.defaultView;
-				}
-
-				var parts = subIds.split(',');
-				childId = parts.shift();
-				subIds = parts.join(',');
-				if(childId){
-					var subLoadDeferred = this.loadChild(child, childId, subIds, params);
-					when(subLoadDeferred, function(){
-						loadChildDeferred.resolve();
-					},
-					function(){
-						loadChildDeferred.reject("load child '"+childId+"' error.");
-					});
-				}else{
-					loadChildDeferred.resolve();
-				}
-			}),
-			function(){
-				loadChildDeferred.reject("load child '"+childId+"' error.")
-			});
-			return loadChildDeferred.promise; // dojo/Deferred.promise
-		}
-	});
+//>>built
+define("dojox/app/controllers/Load",["require","dojo/_base/lang","dojo/_base/declare","dojo/on","dojo/Deferred","dojo/when","dojo/dom-style","../Controller"],function(_1,_2,_3,on,_4,_5,_6,_7,_8){
+return _3("dojox.app.controllers.Load",_7,{_waitingQueue:[],constructor:function(_9,_a){
+this.events={"app-init":this.init,"app-load":this.load};
+},init:function(_b){
+_5(this.createView(_b.parent,null,null,{templateString:_b.templateString,controller:_b.controller},null,_b.type),function(_c){
+_5(_c.start(),_b.callback);
+});
+},load:function(_d){
+this.app.log("in app/controllers/Load event.viewId="+_d.viewId+" event =",_d);
+var _e=_d.viewId||"";
+var _f=[];
+var _10=_e.split("+");
+while(_10.length>0){
+var _11=_10.shift();
+_f.push(_11);
+}
+var def;
+this.proceedLoadViewDef=new _4();
+if(_f&&_f.length>1){
+for(var i=0;i<_f.length-1;i++){
+var _12=_2.clone(_d);
+_12.callback=null;
+_12.viewId=_f[i];
+this._waitingQueue.push(_12);
+}
+this.proceedLoadView(this._waitingQueue.shift());
+_5(this.proceedLoadViewDef,_2.hitch(this,function(){
+var _13=_2.clone(_d);
+_13.viewId=_f[i];
+def=this.loadView(_13);
+return def;
+}));
+}else{
+def=this.loadView(_d);
+return def;
+}
+},proceedLoadView:function(_14){
+var def=this.loadView(_14);
+_5(def,_2.hitch(this,function(){
+this.app.log("in app/controllers/Load proceedLoadView back from loadView for event",_14);
+var _15=this._waitingQueue.shift();
+if(_15){
+this.app.log("in app/controllers/Load proceedLoadView back from loadView calling this.proceedLoadView(nextEvt) for ",_15);
+this.proceedLoadView(_15);
+}else{
+this._waitingQueue=[];
+this.proceedLoadViewDef.resolve();
+}
+}));
+},loadView:function(_16){
+var _17=_16.parent||this.app;
+var _18=_16.viewId||"";
+var _19=_18.split(",");
+var _1a=_19.shift();
+var _1b=_19.join(",");
+var _1c=_16.params||"";
+this._handleDefault=false;
+this._defaultHasPlus=false;
+var def=this.loadChild(_17,_1a,_1b,_1c,_16);
+if(_16.callback){
+_5(def,_2.hitch(this,function(){
+if(this._handleDefault&&!_16.initLoad){
+this.app.log("logTransitions:",""," emit app-transition this.childViews=["+this.childViews+"]");
+this.app.emit("app-transition",{viewId:this.childViews,defaultView:true,forceTransitionNone:_16.forceTransitionNone,opts:{params:_1c}});
+}
+_16.callback(this._handleDefault,this._defaultHasPlus);
+}));
+}
+return def;
+},createChild:function(_1d,_1e,_1f,_20){
+var id=_1d.id+"_"+_1e;
+if(!_20&&_1d.views[_1e]&&_1d.views[_1e].defaultParams){
+_20=_1d.views[_1e].defaultParams;
+}
+var _21=_1d.children[id];
+if(_21){
+if(_20){
+_21.params=_20;
+}
+this.app.log("in app/controllers/Load createChild view is already loaded so return the loaded view with the new parms ",_21);
+return _21;
+}
+var def=new _4();
+_5(this.createView(_1d,id,_1e,null,_20,_1d.views[_1e].type),function(_22){
+_1d.children[id]=_22;
+_5(_22.start(),function(_23){
+def.resolve(_23);
+});
+});
+return def;
+},createView:function(_24,id,_25,_26,_27,_28){
+var def=new _4();
+var app=this.app;
+_1([_28?_28:"../View"],function(_29){
+var _2a=new _29(_2.mixin({"app":app,"id":id,"name":_25,"parent":_24},{"params":_27},_26));
+def.resolve(_2a);
+});
+return def;
+},loadChild:function(_2b,_2c,_2d,_2e,_2f){
+if(!_2b){
+throw Error("No parent for Child '"+_2c+"'.");
+}
+if(!_2c){
+var _30=_2b.defaultView?_2b.defaultView.split(","):"default";
+if(_2b.defaultView&&!_2f.initLoad){
+var _31=this._getViewNamesFromDefaults(_2b);
+this.app.log("logTransitions:","Load:loadChild","setting _handleDefault true for parent.defaultView childViews=["+_31+"]");
+this._handleDefault=true;
+if(_2b.defaultView.indexOf("+")>=0){
+this._defaultHasPlus=true;
+}
+}else{
+_2c=_30.shift();
+_2d=_30.join(",");
+}
+}
+var _32=new _4();
+var _33;
+try{
+_33=this.createChild(_2b,_2c,_2d,_2e);
+}
+catch(ex){
+console.warn("logTransitions:","","emit reject load exception for =["+_2c+"]",ex);
+_32.reject("load child '"+_2c+"' error.");
+return _32.promise;
+}
+_5(_33,_2.hitch(this,function(_34){
+if(!_2d&&_34.defaultView){
+var _35=this._getViewNamesFromDefaults(_34);
+this.app.log("logTransitions:","Load:loadChild"," setting _handleDefault = true child.defaultView childViews=["+_35+"]");
+this._handleDefault=true;
+if(_34.defaultView.indexOf("+")>=0){
+this._defaultHasPlus=true;
+}
+this.childViews=_35;
+_32.resolve();
+}
+var _36=_2d.split(",");
+_2c=_36.shift();
+_2d=_36.join(",");
+if(_2c){
+var _37=this.loadChild(_34,_2c,_2d,_2e,_2f);
+_5(_37,function(){
+_32.resolve();
+},function(){
+_32.reject("load child '"+_2c+"' error.");
+});
+}else{
+_32.resolve();
+}
+}),function(){
+console.warn("loadChildDeferred.REJECT() for ["+_2c+"] subIds=["+_2d+"]");
+_32.reject("load child '"+_2c+"' error.");
+});
+return _32.promise;
+},_getViewNamesFromDefaults:function(_38){
+var _39=_38.parent;
+var _3a=_38.name;
+var _3b="";
+while(_39!==this.app){
+_3a=_39.name+","+_3a;
+_39=_39.parent;
+}
+var _3c=_38.defaultView.split("+");
+for(var _3d in _3c){
+_3c[_3d]=_3a+","+_3c[_3d];
+}
+_3b=_3c.join("+");
+return _3b;
+}});
 });

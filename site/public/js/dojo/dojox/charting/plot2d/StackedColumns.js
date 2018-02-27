@@ -1,30 +1,11 @@
-define("dojox/charting/plot2d/StackedColumns", ["dojo/_base/declare", "./Columns", "./commonStacked"], 
-	function( declare, Columns, commonStacked){
-
-	return declare("dojox.charting.plot2d.StackedColumns", Columns, {
-		// summary:
-		//		The plot object representing a stacked column chart (vertical bars).
-		getSeriesStats: function(){
-			// summary:
-			//		Calculate the min/max on all attached series in both directions.
-			// returns: Object
-			//		{hmin, hmax, vmin, vmax} min/max in both directions.
-			var stats = commonStacked.collectStats(this.series);
-			stats.hmin -= 0.5;
-			stats.hmax += 0.5;
-			return stats; // Object
-		},
-		getValue: function(value, index, seriesIndex, indexed){
-			var y,x;
-			if(indexed){
-				x = index;
-				y = commonStacked.getIndexValue(this.series, seriesIndex, x);
-			}else{
-				x = value.x - 1;
-				y = commonStacked.getValue(this.series, seriesIndex, value.x);
-				y = y ? y.y: null;
-			}
-			return {y:y, x:x};
-		}
-	});
+//>>built
+define("dojox/charting/plot2d/StackedColumns",["dojo/_base/declare","dojo/_base/lang","./Columns","./commonStacked"],function(_1,_2,_3,_4){
+return _1("dojox.charting.plot2d.StackedColumns",_3,{getSeriesStats:function(){
+var _5=_4.collectStats(this.series,_2.hitch(this,"isNullValue"));
+_5.hmin-=0.5;
+_5.hmax+=0.5;
+return _5;
+},rearrangeValues:function(_6,_7,_8){
+return _4.rearrangeValues.call(this,_6,_7,_8);
+}});
 });

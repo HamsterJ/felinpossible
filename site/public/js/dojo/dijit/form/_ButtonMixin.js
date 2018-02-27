@@ -1,84 +1,52 @@
-define("dijit/form/_ButtonMixin", [
-	"dojo/_base/declare", // declare
-	"dojo/dom", // dom.setSelectable
-	"dojo/_base/event", // event.stop
-	"../registry"		// registry.byNode
-], function(declare, dom, event, registry){
-
-// module:
-//		dijit/form/_ButtonMixin
-
-return declare("dijit.form._ButtonMixin", null, {
-	// summary:
-	//		A mixin to add a thin standard API wrapper to a normal HTML button
-	// description:
-	//		A label should always be specified (through innerHTML) or the label attribute.
-	//
-	//		Attach points:
-	//
-	//		- focusNode (required): this node receives focus
-	//		- valueNode (optional): this node's value gets submitted with FORM elements
-	//		- containerNode (optional): this node gets the innerHTML assignment for label
-	// example:
-	// |	<button data-dojo-type="dijit/form/Button" onClick="...">Hello world</button>
-	// example:
-	// |	var button1 = new Button({label: "hello world", onClick: foo});
-	// |	dojo.body().appendChild(button1.domNode);
-
-	// label: HTML String
-	//		Content to display in button.
-	label: "",
-
-	// type: [const] String
-	//		Type of button (submit, reset, button, checkbox, radio)
-	type: "button",
-
-	_onClick: function(/*Event*/ e){
-		// summary:
-		//		Internal function to handle click actions
-		if(this.disabled){
-			event.stop(e);
-			return false;
-		}
-		var preventDefault = this.onClick(e) === false; // user click actions
-		if(!preventDefault && this.type == "submit" && !(this.valueNode||this.focusNode).form){ // see if a non-form widget needs to be signalled
-			for(var node=this.domNode; node.parentNode; node=node.parentNode){
-				var widget=registry.byNode(node);
-				if(widget && typeof widget._onSubmit == "function"){
-					widget._onSubmit(e);
-					preventDefault = true;
-					break;
-				}
-			}
-		}
-		if(preventDefault){
-			e.preventDefault();
-		}
-		return !preventDefault;
-	},
-
-	postCreate: function(){
-		this.inherited(arguments);
-		dom.setSelectable(this.focusNode, false);
-	},
-
-	onClick: function(/*Event*/ /*===== e =====*/){
-		// summary:
-		//		Callback for when button is clicked.
-		//		If type="submit", return true to perform submit, or false to cancel it.
-		// type:
-		//		callback
-		return true;		// Boolean
-	},
-
-	_setLabelAttr: function(/*String*/ content){
-		// summary:
-		//		Hook for set('label', ...) to work.
-		// description:
-		//		Set the label (text) of the button; takes an HTML string.
-		this._set("label", content);
-		(this.containerNode||this.focusNode).innerHTML = content;
-	}
-});
-
+//>>built
+define("dijit/form/_ButtonMixin",["dojo/_base/declare","dojo/dom","dojo/has","../registry"],function(_1,_2,_3,_4){
+var _5=_1("dijit.form._ButtonMixin"+(_3("dojo-bidi")?"_NoBidi":""),null,{label:"",type:"button",__onClick:function(e){
+e.stopPropagation();
+e.preventDefault();
+if(!this.disabled){
+this.valueNode.click(e);
+}
+return false;
+},_onClick:function(e){
+if(this.disabled){
+e.stopPropagation();
+e.preventDefault();
+return false;
+}
+if(this.onClick(e)===false){
+e.preventDefault();
+}
+var _6=e.defaultPrevented;
+if(!_6&&this.type=="submit"&&!(this.valueNode||this.focusNode).form){
+for(var _7=this.domNode;_7.parentNode;_7=_7.parentNode){
+var _8=_4.byNode(_7);
+if(_8&&typeof _8._onSubmit=="function"){
+_8._onSubmit(e);
+e.preventDefault();
+_6=true;
+break;
+}
+}
+}
+return !_6;
+},postCreate:function(){
+this.inherited(arguments);
+_2.setSelectable(this.focusNode,false);
+},onClick:function(){
+return true;
+},_setLabelAttr:function(_9){
+this._set("label",_9);
+var _a=this.containerNode||this.focusNode;
+_a.innerHTML=_9;
+this.onLabelSet();
+},onLabelSet:function(){
+}});
+if(_3("dojo-bidi")){
+_5=_1("dijit.form._ButtonMixin",_5,{onLabelSet:function(){
+this.inherited(arguments);
+var _b=this.containerNode||this.focusNode;
+this.applyTextDir(_b);
+}});
+}
+return _5;
 });
