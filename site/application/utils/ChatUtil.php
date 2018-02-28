@@ -21,6 +21,7 @@ class FP_Util_ChatUtil {
 	const AGE_POST_TAG = "[Â|A]ge";
 	const NE_POST_TAG = "Né[e]? le";
 	const NE2_POST_TAG = "Date de naissance";
+        const SEXE = "Sexe";
 
 	/**
 	 * Met à jour la fiche du chat à partir des information de son post.
@@ -70,6 +71,11 @@ class FP_Util_ChatUtil {
 		if ($caractere != "") {
 			$ficheUpdated->setCaractere($caractere);
 		}
+                
+                $sexe = self::getInfosFromText($postText, self::SEXE);
+		if ($sexe != "") {
+			$ficheUpdated->setIdSexe(strtoupper($sexe)=="FEMELLE"?2:1);
+		}
 
 		$comment = self::getInfosFromText($postText, self::COMMENT_POST_TAG);
 		if ($comment == "") {
@@ -90,7 +96,8 @@ class FP_Util_ChatUtil {
 	 * @return string la valeur associés à $info de $postText
 	 */
 	public static function getInfosFromText ($postText, $info) {
-		$pattern = '/\][ ]*'.$info.'.*:?\[.*\][ ]*:?(.*)/i';
+		//$pattern = '/\][ ]*'.$info.'.*:?\[.*\][ ]*:?(.*)/i';
+                $pattern = '/\]<\/s>[ ]*'.$info.'[ ]*<e>.*:?\[.*\]<\/e><\/U>[ ]*:[ ]*(.*)/i';
 		preg_match($pattern, $postText, $matches);
 
 		if (count($matches) > 1) {
@@ -98,7 +105,7 @@ class FP_Util_ChatUtil {
 			if (strlen($value) > 500) {
 				$value = substr($value, 0, 500)."[...]";
 			}
-			return ucfirst($value);
+			return ucfirst(str_replace('<br/>','',$value));
 		}
 		return "";
 	}

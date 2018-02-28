@@ -1,35 +1,18 @@
 <?php
 /**
-*
-* This file is part of French phpBB translation.
-* Copyright (c) 2010 Maël Soucaze.
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; version 2 of the License.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License along
-* with this program; if not, write to the Free Software Foundation, Inc.,
-* 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*
-* acp_database [French]
-*
-* @package   language
-* @author    Maël Soucaze <maelsoucaze@gmail.com> (Maël Soucaze) http://mael.soucaze.com/
-* @copyright (c) 2005 phpBB Group
-* @license   http://opensource.org/licenses/gpl-2.0.php GNU General Public License
-* @version   $Id$
-*
-*/
+ * This file is part of the French language pack for the
+ * phpBB forum software.
+ *
+ * @copyright (c) phpBB Limited <https://www.phpbb.com>
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ * For more information about the language pack, please visit
+ * https://www.phpbb.com/customise/db/translation/french/
+ */
 
 /**
-* DO NOT CHANGE
-*/
+ * DO NOT CHANGE
+ */
 if (!defined('IN_PHPBB'))
 {
 	exit;
@@ -37,7 +20,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -53,41 +36,40 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 // Database Backup/Restore
-$lang = array_merge($lang, array(
-	'ACP_BACKUP_EXPLAIN'	=> 'Vous pouvez sauvegarder ici toutes les données relatives à votre forum phpBB. Vous pouvez stocker l’archive de sauvegarde dans votre répertoire <samp>store/</samp> ou la télécharger directement. Selon la configuration de votre serveur, vous pouvez compresser cette archive dans un certain nombre de formats.',
-	'ACP_RESTORE_EXPLAIN'	=> 'Cela exécutera une restauration complète de toutes les tables de phpBB à partir d’un fichier de sauvegarde. Si votre serveur le supporte, vous pouvez utiliser un fichier texte compressé en GZip ou BZip2 qui sera automatiquement décompressé. <strong>ATTENTION :</strong> cela écrasera toutes les données existantes. La restauration est un processus qui peut prendre un certain temps, veuillez ne pas vous déplacer de la page tant que l’opération n’est pas terminée. Les sauvegardes sont stockées dans le répertoire <samp>store/</samp> et sont supposées être réalisées par l’outil de restauration de phpBB. La restauration de bases de données qui n’ont pas été sauvegardées par ce système peuvent ne pas fonctionner.',
+$lang = array_merge($lang, [
+	'ACP_BACKUP_EXPLAIN'  => 'Depuis cette page, vous pouvez sauvegarder toutes les données relatives à votre forum. Vous pouvez stocker l’archive de sauvegarde dans votre répertoire « store/ » ou la télécharger directement. Selon la configuration de votre serveur, vous pourrez compresser cette archive sous plusieurs formats.',
+	'ACP_RESTORE_EXPLAIN' => 'Cette opération effectuera une restauration complète de toutes les tables de phpBB à partir d’un fichier de sauvegarde. Si votre serveur est compatible avec cette fonctionnalité, vous pouvez utiliser un fichier texte compressé sous le format GZip ou BZip2 qui sera automatiquement décompressé. Veuillez noter que cette opération remplacera toutes les données existantes. La restauration est un processus qui peut durer un certain temps, veillez à ne pas vous déplacer sur une autre page tant que l’opération n’est pas terminée. Les sauvegardes sont stockées dans le répertoire « store/ » et sont supposées être générées par l’outil de restauration présent par défaut dans le logiciel phpBB. Il est possible que la restauration des bases de données qui n’ont pas été sauvegardées avec cet outil ne fonctionnent pas.',
 
-	'BACKUP_DELETE'		=> 'Le fichier de sauvegarde a été supprimé avec succès.',
-	'BACKUP_INVALID'	=> 'Le fichier de sauvegarde que vous avez sélectionné est incorrect.',
-	'BACKUP_OPTIONS'	=> 'Options de sauvegarde',
-	'BACKUP_SUCCESS'	=> 'Le fichier de sauvegarde a été créé avec succès.',
-	'BACKUP_TYPE'		=> 'Type de sauvegarde',
+	'BACKUP_DELETE'  => 'Le fichier de sauvegarde a été supprimé.',
+	'BACKUP_INVALID' => 'Le fichier de sauvegarde que vous avez spécifié est invalide.',
+	'BACKUP_OPTIONS' => 'Options de sauvegarde',
+	'BACKUP_SUCCESS' => 'Le fichier de sauvegarde a été créé.',
+	'BACKUP_TYPE'    => 'Type de sauvegarde',
 
-	'DATABASE'			=> 'Utilitaires de la base de données',
-	'DATA_ONLY'			=> 'Données uniquement',
-	'DELETE_BACKUP'		=> 'Supprimer la sauvegarde',
-	'DELETE_SELECTED_BACKUP'	=> 'Êtes-vous sûr de vouloir supprimer la sauvegarde sélectionnée ?',
-	'DESELECT_ALL'		=> 'Tout désélectionner',
-	'DOWNLOAD_BACKUP'	=> 'Télécharger la sauvegarde',
+	'DATABASE'               => 'Utilitaires de la base de données',
+	'DATA_ONLY'              => 'Données uniquement',
+	'DELETE_BACKUP'          => 'Supprimer la sauvegarde',
+	'DELETE_SELECTED_BACKUP' => 'Êtes-vous sûr de vouloir supprimer cette sauvegarde ?',
+	'DESELECT_ALL'           => 'Tout désélectionner',
+	'DOWNLOAD_BACKUP'        => 'Télécharger la sauvegarde',
 
-	'FILE_TYPE'			=> 'Type de fichier',
-	'FILE_WRITE_FAIL'	=> 'Impossible d’écrire le fichier dans le répertoire de stockage.',
-	'FULL_BACKUP'		=> 'Complète',
+	'FILE_TYPE'       => 'Type de fichier',
+	'FILE_WRITE_FAIL' => 'Le répertoire de stockage est en lecture seule. Veuillez modifier ses droits d’accès pour écriture par votre serveur.',
+	'FULL_BACKUP'     => 'Complète',
 
-	'RESTORE_FAILURE'		=> 'Le fichier de sauvegarde semble corrompu.',
-	'RESTORE_OPTIONS'		=> 'Options de restauration',
-	'RESTORE_SUCCESS'		=> 'La base de données a été restaurée avec succès.<br /><br />Votre forum devrait être tel qu’il était lorsque la sauvegarde a été réalisée.',
+	'RESTORE_FAILURE'         => 'Le fichier de sauvegarde semble corrompu.',
+	'RESTORE_OPTIONS'         => 'Options de restauration',
+	'RESTORE_SELECTED_BACKUP' => 'Êtes-vous sûr de vouloir restaurer cette sauvegarde ?',
+	'RESTORE_SUCCESS'         => 'La base de données a été restaurée.<br><br>Votre forum devrait être tel qu’il était lors de la dernière sauvegarde.',
 
-	'SELECT_ALL'			=> 'Tout sélectionner',
-	'SELECT_FILE'			=> 'Sélectionner un fichier',
-	'START_BACKUP'			=> 'Démarrer la sauvegarde',
-	'START_RESTORE'			=> 'Démarrer la restauration',
-	'STORE_AND_DOWNLOAD'	=> 'Stocker et télécharger',
-	'STORE_LOCAL'			=> 'Stocker le fichier localement',
-	'STRUCTURE_ONLY'		=> 'Structure uniquement',
+	'SELECT_ALL'         => 'Tout sélectionner',
+	'SELECT_FILE'        => 'Sélectionner un fichier',
+	'START_BACKUP'       => 'Démarrer la sauvegarde',
+	'START_RESTORE'      => 'Démarrer la restauration',
+	'STORE_AND_DOWNLOAD' => 'Stocker et télécharger',
+	'STORE_LOCAL'        => 'Stocker le fichier en local',
+	'STRUCTURE_ONLY'     => 'Structure uniquement',
 
-	'TABLE_SELECT'		=> 'Sélection de la table',
-	'TABLE_SELECT_ERROR'=> 'Vous devez sélectionner au moins une table.',
-));
-
-?>
+	'TABLE_SELECT'       => 'Sélection de table',
+	'TABLE_SELECT_ERROR' => 'Vous devez sélectionner au moins une table.',
+]);

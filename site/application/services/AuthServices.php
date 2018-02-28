@@ -28,35 +28,56 @@ class FP_Service_AuthServices {
 	 * @return string
 	 */
 	public function login($userName, $password) {
-		$errors = '';
-		define('IN_PHPBB', true);
-		include_once('../../forum/includes/functions.php');
+		
+            $errors = '';
+            define('IN_PHPBB', true);
+            $phpbb_root_path='../../forum/';
+            $table_prefix = 'phpbb_';
+            $phpEx = 'php';
+            $GLOBALS['phpEx'] = $phpEx;
+            $GLOBALS['phpbb_root_path'] = $phpbb_root_path;
+            $GLOBALS['table_prefix'] = $table_prefix;
 
-		$mapper = FP_Model_Mapper_MapperFactory::getInstance()->userMapper;
-		$userBean = $mapper->find($userName);
-		if ($userBean) {
-			$hash = $userBean->getHashPassword();
+            global $phpbb_container,$cache, $phpbb_dispatcher, $user, $auth, $table_prefix;
+            require($phpbb_root_path . 'includes/constants.' . $phpEx);
+            require($phpbb_root_path . 'common.' . $phpEx);
 
-			if ($mapper->isUserInGroupAdmin($userName)) {
-				$resCheck = phpbb_check_hash($password, $hash);
-				if ($resCheck) {
-					$auth = $this->getAuth();	
+            $mapper = FP_Model_Mapper_MapperFactory::getInstance()->userMapper;
+            $userBean = $mapper->find($userName);
+            if ($userBean) {
+                $hash = $userBean->getHashPassword();
 
-					$authAdapter = new FP_Model_DbTable_UserAuthTable();
-					$authAdapter->setIdentity($userName);
-					$authAdapter->setCredential($hash);
+                if ($mapper->isUserInGroupAdmin($userName)) {
 
-					$result = $auth->authenticate($authAdapter);
-				} else {
-					$errors = "Mot de passe incorrect.<br>";
-				}
-			} else {
-				$errors .= "Vous n'avez pas les droits suffisants (vous n'êtes pas dans le groupe permettant l'administration du site).<br>";
-			}
-		} else {
-			$errors .= "Login inconnu.<br>";
-		}
-		return $errors;
+                    $provider_collection = $phpbb_container->get('auth.provider_collection');
+                    $provider = $provider_collection->get_provider();
+                    if ($provider)
+                    {
+                        $login = $provider->login($userName, $password);
+                        if ($login['status'] == LOGIN_SUCCESS)
+                        {
+                            $resCheck = true;
+                        }
+                    }
+
+                    if ($resCheck) {
+                            $auth = $this->getAuth();	
+
+                            $authAdapter = new FP_Model_DbTable_UserAuthTable();
+                            $authAdapter->setIdentity($userName);
+                            $authAdapter->setCredential($hash);
+
+                            $result = $auth->authenticate($authAdapter);
+                    } else {
+                            $errors = "Mot de passe incorrect.<br>";
+                    }
+                } else {
+                    $errors .= "Vous n'avez pas les droits suffisants (vous n'êtes pas dans le groupe permettant l'administration du site).<br>";
+                }
+            } else {
+                $errors .= "Login inconnu.<br>";
+            }
+            return $errors;
 	}
 
 	/**

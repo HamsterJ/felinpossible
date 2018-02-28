@@ -21,23 +21,28 @@ class FP_Model_Mapper_StockMaterielMapper extends FP_Model_Mapper_CommonMapper {
                                         'SuiviPrets'            => 'SuiviPrets');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     protected $filterKeyToDbKey = array('DescriptionMateriel' => 'DescriptionMateriel'); 
     
 =======
     protected $filterKeyToDbKey = array('DescriptionMateriel' => 'DescriptionMateriel');
         
 >>>>>>> 99bdaa0b... fix: ajout mapping pour clef utilisée dans les filtres
+=======
+    protected $filterKeyToDbKey = array('DescriptionMateriel' => 'DescriptionMateriel');
+        
+>>>>>>> 94a1d8dec5664294302b0b000ba3748452c52736
     //Recupération des données matériels pour la liste admin
-    public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
+    public function fetchAllToArray($sort = 'DescriptionMateriel', $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
     {
         $subSelect = $this->getDbTable()->getAdapter()->select()
         ->from( array('m' => 'fp_stock_materiel'), 
                 array('m.id'
                     ,'m.DescriptionMateriel'
-                    ,'IF(m.SuiviPrets>0,m.StockEnPret,"-") StockEnPret'
+                    ,'StockEnPret' => 'IF(m.SuiviPrets>0,m.StockEnPret,"-")'
                     ,'m.StockRestant'
                     ,'m.Unite'
-                    ,'IF(m.SuiviPrets>0,"O","N") SuiviPrets' 
+                    ,'SuiviPrets' => 'IF(m.SuiviPrets>0,"O","N")' 
                     ))
             ->joinLeft(array('c' => 'fp_stock_categorie_materiel'), 'c.id = m.Categorie', array('c.libelle'));
 
@@ -56,6 +61,10 @@ class FP_Model_Mapper_StockMaterielMapper extends FP_Model_Mapper_CommonMapper {
         } else {
             $select = $subSelect;
         }
+        
+        if ($sort && $order) {
+            $select->order(array($sort." ".$order));       
+	}
 
         $stmt = $select->query();
         return $stmt->fetchAll();

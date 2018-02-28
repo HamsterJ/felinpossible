@@ -4,6 +4,10 @@
  * @author Benjamin
  *
  */
+
+// MASQUAGE DES ERREURS POUR LE PROBLEME DE DEPRECATED DANS LA LIB PEAR/OLE 
+ini_set( 'display_errors', 'Off' );
+ 
 class FP_Service_ExportServices {
 	/**
 	 * Instance courante.

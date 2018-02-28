@@ -76,7 +76,7 @@ class FP_Service_MailServices {
                   'port' => ($config->email->smtp->port)?$config->email->smtp->port:'25'
 		);          
 		$transport = new Zend_Mail_Transport_Smtp($config->email->smtp->hostname , $configSmtp);
-
+     
 		$mail->setSubject(utf8_decode($subject));
 		$transport->send($mail);
 	}
@@ -126,6 +126,20 @@ class FP_Service_MailServices {
 		return $view->render($template);
 	}
 
+        /**
+	 * Enregistre l'adresse mail dans la table de liste rouge suite à la demande de desinscription de la newsletter.
+	 * @param string $mail
+	 */
+	public function saveUnsubscribe($mail) {
+            $bean = new FP_Model_Bean_ListeRouge();
+            $bean->setEmail($mail);
+            $bean->setDate_demande(date('d/m/Y'));
+            $bean->setCommentaire('Formulaire de désinscription');
+            
+            $mapper = FP_Model_Mapper_MapperFactory::getInstance()->listeRougeMapper;
+            $mapper->save($bean);
+	}
+        
 	/**
 	 * Envoi un mail à l'association (parrainage, adoption, fa).
 	 * @param string $mailSubject

@@ -1,16 +1,16 @@
 <?php
 /**
 *
-* @package mcp
-* @version $Id: mcp_ban.php,v 1.4 2007/10/04 15:06:01 acydburn Exp $
-* @copyright (c) 2005 phpBB Group
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+* This file is part of the phpBB Forum Software package.
+*
+* @copyright (c) phpBB Limited <https://www.phpbb.com>
+* @license GNU General Public License, version 2 (GPL-2.0)
+*
+* For full copyright and license information, please see
+* the docs/CREDITS.txt file.
 *
 */
 
-/**
-* @package module_install
-*/
 class mcp_ban_info
 {
 	function module()
@@ -18,7 +18,6 @@ class mcp_ban_info
 		return array(
 			'filename'	=> 'mcp_ban',
 			'title'		=> 'MCP_BAN',
-			'version'	=> '1.0.0',
 			'modes'		=> array(
 				'user'		=> array('title' => 'MCP_BAN_USERNAMES', 'auth' => 'acl_m_ban', 'cat' => array('MCP_BAN')),
 				'ip'		=> array('title' => 'MCP_BAN_IPS', 'auth' => 'acl_m_ban', 'cat' => array('MCP_BAN')),
@@ -35,5 +34,3 @@ class mcp_ban_info
 	{
 	}
 }
-
-?>

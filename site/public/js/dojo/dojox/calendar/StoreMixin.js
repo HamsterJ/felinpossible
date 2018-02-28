@@ -1,206 +1,42 @@
-define("dojox/calendar/StoreMixin", ["dojo/_base/declare", "dojo/_base/array", "dojo/_base/html", "dojo/_base/lang", "dojo/dom-class",
-	"dojo/Stateful", "dojo/when"],
-	function(declare, arr, html, lang, domClass, Stateful, when){
-
-	return declare("dojox.calendar.StoreMixin", Stateful, {
-		
-		// summary:
-		//		This mixin contains the store management.
-		
-		// store: dojo.store.Store
-		//		The store that contains the events to display.
-		store: null,
-		
-		// query: Object
-		//		A query that can be passed to when querying the store.
-		query: {},
-		
-		// startTimeAttr: String
-		//		The attribute of the store item that contains the start time of 
-		//		the events represented by this item.	Default is "startTime". 
-		startTimeAttr: "startTime",
-		
-		// endTimeAttr: String
-		//		The attribute of the store item that contains the end time of 
-		//		the events represented by this item.	Default is "endTime".
-		endTimeAttr: "endTime",
-		
-		// summaryAttr: String
-		//		The attribute of the store item that contains the summary of 
-		//		the events represented by this item.	Default is "summary".
-		summaryAttr: "summary",
-		
-		// allDayAttr: String
-		//		The attribute of the store item that contains the all day state of 
-		//		the events represented by this item.	Default is "allDay".
-		allDayAttr: "allDay",
-	
-		// cssClassFunc: Function
-		//		Optional function that returns a css class name to apply to item renderers that are displaying the specified item in parameter. 
-		cssClassFunc: null,		
-							
-		// decodeDate: Function?
-		//		An optional function to transform store date into Date objects.	Default is null. 
-		decodeDate: null,
-		
-		// encodeDate: Function?
-		//		An optional function to transform Date objects into store date.	Default is null. 
-		encodeDate: null,
-		
-		// displayedItemsInvalidated: Boolean
-		//		Whether the data items displayed must be recomputed, usually after the displayed 
-		//		time range has changed. 
-		// tags:
-		//		protected
-		displayedItemsInvalidated: false,
-				
-		itemToRenderItem: function(item, store){
-			// summary:
-			//		Creates the render item based on the dojo.store item. It must be of the form:
-			//	|	{
-			//  |		id: Object,
-			//	|		startTime: Date,
-			//	|		endTime: Date,
-			//	|		summary: String
-			//	|	}
-			//		By default it is building an object using the store id, the summaryAttr, 
-			//		startTimeAttr and endTimeAttr properties as well as decodeDate property if not null. 
-			//		Other fields or way to query fields can be used if needed.
-			// item: Object
-			//		The store item. 
-			// store: dojo.store.api.Store
-			//		The store.
-			// returns: Object
-			if(this.owner){
-				return this.owner.itemToRenderItem(item, store);
-			}
-			return {
-				id: store.getIdentity(item),
-				summary: item[this.summaryAttr],
-				startTime: (this.decodeDate && this.decodeDate(item[this.startTimeAttr])) || this.newDate(item[this.startTimeAttr], this.dateClassObj),
-				endTime: (this.decodeDate && this.decodeDate(item[this.endTimeAttr])) || this.newDate(item[this.endTimeAttr], this.dateClassObj),
-				allDay: item[this.allDayAttr] != null ? item[this.allDayAttr] : false,
-				cssClass: this.cssClassFunc ? this.cssClassFunc(item) : null 
-			};
-		},
-		
-		renderItemToItem: function(/*Object*/ renderItem, /*dojo.store.api.Store*/ store){
-			// summary:
-			//		Create a store item based on the render item. It must be of the form:
-			//	|	{
-			//	|		id: Object
-			//	|		startTime: Date,
-			//	|		endTime: Date,
-			//	|		summary: String
-			//	|	}
-			//		By default it is building an object using the summaryAttr, startTimeAttr and endTimeAttr properties
-			//		and encodeDate property if not null. If the encodeDate property is null a Date object will be set in the start and end time.
-			//		When using a JsonRest store, for example, it is recommended to transfer dates using the ISO format (see dojo.date.stamp).
-			//		In that case, provide a custom function to the encodeDate property that is using the date ISO encoding provided by Dojo. 
-			// renderItem: Object
-			//		The render item. 
-			// store: dojo.store.api.Store
-			//		The store.
-			// returns:Object
-			if(this.owner){
-				return this.owner.renderItemToItem(renderItem, store);
-			}
-			var item = {};
-			item[store.idProperty] = renderItem.id;
-			item[this.summaryAttr] = renderItem.summary;
-			item[this.startTimeAttr] = (this.encodeDate && this.encodeDate(renderItem.startTime)) || renderItem.startTime;
-			item[this.endTimeAttr] = (this.encodeDate && this.encodeDate(renderItem.endTime)) || renderItem.endTime;
-			return lang.mixin(store.get(renderItem.id), item);
-		},			
-		
-		_computeVisibleItems: function(renderData){
-			// summary:
-			//		Computes the data items that are in the displayed interval.
-			// renderData: Object
-			//		The renderData that contains the start and end time of the displayed interval.
-			// tags:
-			//		protected
-
-			var startTime = renderData.startTime;
-			var endTime = renderData.endTime;
-			if(this.items){
-				renderData.items = arr.filter(this.items, function(item){
-					return this.isOverlapping(renderData, item.startTime, item.endTime, startTime, endTime);
-				}, this);
-			}
-		},
-		
-		_initItems: function(items){
-			// tags:
-			//		private
-			this.set("items", items);
-			return items;
-		},
-		
-		_refreshItemsRendering: function(renderData){
-		},
-		
-		_updateItems: function(object, previousIndex, newIndex){
-			// as soon as we add a item or remove one layout might change,
-			// let's make that the default
-			// TODO: what about items in non visible area...
-			// tags:
-			//		private
-			var layoutCanChange = true;
-			var oldItem = null;
-			var newItem = this.itemToRenderItem(object, this.store);
-			if(previousIndex!=-1){
-				if(newIndex!=previousIndex){
-					// this is a remove or a move
-					this.items.splice(previousIndex, 1);
-					if(this.setItemSelected && this.isItemSelected(newItem)){
-						this.setItemSelected(newItem, false);
-						this.dispatchChange(newItem, this.get("selectedItem"), null, null);
-					}
-				}else{
-					// this is a put, previous and new index identical
-					// check what changed
-					oldItem = this.items[previousIndex];
-					var cal = this.dateModule; 
-					layoutCanChange = cal.compare(newItem.startTime, oldItem.startTime) != 0 ||
-						cal.compare(newItem.endTime, oldItem.endTime) != 0;
-					// we want to keep the same item object and mixin new values
-					// into old object
-					lang.mixin(oldItem, newItem); 
-				}
-			}else if(newIndex!=-1){
-				// this is a add 
-				this.items.splice(newIndex, 0, newItem);				
-			}
-			if(layoutCanChange){
-				this._refreshItemsRendering();			
-			}else{
-				// just update the item
-				this.updateRenderers(oldItem);
-			}
-		},
-		
-		_setStoreAttr: function(value){
-			this.displayedItemsInvalidated = true;
-			var r;
-			if(value){
-				var results = value.query(this.query);
-				if(results.observe){
-					// user asked us to observe the store
-					results.observe(lang.hitch(this, this._updateItems), true);
-				}				
-				results = results.map(lang.hitch(this, function(item){
-					return this.itemToRenderItem(item, value);
-				}));
-				r = when(results, lang.hitch(this, this._initItems));
-			}else{
-				// we remove the store
-				r = this._initItems([]);
-			}
-			this._set("store", value);
-			return r;
-		}
-				
-	});
-
+//>>built
+define("dojox/calendar/StoreMixin",["dojo/_base/declare","dojo/_base/array","dojo/_base/html","dojo/_base/lang","dojo/dom-class","dojo/Stateful","dojo/when"],function(_1,_2,_3,_4,_5,_6,_7){
+return _1("dojox.calendar.StoreMixin",_6,{store:null,query:{},queryOptions:null,startTimeAttr:"startTime",endTimeAttr:"endTime",summaryAttr:"summary",allDayAttr:"allDay",subColumnAttr:"calendar",cssClassFunc:null,decodeDate:null,encodeDate:null,displayedItemsInvalidated:false,itemToRenderItem:function(_8,_9){
+if(this.owner){
+return this.owner.itemToRenderItem(_8,_9);
+}
+return {id:_9.getIdentity(_8),summary:_8[this.summaryAttr],startTime:(this.decodeDate&&this.decodeDate(_8[this.startTimeAttr]))||this.newDate(_8[this.startTimeAttr],this.dateClassObj),endTime:(this.decodeDate&&this.decodeDate(_8[this.endTimeAttr]))||this.newDate(_8[this.endTimeAttr],this.dateClassObj),allDay:_8[this.allDayAttr]!=null?_8[this.allDayAttr]:false,subColumn:_8[this.subColumnAttr],cssClass:this.cssClassFunc?this.cssClassFunc(_8):null};
+},renderItemToItem:function(_a,_b){
+if(this.owner){
+return this.owner.renderItemToItem(_a,_b);
+}
+var _c={};
+_c[_b.idProperty]=_a.id;
+_c[this.summaryAttr]=_a.summary;
+_c[this.startTimeAttr]=(this.encodeDate&&this.encodeDate(_a.startTime))||_a.startTime;
+_c[this.endTimeAttr]=(this.encodeDate&&this.encodeDate(_a.endTime))||_a.endTime;
+if(_a.subColumn){
+_c[this.subColumnAttr]=_a.subColumn;
+}
+return this.getItemStoreState(_a)==="unstored"?_c:_4.mixin(_a._item,_c);
+},_computeVisibleItems:function(_d){
+if(this.owner){
+return this.owner._computeVisibleItems(_d);
+}
+_d.items=this.storeManager._computeVisibleItems(_d);
+},_initItems:function(_e){
+this.set("items",_e);
+return _e;
+},_refreshItemsRendering:function(_f){
+},_setStoreAttr:function(_10){
+this.store=_10;
+return this.storeManager.set("store",_10);
+},_getItemStoreStateObj:function(_11){
+return this.storeManager._getItemStoreStateObj(_11);
+},getItemStoreState:function(_12){
+return this.storeManager.getItemStoreState(_12);
+},_cleanItemStoreState:function(id){
+this.storeManager._cleanItemStoreState(id);
+},_setItemStoreState:function(_13,_14){
+this.storeManager._setItemStoreState(_13,_14);
+}});
 });

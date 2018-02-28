@@ -43,7 +43,7 @@ class FP_Model_Mapper_StockDemandeMapper extends FP_Model_Mapper_CommonMapper {
 		}	
         }
     
-	public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
+	public function fetchAllToArray($sort = 'dateDemande', $order = FP_Util_TriUtil::ORDER_DESC_KEY, $start = null, $count = null, $where = null)
 	{
             $subSelect = $this->getDbTable()->getAdapter()->select()
             ->from( array('m' => 'fp_stock_demande'), 
@@ -52,10 +52,10 @@ class FP_Model_Mapper_StockDemandeMapper extends FP_Model_Mapper_CommonMapper {
                         ,'m.idFA'
                         ,'m.dateDemande'
                         ,'m.token'
-                        ,'IF(m.traitee>0,"Oui","NON") traitee'
+                        ,'traitee'=>'IF(m.traitee>0,"Oui","NON")'
                         ,'m.commentaire'
                         ))
-                    ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA', array('infoFA' => 'CONCAT(UPPER(fa.nom), \' \', fa.prenom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))','fa.email' => 'email', 'login' => 'fa.login', 'nom' => 'fa.nom'));
+                    ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA', array('infoFA' => 'CONCAT(UPPER(fa.nom), \' \', fa.prenom, \' (\', fa.login, \')\', \'\')','fa.email' => 'email', 'login' => 'fa.login', 'nom' => 'fa.nom'));
                 
             if ($sort && $order) {
                 $subSelect->order($sort." ".$order);
@@ -72,6 +72,11 @@ class FP_Model_Mapper_StockDemandeMapper extends FP_Model_Mapper_CommonMapper {
             } else {
                 $select = $subSelect;
             }
+            
+            if ($sort && $order) {
+		$select->order(array($sort." ".$order));         
+            }
+            
             $stmt = $select->query();
             return $stmt->fetchAll();
 	}

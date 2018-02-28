@@ -5,7 +5,7 @@
  *
  */
  
-require('fpdf17/fpdf.php');
+require('fpdf18/fpdf.php');
 
 /**
  * Imprime une information de chat sous la forme "<info>(gras/souligné) : <valeur>" 

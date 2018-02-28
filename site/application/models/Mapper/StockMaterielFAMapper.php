@@ -34,7 +34,7 @@ class FP_Model_Mapper_StockMaterielFAMapper extends FP_Model_Mapper_CommonMapper
 	{ 
             $subSelect = $this->getDbTable()->getAdapter()->select()
             ->from( array('m' => 'fp_stock_materiel_fa'), 
-                array('count(distinct idFA) compte'))
+                array('compte' => 'count(distinct idFA)'))
             ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA',array());
             
             if ($where)
@@ -55,12 +55,12 @@ class FP_Model_Mapper_StockMaterielFAMapper extends FP_Model_Mapper_CommonMapper
     }
       
     //Recup du nombre de matériels en prêt dans chaque FA
-    public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
+    public function fetchAllToArray($sort = 'login', $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
     {
         $subSelect = $this->getDbTable()->getAdapter()->select()
         ->from( array('m' => 'fp_stock_materiel_fa'), 
                 array('m.idFA AS id'
-                    ,"CONCAT(count(1),' matériel(s)') nb"))
+                    ,"nb"=> "CONCAT(count(1),' matériel(s)')"))
         ->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = m.idFA', array('infoFA' => 'CONCAT(UPPER(fa.nom), \' \', fa.prenom)', 'login' => 'fa.login', 'nom' => 'fa.nom'))
         ;
         if ($where)
@@ -69,6 +69,10 @@ class FP_Model_Mapper_StockMaterielFAMapper extends FP_Model_Mapper_CommonMapper
         }
         $subSelect->group('idFA');
 
+         if ($sort && $order) {
+		$subSelect->order(array($sort." ".$order));         
+            }
+        
         $stmt = $subSelect->query();
         return $stmt->fetchAll();
     }
@@ -103,4 +107,29 @@ class FP_Model_Mapper_StockMaterielFAMapper extends FP_Model_Mapper_CommonMapper
         $a['idFa']=$toFA;
         $this->getDbTable()->update($a,'id='.$idAffectation);
     }  
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see site/application/models/Mapper/FP_Model_Mapper_CommonMapper#fetchAllToArrayForExport($where)
+	 */
+	public function fetchAllToArrayForExport($where = null)
+	{
+		$columnsToExport = array('Identifiant' => 'mat.id');
+
+		$select = $this->getDbTable()->getAdapter()->select()
+		->from(array('mat' => 'fp_stock_materiel_fa'), $columnsToExport)
+                ->order('mat.id')
+                        ->limit(1, 1);;
+
+
+		if ($where) {
+			$select->where($where);
+		}
+
+		$stmt = $select->query();
+		return $stmt->fetchAll();
+	}
+	
+	
+	
 }

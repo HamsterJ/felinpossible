@@ -32,7 +32,7 @@ class FP_Model_Mapper_FaIndispoMapper extends FP_Model_Mapper_CommonMapper {
 	{
 		$select = $this->getDbTable()->getAdapter()->select()
 		->from(array('indispo' => 'fp_fa_indispo'))
-		->join(array('fa' => 'fp_fa_fiche'), 'fa.id = indispo.idFa', array('faLib' => 'CONCAT(fa.prenom, \' \', fa.nom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))'))
+		->join(array('fa' => 'fp_fa_fiche'), 'fa.id = indispo.idFa', array('faLib' => 'CONCAT(fa.prenom, \' \', fa.nom, \' (\', fa.login, \')\')'))
 		->join(array('statut' => 'fp_fa_indispo_statut'), 'indispo.idStatut = statut.id', array('libStatut' => 'statut.nom'))
 		->limit($count, $start)
 		->order($sort." ".$order);

@@ -71,8 +71,8 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
             'reserve' => 'cat.reserve',
             'aParrainer' => 'cat.parrain',
             'disparu' => 'cat.disparu',
-			      'dateContratAdoption' => 'cat.dateContratAdoption',
-			      'dateAdoption' => 'cat.date_adoption');
+            'dateContratAdoption' => 'cat.dateContratAdoption',
+            'dateAdoption' => 'cat.date_adoption');
 
         protected $clausesWhere = array(
             FP_Util_Constantes::CHAT_FICHES_A_VALIDER => 'to_check = 1 and disparu = 0 and adopte = 0',
@@ -191,14 +191,14 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 	 * (non-PHPdoc)
 	 * @see site/application/models/Mapper/FP_Model_Mapper_CommonMapper#fetchAllToArray($sort, $order, $start, $count, $where)
 	 */
-	public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
+	public function fetchAllToArray($sort = 'nom', $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
 	{
 		$subSelect = $this->getDbTable()->getAdapter()->select()
 		->from(array('cat' => 'fp_cat_fiche'))
 		->joinLeft(array('facat' => 'fp_fa_cat'), 'cat.id = facat.idChat or facat.idChat = null', array())
-		->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = facat.idFa or facat.idFa = null', array('fa' => 'CONCAT(fa.prenom, \' \', fa.nom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))'))
+		->joinLeft(array('fa' => 'fp_fa_fiche'), 'fa.id = facat.idFa or facat.idFa = null', array('fa' => 'CONCAT(fa.prenom, \' \', fa.nom, \' (\',fa.login, \')\')'))
 		->joinLeft(array('adcat' => 'fp_ad_cat'), 'cat.id = adcat.idChat or adcat.idChat = null', array())
-		->joinLeft(array('ad' => 'fp_ad_fiche'), 'ad.id = adcat.idAd or adcat.idAd = null', array('adoptant' => 'CONCAT(ad.prenom, \' \', ad.nom, COALESCE(CONCAT(\' (\', ad.login, \')\'), \'\'),\' à \',ad.ville)'))
+		->joinLeft(array('ad' => 'fp_ad_fiche'), 'ad.id = adcat.idAd or adcat.idAd = null', array('adoptant' => 'CONCAT(ad.prenom, \' \', ad.nom,\' (\', ad.login, \')\',\' à \',ad.ville)'))
 		->join(array('couleur' => 'fp_cat_color'), 'cat.idCouleur = couleur.id', array('libCouleur' => 'couleur.name'))
 		->join(array('sexe' => 'fp_cat_sex'), 'cat.idSexe = sexe.id', array('libSexe' => 'sexe.name'));
 
@@ -217,8 +217,15 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 		} else {
 			$select = $subSelect;
 		}
-
+                
+                if ($sort && $order) {
+			$select->order(array($sort." ".$order));
+                        //$select->order(array('nom ASC'));
+                    
+		}
+                
 		$stmt = $select->query();
+                //error_log($stmt->getSqlSplit());
 		return $stmt->fetchAll();
 	}
 
@@ -263,7 +270,8 @@ class FP_Model_Mapper_ChatMapper extends FP_Model_Mapper_CommonMapper {
 			'Couleur' => 'couleur.name',
 			'Identification' => 'cat.tatouage',
 			'Tests' => 'cat.tests',
-			'fa' => 'CONCAT(fa.prenom, \' \', fa.nom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))',
+			//'fa' => 'CONCAT(fa.prenom, \' \', fa.nom, COALESCE(CONCAT(\' (\', fa.login, \')\'), \'\'))',
+                        'fa' => 'CONCAT(fa.prenom, \' \', fa.nom, \' (\',fa.login, \')\')',
 			'Notes privées' => 'cat.notesPrivees',
 			'Date de naissance' => 'cat.date',
 			'Date de prise en charge' => 'cat.datePriseEnCharge',

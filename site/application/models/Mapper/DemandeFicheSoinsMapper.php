@@ -36,25 +36,25 @@ class FP_Model_Mapper_DemandeFicheSoinsMapper extends FP_Model_Mapper_CommonMapp
 	 * (non-PHPdoc) - Retourne les données de demandes de fiches de soins pour le tableau de l'admin
 	 * @see site/application/models/Mapper/FP_Model_Mapper_CommonMapper#fetchAllToArray($sort, $order, $start, $count, $where)
 	 */
-	public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
+	public function fetchAllToArray($sort = 'dateDemande', $order = FP_Util_TriUtil::ORDER_DESC_KEY, $start = null, $count = null, $where = null)
 	{
             $subSelect = $this->getDbTable()->getAdapter()->select()
             ->from( array('d' => 'fp_soins_fiche'), 
                     array('d.id'
                         ,'d.token'
-                        ,'STR_TO_DATE(d.dateDemande, "%d-%m-%Y") dateDemande'
+                        ,'dateDemande' => 'STR_TO_DATE(d.dateDemande, "%d-%m-%Y")'
                         ,'d.nom'
                         ,'d.login'
-                        ,'UPPER(d.nomChat) nomChat'
-                        ,'STR_TO_DATE(d.dateVisite, "%d/%m/%Y") dateVisite'
-                        ,'IF(d.soinIdent>0,"Oui","") soinIdent'
-                        ,'IF(d.soinTests>0,"Oui","") soinTests'
-                        ,'IF(d.soinVaccins>0,"Oui","") soinVaccins'
-                        ,'IF(d.soinSterilisation>0,"Oui","") soinSterilisation'
-                        ,'IF(d.soinVermifuge>0,"Oui","") soinVermifuge'
-                        ,'IF(d.soinAntiParasites>0,"Oui","") soinAntiParasites'
-                        ,'IF(d.ficheGeneree>0,"Oui","NON") ficheGeneree'
-                        ,'IF(d.envoiVeto>0,"OUI","Non") envoiVeto'
+                        ,'nomChat' =>'UPPER(nomChat)'
+                        ,'dateVisite' => 'STR_TO_DATE(dateVisite, "%d/%m/%Y")'
+                        ,'soinIdent' => 'IF(d.soinIdent>0,"Oui","")'
+                        ,'soinTests' => 'IF(d.soinTests>0,"Oui","")'
+                        ,'soinVaccins' => 'IF(d.soinVaccins>0,"Oui","")'
+                        ,'soinSterilisation' => 'IF(d.soinSterilisation>0,"Oui","")'
+                        ,'soinVermifuge' => 'IF(d.soinVermifuge>0,"Oui","")'
+                        ,'soinAntiParasites' => 'IF(d.soinAntiParasites>0,"Oui","")'
+                        ,'ficheGeneree' => 'IF(d.ficheGeneree>0,"Oui","NON")'
+                        ,'envoiVeto' => 'IF(d.envoiVeto>0,"OUI","Non")'
                         ));
                 
             if ($sort && $order) {
@@ -73,6 +73,10 @@ class FP_Model_Mapper_DemandeFicheSoinsMapper extends FP_Model_Mapper_CommonMapp
                 $select = $subSelect;
             }
 
+            if ($sort && $order) {
+            $select->order(array($sort." ".$order));       
+	}
+            
             $stmt = $select->query();
             return $stmt->fetchAll();
 	}

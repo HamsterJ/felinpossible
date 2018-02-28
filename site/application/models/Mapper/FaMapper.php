@@ -66,7 +66,7 @@ protected $filterKeyToDbKey = array('nom' => 'fa.nom',
 	 * (non-PHPdoc)
 	 * @see site/application/models/Mapper/FP_Model_Mapper_CommonMapper#fetchAllToArray($sort, $order, $start, $count, $where)
 	 */
-	public function fetchAllToArray($sort = null, $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
+	public function fetchAllToArray($sort = 'nom', $order = FP_Util_TriUtil::ORDER_ASC_KEY, $start = null, $count = null, $where = null)
 	{
 		$subSelect = $this->getDbTable()->getAdapter()->select()
 		->from(array('fa' => 'fp_fa_fiche'))
@@ -89,6 +89,9 @@ protected $filterKeyToDbKey = array('nom' => 'fa.nom',
 		} else {
 			$select = $subSelect;
 		}
+                if ($sort && $order) {
+                    $select->order(array($sort." ".$order));       
+                }
 
 		$stmt = $select->query();
 		return $stmt->fetchAll();

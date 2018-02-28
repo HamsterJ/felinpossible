@@ -2,7 +2,7 @@
 /**
 *
 * @package VC
-* @version $Id: captcha_non_gd.php,v 1.8 2007/10/05 14:36:32 acydburn Exp $
+* @version $Id$
 * @copyright (c) 2006 phpBB Group
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -119,7 +119,7 @@ class captcha
 		$new_line = '';
 
 		$end = strlen($scanline) - ceil($width/2);
-		for ($i = floor($width/2); $i < $end; $i++)
+		for ($i = (int) floor($width / 2); $i < $end; $i++)
 		{
 			$pixel = ord($scanline{$i});
 

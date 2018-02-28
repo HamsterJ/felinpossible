@@ -52,6 +52,21 @@ class IndexController extends FP_Controller_CommonController
 	public function chargeAction() {}
 	public function donAction() {}
 	
+        
+        public function unsubscribeAction() {
+            $request = $this->getRequest();
+            $form = new FP_Form_common_UnsubscribeForm();
+            $this->view->form = $form;
+            
+            if ($request->isPost()) {
+                if ($form->isValid($request->getPost())) {
+                        $mailServices = FP_Service_MailServices::getInstance();
+                        $mailServices->saveUnsubscribe($request->getParam('mail'));
+                        $this->render('unsubscribeConfirm');
+                }
+            }
+        }
+        
 	/**
 	 * Action pour le formulaire de parrainage.
 	 */
