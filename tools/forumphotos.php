@@ -6,14 +6,15 @@ function get_forum_contents()
     $chats_forum=array();
         
   
-    try{
-        $arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"); 
-	$appliParams = parse_ini_file("../site/application/configs/application.ini"); 
-        $pdo = new PDO('mysql:host=localhost;dbname='.$appliParams['resources.db.params.dbname'], $appliParams['resources.db.params.username'], $appliParams['resources.db.params.password'], $arrExtraParam); 
-
-        // on crée la requète SQL 
+    try{ini_set('display_errors', true);error_reporting(E_ALL);
+		
+		// on crée la requète SQL 
         $sql = "SELECT topic_id FROM phpbb_topics WHERE forum_id in (10,108,54,152,161) AND topic_type=0"; 
-
+		
+        $arrExtraParam= array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"); 
+		$appliParams = parse_ini_file("../site/application/configs/application.ini"); 
+	
+		$pdo = new mysqli("localhost", $appliParams['resources.db.params.username'], $appliParams['resources.db.params.password'], $appliParams['resources.db.params.dbname']);       
 
         // on fait une boucle qui va faire un tour pour chaque enregistrement 
         foreach  ($pdo->query($sql) as $data) 

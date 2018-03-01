@@ -49,13 +49,14 @@ include '../site/application/utils/ChatUtil.php';
     }
     
     include 'FPUtils.php';
-    include 'facebook.php'; 
+   // include 'facebook.php'; 
     include 'forumphotos.php'; 
     include 'sitephotos.php';
 
     $chats_forum=get_forum_contents();// On récupère les chats à l'adoption du forum
-    $chats_adopt_fb=get_facebook_contents("44928446491"); 
-    $chats_resa_fb=get_facebook_contents("10152249802471492"); 
+    $chats_adopt_fb=array(); //get_facebook_contents("44928446491"); 
+    $chats_resa_fb=array(); //get_facebook_contents("10152249802471492"); 
+   
     $chats_site=get_site_contents();
 
     $computed = compute($chats_forum,$chats_adopt_fb,$chats_site,$chats_resa_fb);
