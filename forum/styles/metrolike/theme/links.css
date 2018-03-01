@@ -104,6 +104,7 @@ a.lastsubject:hover {
 	text-decoration: none;
 	border-bottom: 1px solid transparent;
 	padding-bottom: 0;
+	max-width:100%;
 }
 
 .postlink:hover {
