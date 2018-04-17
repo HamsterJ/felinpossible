@@ -69,8 +69,13 @@ if ($id)
 	$sid = '';
 	if (!$sid)
 	{
-		// if that failed, then look in the cookies
-		$sid = request_var($config['cookie_name'] . '_sid', '', false, true);
+		try {
+			// if that failed, then look in the cookies
+			//$sid = request_var($config['cookie_name'] . '_sid', '', false, true);
+			$sid = '';
+		} catch (Exception $e) {
+			$sid = '';
+		}
 	}
 
 	if (strspn($sid, 'abcdefABCDEF0123456789') !== strlen($sid))
