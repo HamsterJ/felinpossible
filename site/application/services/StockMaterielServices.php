@@ -188,7 +188,7 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
         $mapper->supprimerMaterielDeFA($idAff);
         
         //MAJ de la table de stock
-        $this->updateStock($aff['idMateriel'],$aff[quantite],'+',1/*suiviPrets*/,$retour);
+        $this->updateStock($aff['idMateriel'],$aff['quantite'],'+',1/*suiviPrets*/,$retour);
     }
     
    //Affecter un matériel à une FA

@@ -102,7 +102,7 @@ a:hover{color:#994200;text-decoration:underline;}
 .row-fluid .span10{width:82.97872340425532%;*width:82.92553191489361%;}
 .row-fluid .span9{width:74.46808510638297%;*width:74.41489361702126%;}
 .row-fluid .span8{width:65.95744680851064%;*width:65.90425531914893%;}
-.row-fluid .span7{width:57.44680851063829%;*width:57.39361702127659%;}
+.row-fluid .span7{width:56.44680851063829%;*width:56.39361702127659%;}
 .row-fluid .span6{width:48.93617021276595%;*width:48.88297872340425%;}
 .row-fluid .span5{width:40.42553191489362%;*width:40.37234042553192%;}
 .row-fluid .span4{width:31.914893617021278%;*width:31.861702127659576%;}
@@ -145,7 +145,7 @@ a:hover{color:#994200;text-decoration:underline;}
 .row-fluid .span10{width:82.97872340425532%;*width:82.92553191489361%;}
 .row-fluid .span9{width:74.46808510638297%;*width:74.41489361702126%;}
 .row-fluid .span8{width:65.95744680851064%;*width:65.90425531914893%;}
-.row-fluid .span7{width:57.44680851063829%;*width:57.39361702127659%;}
+.row-fluid .span7{width:56.44680851063829%;*width:56.39361702127659%;}
 .row-fluid .span6{width:48.93617021276595%;*width:48.88297872340425%;}
 .row-fluid .span5{width:40.42553191489362%;*width:40.37234042553192%;}
 .row-fluid .span4{width:31.914893617021278%;*width:31.861702127659576%;}
@@ -1034,7 +1034,7 @@ textarea{width:98%;}
 .required{font-weight:bold;}
 @font-face{font-family:'felinpossible';src:url('../fonts/kabel-webfont.eot');src:url('../fonts/kabel-webfont.eot?#iefix') format('embedded-opentype'),url('../fonts/kabel-webfont.woff') format('woff'),url('../fonts/kabel-webfont.ttf') format('truetype'),url('../fonts/kabel-webfont.svg#kabel_lightlight') format('svg');font-weight:normal;font-style:normal;}.font-fp{font-family:"felinpossible";}
 #title-container{font-family:"felinpossible";color:#999999;margin-top:60px;height:160px;width:100%;}
-.title-main{font-size:70pt;padding-top:50px;text-align:center;margin-left:10%;line-height:60px;}
+.title-main{font-size:70pt;padding-top:50px;text-align:center;margin-left:10%;line-height:79px;}
 .title-other{font-size:20pt;margin-right:5%;}
 .logo{background:url("../img/logo_img_black.png") no-repeat;display:inline-block;*margin-right:.3em;vertical-align:text-top;margin-top:1px;height:130px;width:280px;line-height:130px;}
 .footer{background-color:whiteSmoke;margin-top:10px;width:100%;filter:alpha(opacity=80);opacity:0.8;}
