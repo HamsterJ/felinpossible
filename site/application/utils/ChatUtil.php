@@ -13,7 +13,7 @@ class FP_Util_ChatUtil {
 	const FIV_POST_TAG = "FIV[\/| ]*FELV";
 	const VACCIN_POST_TAG = "Vaccin";
 	const IDENTIFICATION_POST_TAG = "Identification";
-	const CARACETERE_POST_TAG = "Caract";
+	const CARACETERE_POST_TAG = "Caract[eè]re";
 	const COMMENT_POST_TAG = "Notes";
 	const ORIGINE_POST_TAG = "Origine";
 	const COULEUR_POST_TAG = "Couleur";
