@@ -114,7 +114,11 @@
 	position: absolute;
 	margin: 0;
 	right: 20px;
-	bottom: -20px;
+	bottom: 5px;
+}
+
+#post-buttons-mp {
+	bottom: -20px !important;
 }
 
 .post-buttons > li {
