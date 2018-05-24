@@ -117,10 +117,6 @@
 	bottom: 5px;
 }
 
-#post-buttons-mp {
-	bottom: -20px !important;
-}
-
 .post-buttons > li {
 	float: left;
 	margin-right: 3px;
