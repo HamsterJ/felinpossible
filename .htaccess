@@ -1,11 +1,26 @@
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+
 RewriteEngine On
 
+RewriteCond %{REQUEST_URI} !^/google08194aaa4628dc39.html
 RewriteCond %{REQUEST_URI} !^/phpMyAdmin.*
+RewriteCond %{REQUEST_URI} !^/roundcubemail.*
+RewriteCond %{REQUEST_URI} !^/REDIRECTION-VERS-HTTPS.*
+RewriteCond %{REQUEST_URI} !^/spongestats.*
+RewriteCond %{REQUEST_URI} !^/.well-known.*
 RewriteCond %{REQUEST_URI} !^/mysqlDumper.*
-RewriteCond %{REQUEST_URI} !^/roundcube.*
 RewriteCond %{REQUEST_URI} !^/forum.*
+RewriteCond %{REQUEST_URI} !^/recup.*
 RewriteCond %{REQUEST_URI} !^/favicon.*
+RewriteCond %{REQUEST_URI} !^/logo_img_.*
+RewriteCond %{REQUEST_URI} !^/index.html
 RewriteCond %{REQUEST_URI} !^/robots.*
-RewriteCond %{REQUEST_URI} !^/tools.*
-RewriteCond %{THE_REQUEST} !^/index.*php$
-RewriteRule ^(.*)$ /site/public/index.php/$1 [NC,L]
+RewriteCond %{REQUEST_URI} !^/index.*php$
+RewriteRule ^(.*)$ /site/public/index.php?/$1 [PT,QSA]
+
+</IfModule>
+
