@@ -91,7 +91,7 @@ class FP_Model_Mapper_StockDemandeMapper extends FP_Model_Mapper_CommonMapper {
                 $data['idFA'] = $idFa;
                 $data['dateDemande'] = date('d-m-y H:i:s');
                 $data['traitee'] = '0';
-                $data['token'] = crypt($idDemande.$login);
+                $data['token'] = crypt($idDemande.$login,'$1$fp$');
                 $data['submitted'] = 0;
 
                 $this->getDbTable()->insert($data);
