@@ -303,13 +303,20 @@ class StockController extends FP_Controller_CommonController {
             $f= $request->getPost();
             $demandeMaterielId = $f['idDemandeMateriel'];
             
-            if ($this->getService()->controlerEtEnregistrerDemande($f) != 'OK')
+            if ($this->getService()->controlerEtEnregistrerDemande($f) == 'KO')
             {
                 $this->view->form = $form;
                 $this->view->errorMessage = 'Nous ne trouvons pas ce login dans notre base des familles d\'accueil, veuillez le vérifier ou vous inscrire <a href="/fa/process">ici </a>';
                 $this->render('demandermateriel');
                 return;
-            }      
+            } 
+			else if ($this->getService()->controlerEtEnregistrerDemande($f) == 'notValidated')
+            {
+                $this->view->form = $form;
+                $this->view->errorMessage = 'Vous n\'êtes pas dans le groupe des familles d\'accueil autorisées, merci d\'en faire la demande par e-mail à <a href="mailto:asso@felinpossible.fr">asso@felinpossible.fr</a>';
+                $this->render('demandermateriel');
+                return;
+            }     
         }   
         else {  //On vient donc du 2ème formulaire, on boucle pour l'ajout de plusieurs matériels   
             $demandeMaterielId = $request->getParam('id');  
