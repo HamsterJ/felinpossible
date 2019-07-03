@@ -167,6 +167,28 @@ protected $filterKeyToDbKey = array('nom' => 'fa.nom',
 		return $this->buildModelFromDb($row);
 	}
 
+			/**
+	 * Retourne la FA à partir de son login 
+	 * @param string $login
+	 * @return FP_Model_Bean_Fa
+	 */
+	public function getFAValideeFromLogin($login) {
+		$select = $this->getDbTable()->getAdapter()->select()
+		->from(array('fa' => 'fp_fa_fiche'))
+		->join(array('phpbb_users' => 'phpbb_users'), "upper(fa.login) = upper(phpbb_users.username)")
+		->joinLeft(array('phpbb_user_group' => 'phpbb_user_group'), 'phpbb_users.user_id = phpbb_user_group.user_id AND phpbb_user_group.group_id = 9')
+		->where('upper(fa.login)=upper("'.addslashes($login).'") COLLATE utf8_general_ci')
+		->order('dateSubmit desc');
+
+		$stmt = $select->query();
+		$result = $stmt->fetchAll();
+		if (0 == count($result)) {
+			return null;
+		}
+		return $result;
+	}
+	
+	
 	/**
 	 * Retourne le nombre de FA avec le statut désiré.
 	 * @param int $idStatut
