@@ -101,10 +101,10 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
     public function  getFAFromLogin ($login)       
     {
         if ($login)// on ne fait pas attention aux accents, on récupère  les infos FA
-            {
+        {
                 $fs = FP_Service_FaServices::getInstance();
-                $fa = $fs->getMapper()->select(null,'upper(login)=upper("'.str_replace('"','',$login).'") COLLATE utf8_general_ci','dateSubmit desc');
-            }
+                $fa = $fs->getMapper()->getFAValideeFromLogin($login);
+	}
         return $fa;    
     }
     
@@ -118,14 +118,21 @@ class FP_Service_StockMaterielServices extends FP_Service_CommonServices {
         $idFA = null;
         
         if ($fa){
-            $idFA = $fa[0]->id; //le dernier formulaire FA connu s'il y en a plusieurs
-            $this->getStockDemandeMapper()->saveDemande($idDemande,$login,$idFA);
-            return 'OK';
+            $idFA = $fa[0]['id']; //le dernier formulaire FA connu s'il y en a plusieurs
+			$isValidated = ($fa[0]['group_id'] == null)?false:true; //est-ce que la FA est dans le groupe '9' sur le forum ? (FA)
+            
+			if ($isValidated) {
+			$this->getStockDemandeMapper()->saveDemande($idDemande,$login,$fa[0]['id']);
+            return 'OK';}
+			else
+			{
+				return 'notValidated';
+			}
         }
         else{
             return 'KO';
         }
-    } 
+    }  
     
     //Sppression du matériel d'une demande avant soumission
     public function deleteMat($idDMat) {
